@@ -1,0 +1,68 @@
+﻿@using mPower.Aggregation.Contract.Data
+@using mPower.Aggregation.Contract.Documents
+@* Generator: MvcHelper *@
+
+
+@helper AuthenticateToInstitutionHtml_Intuit(IList<KeyDocument> docs)
+{
+    if (docs == null)
+    {
+        return;
+    }
+
+    for (var i = 0; i < docs.Count(); i++)
+    {
+        <label>@docs[i].Description</label>
+        <input type="hidden" name="keys[@i].Name" value="@docs[i].Name" />
+        <input type="hidden" name="keys[@i].InstitutionKeyId" value="@docs[i].InstitutionKeyId" />
+        
+        var displayType = docs[i].Name.ToLower().Contains("pass") || docs[i].Description.ToLower().Contains("pass") ? "Password" : "Text";
+           
+        <input type="@displayType" name="keys[@i].Value" value="@docs[i].Value" />
+    }
+    
+    <input type="submit" id="submit" value="Submit" class="main-button-medium fRight" />	
+       
+
+}
+
+@helper MfaQuestionsHtml(AggregationQuestion[] questions)
+{
+    for (var i = 0; i < questions.Length; i++)
+    {
+        var question = questions[i];
+        foreach (var item in question.Items)
+        {
+            if (item is Guid)
+            {
+                <img src='/Aggregation/GetQuestionImage?imageId=@item' alt="img" style="float: left;" />
+            }
+            else
+            {
+                <label>@item.ToString()</label>
+            }
+        }
+        if (question.Choices != null && question.Choices.Any())
+        {
+            // default value
+            <input type="radio" name="[@i]" value="" checked="checked" style="display: none;" />
+    
+            foreach (var value in question.Choices)
+            {
+                <input type="radio" name="[@i]" id="@value" value="@value" />
+                <label for="@value" style="display: inline;">@value</label>
+                <br/>
+            }
+        }
+        else
+        {
+            <input type="text" name="[@i]" class="bank-connect-form-label" />
+        }
+        <br/>
+    }
+
+    <div class="clear"></div>
+    <div class="mfa-input-container tb-spaced">
+        <input id="submit" type="submit" value="Submit" class="main-button-large fRight" />
+    </div>
+}

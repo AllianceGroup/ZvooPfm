@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="ParalectConfig" BeforeTargets="PreBuildEvent">
+    <Exec Command="&quot;$(MSBuildProjectDirectory)\..\Paralect.Config.exe&quot; /silent" />
+  </Target>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{42D11860-D275-4DCD-9B8F-79E90828B8CF}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mPower.DeployTool</RootNamespace>
+    <AssemblyName>mPower.DeployTool</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\libs\Microsoft.Practices\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\libs\MongoDriver\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\libs\MongoDriver\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="mPower.Aggregation.Client">
+      <HintPath>..\..\libs\Intuit\mPower.Aggregation.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\NLog\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.Config">
+      <HintPath>..\..\libs\Paralect\Paralect.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.Domain">
+      <HintPath>..\..\libs\Paralect\Paralect.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.ServiceBus">
+      <HintPath>..\..\libs\Paralect\Paralect.ServiceBus.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.ServiceLocator.StructureMap">
+      <HintPath>..\..\libs\Paralect\Paralect.ServiceLocator.StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.Transitions">
+      <HintPath>..\..\libs\Paralect\Paralect.Transitions.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.Transitions.Mongo">
+      <HintPath>..\..\libs\Paralect\Paralect.Transitions.Mongo.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\libs\ServiceStack\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.0.1.318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.0.1.318\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=4.0.1.318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.0.1.318\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\mPower.Web.Admin\Bootstrapper.cs">
+      <Link>Bootstrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\mPower.Web.Admin\DeploymentHelper.cs">
+      <Link>DeploymentHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\mPower.Web.Admin\ProdDeploymentHelper.cs">
+      <Link>ProdDeploymentHelper.cs</Link>
+    </Compile>
+    <Compile Include="DeployModule.cs" />
+    <Compile Include="ExitCode.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.config.xslt" />
+    <Content Include="NLog.config.xslt">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mPower.Documents\mPower.Documents.Server.csproj">
+      <Project>{BFD9845E-DFD0-4E9E-941D-5532751C7153}</Project>
+      <Name>mPower.Documents.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.EventHandlers\mPower.EventHandlers.csproj">
+      <Project>{CD6B321B-5046-4FB0-AA5F-B803FE8E4CC3}</Project>
+      <Name>mPower.EventHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Domain\mPower.Domain.csproj">
+      <Project>{CF6CBC87-0BF9-4E69-9937-650A47D54F7B}</Project>
+      <Name>mPower.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.EventHandlers\mPower.EventHandlers.csproj">
+      <Project>{CD6B321B-5046-4FB0-AA5F-B803FE8E4CC3}</Project>
+      <Name>mPower.EventHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Framework\mPower.Framework.csproj">
+      <Project>{3A145847-D3DF-46B9-B9F5-DC0244C24CC1}</Project>
+      <Name>mPower.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.TempDocuments.Server\mPower.TempDocuments.Server.csproj">
+      <Project>{CEAF8300-81FB-4CE2-98C7-4377C72C8A7B}</Project>
+      <Name>mPower.TempDocuments.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NLog.config">
+      <DependentUpon>NLog.config.xslt</DependentUpon>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NLog.config">
+      <DependentUpon>NLog.config.xslt</DependentUpon>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

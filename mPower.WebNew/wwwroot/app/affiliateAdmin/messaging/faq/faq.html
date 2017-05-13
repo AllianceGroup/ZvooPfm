@@ -1,0 +1,54 @@
+﻿<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-6 col-md-offset-3">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header><h2>FAQ Management</h2></header>
+                    <div>
+                        <div class="container-fluid">
+                            <div ng-if="faqCtrl.roles.AffiliateAdminEdit" class="row">
+                                <div class="text-right">
+                                    <button class="btn btn-success" data-ui-sref="app.affiliateAdmin.createFaq"><i class="fa fa-plus"></i> Create new item</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-hover" style="margin-top: 20px" ng-if="faqCtrl.faqs.length > 0">
+                                        <thead>
+                                            <tr>
+                                                <th>Created</th>
+                                                <th>Name</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="faq in faqCtrl.faqs">
+                                                <td>{{faq.Created | date : 'MM/dd/yyyy'}}</td>
+                                                <td>{{faq.Name}}</td>
+                                                <td ng-if="faq.IsActive === true">Active</td>
+                                                <td ng-if="faq.IsActive === false">Inactive</td>
+                                                <td>
+                                                    <button ng-if="faqCtrl.roles.AffiliateAdminEdit" class='btn btn-xs btn-default' title="edit FAQ" ng-click="faqCtrl.editFaq(faq.Id)"><i class='fa fa-pencil'></i></button>
+                                                    <button ng-if="faqCtrl.roles.AffiliateAdminDelete" class='btn btn-xs btn-danger' title='delete FAQ' ng-click="faqCtrl.deleteFaq(faq.Id)"><i class='fa fa-times'></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

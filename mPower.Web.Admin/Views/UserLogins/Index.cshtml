@@ -1,0 +1,56 @@
+﻿@inherits WebViewPage<mPower.Web.Admin.Models.UserLoginsModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "User logins ";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#refresh").bind("click", function () {
+            window.location.href = '@Url.Action("Index")' + "?searchKey=" + $("#searchKey").val() + "&date=" + $("#date option:selected").val() + "&sort=" + $("#sort option:selected").val();
+        });
+    });
+    
+</script>
+@section pageTitle{
+    - users logins
+    }
+<div align="center">
+    Search key:
+    <input type="text" id="searchKey" value="@Model.SearchKey" />
+    &nbsp|&nbsp Show @Html.DropDownList("date", Model.DateOptions) logins &nbsp|&nbsp
+    Sort by @Html.DropDownList("sort", Model.SortOptions) &nbsp|&nbsp
+    <input type="submit" id="refresh" onclick="return false;" value="Refresh" />
+    <br />
+    <br />
+    <table border="1px solid black" cellpadding="0" cellspacing="0">
+        <thead>
+            <th style="width: 200px;">
+                User Name
+            </th>
+            <th style="width: 200px;">
+                User Email
+            </th>
+            <th style="width: 200px;">
+                Login Date
+            </th>
+            <th style="width: 200px;">
+                Affiliate Name
+            </th>
+        </thead>
+        @foreach (var item in Model.Logins)
+        {
+            <tr>
+                <td>@item.UserName
+                    @if (item.IsFromMobile)
+                    { <text>(*)</text>}
+                </td>
+                <td>@item.UserEmail
+                </td>
+                <td>@item.LoginDate.ToString()
+                </td>
+                <td>@item.AffiliateName
+                </td>
+            </tr>
+        }
+    </table>
+</div>

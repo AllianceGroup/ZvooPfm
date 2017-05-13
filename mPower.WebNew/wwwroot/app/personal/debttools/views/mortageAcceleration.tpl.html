@@ -1,0 +1,215 @@
+﻿<div id="content">
+    <div class="row">
+        <big-breadcrumbs items="['Debt tools', 'Mortage Acceleration']" class="col-xs-12 col-sm-7 col-md-7 col-lg-4" icon="wrench"></big-breadcrumbs>
+    </div>
+
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header></header>
+                    <div>
+                        <div class="container-fluid">
+                            <h1>Mortgage Acceleration</h1>
+                            <p class="alert alert-info">
+                                See how much you can save and how fast you can pay off your mortgage. Choose the Mortgage Acceleration program that works for you.
+                            </p>
+                            <div class="row">
+                                <div class="col-md-6 form-horizontal">
+                                    <div>
+                                        <p ng-repeat="error in mortgageAccelerationCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Selected Program</label>
+                                        <div class="col-md-4">
+                                            <ol class="nya-bs-select form-control" ng-model="mortgageAccelerationCtrl.model.SelectedProgram.Id" data-size="6">
+                                                <li nya-bs-option="program in mortgageAccelerationCtrl.model.Programs" data-value="program.Id" ng-click="mortgageAccelerationCtrl.changeModel(program.Id)">
+                                                    <a>
+                                                        <span>{{program.Title}}</span>
+                                                    </a>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Program Name</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control" ng-model="mortgageAccelerationCtrl.model.SelectedProgram.Title" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Loan Amount</label>
+                                        <div class="col-md-4">
+                                            <input format="currency" amount="mortgageAccelerationCtrl.model.SelectedProgram.LoanAmountInDollars" class="form-control" ng-model="mortgageAccelerationCtrl.model.SelectedProgram.LoanAmountInDollars" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Interest Rate (% per Year)</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control" ng-model="mortgageAccelerationCtrl.model.SelectedProgram.InterestRatePerYear" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Loan Term (Years)</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control" ng-model="mortgageAccelerationCtrl.model.SelectedProgram.LoanTermInYears" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Payment Period</label>
+                                        <div class="col-md-4">
+                                            <ol class="nya-bs-select form-control" ng-model="mortgageAccelerationCtrl.model.SelectedProgram.PaymentPeriod" data-size="6">
+                                                <li nya-bs-option="period in mortgageAccelerationCtrl.model.PaymentPeriods" data-value="period.Key">
+                                                    <a>
+                                                        <span>{{period.Value}}</span>
+                                                    </a>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Extra Payment (per Payment Period)</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control" ng-model="mortgageAccelerationCtrl.model.SelectedProgram.ExtraPaymentInDollarsPerPeriod" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Selected Program</label>
+                                        <div class="col-md-4">
+                                            <ol class="nya-bs-select form-control" ng-model="mortgageAccelerationCtrl.model.SelectedProgram.DisplayResolution" data-size="6">
+                                                <li nya-bs-option="resolution in mortgageAccelerationCtrl.model.DisplayResolutions" data-value="resolution.Key">
+                                                    <a>
+                                                        <span>{{resolution.Value}}</span>
+                                                    </a>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                    <p class="text-center">
+                                        <button class="btn btn-success" ng-disabled="mortgageAccelerationCtrl.disableSaveOrUpdate" ng-click="mortgageAccelerationCtrl.saveOrUpdate()">Save changes</button>
+                                        <button class="btn btn-danger" ng-if="mortgageAccelerationCtrl.model.SelectedProgram.Id !== '-1'" ng-click="mortgageAccelerationCtrl.deleteProgram()">Delete/Reset</button>
+                                    </p>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-md-10">
+                                        <h1 class="text-center">Mortage acceleration summary</h1>
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Original</th>
+                                                    <th>Accelerated</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Payment:</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.OriginalParams.PaymentInCents | centsCurrency}}</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.AcceleratedParams.PaymentInCents | centsCurrency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Monthly Equivalent</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.OriginalParams.MonthlyPaymentEquivalentInCents | centsCurrency}}</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.AcceleratedParams.MonthlyPaymentEquivalentInCents | centsCurrency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total Payment Amount</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.OriginalParams.TotalPaymentAmountInCents | centsCurrency}}</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.AcceleratedParams.TotalPaymentAmountInCents | centsCurrency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total Interest Paid</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.OriginalParams.TotalInterestPaidInCents | centsCurrency}}</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.AcceleratedParams.TotalInterestPaidInCents | centsCurrency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total Savings</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.OriginalParams.TotalSavingsInCents | centsCurrency}}</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.AcceleratedParams.TotalSavingsInCents | centsCurrency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Payoff Time</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.OriginalParams.PayoffTime}}</td>
+                                                    <td>{{mortgageAccelerationCtrl.model.SelectedProgram.AcceleratedParams.PayoffTime}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="!mortgageAccelerationCtrl.model.SelectedProgram.AddedToCalendar">
+                                <p class="alert alert-info" style="margin-top: 10px">This Mortgage Acceleration Program is not yet added to your Calendar.</p>
+                                <div class="text-center">
+                                    <button class="btn btn-success" ng-click="mortgageAccelerationCtrl.addToCalendar()">Add to calendar</button>
+                                </div>
+                            </div>
+                            <div ng-if="mortgageAccelerationCtrl.model.SelectedProgram.AddedToCalendar">
+                                <div class="text-center">
+                                    <button class="btn btn-success" ng-click="mortgageAccelerationCtrl.addToCalendar()">Update in calendar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="text-center">Chart & Payment Schedule</h1>
+                        <div class="row" ng-if="mortgageAccelerationCtrl.model.SelectedProgram.Details.Chart !== null">
+                            <div class="col-md-12">
+                                <div>
+                                    <div line-chart
+                                         line-data='mortgageAccelerationCtrl.model.SelectedProgram.Details.Chart.Data'
+                                         line-xkey='y'
+                                         line-ykeys='mortgageAccelerationCtrl.model.SelectedProgram.Details.Chart.YKeys'
+                                         line-labels='mortgageAccelerationCtrl.model.SelectedProgram.Details.Chart.Labels'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Date</th>
+                                            <th>Balance</th>
+                                            <th>Payment</th>
+                                            <th>Principal</th>
+                                            <th>Interest</th>
+                                            <th>Equity</th>
+                                            <th>Tot. Interest</th>
+                                            <th>Tot. Payment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in mortgageAccelerationCtrl.model.SelectedProgram.Details.Items">
+                                            <td>{{$index}}</td>
+                                            <td>{{item.Date | date:'shortDate'}}</td>
+                                            <td>{{item.AccBalanceInCents | centsCurrency}}</td>
+                                            <td>{{item.AccPaymentInCents | centsCurrency}}</td>
+                                            <td>{{item.AccPrincipalInCents | centsCurrency}}</td>
+                                            <td>{{item.AccInterestInCents | centsCurrency}}</td>
+                                            <td>{{item.AccEquityInCents | centsCurrency}}</td>
+                                            <td>{{item.AccTotalInterestInCents | centsCurrency}}</td>
+                                            <td>{{item.AccTotalPaymentsInCents | centsCurrency}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </article>
+        </div>
+    </section>
+</div>

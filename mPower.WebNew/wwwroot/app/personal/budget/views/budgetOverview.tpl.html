@@ -1,0 +1,22 @@
+<div class="budget-overview">
+    <div jarvis-widget data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="true" data-widget-color="blue">
+        <header class="budget-overview__header">
+            <h3 class="budget-overview__header-title">Budgeted</h3>
+        </header>
+        <ul class="list-group budget-overview__list">
+            <li class="list-group-item"><span class="badge">{{BudgetCtrl.Budget.GraphModel.IncomeBudgetedTotal| centsCurrency}}</span>Income</li>
+            <li class="list-group-item"><span class="badge bg-color-red">{{BudgetCtrl.Budget.GraphModel.ExpenseBudgetedTotal | centsCurrency}}</span>Expenses</li>
+            <li class="list-group-item"><span class="badge">{{BudgetCtrl.Budget.GraphModel.IncomeBudgetedTotal - BudgetCtrl.Budget.GraphModel.ExpenseBudgetedTotal | centsCurrency}}</span>Remaining</li>
+        </ul>
+    </div>
+    <div jarvis-widget data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="true" data-widget-color="blue">
+        <header class="budget-overview__header">
+            <h3 class="budget-overview__header-title">Actual</h3>
+        </header>
+        <ul class="list-group budget-overview__list">
+            <li class="list-group-item"><span class="badge">{{BudgetCtrl.Budget.GraphModel.IncomeSpentTotal | centsCurrency}}</span>Income</li>
+            <li class="list-group-item"><span class="badge bg-color-red">{{BudgetCtrl.Budget.GraphModel.ExpenseSpentTotal | centsCurrency}}</span>Expenses</li>
+            <li class="list-group-item"><span class="badge bg-color-red">{{BudgetCtrl.Budget.GraphModel.IncomeSpentTotal - BudgetCtrl.Budget.GraphModel.ExpenseSpentTotal | centsCurrency}}</span>Remaining</li>
+        </ul>
+    </div>
+</div>

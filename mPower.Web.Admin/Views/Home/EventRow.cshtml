@@ -1,0 +1,5 @@
+﻿@model mPower.Documents.Documents.EventLogDocument
+<div style="margin: 5px; border-bottom: 1px solid #DAE1E8; color: @(Model.IsNew ? "#0000ff" : "#000");">
+    @Model.EventName (@Model.StoredDate). UserId: @Model.UserId <a class="colorbox" href="@Url.Action("EventDetails", "Home", new { id = Model.Id })" >
+        details</a>
+</div>

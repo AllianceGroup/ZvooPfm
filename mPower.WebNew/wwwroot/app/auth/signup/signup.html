@@ -1,0 +1,103 @@
+<div id="widget-grid">
+    <div id="extr-page">
+        <header id="header" class="animated fadeInDown">
+
+            <div id="logo-group">
+                <span id="logo"> <img src="styles/img/Alliance-pfm.png"> </span>
+            </div>
+
+            <span id="extr-page-header-space">
+                <span class="hidden-mobile hiddex-xs">Already registered?</span> <a ui-sref="login" class="btn btn-danger">Sign in</a>
+            </span>
+
+        </header>
+        <div id="main" role="main" class="animated fadeInDown">
+
+            <div id="content" class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+                        <h1 class="txt-color-red login-header-big">Alliance PFM</h1>
+
+                        <div class="hero">
+                            <div class="pull-left login-desc-box-l">
+                                <ul class="list-unstyled text-left price-features">
+                                    <li><i class="fa fa-check text-success"></i>All your accounts in one place</li>
+                                    <li><i class="fa fa-check text-success"></i>Powerful budgeting tools</li>
+                                    <li><i class="fa fa-check text-success"></i>Automatically track your spending</li>
+                                    <li><i class="fa fa-check text-success"></i>Monitor and track your credit score</li>
+                                    <li><i class="fa fa-check text-success"></i>Eliminate debt</li>
+                                    <li><i class="fa fa-check text-success"></i>Set goals and track your progress</li>
+                                    <li><i class="fa fa-check text-success"></i>Safe and secure environment</li>
+                                    <li><i class="fa fa-check text-success"></i>Bank level security <label class="txt-color-red">128 bit SSL encryption</label></li>
+                                </ul>
+                            </div>
+                            <img src="styles/img/demo/iphoneview.png" class="pull-right display-image" alt style="width:210px">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                        <div class="alert alert-danger" ng-if="signUpCtrl.errors.length > 0">
+                            <p ng-repeat="error in signUpCtrl.errors">{{error}}</p>
+                        </div>
+                        <div class="well no-padding" ng-if="signUpCtrl.model.ProductHandle">
+                            <form id="smart-form-register" class="smart-form client-form">
+                                <header>
+                                    Registration
+                                </header>
+
+                                <fieldset>
+                                    <section>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-envelope"></i>
+                                            <input type="email" placeholder="Email address" ng-model="signUpCtrl.model.Email">
+                                            <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
+                                        </label>
+                                    </section>
+
+                                    <section>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-map-marker"></i>
+                                            <input type="text" placeholder="Zip" ng-model="signUpCtrl.model.ZipCode">
+                                            <b class="tooltip tooltip-bottom-right">Zip code</b>
+                                        </label>
+                                    </section>
+
+                                    <section>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-lock"></i>
+                                            <input type="password" placeholder="Password" ng-model="signUpCtrl.model.Password">
+                                            <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+                                        </label>
+                                    </section>
+
+                                    <section>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-lock"></i>
+                                            <input type="password" placeholder="Confirm password" ng-model="signUpCtrl.model.ConfirmPassword">
+                                            <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+                                        </label>
+                                    </section>
+                                </fieldset>
+
+                                <footer>
+                                    <button type="submit" class="btn btn-primary" ng-click="signUpCtrl.register()">
+                                        Register
+                                    </button>
+                                </footer>
+
+                                <div class="message">
+                                    <i class="fa fa-check"></i>
+                                    <p>
+                                        Thank you for your registration!
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                        <p class="alert alert-info" ng-if="!signUpCtrl.model.ProductHandle">
+                            Need to configure chargify account
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

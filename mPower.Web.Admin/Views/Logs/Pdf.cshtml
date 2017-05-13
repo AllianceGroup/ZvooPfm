@@ -1,0 +1,35 @@
+﻿@model mPower.Web.Admin.Models.LogsModel
+@using mPower.Web.Admin.Helpers
+		   
+    <table border="1px solid black" cellpadding="0" cellspacing="0">
+        <thead>
+            <th style="width: 200px;">
+                Id
+            </th>
+            <th style="width: 500px;">
+                Message
+            </th>
+            <th style="width: 200px;">
+                Date
+            </th>
+        </thead>
+        @foreach (var item in Model.Logs)
+        {
+            <tr>
+                <td>@item.Id
+                </td>
+                <td>
+                @if (item.Level == "Error" || item.Level == "Fatal")
+                    {
+                        <span style="color: Red;">@item.ExceptionMessage </span>
+                    }
+                    else
+                    { 
+                        <span>@item.LogMessage </span>
+                    }
+                </td>
+                <td>@item.Date
+                </td>
+            </tr>
+        }
+    </table>

@@ -1,0 +1,108 @@
+﻿<div class="row" style="margin-bottom: 10px">
+    <div class="col-md-6 col-md-offset-3 well">
+        <h1 class="text-center">Buy a Car</h1>
+        <p ng-repeat="error in carStep1Ctrl.errors" class="alert alert-danger">{{error}}</p>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>How much do you want to spend?</h3>
+                <div class="form-group">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" class="radiobox" ng-model="carStep1Ctrl.model.IsFinancing" ng-value="true"
+                                   ng-change="carStep1Ctrl.estimate()"/>
+                            <span>I need financing for this purchase</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" class="radiobox" ng-model="carStep1Ctrl.model.IsFinancing" ng-value="false"
+                                   ng-change="carStep1Ctrl.estimate()" />
+                            <span>I will pay in full</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="well">
+                    <h3>Assumptions</h3>
+                    <div class="form-group">
+                        <label>Sales tax rate(%)</label>
+                        <input type="number" class="form-control"
+                               required 
+                               ng-model="carStep1Ctrl.model.TaxRate"
+                               ng-change="carStep1Ctrl.estimate()"
+                               ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Financing info</h3>
+                <div class="form-group">
+                    <label>Vehicle Price</label>
+                    <input type="text" class="form-control"
+                           required ng-currency
+                           ng-model="carStep1Ctrl.model.Cost"
+                           ng-change="carStep1Ctrl.estimate()" 
+                           ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
+                </div>
+                <div class="form-group">
+                    <label>Are you trading in a vehicle?</label>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control"
+                                    required
+                                    ng-init="carStep1Ctrl.model.TradingVehicle = 'none'"
+                                    ng-model="carStep1Ctrl.model.TradingVehicle"
+                                    ng-change="carStep1Ctrl.estimate()"
+                                    ng-options="vehicle.Value as vehicle.Text for vehicle in carStep1Ctrl.model.TradingVehicles">
+                            </select>
+                        </div>
+                        <label class="col-md-6" ng-if="carStep1Ctrl.model.IsTradingVehicleCostInputVisible">
+                            <input type="text" class="form-control"
+                                   required ng-currency
+                                   ng-model="carStep1Ctrl.model.TradingVehicleCost"
+                                   ng-change="carStep1Ctrl.estimate()"
+                                   ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="carStep1Ctrl.model.IsFinancing">
+                    <label>Monthly Payment</label>
+                    <input type="text" class="form-control" ng-currency ng-model="carStep1Ctrl.model.MonthlyPayment"
+                           ng-change="carStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }" required/>
+                </div>
+                <div class="form-group" ng-if="carStep1Ctrl.model.IsFinancing">
+                    <label>Credit duration</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control"
+                                    ng-model="carStep1Ctrl.model.CreditDuration"
+                                    ng-change="carStep1Ctrl.estimate()"
+                                    ng-options="duration.Value as duration.Text for duration in carStep1Ctrl.model.CreditDurations"
+                                    required>
+                            </select>
+                        </div>
+                        <label class="col-md-6"><input type="number" class="form-control" ng-model="carStep1Ctrl.model.LoanAnnualPercRate" required
+                                                       ng-change="carStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/></label>
+                    </div>
+                </div>
+                
+                <div class="well">
+                    <h4>Cost Summary</h4>
+                    <p>Purchase price with tax <span class="badge bg-color pull-right">{{carStep1Ctrl.model.CostWithTaxs | currency}}</span></p>
+                    <p ng-if="carStep1Ctrl.model.IsFinancing">Loan ({{carStep1Ctrl.model.CreditDuration}} mo at {{carStep1Ctrl.model.MonthlyPayment}} per month) <span class="badge bg-color pull-right">{{carStep1Ctrl.model.Loan | currency}}</span></p>
+                    <p>Trade in Value <span class="badge bg-color pull-right">{{carStep1Ctrl.model.TradingVehicleCost | currency}}</span></p>
+                    <hr/>
+                    <h6>
+                        <span ng-if="carStep1Ctrl.model.IsFinancing">Down payment (Your Goal)</span>
+                        <span ng-if="!carStep1Ctrl.model.IsFinancing">Your Goal</span>
+                        <span class="badge bg-color-green pull-right">{{carStep1Ctrl.model.EstimatedValue | currency}}</span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <p class="row">
+            <div class="col-md-6 text-left"><button class="btn btn-danger" ui-sref="app.personal.goals.items" ui-sref-opts="{reload: 'app.personal.goals.items'}">Cancel</button></div>
+            <div class="col-md-6 text-right"><button class="btn btn-success" ng-click="carStep1Ctrl.step2()">Next</button></div>
+        </p>
+    </div>
+</div>

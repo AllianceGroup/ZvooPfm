@@ -1,0 +1,61 @@
+﻿<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12 col-md-offset-0">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header><h2>FAQ</h2></header>
+                    <div style="padding-bottom: 13px;">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-right" style="padding-bottom: 15px;">
+                                        <button type="button" class="btn btn-info" aria-hidden="true" ng-click="faqCtrl.dismiss()">
+                                            Back to dashboard
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel-group smart-accordion-default" id="accordion" ng-show="faqCtrl.faqs.length > 0">
+                                        <div class="panel panel-default" ng-repeat="faq in faqCtrl.faqs">
+                                            <div class="panel-heading" ng-if="faq.IsActive">
+                                                <h3 class="panel-title">
+                                                    <a data-toggle="collapse" href="#{{faq.Id}}" aria-expanded="false" class="collapsed">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        {{faq.Name}}
+                                                    </a>
+                                                </h3>
+                                            </div>
+                                            <div id="{{faq.Id}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;" ng-if="faq.IsActive">
+                                                <div class="panel-body font-md">
+                                                    <div>
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div ng-bind-html="faq.Html">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

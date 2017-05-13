@@ -1,0 +1,36 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="editMultipleCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Edit transactions
+    </h4>
+</div>
+<div class="modal-body">
+    <h2>You are editing {{editMultipleCtrl.transactionIds.length}} 
+        <span ng-if="editMultipleCtrl.transactionIds.length > 1">transactions</span>
+        <span ng-if="editMultipleCtrl.transactionIds.length == 1">transaction</span>
+    </h2>
+    <ol class="nya-bs-select" ng-model="editMultipleCtrl.selectedCategory" data-live-search="true" data-size="6">
+        <li nya-bs-option="category in editMultipleCtrl.categories group by category.Group" data-value="category.Value">
+            <span class="dropdown-header">{{$group}}</span>
+            <a>
+                <span>{{ category.Text }}</span>
+                <em class="small text-right">{{ category.Group }}</em>
+                <span class="glyphicon glyphicon-ok check-mark"></span>
+            </a>
+        </li>
+    </ol>
+    <div class="form-group">
+        <label>Memo</label>
+        <input type="text" class="form-control" ng-model="editMultipleCtrl.memo"/>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="editMultipleCtrl.dismiss()">
+        Close
+    </button>
+    <button type="button" class="btn btn-primary" ng-click="editMultipleCtrl.editMultiple()">
+        Save
+    </button>
+</div>

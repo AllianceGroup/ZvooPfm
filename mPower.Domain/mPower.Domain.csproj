@@ -1,0 +1,989 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CF6CBC87-0BF9-4E69-9937-650A47D54F7B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mPower.Domain</RootNamespace>
+    <AssemblyName>mPower.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\AutoMapper.2.0.0\lib\net40-client\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=1.11.0.92, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.11.0\lib\net35\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.11.0.92, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.11.0\lib\net35\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\libs\NLog\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.Domain, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Domain.1.1.2.0\lib\net40\Paralect.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.ServiceBus, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.ServiceBus.1.1.2.0\lib\net40\Paralect.ServiceBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.Transitions, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Transitions.1.1.2.0\lib\net40\Paralect.Transitions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.Transitions.Mongo, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Transitions.Mongo.1.1.2.0\lib\net40\Paralect.Transitions.Mongo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Yodlee.NET">
+      <HintPath>..\..\libs\Yodlee\Yodlee.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Zillow.Net">
+      <HintPath>..\..\libs\Zillow.Net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accounting\AccountingFormatter.cs" />
+    <Compile Include="Accounting\AccountsService.cs" />
+    <Compile Include="Accounting\Calendar\CalendarAR.cs" />
+    <Compile Include="Accounting\Calendar\CalendarEvent.cs" />
+    <Compile Include="Accounting\Calendar\CalendarEventCollection.cs" />
+    <Compile Include="Accounting\Calendar\Commands\Calendar_CreateCommand.cs" />
+    <Compile Include="Accounting\Calendar\Commands\Calendar_CreateCommandHandler.cs">
+      <DependentUpon>Calendar_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Calendar\Commands\Calendar_DeleteCommand.cs" />
+    <Compile Include="Accounting\Calendar\Commands\Calendar_DeleteCommandHandler.cs">
+      <DependentUpon>Calendar_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Calendar\Commands\Calendar_OnetimeCalendarEvent_ChangeStatusCommand.cs" />
+    <Compile Include="Accounting\Calendar\Commands\Calendar_OnetimeCalendarEvent_CreateCommand.cs" />
+    <Compile Include="Accounting\Calendar\Commands\Calendar_OnetimeCalendarEvent_CreateCommandHandler.cs">
+      <DependentUpon>Calendar_OnetimeCalendarEvent_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Calendar\Commands\Calendar_OnetimeCalendarEvent_DeleteCommand.cs" />
+    <Compile Include="Accounting\Calendar\Commands\Calendar_OnetimeCalendarEvent_DeleteCommandHandler.cs">
+      <DependentUpon>Calendar_OnetimeCalendarEvent_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Calendar\Commands\Calendar_OnetimeCalendarEvent_MarkDoneCommandHandler.cs.cs">
+      <DependentUpon>Calendar_OnetimeCalendarEvent_ChangeStatusCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Calendar\Commands\Calendar_RepeatingCalendarEvent_CreateCommand.cs" />
+    <Compile Include="Accounting\Calendar\Commands\Calendar_RepeatingCalendarEvent_CreateCommandHandler.cs">
+      <DependentUpon>Calendar_RepeatingCalendarEvent_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Calendar\Commands\Calendar_RepeatingCalendarEvent_DeleteCommand.cs" />
+    <Compile Include="Accounting\Calendar\Commands\Calendar_RepeatingCalendarEvent_DeleteCommandHandler.cs">
+      <DependentUpon>Calendar_RepeatingCalendarEvent_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Calendar\Commands\Calendar_RepeatingCalendarEvent_MarkDoneCommand.cs" />
+    <Compile Include="Accounting\Calendar\Commands\Calendar_RepeatingCalendarEvent_MarkDoneCommandHandler.cs">
+      <DependentUpon>Calendar_RepeatingCalendarEvent_MarkDoneCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Calendar\Data\CalendarData.cs" />
+    <Compile Include="Accounting\Calendar\Data\OnetimeCalendarEventData.cs" />
+    <Compile Include="Accounting\Calendar\Data\RepeatingCalendarEventData.cs" />
+    <Compile Include="Accounting\Calendar\Data\RepeatingEventEndOption.cs" />
+    <Compile Include="Accounting\Calendar\Data\SendAlertOption.cs" />
+    <Compile Include="Accounting\Calendar\Events\Calendar_CreatedEvent.cs" />
+    <Compile Include="Accounting\Calendar\Events\Calendar_DeletedEvent.cs" />
+    <Compile Include="Accounting\Calendar\Events\Calendar_OnetimeCalendarEventAddedEvent.cs" />
+    <Compile Include="Accounting\Calendar\Events\Calendar_OnetimeCalendarEventChangeStatusEvent.cs" />
+    <Compile Include="Accounting\Calendar\Events\Calendar_OnetimeCalendarEventDeletedEvent.cs" />
+    <Compile Include="Accounting\Calendar\Events\Calendar_RepeatingCalendarEventAddedEvent.cs" />
+    <Compile Include="Accounting\Calendar\Events\Calendar_RepeatingCalendarEventDeletedEvent.cs" />
+    <Compile Include="Accounting\Calendar\Events\Calendar_RepeatingCalendarEventDoneEvent.cs" />
+    <Compile Include="Accounting\Calendar\Events\Calendar_RepeatingEventPrecalculated_AddedEvent.cs" />
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_Alerts_AddCommand.cs" />
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_Alerts_AddCommandHandler.cs">
+      <DependentUpon>CreditIdentity_Alerts_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_CancelEnrollCommand.cs" />
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_CancelEnrollCommandHandler.cs">
+      <DependentUpon>CreditIdentity_CancelEnrollCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_CreateCommand.cs" />
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_CreateCommandHandler.cs">
+      <DependentUpon>CreditIdentity_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_DeleteCommand.cs" />
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_DeleteCommandHandler.cs">
+      <DependentUpon>CreditIdentity_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_EnrollCommand.cs" />
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_EnrollCommandHandler.cs">
+      <DependentUpon>CreditIdentity_EnrollCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_MarkAsVerifiedCommand.cs" />
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_MarkAsVerifiedCommandHandler.cs">
+      <DependentUpon>CreditIdentity_MarkAsVerifiedCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_Questions_SetCommand.cs" />
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_Questions_SetCommandHandler.cs">
+      <DependentUpon>CreditIdentity_Questions_SetCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_Report_AddCommand.cs" />
+    <Compile Include="Accounting\CreditIdentity\Commands\CreditIdentity_Report_AddCommandHandler.cs">
+      <DependentUpon>CreditIdentity_Report_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\CreditIdentity\CreditIdentityAR.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\AccountData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\AccountsGroupData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\AddressData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\AlertData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\BorrowerBirthDateData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\BorrowerCreditScoreData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\BorrowerCreditScoreFactorData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\BorrowerCreditStatementData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\BorrowerData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\BorrowerEmployerData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\BorrowerNameData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\BorrowerSocialData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\BorrowerTelephoneData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\CreditIdentityData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\CreditorData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\CreditReportData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\InquiryData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\MessageData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\MonthlyPayStatusData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\PublicRecordData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\VerificationAnswerData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Data\VerificationQuestionData.cs" />
+    <Compile Include="Accounting\CreditIdentity\Events\CreditIdentity_Alerts_AddedEvent.cs" />
+    <Compile Include="Accounting\CreditIdentity\Events\CreditIdentity_CanceledEnrollEvent.cs" />
+    <Compile Include="Accounting\CreditIdentity\Events\CreditIdentity_CreatedEvent.cs" />
+    <Compile Include="Accounting\CreditIdentity\Events\CreditIdentity_DeletedEvent.cs" />
+    <Compile Include="Accounting\CreditIdentity\Events\CreditIdentity_EnrolledEvent.cs" />
+    <Compile Include="Accounting\CreditIdentity\Events\CreditIdentity_MarkedAsVerifiedEvent.cs" />
+    <Compile Include="Accounting\CreditIdentity\Events\CreditIdentity_Notification_SetStatusEvent.cs" />
+    <Compile Include="Accounting\CreditIdentity\Events\CreditIdentity_Questions_SetEvent.cs" />
+    <Compile Include="Accounting\CreditIdentity\Events\CreditIdentity_Report_AddedEvent.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_AddToCalendarCommand.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_AddToCalendarCommandHandler.cs">
+      <DependentUpon>DebtElimination_AddToCalendarCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_CreateCommand.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_CreateCommandHandler.cs">
+      <DependentUpon>DebtElimination_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_Debts_SetCommand.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_Debts_SetCommandHandler.cs">
+      <DependentUpon>DebtElimination_Debts_SetCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_DebtToIncomeRatio_UpdateCommand.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_DebtToIncomeRatio_UpdateCommandHandler.cs">
+      <DependentUpon>DebtElimination_DebtToIncomeRatio_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_DisplayMode_UpdateCommand.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_DisplayMode_UpdateCommandHandler.cs">
+      <DependentUpon>DebtElimination_DisplayMode_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_EliminationPlanUpdateCommand.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_EliminationPlanUpdateCommandHandler.cs">
+      <DependentUpon>DebtElimination_EliminationPlanUpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_MortgageProgram_AddCommand.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_MortgageProgram_AddCommandHandler.cs">
+      <DependentUpon>DebtElimination_MortgageProgram_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_MortgageProgram_AddToCalendarCommand.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_MortgageProgram_AddToCalendarCommandHandler.cs">
+      <DependentUpon>DebtElimination_MortgageProgram_AddToCalendarCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_MortgageProgram_DeleteCommand.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_MortgageProgram_DeleteCommandHandler.cs">
+      <DependentUpon>DebtElimination_MortgageProgram_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_MortgageProgram_UpdateCommand.cs" />
+    <Compile Include="Accounting\DebtElimination\Commands\DebtElimination_MortgageProgram_UpdateCommandHandler.cs">
+      <DependentUpon>DebtElimination_MortgageProgram_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\DebtElimination\Data\DebtItemData.cs" />
+    <Compile Include="Accounting\DebtElimination\Data\MortgageProgramData.cs" />
+    <Compile Include="Accounting\DebtElimination\DebtEliminationAR.cs" />
+    <Compile Include="Accounting\DebtElimination\Events\DebtElimination_AddedToCalendarEvent.cs" />
+    <Compile Include="Accounting\DebtElimination\Events\DebtElimination_CreatedEvent.cs" />
+    <Compile Include="Accounting\DebtElimination\Events\DebtElimination_Debts_SetEvent.cs" />
+    <Compile Include="Accounting\DebtElimination\Events\DebtElimination_DebtToIncomeRatio_UpdatedEvent.cs" />
+    <Compile Include="Accounting\DebtElimination\Events\DebtElimination_DisplayMode_UpdatedEvent.cs" />
+    <Compile Include="Accounting\DebtElimination\Events\DebtElimination_EliminationPlanUpdatedEvent.cs" />
+    <Compile Include="Accounting\DebtElimination\Events\DebtElimination_MortgageProgram_AddedEvent.cs" />
+    <Compile Include="Accounting\DebtElimination\Events\DebtElimination_MortgageProgram_AddedToCalendarEvent.cs" />
+    <Compile Include="Accounting\DebtElimination\Events\DebtElimination_MortgageProgram_DeletedEvent.cs" />
+    <Compile Include="Accounting\DebtElimination\Events\DebtElimination_MortgageProgram_UpdatedEvent.cs" />
+    <Compile Include="Accounting\Enums\AccountLabelEnum.cs" />
+    <Compile Include="Accounting\Enums\AccountTypeEnum.cs" />
+    <Compile Include="Accounting\Enums\AggregatedAccountStatusEnum.cs" />
+    <Compile Include="Accounting\Enums\AlertModeEnum.cs" />
+    <Compile Include="Accounting\Enums\AlertTypeEnum.cs" />
+    <Compile Include="Accounting\Enums\AmountTypeEnum.cs" />
+    <Compile Include="Accounting\Enums\BaseAccountsEnum.cs" />
+    <Compile Include="Accounting\Enums\CalendarEventFrequencyEnum.cs" />
+    <Compile Include="Accounting\Enums\CalendarTypeEnum.cs" />
+    <Compile Include="Accounting\Enums\TimeSpanFilterEnum.cs" />
+    <Compile Include="Accounting\Enums\ContentServiceTypesEnum.cs" />
+    <Compile Include="Accounting\Enums\DayAsPartOfEnum.cs" />
+    <Compile Include="Accounting\Enums\DebtEliminationDisplayModeEnum.cs" />
+    <Compile Include="Accounting\Enums\DebtEliminationPlanEnum.cs" />
+    <Compile Include="Accounting\Enums\DisplayResolutionEnum.cs" />
+    <Compile Include="Accounting\Enums\GoalTypeEnum.cs" />
+    <Compile Include="Accounting\Enums\ImportStatusEnum.cs" />
+    <Compile Include="Accounting\Enums\LedgerTypeEnum.cs" />
+    <Compile Include="Accounting\Enums\PaymentPeriodEnum.cs" />
+    <Compile Include="Accounting\Enums\SendAlertTimeRange.cs" />
+    <Compile Include="Accounting\Enums\TransactionType.cs" />
+    <Compile Include="Accounting\Goal\Commands\Goal_AdjustCurrentAmountCommand.cs" />
+    <Compile Include="Accounting\Goal\Commands\Goal_AdjustCurrentAmountCommandHandler.cs">
+      <DependentUpon>Goal_AdjustCurrentAmountCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Goal\Commands\Goal_ArchiveCommand.cs" />
+    <Compile Include="Accounting\Goal\Commands\Goal_ArchiveCommandHandler.cs">
+      <DependentUpon>Goal_ArchiveCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Goal\Commands\Goal_CreateCommand.cs" />
+    <Compile Include="Accounting\Goal\Commands\Goal_CreateCommandHandler.cs">
+      <DependentUpon>Goal_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Goal\Commands\Goal_DeleteCommand.cs" />
+    <Compile Include="Accounting\Goal\Commands\Goal_DeleteCommandHandler.cs">
+      <DependentUpon>Goal_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Goal\Commands\Goal_MarkAsCompletedCommand.cs" />
+    <Compile Include="Accounting\Goal\Commands\Goal_MarkAsCompletedCommandHandler.cs">
+      <DependentUpon>Goal_MarkAsCompletedCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Goal\Commands\Goal_UpdateCommand.cs" />
+    <Compile Include="Accounting\Goal\Commands\Goal_UpdateCommandHandler.cs">
+      <DependentUpon>Goal_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Goal\Data\GoalData.cs" />
+    <Compile Include="Accounting\Goal\Events\Goal_AdjustCurrentAmountEvent.cs" />
+    <Compile Include="Accounting\Goal\Events\Goal_ArchivedEvent.cs" />
+    <Compile Include="Accounting\Goal\Events\Goal_CreatedEvent.cs" />
+    <Compile Include="Accounting\Goal\Events\Goal_DeletedEvent.cs" />
+    <Compile Include="Accounting\Goal\Events\Goal_MarkedAsCompletedEvent.cs" />
+    <Compile Include="Accounting\Goal\Events\Goal_UpdatedEvent.cs" />
+    <Compile Include="Accounting\Goal\GoalAR.cs" />
+    <Compile Include="Accounting\Goal\Messages\Goal_DeletedMessage.cs" />
+    <Compile Include="Accounting\Ledger\Account.cs" />
+    <Compile Include="Accounting\Ledger\AccountBalanceDelta.cs" />
+    <Compile Include="Accounting\Ledger\AccountCollection.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_AggregationStatus_UpdateCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_AggregationStatus_UpdateCommandHandler.cs">
+      <DependentUpon>Ledger_Account_AggregationStatus_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_AggregatedBalanceUpdateCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_AggregatedBalanceUpdateCommandHandler.cs">
+      <DependentUpon>Ledger_Account_AggregatedBalanceUpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_ArchiveCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_ArchiveCommandHandler.cs">
+      <DependentUpon>Ledger_Account_ArchiveCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_ChangeInterestRateCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_ChangeNameCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_ChangeNameCommandHandler.cs">
+      <DependentUpon>Ledger_Account_ChangeNameCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_CreateCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_CreateCommandHandler.cs">
+      <DependentUpon>Ledger_Account_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_RemoveCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_RemoveCommandHandler.cs">
+      <DependentUpon>Ledger_Account_RemoveCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_UpdateCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_UpdateCommandHandler.cs">
+      <DependentUpon>Ledger_Account_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_UpdateOrderCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_UpdateOrderCommandHandler.cs">
+      <DependentUpon>Ledger_Account_UpdateOrderCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Budget_SetCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Budget_SetCommandHandler.cs">
+      <DependentUpon>Ledger_Budget_SetCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Budget_UpdateCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Budget_UpdateCommandHandler.cs">
+      <DependentUpon>Ledger_Budget_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_CreateCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_CreateCommandHandler.cs">
+      <DependentUpon>Ledger_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_DeleteCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_DeleteCommandHandler.cs">
+      <DependentUpon>Ledger_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_TransactionMap_AddItemCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_TransactionMap_AddItemCommandHandler.cs">
+      <DependentUpon>Ledger_TransactionMap_AddItemCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_User_AddCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_User_AddCommandHandler.cs">
+      <DependentUpon>Ledger_User_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Commands\Ledger_User_RemoveCommand.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_User_RemoveCommandHandler.cs">
+      <DependentUpon>Ledger_User_RemoveCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Ledger\Data\AccountData.cs" />
+    <Compile Include="Accounting\Ledger\Data\AccountOrderData.cs" />
+    <Compile Include="Accounting\Ledger\Data\BalanceChangedData.cs" />
+    <Compile Include="Accounting\Ledger\Data\BudgetData.cs" />
+    <Compile Include="Accounting\Ledger\Data\BudgetExceededData.cs" />
+    <Compile Include="Accounting\Ledger\Data\ExpandedEntryData.cs" />
+    <Compile Include="Accounting\Ledger\Data\LedgerData.cs" />
+    <Compile Include="Accounting\Ledger\Data\SimpleEntry.cs" />
+    <Compile Include="Accounting\Ledger\Data\UnusualSpendingData.cs" />
+    <Compile Include="Accounting\Ledger\Entry.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_AggregationStatus_UpdatedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_AddedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_AggregatedBalanceUpdatedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_ArchivedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_BalanceChangedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_InterestRate_ChangedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_IsUpdating_ChangedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_RemovedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_RenamedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_UpdatedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_UpdatedOrderEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Budget_ExceededEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Budget_SetEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Budget_UpdatedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_CreatedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_DeletedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Entry_DuplicateCreatedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_TransactionMap_ItemAddedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Transaction_CreatedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Transaction_DeletedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Transaction_DuplicateCreatedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Transaction_DuplicateDeletedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Transaction_ModifiedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_User_AddedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_User_RemovedEvent.cs" />
+    <Compile Include="Accounting\Ledger\LedgerAR.cs" />
+    <Compile Include="Accounting\Ledger\LedgerUsersCollection.cs" />
+    <Compile Include="Accounting\Ledger\Messages\Ledger_Account_AggregatedBalanceUpdatedMessage.cs" />
+    <Compile Include="Accounting\Ledger\Messages\Ledger_Account_RemovedMessage.cs" />
+    <Compile Include="Accounting\Ledger\Transaction.cs" />
+    <Compile Include="Accounting\Ledger\TransactionCollection.cs" />
+    <Compile Include="Accounting\LoanCalculator.cs" />
+    <Compile Include="Accounting\TransactionClientFilter.cs" />
+    <Compile Include="Accounting\Transaction\Commands\Transaction_DeleteMultipleCommand.cs" />
+    <Compile Include="Accounting\Transaction\Commands\Transaction_DeleteMultipleCommandHandler.cs" />
+    <Compile Include="Accounting\Transaction\Commands\Transaction_CreateCommand.cs" />
+    <Compile Include="Accounting\Transaction\Commands\Transaction_CreateCommandHandler.cs">
+      <DependentUpon>Transaction_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Transaction\Commands\Transaction_DeleteCommand.cs" />
+    <Compile Include="Accounting\Transaction\Commands\Transaction_DeleteCommandHandler.cs">
+      <DependentUpon>Transaction_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Transaction\Commands\Transaction_DuplicateCreateCommand.cs" />
+    <Compile Include="Accounting\Transaction\Commands\Transaction_DuplicateCreateCommandHandler.cs">
+      <DependentUpon>Transaction_DuplicateCreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Transaction\Commands\Transaction_DuplicateDeleteCommand.cs" />
+    <Compile Include="Accounting\Transaction\Commands\Transaction_DuplicateDeleteCommandHandler.cs">
+      <DependentUpon>Transaction_DuplicateDeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Transaction\Commands\Transaction_Entry_ChangeAccountCommand.cs" />
+    <Compile Include="Accounting\Transaction\Commands\Transaction_Entry_ChangeAccountCommand_Handler.cs">
+      <DependentUpon>Transaction_Entry_ChangeAccountCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Transaction\Commands\Transaction_Entry_DuplicateCreateCommand.cs" />
+    <Compile Include="Accounting\Transaction\Commands\Transaction_Entry_DuplicateCreateCommandHandler.cs">
+      <DependentUpon>Transaction_Entry_DuplicateCreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Transaction\Commands\Transaction_ModifyCommand.cs" />
+    <Compile Include="Accounting\Transaction\Commands\Transaction_ModifyCommandHandler.cs">
+      <DependentUpon>Transaction_ModifyCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounting\Transaction\Data\CreateMultipleTransactionDto.cs" />
+    <Compile Include="Accounting\Transaction\Data\EntryData.cs" />
+    <Compile Include="Accounting\Transaction\Data\ExpandedEntryData.cs" />
+    <Compile Include="Accounting\Transaction\Data\SimpleEntry.cs" />
+    <Compile Include="Accounting\Transaction\Data\TransactionData.cs" />
+    <Compile Include="Accounting\Transaction\Events\Transaction_CreatedEvent.cs" />
+    <Compile Include="Accounting\Transaction\Events\Transaction_DeletedEvent.cs" />
+    <Compile Include="Accounting\Transaction\Events\Transaction_DuplicateCreatedEvent.cs" />
+    <Compile Include="Accounting\Transaction\Events\Transaction_DuplicateDeletedEvent.cs" />
+    <Compile Include="Accounting\Transaction\Events\Transaction_Entry_DuplicateCreatedEvent.cs" />
+    <Compile Include="Accounting\Transaction\Events\Transaction_ModifiedEvent.cs" />
+    <Compile Include="Accounting\Transaction\Messages\Aggregation_TransactionSavedMessage.cs" />
+    <Compile Include="Accounting\Transaction\Messages\Transaction_CreateMultipleMessage.cs" />
+    <Compile Include="Accounting\Transaction\Messages\Entries_AddedMessage.cs" />
+    <Compile Include="Accounting\Transaction\Messages\Entries_RemovedMessage.cs" />
+    <Compile Include="Accounting\Transaction\Messages\Transaction_DeleteMultipleMessage.cs" />
+    <Compile Include="Accounting\Transaction\Messages\Transaction_Statistic_AddedMessage.cs" />
+    <Compile Include="Accounting\Transaction\TransactionAR.cs" />
+    <Compile Include="Application\Affiliate\AffiliateAR.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Campaign_CreateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Campaign_CreateCommandHandler.cs">
+      <DependentUpon>Affiliate_Campaign_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Campaign_Offer_UpdateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Campaign_Offer_UpdateCommandHandler.cs">
+      <DependentUpon>Affiliate_Campaign_Offer_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Campaign_Settings_UpdateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Campaign_Settings_UpdateCommandHandler.cs">
+      <DependentUpon>Affiliate_Campaign_Settings_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_CreateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_CreateCommandHandler.cs">
+      <DependentUpon>Affiliate_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_DeleteCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_DeleteCommandHandler.cs">
+      <DependentUpon>Affiliate_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Content_AddCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Content_AddCommandHandler.cs">
+      <DependentUpon>Affiliate_Email_Content_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Content_DeleteCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Content_DeleteCommandHandler.cs">
+      <DependentUpon>Affiliate_Email_Content_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Content_UpdateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Content_UpdateCommandHandler.cs">
+      <DependentUpon>Affiliate_Email_Content_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Template_AddCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Template_AddCommandHandler.cs">
+      <DependentUpon>Affiliate_Email_Template_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Template_DeleteCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Template_DeleteCommandHandler.cs">
+      <DependentUpon>Affiliate_Email_Template_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Template_UpdateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Email_Template_UpdateCommandHandler.cs">
+      <DependentUpon>Affiliate_Email_Template_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Faq_AddCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Faq_AddCommandHandler.cs">
+      <DependentUpon>Affiliate_Faq_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Faq_DeleteCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Faq_DeleteCommandHandler.cs">
+      <DependentUpon>Affiliate_Faq_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Faq_UpdateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Faq_UpdateCommandHandler.cs">
+      <DependentUpon>Affiliate_Faq_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_NotificationTypeEmail_CreateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_NotificationTypeEmail_CreateCommandHandler.cs">
+      <DependentUpon>Affiliate_NotificationTypeEmail_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_NotificationTypeEmail_UpdateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_NotificationTypeEmail_UpdateCommandHandler.cs">
+      <DependentUpon>Affiliate_NotificationTypeEmail_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Offer_AcceptByUserCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Offer_AcceptByUserCommandHandler.cs">
+      <DependentUpon>Affiliate_Offer_AcceptByUserCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Segments_ReestimateCommandHandler.cs">
+      <DependentUpon>Affiliate_Segments_ReestimateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Segment_AddCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Segment_AddCommandHandler.cs">
+      <DependentUpon>Affiliate_Segment_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Segment_DeleteCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Segment_DeleteCommandHandler.cs">
+      <DependentUpon>Affiliate_Segment_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Segment_UpdateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Segment_UpdateCommandHandler.cs">
+      <DependentUpon>Affiliate_Segment_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_SynchronizeChargifyProductsCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_SynchronizeChargifyProductsCommandHandler.cs">
+      <DependentUpon>Affiliate_SynchronizeChargifyProductsCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_UpdateCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_UpdateCommandHandler.cs">
+      <DependentUpon>Affiliate_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Data\CampaignOfferData.cs" />
+    <Compile Include="Application\Affiliate\Data\CampaignSettingsData.cs" />
+    <Compile Include="Application\Affiliate\Data\CampaignStatisticData.cs" />
+    <Compile Include="Application\Affiliate\Data\FaqData.cs" />
+    <Compile Include="Application\Affiliate\Data\MerchantSelectItem.cs" />
+    <Compile Include="Application\Affiliate\Data\PeriodEnum.cs" />
+    <Compile Include="Application\Affiliate\Data\PurchaseSummaryReportPeriodEnum.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Campaign_CreatedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Campaign_Offer_UpdatedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Campaign_Settings_UpdatedEvent.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Segments_ReestimateCommand.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Faq_AddedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Faq_DeletedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Faq_UpdatedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Offer_AcceptedByUserEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Segments_ReestimatedEvent.cs" />
+    <Compile Include="Application\Enums\OfferStatusEnum.cs" />
+    <Compile Include="Application\Enums\OfferTypeEnum.cs" />
+    <Compile Include="Application\Enums\ComparerEnum.cs" />
+    <Compile Include="Application\Enums\ConditionEnum.cs" />
+    <Compile Include="Application\Enums\DateRangeEnum.cs" />
+    <Compile Include="Application\Enums\FrequencyEnum.cs" />
+    <Compile Include="Application\Enums\GenderEnum.cs" />
+    <Compile Include="Application\Affiliate\Data\SegmentOption.cs" />
+    <Compile Include="Application\Affiliate\Data\AffiliateData.cs" />
+    <Compile Include="Application\Affiliate\Data\ChargifyProductData.cs" />
+    <Compile Include="Application\Affiliate\Data\EmailContentData.cs" />
+    <Compile Include="Application\Affiliate\Data\EmailTemplateData.cs" />
+    <Compile Include="Application\Affiliate\Data\NotificationTypeEmailData.cs" />
+    <Compile Include="Application\Affiliate\Data\SegmentData.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_CreatedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_DeleteEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Email_Content_AddedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Email_Content_ChangedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Email_Content_DeletedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Email_Template_AddedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Email_Template_ChangedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Email_Template_DeletedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_NotificationTypeEmail_AddedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_NotificationTypeEmail_ChangedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Segment_AddedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Segment_DeletedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Segment_ChangedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_SynchronizedChargifyProductsEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_UpdatedEvent.cs" />
+    <Compile Include="Application\Enums\EmailTypeEnum.cs" />
+    <Compile Include="Application\Enums\EmailTypeExtension.cs" />
+    <Compile Include="Application\Enums\NotificationScheduleEnum.cs" />
+    <Compile Include="Application\Enums\OptionTypeEnum.cs" />
+    <Compile Include="Application\Enums\TemplateStatusEnum.cs" />
+    <Compile Include="Application\Enums\TrendEnum.cs" />
+    <Compile Include="Application\Enums\TriggerStatusEnum.cs" />
+    <Compile Include="Membership\Enums\SecurityLevelEnum.cs" />
+    <Compile Include="Membership\Enums\UserPermissionEnum.cs" />
+    <Compile Include="Membership\Enums\UserPermissionEnumExtension.cs" />
+    <Compile Include="Membership\User\Commands\Subscription_ReceiveWebhookCommandHandler.cs">
+      <DependentUpon>User_Subscription_ReceiveWebhookCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_ActivateCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_ActivateCommandHandler.cs">
+      <DependentUpon>User_ActivateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_AddFacebookAccountCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_AddFacebookAccountCommandHandler.cs">
+      <DependentUpon>User_AddFacebookAccountCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_AddGoogleAccountCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_AddGoogleAccountCommandHandler.cs">
+      <DependentUpon>User_AddGoogleAccountCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_AddPermissionCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_AddPermissionCommandHandler.cs">
+      <DependentUpon>User_AddPermissionCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_AddTwitterAccountCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_AddTwitterAccountCommandHandler.cs">
+      <DependentUpon>User_AddTwitterAccountCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_AddWindwosLiveAccountCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_AddWindwosLiveAccountCommandHandler.cs">
+      <DependentUpon>User_AddWindwosLiveAccountCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_AddYodleeAccountCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_AddYodleeAccountCommandHandler.cs">
+      <DependentUpon>User_AddYodleeAccountCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_ChangePasswordCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_ChangePasswordCommandHandler.cs">
+      <DependentUpon>User_ChangePasswordCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_CreateCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_CreateCommandHandler.cs">
+      <DependentUpon>User_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_DeactivateCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_DeactivateCommandHandler.cs">
+      <DependentUpon>User_DeactivateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_DeleteCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_DeleteCommandHandler.cs">
+      <DependentUpon>User_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Email_AddCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Email_AddCommandHandler.cs">
+      <DependentUpon>User_Email_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Email_RemoveCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Email_RemoveCommandHandler.cs">
+      <DependentUpon>User_Email_RemoveCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_FacebookSignupCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_FacebookSignupCommandHandler.cs">
+      <DependentUpon>User_FacebookSignupCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_GoalsLinkedAccount_SetCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_GoalsLinkedAccount_SetCommandHandler.cs">
+      <DependentUpon>User_GoalsLinkedAccount_SetCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_GoogleSignupCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_GoogleSignupCommandHandler.cs">
+      <DependentUpon>User_GoogleSignupCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_LogInCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_LogInCommandHandler.cs">
+      <DependentUpon>User_LogInCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_MerchantInfo_SetCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_MerchantInfo_SetCommandHandler.cs">
+      <DependentUpon>User_MerchantInfo_SetCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Merchant_BillingInfo_SetCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Merchant_BillingInfo_SetCommandHandler.cs">
+      <DependentUpon>User_Merchant_BillingInfo_SetCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_MobileLogInCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_MobileLogInCommandHandler.cs">
+      <DependentUpon>User_MobileLogInCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Notification_UpdateCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Notification_UpdateCommandHandler.cs">
+      <DependentUpon>User_Notification_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Phone_AddCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Phone_AddCommandHandler.cs">
+      <DependentUpon>User_Phone_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Phone_RemoveCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Phone_RemoveCommandHandler.cs">
+      <DependentUpon>User_Phone_RemoveCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Realestate_AddCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Realestate_AddCommandHandler.cs">
+      <DependentUpon>User_Realestate_AddCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Realestate_DeleteCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Realestate_DeleteCommandHandler.cs">
+      <DependentUpon>User_Realestate_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Realestate_IncludeInWorthCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Realestate_IncludeInWorthCommandHandler.cs">
+      <DependentUpon>User_Realestate_IncludeInWorthCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_RemovePermissionCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_RemovePermissionCommandHandler.cs">
+      <DependentUpon>User_RemovePermissionCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_ResetPasswordCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_ResetPasswordCommandHandler.cs">
+      <DependentUpon>User_ResetPasswordCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_SetAutoUpdateDateCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_SetAutoUpdateDateCommandHandler.cs">
+      <DependentUpon>User_SetAutoUpdateDateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_SetZipCode_Command.cs" />
+    <Compile Include="Membership\User\Commands\User_SetZipCode_CommandHandler.cs">
+      <DependentUpon>User_SetZipCode_Command.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Offers_ShowToUserCommand.cs" />
+    <Compile Include="Application\Affiliate\Commands\Affiliate_Offers_ShowToUserCommandHandler.cs">
+      <DependentUpon>Affiliate_Offers_ShowToUserCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Subscription_CreateCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Subscription_CreateCommandHandler.cs">
+      <DependentUpon>User_Subscription_CreateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Subscription_DeleteCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Subscription_DeleteCommandHandler.cs">
+      <DependentUpon>User_Subscription_DeleteCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_Subscription_ReceiveWebhookCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Subscription_SubscribeCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_Subscription_SubscribeCommandHandler.cs">
+      <DependentUpon>User_Subscription_SubscribeCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_TwitterSignupCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_TwitterSignupCommandHandler.cs">
+      <DependentUpon>User_TwitterSignupCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_UpdateCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_UpdateCommandHandler.cs">
+      <DependentUpon>User_UpdateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_UpdateResetPasswordTokenCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_UpdateResetPasswordTokenCommandHandler.cs">
+      <DependentUpon>User_UpdateResetPasswordTokenCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_UpdateSecurityLevelCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_UpdateSecurityLevelCommandHandler.cs">
+      <DependentUpon>User_UpdateSecurityLevelCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_UpdateSecurityQuestionCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_UpdateSecurityQuestionCommandHandler.cs">
+      <DependentUpon>User_UpdateSecurityQuestionCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_UpdateSecuritySettingsCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_UpdateSecuritySettingsCommandHandler.cs">
+      <DependentUpon>User_UpdateSecuritySettingsCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Commands\User_WindwosLiveSignupCommand.cs" />
+    <Compile Include="Membership\User\Commands\User_WindwosLiveSignupCommandHandler.cs">
+      <DependentUpon>User_WindwosLiveSignupCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Membership\User\Data\BillingData.cs" />
+    <Compile Include="Membership\User\Data\CreditCardData.cs" />
+    <Compile Include="Membership\User\Data\CustomerData.cs" />
+    <Compile Include="Membership\User\Data\FacebookSignupData.cs" />
+    <Compile Include="Membership\User\Data\GoogleSignupData.cs" />
+    <Compile Include="Membership\User\Data\MailData.cs" />
+    <Compile Include="Membership\User\Data\MerchantData.cs" />
+    <Compile Include="Membership\User\Data\NotificationData.cs" />
+    <Compile Include="Membership\User\Data\ProductData.cs" />
+    <Compile Include="Membership\User\Data\RealestateData.cs" />
+    <Compile Include="Membership\User\Data\RealestateRawData.cs" />
+    <Compile Include="Membership\User\Data\TwitterSignupData.cs" />
+    <Compile Include="Membership\User\Data\UserData.cs" />
+    <Compile Include="Membership\User\Data\WindowsLiveSignupData.cs" />
+    <Compile Include="Membership\User\Data\YodleeSignUpData.cs" />
+    <Compile Include="Membership\User\Events\User_ActivatedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_AddedFacebookAccountEvent.cs" />
+    <Compile Include="Membership\User\Events\User_AddedGoogleAccountEvent.cs" />
+    <Compile Include="Membership\User\Events\User_AddedTwitterAccountEvent.cs" />
+    <Compile Include="Membership\User\Events\User_AddedWindowsLiveAccountEvent.cs" />
+    <Compile Include="Membership\User\Events\User_AddedYodleeAccountEvent.cs" />
+    <Compile Include="Membership\User\Events\User_AutoUpdateDateSetEvent.cs" />
+    <Compile Include="Membership\User\Events\User_CreatedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_DeactivatedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_DeletedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Email_AddedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Email_RemovedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_FacebookSignedupEvent.cs" />
+    <Compile Include="Membership\User\Events\User_GoalsLinkedAccount_SetEvent.cs" />
+    <Compile Include="Membership\User\Events\User_GoogleSignedupEvent.cs" />
+    <Compile Include="Membership\User\Events\User_LoggedInEvent.cs" />
+    <Compile Include="Membership\User\Events\User_MerchantInfo_UpdatedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Merchant_BillingInfo_UpdatedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_MobileLoggedInEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Notification_AddedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Notification_DeletedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Notification_UpdatedEvent.cs" />
+    <Compile Include="Application\Affiliate\Events\Affiliate_Offers_ShownToUserEvent.cs" />
+    <Compile Include="Membership\User\Events\User_PasswordChangedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_PasswordResettedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_PermissionAddedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_PermissionRemovedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Phone_AddedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Phone_RemovedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Realestate_AddedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Realestate_DeletedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Realestate_IncludeInWorthEvent.cs" />
+    <Compile Include="Membership\User\Events\User_SecuritySettingsUpdatedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_SendMailEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Subscription_CreateEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Subscription_DeletedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Subscription_ReceivedWebhookEvent.cs" />
+    <Compile Include="Membership\User\Events\User_Subscription_SubscribedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_TwitterSignedupEvent.cs" />
+    <Compile Include="Membership\User\Events\User_UpdatedEvent.cs" />
+    <Compile Include="Membership\User\Events\User_UpdatedResetPasswordTokenEvent.cs" />
+    <Compile Include="Membership\User\Events\User_UpdatedSecurityLevelEvent.cs" />
+    <Compile Include="Membership\User\Events\User_UpdatedSecurityQuestionEvent.cs" />
+    <Compile Include="Membership\User\Events\User_WindwosLiveSignedupEvent.cs" />
+    <Compile Include="Membership\User\Events\User_ZipCode_ChangedEvent.cs" />
+    <Compile Include="Membership\User\Messages\IntuitLogsDeletedMessage.cs" />
+    <Compile Include="Membership\User\Messages\User_CreatedMessage.cs" />
+    <Compile Include="Membership\User\Messages\User_DeletedMessage.cs" />
+    <Compile Include="Membership\User\Messages\User_Subscription_PaymentFailedMessage.cs" />
+    <Compile Include="Membership\User\Messages\User_UpdatedMessage.cs" />
+    <Compile Include="Membership\User\PermissionCollection.cs" />
+    <Compile Include="Membership\User\UserAR.cs" />
+    <Compile Include="Patches\IPatch.cs" />
+    <Compile Include="Patches\Patch1Transactions.cs" />
+    <Compile Include="Patches\Patch2AffiliateUpdateDate.cs" />
+    <Compile Include="Patches\Patch3AdjustNamespaces.cs" />
+    <Compile Include="Patches\Patch4GarbageTransactions.cs" />
+    <Compile Include="Patches\Patch5FixtAggregationStatus.cs" />
+    <Compile Include="Patches\Patch7FixTransactionsAccountsReferences.cs" />
+    <Compile Include="Patches\Patch8DefaultPfmAccountsIntuitMapping.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_Account_UpdateImportStatusCommand.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_Account_UpdateImportStatusCommandHandler.cs">
+      <DependentUpon>ContentServiceItem_Account_UpdateImportStatusCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_AuthenticateCommand.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_AuthenticateCommandHandler.cs">
+      <DependentUpon>ContentServiceItem_AuthenticateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_AuthenticateMFACommand.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_AuthenticateMFACommandHandler.cs">
+      <DependentUpon>ContentServiceItem_AuthenticateMFACommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_DownloadCommand.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_DownloadCommandHandler.cs">
+      <DependentUpon>ContentServiceItem_DownloadCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_ReAuthenticateCommand.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_ReAuthenticateCommandHandler.cs">
+      <DependentUpon>ContentServiceItem_ReAuthenticateCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_StartRefreshCommand.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_StartRefreshCommandHandler.cs">
+      <DependentUpon>ContentServiceItem_StartRefreshCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_UpdateCommand.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Commands\ContentServiceItem_UpdateCommandHandler.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Data\ContentServiceItemAccount.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Data\ContentServiceItemAccountTransaction.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Data\ContentServiceItemData.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Events\ContentServiceItem_Account_ImportStatusUpdatedEvent.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Events\ContentServiceItem_AddedEvent.cs" />
+    <Compile Include="Yodlee\ContentServiceItem\Events\ContentServiceItem_UpdatedEvent.cs" />
+    <Compile Include="Yodlee\ContentService\Commands\ContentServices_DownloadCommand.cs" />
+    <Compile Include="Yodlee\Enums\AccountLabelEnum.cs" />
+    <Compile Include="Yodlee\Enums\ContentServiceRefreshErrorCode.cs" />
+    <Compile Include="Yodlee\Enums\ItemAccessStatus.cs" />
+    <Compile Include="Yodlee\Enums\MfaTypeEnum.cs" />
+    <Compile Include="Yodlee\Enums\RefreshStatus.cs" />
+    <Compile Include="Yodlee\Enums\ResponseCodeEnum.cs" />
+    <Compile Include="Yodlee\Enums\UserActionRequiredEnum.cs" />
+    <Compile Include="Yodlee\Exceptions\ServiceNotConnectedException.cs" />
+    <Compile Include="Yodlee\Form\FormHelpers.cs" />
+    <Compile Include="Yodlee\Form\FormInput.cs" />
+    <Compile Include="Yodlee\Form\FormInputGroup.cs" />
+    <Compile Include="Yodlee\Form\SelectOption.cs" />
+    <Compile Include="Yodlee\Services\AuthenticationFormGetter.cs" />
+    <Compile Include="Yodlee\Services\BaseYodleeService.cs" />
+    <Compile Include="Yodlee\Storage\BaseYodleeDocumentService.cs" />
+    <Compile Include="Yodlee\Storage\Documents\ContentServiceDocument.cs" />
+    <Compile Include="Yodlee\Storage\Documents\ContentServiceDocumentFilter.cs">
+      <DependentUpon>ContentServiceDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\Storage\Documents\ContentServiceDocumentService.cs">
+      <DependentUpon>ContentServiceDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\Storage\Documents\ContentServiceItemAccount.cs">
+      <DependentUpon>ContentServiceItemDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\Storage\Documents\ContentServiceItemAccountTransaction.cs">
+      <DependentUpon>ContentServiceItemDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\Storage\Documents\ContentServiceItemDocument.cs" />
+    <Compile Include="Yodlee\Storage\Documents\ContentServiceItemDocumentFilter.cs">
+      <DependentUpon>ContentServiceItemDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\Storage\Documents\ContentServiceItemDocumentService.cs">
+      <DependentUpon>ContentServiceItemDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\YodleePasswordGenerator.cs" />
+    <Compile Include="Yodlee\YodleeSettings.cs" />
+    <Compile Include="Yodlee\YodleeUser\Commands\YodleeUser_CancelCommand.cs" />
+    <Compile Include="Yodlee\YodleeUser\Commands\YodleeUser_CancelCommandHandler.cs">
+      <DependentUpon>YodleeUser_CancelCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Yodlee\YodleeUser\Commands\YodleeUser_RegisterCommand.cs" />
+    <Compile Include="Yodlee\YodleeUser\Commands\YodleeUser_RegisterCommandHandler.cs">
+      <DependentUpon>YodleeUser_RegisterCommand.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Yodlee\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mPower.Framework\mPower.Framework.csproj">
+      <Project>{3A145847-D3DF-46B9-B9F5-DC0244C24CC1}</Project>
+      <Name>mPower.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application\Affiliate\Messages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

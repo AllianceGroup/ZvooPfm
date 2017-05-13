@@ -1,0 +1,35 @@
+body
+{
+    font-family: Tahoma, Arial;
+    margin: 0px;
+    padding: 0px;
+}
+
+h1
+{
+    background-color: #666666;
+    padding: 0px 5px 0px 5px;
+    margin: 0px;
+    color: #FFF;
+}
+div.box
+{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+.validation-summary-errors
+{
+    color: Red;
+}
+
+.paginator li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
+}
+
+a:link {text-decoration: none}
+a:visited {text-decoration: none}
+a:active {text-decoration: none}
+a:hover {text-decoration: underline;}

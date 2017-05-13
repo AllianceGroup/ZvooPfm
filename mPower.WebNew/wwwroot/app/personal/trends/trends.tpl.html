@@ -1,0 +1,76 @@
+<div id="content">
+    <div>
+        <section>
+            <div class="row">
+                <div class="col-md-3">
+                  <div data-smart-include="app/personal/trends/views/monthlyBudgets.tpl.html"></div>
+                </div>
+                <article class="col-md-9">
+                    <div jarvis-widget
+                         data-widget-editbutton="false"
+                         data-widget-colorbutton="false"
+                         data-widget-togglebutton="false"
+                         data-widget-deletebutton="false"
+                         data-widget-fullscreenbutton="false"
+                         data-widget-custombutton="false"
+                         data-widget-sortable="true"
+                         data-widget-color="blue">
+                        <header><h2>Trends</h2></header>
+                        <div>
+                            <div class="container-fluid col-md-12">
+                                <div class="row">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <span>{{trendsCtrl.filter.ShowFormat}}</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a ng-click="trendsCtrl.RefreshByFormat('Spending')">Spending</a>
+                                            </li>
+                                            <li>
+                                                <a ng-click="trendsCtrl.RefreshByFormat('Income')">Income</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn-group ml10">
+                                          <span class="btn" ng-click="trendsCtrl.RefreshByTime('ThisMonth')"
+                                                ng-class="trendsCtrl.filter.Filter == 'ThisMonth' ? 'btn-primary' : 'btn-default'">This month</span>
+                                          <span ng-click="trendsCtrl.RefreshByTime('PrevMonth')" class="btn"
+                                                ng-class="trendsCtrl.filter.Filter == 'PrevMonth' ? 'btn-primary' : 'btn-default'">Last month</span>
+                                          <span ng-click="trendsCtrl.RefreshByTime('Year')" class="btn"
+                                                ng-class="trendsCtrl.filter.Filter == 'Year' ? 'label-primary' : 'btn-default'">This year</span>
+                                          <span ng-click="trendsCtrl.RefreshByTime('AllTime')" class="btn"
+                                                ng-class="trendsCtrl.filter.Filter == 'AllTime' ? 'label-primary' : 'btn-default'">All time</span>
+                                    </div>
+                                    <div class="btn-group pull-right">
+                                        <button ng-click="trendsCtrl.showAllAccounts()" class="btn btn-success">Accounts</button>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col-md-12">
+                                        <div data-smart-include="app/personal/trends/views/monthLine.html"></div>
+                                    </div>
+                                </div>
+                                <h1 class="txt-color-green text-center">
+                                    {{trendsCtrl.filter.ShowFormat}} Amount Across Top Level Categories
+                                </h1>
+                                <div class="text-center row">
+                                    <div ng-if="trendsCtrl.Data"
+                                         donut-chart
+                                         donut-data='trendsCtrl.Chart'
+                                         donut-formatter='trendsCtrl.Formatter'
+                                         donut-resize='true'>
+                                    </div>
+                                    <div>
+                                        <span ng-if="trendsCtrl.Data == false" class="text-center"><h3>No data to display.</h3></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+</div>

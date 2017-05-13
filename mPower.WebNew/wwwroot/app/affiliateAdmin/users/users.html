@@ -1,0 +1,89 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header><h2>Manage users</h2></header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="usersCtrl.SearchKey">
+                                        <div class="input-group-btn">
+                                            <button role="button" type="button" ng-click="usersCtrl.refreshUsers()" class="btn btn-info"><i class="fa fa-search"></i> Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="text-right">
+                                        <button ng-if="usersCtrl.roles.AffiliateAdminEdit" class="btn btn-info" ng-click="usersCtrl.addUser()"><i class="fa fa-user-plus"></i> Add user</button>
+                                        <button class="btn btn-success" ng-click="usersCtrl.exportUsers()"><i class="fa fa-file"></i> Export to CSV</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-hover" style="margin-top: 20px">
+                                        <thead>
+                                        <tr>
+                                            <th>Created on</th>
+                                            <th>Name</th>
+                                            <th>User name</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="user in usersCtrl.UsersList.Users">
+                                                <td>{{user.CreateDate | date: 'MM/dd/yyyy'}}</td>
+                                                <td>{{user.FullName}}</td>
+                                                <td>{{user.UserName}}</td>
+                                                <td>
+                                                    <button ng-class="usersCtrl.roles.AffiliateAdminEdit ? '' : 'disabled'"
+                                                            title="active/de-activate user" class='btn btn-xs btn-default' ng-click="usersCtrl.toggleUserIsActive(user.Id)">
+                                                        <i ng-if="user.IsActive" class='fa fa-circle txt-color-green'></i>
+                                                        <i ng-if="!user.IsActive" class='fa fa-circle txt-color-red'></i>
+                                                    </button>
+                                                <td>
+                                                    <button ng-if="usersCtrl.roles.AffiliateAdminEdit" class='btn btn-xs btn-default' title="edit user" ng-click="usersCtrl.editUser(user.Id)"><i class='fa fa-pencil'></i></button>
+                                                    <button class='btn btn-xs btn-default' title='view user activity logs' ng-click="usersCtrl.activity(user.Id, 1)"><i class='fa fa-file-text-o'></i></button>
+                                                    <button class='btn btn-xs btn-default' title='extended user details' ng-click="usersCtrl.userInfo(user.Id)"><i class='fa fa-user'></i></button>
+                                                    <button ng-if="usersCtrl.roles.AffiliateAdminDelete" class='btn btn-xs btn-danger' title='delete user' ng-click="usersCtrl.confirmDelete(user.Id)"><i class='fa fa-times'></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h3>Showing {{usersCtrl.UsersList.Paging.IndexOfFirstItem}} - {{usersCtrl.UsersList.Paging.IndexOfLastItem}} of {{usersCtrl.UsersList.Paging.TotalCount}}</h3>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <uib-pagination
+                                                    total-items="usersCtrl.UsersList.Paging.TotalCount"
+                                                    ng-model="usersCtrl.UsersList.Paging.CurrentPage"
+                                                    ng-change="usersCtrl.refreshUsers()"
+                                                    items-per-page="usersCtrl.UsersList.Paging.ItemsPerPage"
+                                                    rotate="false"
+                                                    boundary-link-numbers="true"
+                                                    max-size="7">
+                                            </uib-pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

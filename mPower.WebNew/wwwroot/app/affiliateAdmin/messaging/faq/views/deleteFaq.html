@@ -1,0 +1,26 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="deleteFaqCtrl.dismiss('cancel')">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Are you sure?
+    </h4>
+</div>
+<div class="modal-body row">
+    <div>
+        <p ng-repeat="error in deleteFaqCtrl.errors" class="alert alert-danger">{{error}}</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Are you sure that you want to delete <strong>{{deleteFaqCtrl.faq.Name}}</strong> FAQ? On clicking "Delete" it will be permanently removed.</label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer text-center">
+    <button type="button" class="btn btn-danger" ng-click="deleteFaqCtrl.deleteFaq(deleteFaqCtrl.faq.Id)">
+        Delete
+    </button>
+    <button type="button" class="btn btn-info" ng-click="deleteFaqCtrl.dismiss('cancel')">
+        Cancel
+    </button>
+</div>

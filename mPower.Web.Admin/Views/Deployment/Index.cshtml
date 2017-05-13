@@ -1,0 +1,44 @@
+﻿@using mPower.Web.Admin.Models
+@model DeploymentModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Deployment to stage/production";
+}
+@section pageTitle{ - deployment to stage/production}
+<div style="padding: 10px">
+    <b>@Model.Message</b>
+    <br />
+    @Html.ValidationSummary()
+    Step 1: @Html.ActionLink("Rebuild read model from prod on stage", "RebuildProdReadModel")
+    <br />
+    Step 2:<a href="@Url.Action("BackupAndPublishProdApp", new { backupFolder = Model.BackupFolder })">
+        Create backup package and publish production</a>
+    <br />
+    Step 3(Optional):
+    @using (Html.BeginForm("RollbackFromPackage", "Deployment"))
+    {
+        <div style="padding-top: 8px;">
+            @Html.DropDownList("package", Model.Packages)
+            <input type="submit" value="Rollback production from package" />
+        </div>
+    }
+    <br />
+    <br />
+    <br />
+    <a href="#" onclick="$(this).next().toggle(); return false;">show/hide extra steps</a>
+    <div style="display: none;">
+        Andrew Orsich would not reccomend use this option, better workflow is Step 1 ->
+        some quick testing on stage -> step 2.
+        <br />
+        @Html.ActionLink("Deploy to prod by one click", "OneClickDeploymentToProd")
+        <br />
+        @Html.ActionLink("Send prod to read mode", "SendProdToReadMode")
+        <br />
+        @Html.ActionLink("Send prod to write mode", "SendProdToWriteMode")
+        <br />
+        @Html.ActionLink("Create backup package", "CreateBackupPackage")
+        <br />
+        @Html.ActionLink("Copy production database to local machine", "CopyProdDatabases")
+        <br />
+    </div>
+</div>

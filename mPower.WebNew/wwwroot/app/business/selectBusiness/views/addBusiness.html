@@ -1,0 +1,205 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="addBusinessCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Add your business
+    </h4>
+</div>
+<div class="modal-body row">
+    <form id="smart-form-register" class="smart-form" data-smart-registration-form>
+        <fieldset>
+            <div class="row">
+                <p ng-repeat="error in addBusinessCtrl.errors" class="alert alert-danger">{{error}}</p>
+            </div>
+            <div class="row">
+                <section class="col col-6">
+                    <label>Business name*</label>
+                    <label class="input"> <i class="icon-append fa fa-university"></i>
+                        <input type="text" ng-model="addBusinessCtrl.business.Name">
+                    </label>
+                </section>
+
+                <section class="col col-6">
+                    <label>Street address*</label>
+                    <label class="input"> <i class="icon-append fa fa-globe"></i>
+                        <input type="text" ng-model="addBusinessCtrl.business.Address">
+                    </label>
+                </section>
+            </div>
+
+            <div class="row">
+                <section class="col col-6">
+                    <label>Street address(cont)</label>
+                    <label class="input"> <i class="icon-append fa fa-globe"></i>
+                        <input type="text" ng-model="addBusinessCtrl.business.Address2">
+                    </label>
+                </section>
+
+                <section class="col col-6">
+                    <label>City*</label>
+                    <label class="input"> <i class="icon-append fa fa-globe"></i>
+                        <input type="text" ng-model="addBusinessCtrl.business.City">
+                    </label>
+                </section>
+            </div>
+
+            <div class="row">
+                <section class="col col-6">
+                    <label>State*</label>
+                        <select ng-model="addBusinessCtrl.business.State" class="form-control"
+                                ng-init="addBusinessCtrl.business.State = 'AL'">
+                            <option value="AL">AL</option>
+                            <option value="AK">AK</option>
+                            <option value="AZ">AZ</option>
+                            <option value="AR">AR</option>
+                            <option value="CA">CA</option>
+                            <option value="CT">CT</option>
+                            <option value="DE">DE</option>
+                            <option value="FL">FL</option>
+                            <option value="GA">GA</option>
+                            <option value="HI">HI</option>
+                            <option value="ID">ID</option>
+                            <option value="IL">IL</option>
+                            <option value="IN">IN</option>
+                            <option value="IA">IA</option>
+                            <option value="KS">KS</option>
+                            <option value="KY">KY</option>
+                            <option value="LA">LA</option>
+                            <option value="ME">ME</option>
+                            <option value="MD">MD</option>
+                            <option value="MA">MA</option>
+                            <option value="MI">MI</option>
+                            <option value="MN">MN</option>
+                            <option value="MS">MS</option>
+                            <option value="MO">MO</option>
+                            <option value="MT">MT</option>
+                            <option value="NE">NE</option>
+                            <option value="NV">NV</option>
+                            <option value="NH">NH</option>
+                            <option value="NJ">NJ</option>
+                            <option value="NM">NM</option>
+                            <option value="NY">NY</option>
+                            <option value="NC">NC</option>
+                            <option value="ND">ND</option>
+                            <option value="OH">OH</option>
+                            <option value="OK">OK</option>
+                            <option value="OR">OR</option>
+                            <option value="PA">PA</option>
+                            <option value="RI">RI</option>
+                            <option value="SC">SC</option>
+                            <option value="SD">SD</option>
+                            <option value="TN">TN</option>
+                            <option value="TX">TX</option>
+                            <option value="UT">UT</option>
+                            <option value="VT">VT</option>
+                            <option value="VA">VA</option>
+                            <option value="WA">WA</option>
+                            <option value="WV">WV</option>
+                            <option value="WI">WI</option>
+                            <option value="WY">WY</option>
+                        </select>
+                </section>
+
+                <section class="col col-6">
+                    <label>Zip/Postal code*</label>
+                    <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                        <input type="text" ng-model="addBusinessCtrl.business.Zip">
+                    </label>
+                </section>
+            </div>
+
+            <div class="row">
+                <section class="text-center">When does your fiscal year start? If you're unsure, leave it as January 1st.</section>
+                <section class="col col-6">
+                    <span>Day</span>
+                    <select class="form-control" ng-model="addBusinessCtrl.business.StartFiscalDay"
+                            ng-init="addBusinessCtrl.business.StartFiscalDay = addBusinessCtrl.business.StartFiscalDay.toString()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>
+                </section>
+                <section class="col col-6">
+                    <label>Month</label>
+                    <select class="form-control" ng-model="addBusinessCtrl.business.StartFiscalMonth"
+                            ng-init="addBusinessCtrl.business.StartFiscalMonth = addBusinessCtrl.business.StartFiscalMonth.toString()">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </section>
+                <section class="col col-6">
+                    <label>Year Business Started</label>
+                    <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" ng-model="addBusinessCtrl.business.YearStarted">
+                    </label>
+                </section>
+                <section class="col col-6">
+                    <label>EIN #</label>
+                    <label class="input">
+                        <input type="text" ng-model="addBusinessCtrl.business.EIN">
+                    </label>
+                </section>
+            </div>
+
+            <div class="row">
+                <section class="text-center"><label>Chart of accounts setup</label></section>
+                <section class="col col-6">
+                    <select class="form-control" ng-model="addBusinessCtrl.business.AutoOrManual" ng-init="addBusinessCtrl.business.AutoOrManual = 'Auto'">
+                        <option value="Auto">Auto</option>
+                        <option value="Manual">Manual</option>
+                    </select>
+                </section>
+                <section class="col col-6">
+                    <select class="form-control" ng-model="addBusinessCtrl.business.Based" ng-init="addBusinessCtrl.business.Based = 'Service'">
+                        <option value="Service">Service based business</option>
+                        <option value="Product">Product based business</option>
+                    </select>
+                </section>
+            </div>
+        </fieldset>
+        <footer>
+            <button type="submit" class="btn btn-primary" ng-click="addBusinessCtrl.addBusiness()">
+                Finish
+            </button>
+        </footer>
+    </form>
+</div>

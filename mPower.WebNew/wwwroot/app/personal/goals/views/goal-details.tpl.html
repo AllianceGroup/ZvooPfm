@@ -1,0 +1,36 @@
+﻿<h1>Goal Details: <b>{{goalDetailsCtrl.model.Title}}</b></h1>
+<div class="row">
+    <div class="col-md-12">
+        <slider min="0" step="1" max="goalDetailsCtrl.model.TotalAmountInDollars" ng-model="goalDetailsCtrl.model.MonthlyActualAmountInDollars + goalDetailsCtrl.model.StartingBalanceInDollars" ng-disabled="true"></slider>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <ul class="list-group">
+            <li class="list-group-item"><span class="badge badge-info">{{goalDetailsCtrl.model.TotalAmountInDollars | currency}}</span>Goal amount</li>
+            <li class="list-group-item"><span class="badge badge-info">{{goalDetailsCtrl.model.StartingBalanceInDollars | currency}}</span>I already have</li>
+            <li class="list-group-item"><span class="badge badge-info">{{goalDetailsCtrl.model.PlannedDate | date : 'd MMM yyyy'}}</span>Planned date</li>
+            <li class="list-group-item"><span class="badge badge-info">{{goalDetailsCtrl.model.MonthlyActualAmountInDollars | currency}}</span>This month</li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <ul class="list-group">
+            <li class="list-group-item"><span class="badge badge-info">{{goalDetailsCtrl.model.CurrentAmountInDollars | currency}}</span>Today's balance</li>
+            <li class="list-group-item"><span class="badge badge-info">{{goalDetailsCtrl.model.ProjectedDate | date : 'd MMM yyyy'}}</span>Projected date</li>
+        </ul>
+    </div>
+</div>
+<div class="row text-center" style="margin-bottom: 10px">
+    <div class="col-md-4">
+        <button class="btn btn-danger" ng-click="goalDetailsCtrl.delete()">Delete this goal</button>
+    </div>
+    <div class="col-md-4" ng-if="goalDetailsCtrl.model.Status === 2">
+        <button class="btn btn-info" ng-click="goalDetailsCtrl.edit()">Edit this goal</button>
+    </div>
+    <div class="col-md-4" ng-if="goalDetailsCtrl.model.Status === 2">
+        <button class="btn btn-success" ng-click="goalDetailsCtrl.markAsComplete()">Mark as complete</button>
+    </div>
+    <div class="col-md-4" ng-if="goalDetailsCtrl.model.Status !== 2">
+        <button class="btn btn-info" ng-click="goalDetailsCtrl.archive()">Arhive</button>
+    </div>
+</div>

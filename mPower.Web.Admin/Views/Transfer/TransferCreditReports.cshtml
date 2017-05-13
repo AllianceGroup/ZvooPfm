@@ -1,0 +1,11 @@
+﻿@{
+	ViewBag.Title = "Transfer Credit Reports";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section pageTitle{ - transfer credit reports}
+@using(Html.BeginForm()) { 
+	@Html.Label("Username: ")
+	@Html.TextBox("username")
+    <input type="submit" value="Transfer" />
+}

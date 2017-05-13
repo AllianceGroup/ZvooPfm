@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Status xmlns="http://schema.intuit.com/platform/fdatafeed/common/v1">
+  <errorInfo>
+    <errorType>APP_ERROR</errorType>
+    <errorCode>api.database.notfound</errorCode>
+    <errorMessage>internal api error while processing request</errorMessage>
+    <correlationId>1ca88ca7-a932-4e20-8c31-87d326c4813b</correlationId>
+  </errorInfo>
+</Status>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Status xmlns="http://schema.intuit.com/platform/fdatafeed/common/v1">
+  <errorInfo>
+    <errorType>WARNING</errorType>
+    <errorCode>103</errorCode>
+    <errorMessage>Login error. Invalid Password</errorMessage>
+    <correlationId>c6b4e96b-7433-4a66-a8ea-87ce447c91a0</correlationId>
+  </errorInfo>
+</Status>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<InstitutionDetail xmlns="http://schema.intuit.com/platform/fdatafeed/institution/v1" xmlns:ns2="http://schema.intuit.com/platform/fdatafeed/common/v1">
+  <institutionId>676</institutionId>
+  <institutionName>US Bank</institutionName>
+  <homeUrl>http://www.usbank.com/index.html</homeUrl>
+  <phoneNumber>1-800-685-5065</phoneNumber>
+  <address>
+    <ns2:address1>800 Nicollet Mall</ns2:address1>
+    <ns2:city>Minneapolis</ns2:city>
+    <ns2:state>MN</ns2:state>
+    <ns2:postalCode>55402</ns2:postalCode>
+    <ns2:country>USA</ns2:country>
+  </address>
+  <emailAddress>https://www2.usbank.com/cgi_w2/cfm/cust_service/form_questions.cfm</emailAddress>
+  <specialText>Please enter your Personal ID and Password required for login.</specialText>
+  <currencyCode>USD</currencyCode>
+  <keys>
+    <key>
+      <name>PSWD</name>
+      <status>Active</status>
+      <valueLengthMax>24</valueLengthMax>
+      <displayFlag>true</displayFlag>
+      <displayOrder>2</displayOrder>
+      <mask>true</mask>
+      <description>Password</description>
+    </key>
+    <key>
+      <name>USERID</name>
+      <status>Active</status>
+      <valueLengthMax>22</valueLengthMax>
+      <displayFlag>true</displayFlag>
+      <displayOrder>1</displayOrder>
+      <mask>false</mask>
+      <description>Personal ID</description>
+    </key>
+  </keys>
+</InstitutionDetail>
+

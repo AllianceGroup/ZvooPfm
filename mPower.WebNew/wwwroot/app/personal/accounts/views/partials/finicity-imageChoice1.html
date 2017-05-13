@@ -1,0 +1,10 @@
+﻿<div class="smart-form">
+    <label class="label">{{question.Text}}</label>
+    <div ng-repeat="key in utils.getObjectKeys(question.Choices)">
+        <label class="radio">          
+            <input type="radio" value="{{key}}" ng-checked="$first" ng-model="question.Answer">
+            <i></i><img src="{{question.Choices[key]}}" style="width: 25%" />
+        </label>
+        <br/>
+    </div>
+</div>

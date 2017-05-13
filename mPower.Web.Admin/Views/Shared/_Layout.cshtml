@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <script src="@Url.Content("~/Scripts/jquery-1.5.1.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/custom/AttachedControls.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/custom/Request.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/custom/Result.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/custom/jquery.colorbox-min.js")" type="text/javascript"></script>
+    <link rel='stylesheet' type='text/css' href='@Url.Content("~/Content/menu.css")' />
+    <link rel='stylesheet' type='text/css' href='@Url.Content("~/Content/site.css")' />
+    <link rel='stylesheet' type='text/css' href='@Url.Content("~/Content/colorbox.css")' />
+</head>
+<body>
+    <div align="center" style="margin: 0px 100px 0px 100px;">
+        <h1>
+            <a style="color: #fff;" href="@Url.Action("index", "home")">mPower Admin Panel @RenderSection("pageTitle", false) </a></h1>
+        <div align="left">
+            <div class="menu">
+                <ul>
+                    <li><a target="_self" href="#">Deployment</a>
+                        <ul>
+                            <li><a target="_self" href="@Url.Action("index", "deployment")">Production</a></li>
+                            <li><a target="_self" href="@Url.Action("index", "backup")">Backup/Restore</a></li>
+                            <li><a target="_self" href="@Url.Action("index", "readmodel")">Read Model Generation</a></li>
+                        </ul>
+                    </li>
+                    <li><a target="_self" href="#">Data</a>
+                        <ul>
+                            <li><a target="_self" href="@Url.Action("index", "affiliates")">Affiliates Management</a></li>
+                            <li><a target="_self" href="@Url.Action("Index", "ReadModelUpdaters")">Read Model Updates</a></li>
+                            <li><a target="_self" href="@Url.Action("AddGlobalAdmin", "userLogins")">Permissions</a></li>
+                            <li><a target="_self" href="/Api/Yodlee/RefreshContentServices">Refresh Yodlee Services</a></li>
+                          @*  <li><a target="_self" href="@Url.Action("index", "transfer")">Transferring</a></li>
+                            <li><a target="_self" href="@Url.Action("transfercreditreports", "transfer")">Transfer
+                                Credit Reports</a></li>
+                            <li><a target="_self" href="@Url.Action("index", "testData")">Generate Test Data</a></li>*@
+                        </ul>
+                    </li>
+                    <li><a target="_self" href="#">Statistic</a>
+                        <ul>
+                            <li><a target="_self" href="@Url.Action("index", "userLogins")">User logins</a></li>
+                            <li><a target="_self" href="@Url.Action("index", "eventsLog")">Events log</a></li>
+                        </ul>
+                    </li>
+                    <li><a target="_self" href="@Url.Action("index", "logs")">Logs</a>
+                        <ul>
+                            <li><a target="_self" href="@Url.Action("index", "logs")">Web app Logs</a></li>
+                            <li><a target="_self" href="@Url.Action("logs", "Aggregation")">Aggregation Logs</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

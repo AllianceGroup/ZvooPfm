@@ -1,0 +1,77 @@
+<header id="header">
+    <div id="logo-group">
+    <!-- PLACE YOUR LOGO HERE -->
+        <span id="logo"> <img src="styles/img/Alliance-pfm.png" alt="SmartAdmin"> </span>
+    <!-- END LOGO PLACEHOLDER -->
+    </div>
+
+<div class="pull-right" >
+
+    <div id="hide-menu" class="btn-header pull-right">
+        <span>
+            <a href="javascript:void(0)" data-ng-click="toggleMobileMenu()" title="Collapse Menu">
+                <i class="fa fa-reorder"></i>
+            </a>
+        </span>
+    </div>
+
+    <ul class="header-dropdown-list padding-7">
+        <li class="hidden-xs">
+            <a ng-click="authCtrl.logOut()" title="Logout" class="btn btn-default" data-action="userLogout">
+                <i class="fa fa-sign-out fa-lg"></i>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="header-dropdown-list padding-7">
+        <div class="btn-group">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-lg fa-cogs txt-color-blueDark"></i> Profile settings
+            </button>
+            <ul class="dropdown-menu pull-right user-dropdown__menu">
+                <li>
+                    <a ng-click="authCtrl.getProfile()"><i class="fa fa-gear fa-lg"></i> My profile</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a ng-click="authCtrl.getMembership()"><i class="fa fa-lg fa-users"></i> My membership</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a ng-click="authCtrl.getAlerts()"><i class="fa fa-lg fa-warning"></i> My alerts</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a ng-click="authCtrl.getFinancialInfo()"><i class="fa fa-lg fa-money"></i> Financial</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a ng-click="authCtrl.getRealEstate()"><i class="fa fa-lg fa-home"></i> Real Estate</a>
+                </li>
+            </ul>
+        </div>
+    </ul>
+    <ul class="header-dropdown-list padding-7">
+        <div class="btn-group">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                {{authCtrl.getSelectedRole().text}}
+            </button>
+            <ul class="dropdown-menu pull-right user-dropdown__menu">
+                <li>
+                    <a data-ui-sref="app.personal.dashboard">Personal Finances</a>
+                </li>
+                <li>
+                    <a ng-click="" data-ui-sref="business">Business Finances</a>
+                </li>
+                <li ng-if ="authCtrl.isRoleAvailable(authCtrl.availableRoles.affiliate)">
+                    <a data-ui-sref="app.affiliateAdmin.users">Affiliate Admin</a>
+                </li>
+                <li ng-if="authCtrl.isRoleAvailable(authCtrl.availableRoles.global)">
+                    <a data-ui-sref="app.globalAdmin.users">Global Admin</a>
+                </li>
+            </ul>
+        </div>
+    </ul>
+ </div>
+
+</header>

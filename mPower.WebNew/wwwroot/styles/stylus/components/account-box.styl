@@ -1,0 +1,36 @@
+.account-box
+
+  &__actions
+    display flex
+    justify-content space-between
+    align-items center
+
+  &__actions-btn
+    display inline-block
+    color brandInfoHoverColor
+    margin-right 15px
+    cursor pointer
+    transition color .25s ease
+    &:hover
+      color whiteColor
+
+
+  &__panel-heading
+    .panel-title
+      a
+        background grayColor
+        align-items center
+        &.collapsed
+          background #fff
+          transition background .25s ease
+          &:hover
+            background grayColor
+
+  &__header
+    display flex
+    justify-content space-between
+    align-items center
+
+  &__header-title
+    font-size 14px
+    margin 0 0 0 15px

@@ -1,0 +1,7 @@
+<div class="container-fluid month-line">
+    <div class="row text-center">
+        <div class="col-md-1" ng-repeat="month in trendsCtrl.Trends.Monthes">
+            <div class="month" ng-class="month.Active" ng-click="trendsCtrl.RefreshByMonth(month.Month, month.Year)">{{month.Text}} {{month.Year}}</div>
+        </div>
+    </div>
+</div>

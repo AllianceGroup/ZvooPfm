@@ -1,0 +1,260 @@
+﻿<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header></header>
+                    <div>
+                        <div class="container-fluid" id="form-container">
+                            <h1>Debt elimination program</h1>
+                            <p class="alert alert-info">
+                                Our powerful debt elimination system will generate a custom payment plan based on your unique, financial situation in three simple steps.
+                            </p>
+                            <h1 class="txt-color-green">Eliminate your debt in 3 easy steps</h1>
+                            <div class="widget-body fuelux">
+                                <div class="wizard" data-initialize="wizard" id="Wizard">
+                                    <div class="steps-container">
+                                        <ul class="steps">
+                                            <li data-step="1" class="active" ng-click="eliminationProgramCtrl.proceedToStep1()">
+                                                <span class="badge badge-info">1</span>Complete Your Debt Information<span class="chevron"></span>
+                                            </li>
+                                            <li data-step="2" ng-click="eliminationProgramCtrl.proceedToStep2()">
+                                                <span class="badge">2</span>Select Payment Plan<span class="chevron"></span>
+                                            </li>
+                                            <li data-step="3" ng-click="eliminationProgramCtrl.proceedToStep3()">
+                                                <span class="badge">3</span>Debt elimination program<span class="chevron"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="step-content container-fluid" style="margin-top: 10px;">
+                                        <div class="step-pane active" data-step="1">
+                                            <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div>
+                                                            <p ng-repeat="error in eliminationProgramCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                                        </div>
+                                                        <p class="text-right">
+                                                            <button class="btn btn-success btn-labeled" ng-click="eliminationProgramCtrl.addAccounts()">
+                                                                <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add new debt
+                                                            </button>
+                                                        </p>
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="smart-form">
+                                                                    <label class="checkbox">
+                                                                        <input type="checkbox" name="checkbox-inline"
+                                                                               ng-click="eliminationProgramCtrl.toggleAllIds()"
+                                                                               ng-checked="eliminationProgramCtrl.selectedDebts.length === eliminationProgramCtrl.stepModel.Debts.length">
+                                                                        <i style="margin-top: -19px !important;"></i>
+                                                                    </label>
+                                                                </th>
+                                                                <th></th>
+                                                                <th>Credit Card or Other Debt</th>
+                                                                <th>Principal(Account Balance)</th>
+                                                                <th>InterestRate (%)</th>
+                                                                <th>Minimum Monthly Payment</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat="debt in eliminationProgramCtrl.stepModel.Debts">
+                                                                <td class="smart-form">
+                                                                    <label class="checkbox">
+                                                                        <input type="checkbox"
+                                                                               ng-checked="eliminationProgramCtrl.selectedDebts.indexOf(debt.Id) > -1"
+                                                                               ng-click="eliminationProgramCtrl.toggleId(debt.Id)">
+                                                                        <i></i>
+                                                                    </label>
+                                                                </td>
+                                                                <td><img src="/styles/img/app/accounts-icon2.png" /></td>
+                                                                <td class="txt-color-orange">{{debt.Name}}</td>
+                                                                <td>{{debt.Balance | centsCurrency}}</td>
+                                                                <td>{{debt.InterestRatePerc}}%</td>
+                                                                <td class="txt-color-orange">{{debt.MinMonthPaymentInCents | centsCurrency}}</td>
+                                                                <td>
+                                                                    <button class="btn btn-sm btn-info" ng-click="eliminationProgramCtrl.edit(debt.Id)">Edit</button>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <p class="text-center">
+                                                            <button class="btn btn-success" ng-disabled="eliminationProgramCtrl.selectedDebts.length === 0"
+                                                                    ng-click="eliminationProgramCtrl.proceedToStep2(true)">
+                                                                <i class="fa fa-arrow-right"></i>Proceed to step 2
+                                                            </button>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                        </div>
+
+                                        <div class="step-pane sample-pan" data-step="2">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        <p ng-repeat="error in eliminationProgramCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6 text-center">
+                                                            <h1 class="txt-color-green">Select your plan</h1>
+                                                            <div class="form-group col-md-6 col-md-offset-3">
+                                                                <label>Choose the style of program you want to use</label>
+                                                                <select class="form-control input-lg"  ng-model="eliminationProgramCtrl.stepModel.Plan">
+                                                                    <option ng-repeat="plan in eliminationProgramCtrl.stepModel.Plans" value="{{plan.Value}}">{{plan.Text}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 text-center">
+                                                            <h1 class="txt-color-green">Monthly budget</h1>
+                                                            <div class="form-group col-md-6 col-md-offset-3">
+                                                                <label>Enter how much extra cash you want to commit to help pay off debt.</label>
+                                                                <input format="currency" amount="eliminationProgramCtrl.stepModel.MonthlyBudget" type="text" class="form-control" ng-model="eliminationProgramCtrl.stepModel.MonthlyBudget"/>
+                                                                <div class="note">
+                                                                    Or
+                                                                    <button popover-placement="bottom" uib-popover-template="eliminationProgramCtrl.popoverTemplate" class="btn-link" ng-click="eliminationProgramCtrl.recommend()">Recommend Me A Budget</button>
+                                                                </div>
+                                                                <script type="text/ng-template" id="myPopoverTemplate.html">
+                                                                    <div>
+                                                                        <p>We recommend you commit to a regular monthly budget of  {{eliminationProgramCtrl.stepModel.RecommendedBudgetInCents | centsCurrency}} to eliminate your credit card debt.</p>
+                                                                        <p>Of course, you should also stop using these credit cards - or you will have to re-calculate your program occassionally.</p>
+                                                                    </div>
+                                                                </script>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-center" style="padding-top: 110px;">
+                                                        <button class="btn btn-sm btn-success"
+                                                                ng-click="eliminationProgramCtrl.proceedToStep3(true)">
+                                                            <i class="fa fa-arrow-right"></i>Proceed to step 3
+                                                        </button>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="step-pane" data-step="3">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="well well-margin">
+                                                            <h1>Summary of Your Debts and Your Savings Using this Program</h1>
+                                                            <div class="row text-center">
+                                                                <div class="col-md-4">
+                                                                    <div class="well well-margin">
+                                                                        <h1 class="txt-color-green">Using</h1>
+                                                                        <div class="note">Debt Elimination Program</div>
+                                                                        <h6>TOTAL DEBT: <span class="txt-color-green">{{eliminationProgramCtrl.stepModel.TotalPayedViaPlan | currency}}</span></h6>
+                                                                        <h6>PAYOFF TIME: <span class="txt-color-green">{{eliminationProgramCtrl.stepModel.PayoffTimeViaPlan}} yrs</span></h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="well well-margin">
+                                                                        <h1 class="txt-color-green">Without</h1>
+                                                                        <div class="note">Debt Elimination Program</div>
+                                                                        <h6>TOTAL DEBT: <span class="txt-color-green">{{eliminationProgramCtrl.stepModel.TotalPayed | currency}}</span></h6>
+                                                                        <h6>PAYOFF TIME: <span class="txt-color-green">{{eliminationProgramCtrl.stepModel.PayoffTime}} yrs</span></h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="well well-margin">
+                                                                        <h1 class="txt-color-green">Saved</h1>
+                                                                        <div class="note">Money and Years</div>
+                                                                        <h6>TOTAL DEBT: <span class="txt-color-green">{{eliminationProgramCtrl.stepModel.MoneySaved | currency}}</span></h6>
+                                                                        <h6>PAYOFF TIME: <span class="txt-color-green">{{(eliminationProgramCtrl.stepModel.YearsSaved).toFixed(1)}} yrs</span></h6>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <p class="alert alert-info" style="margin-top: 10px">The above figures show the time and money you could save by putting the amount you specified in Step 2 towards paying off your debt each month.</p>
+
+                                                        </div>
+                                                        <div class="well well-margin">
+                                                            <h1>Credit Card and Loan Balances Over Time Chart</h1>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-2 col-md-offset-5">
+                                                                    <label>Chart</label>
+                                                                    <select class="form-control"
+                                                                            ng-init="eliminationProgramCtrl.stepModel.DisplayMode = eliminationProgramCtrl.stepModel.DisplayMode.toString()"
+                                                                            ng-model="eliminationProgramCtrl.stepModel.DisplayMode"
+                                                                            ng-options="displayMode.Value as displayMode.Text for displayMode in eliminationProgramCtrl.stepModel.DisplayModes"
+                                                                            ng-change="eliminationProgramCtrl.changeDisplayMode()">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div>
+                                                                        <div line-chart
+                                                                             line-data='eliminationProgramCtrl.stepModel.Chart.Data'
+                                                                             line-xkey='y'
+                                                                             line-ykeys='eliminationProgramCtrl.stepModel.Chart.YKeys'
+                                                                             line-labels='eliminationProgramCtrl.stepModel.Chart.Labels'>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div ng-if="!eliminationProgramCtrl.stepModel.AddedToCalendar">
+                                                                <p class="alert alert-info" style="margin-top: 10px">This Debt Elimination Program is not yet added to your Calendar.</p>
+                                                                <div class="text-center">
+                                                                    <button class="btn btn-success" ng-click="eliminationProgramCtrl.addToCalendar()">Add to calendar</button>
+                                                                </div>
+                                                            </div>
+                                                            <div ng-if="eliminationProgramCtrl.stepModel.AddedToCalendar">
+                                                                <div class="text-center">
+                                                                    <button class="btn btn-success" ng-click="eliminationProgramCtrl.addToCalendar()">Update in calendar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="well well-margin">
+                                                            <h1>Payment Schedule</h1>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <table class="table table-hover">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>Debt</th>
+                                                                            <th>Date</th>
+                                                                            <th>Balance</th>
+                                                                            <th>Minimum</th>
+                                                                            <th>Payment</th>
+                                                                            <th>Principal</th>
+                                                                            <th>Interest</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        <tr ng-repeat="debt in eliminationProgramCtrl.stepModel.Details ">
+                                                                            <td class="txt-color-orange">{{debt.Debt}}</td>
+                                                                            <td>{{debt.Date | date: 'shortDate'}}</td>
+                                                                            <td>{{debt.BalanceInCents | centsCurrency}}</td>
+                                                                            <td>{{debt.MinPaymentInCents | centsCurrency}}</td>
+                                                                            <td>{{debt.ActualPaymentInCents | centsCurrency}}</td>
+                                                                            <td>{{debt.PrincipalPaymentInCents | centsCurrency}}</td>
+                                                                            <td>{{debt.InterestPaymentInCents | centsCurrency}}</td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

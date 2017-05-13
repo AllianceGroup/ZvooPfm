@@ -1,0 +1,7 @@
+<div class="container-fluid month-line">
+    <div class="row text-center">
+        <div class="col-md-1" ng-repeat="month in BudgetCtrl.Budget.GraphModel.Monthes">
+            <div class="month" ng-class="month.Active" ng-click="BudgetCtrl.Show(month.Month, month.Year)">{{BudgetCtrl.Months[month.Month - 1]}} {{month.Year}}</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="categoriesCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Add/Edit budget categories
+    </h4>
+</div>
+<div class="modal-body row">
+    <div>
+        <p ng-repeat="error in categoriesCtrl.errors" class="alert alert-danger">{{error}}</p>
+    </div>
+    <div class="widget-body">
+        <div class="row">
+            <form novalidate="novalidate" data-smart-validate-form>
+                <div class="col-md-12" data-smart-wizard data-smart-wizard-callback="wizard1CompleteCallback">
+                    <div style="margin-left: 120px;" class="form-bootstrapWizard clearfix">
+                        <ul class="bootstrapWizard">
+                            <li data-smart-wizard-tab="1" >
+                                <a href="#" > <span class="step">1</span> <span class="title">Income</span></a>
+                            </li>
+                            <li data-smart-wizard-tab="2" >
+                                <a href="#" > <span class="step">2</span> <span class="title">Expenses</span> </a>
+                            </li>
+                            <li data-smart-wizard-tab="3">
+                                <a href="#" > <span class="step">3</span> <span class="title">Review</span> </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane" data-smart-wizard-pane="1" >
+                            <div class="col-md-12 text-align-left" style="margin-top: 30px;">
+                                <span><h4><p>Enter income</p>
+                                    The first step in setting up a budget is to enter your monthly income. Please take a moment to enter information about your income below:
+                                </h4></span>
+                            </div>
+                            <div class="col-md-12 text-align-center">
+                                <span><h3>Total income {{categoriesCtrl.Budget.TotalIncome | currency}}</h3></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" ng-repeat="item in categoriesCtrl.Budget.IncomeItems">
+                                        <div class="col-md-12 input-group text-align-center">
+                                            <label class="col-md-4 control-label">{{item.AccountName}}</label>
+                                            <div class="col-md-5">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">$</span>
+                                                    <input class="form-control" ng-model="item.BudgetAmountInDollars" ng-change="categoriesCtrl.ChangeBudget('income')" type="number">
+                                                    <span class="input-group-addon">.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="btn-group">
+                                                    <div class="btn-group">
+                                                        <button ng-if="item.IsIncludedInBudget" class='btn btn-sm btn-default' ng-click="categoriesCtrl.HideBudget(item, 'income', false)"
+                                                                title="Clicking show/hidewill show or hide this budget category on the main budgets page.">Hide</button>
+                                                        <button ng-if="!item.IsIncludedInBudget" class='btn btn-sm btn-default' ng-click="categoriesCtrl.HideBudget(item, 'income', true)"
+                                                                title="Clicking show/hidewill show or hide this budget category on the main budgets page.">Show</button>
+                                                        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-gear"></i></a>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a ng-click="categoriesCtrl.Delete(item.AccountId)">Delete</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="categoriesCtrl.Added">
+                                        <div class="col-md-12 input-group text-align-center">
+                                            <div class="col-md-4">
+                                                <input class="form-control" type="text" ng-model="categoriesCtrl.NewBudget.AccountName" required placeholder="Enter account name">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">$</span>
+                                                    <input class="form-control" ng-model="categoriesCtrl.NewBudget.BudgetAmountInDollars" type="number" required placeholder="Enter amount">
+                                                    <span class="input-group-addon">.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="btn-group">
+                                                    <div class="btn-group">
+                                                        <button class='btn btn-sm btn-default' ng-click="categoriesCtrl.SaveBudget(categoriesCtrl.Budget.IncomeItems, 'Income')">Save</button>
+                                                        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-gear"></i></a>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a ng-click="categoriesCtrl.AddBudget()">Close</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="pull-left">
+                                            <button class="btn btn-success" ng-click="categoriesCtrl.AddBudget()">Add income category</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" data-smart-wizard-pane="2" >
+                            <div class="col-md-12 text-align-left" style="margin-top: 30px;">
+                                <span><h4><p>Monthly expenses</p>
+                                    Enter your monthly expenses below.
+                                </h4></span>
+                            </div>
+                            <div class="col-md-12 text-align-center">
+                                <span><h3>Total expenses {{categoriesCtrl.Budget.TotalExpense | currency}}</h3></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" ng-repeat="item in categoriesCtrl.Budget.ExpenseItems">
+                                        <div class="col-md-12 input-group text-align-center">
+                                            <label class="col-md-4 control-label">{{item.AccountName}}</label>
+                                            <div class="col-md-5">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">$</span>
+                                                    <input class="form-control" ng-model="item.BudgetAmountInDollars" ng-change="categoriesCtrl.ChangeBudget('expense')" type="number">
+                                                    <span class="input-group-addon">.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="btn-group">
+                                                    <div class="btn-group">
+                                                        <button ng-if="item.IsIncludedInBudget" class='btn btn-sm btn-default' ng-click="categoriesCtrl.HideBudget(item, 'expense', false)"
+                                                                title="Clicking show/hidewill show or hide this budget category on the main budgets page.">Hide</button>
+                                                        <button ng-if="!item.IsIncludedInBudget" class='btn btn-sm btn-default' ng-click="categoriesCtrl.HideBudget(item, 'expense', true)"
+                                                                title="Clicking show/hidewill show or hide this budget category on the main budgets page.">Show</button>
+                                                        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-gear"></i></a>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a ng-click="categoriesCtrl.Delete(item.AccountId)">Delete</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="categoriesCtrl.Added">
+                                        <div class="col-md-12 input-group text-align-center">
+                                            <div class="col-md-4">
+                                                <input class="form-control" type="text" ng-model="categoriesCtrl.NewBudget.AccountName" required placeholder="Enter account name">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">$</span>
+                                                    <input class="form-control" ng-model="categoriesCtrl.NewBudget.BudgetAmountInDollars" type="number" required placeholder="Enter amount">
+                                                    <span class="input-group-addon">.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="btn-group">
+                                                    <div class="btn-group">
+                                                        <button class='btn btn-sm btn-default' ng-click="categoriesCtrl.SaveBudget(categoriesCtrl.Budget.ExpenseItems, 'Expense')">Save</button>
+                                                        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-gear"></i></a>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a ng-click="categoriesCtrl.AddBudget()">Close</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="pull-left">
+                                            <button class="btn btn-success" ng-click="categoriesCtrl.AddBudget()">Add expenses category</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" data-smart-wizard-pane="3" >
+                            <div class="col-md-12 text-align-center" style="margin-top: 20px;">
+                                <span><h3>Review your budget</h3></span>
+                                <span><h5>If everything looks good, click "finish" below.</h5></span>
+                            </div>
+                            <div class="text-align-center">
+                                <span>Total income: {{categoriesCtrl.Budget.TotalIncome | currency}}</span>
+                                <br>
+                                <span>-Total expenses: {{categoriesCtrl.Budget.TotalExpense | currency}}</span>
+                                <br>
+                                <span>Left over: {{categoriesCtrl.Budget.TotalIncome - categoriesCtrl.Budget.TotalExpense | currency}}</span>
+                            </div>
+                            <div class="text-align-right" style="margin-right: 20px;">
+                                <button class="btn btn-info" ng-click="categoriesCtrl.Finish()">Finish</button>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer text-center">
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ul class="pager wizard no-margin">
+                                            <li class="previous" data-smart-wizard-prev>
+                                                <a href="#" class="btn btn-lg btn-default"> Previous </a>
+                                            </li>
+                                            <li class="next" data-smart-wizard-next>
+                                                <a href="#" class="btn btn-lg btn-default"> Next </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

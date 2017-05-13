@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="ParalectConfig" BeforeTargets="PreBuildEvent">
+    <Exec Command="&quot;$(MSBuildProjectDirectory)\..\Paralect.Config.exe&quot; /silent" />
+  </Target>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{63D05134-AFEA-416C-9D03-59FF82B8A8D6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mPower.Schedule.Server</RootNamespace>
+    <AssemblyName>mPower.Schedule.Server</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C5">
+      <HintPath>..\..\libs\Quartz\C5.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\Quartz\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net">
+      <HintPath>..\..\libs\Quartz\Common.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.NLog">
+      <HintPath>..\..\libs\Quartz\Common.Logging.NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=1.11.0.92, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.11.0\lib\net35\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.11.0.92, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.11.0\lib\net35\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mPower.Aggregation.Client">
+      <HintPath>..\..\tools\mPower.Aggregation\mPower.Aggregation.Client\bin\Debug\mPower.Aggregation.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="mPower.Aggregation.Contract">
+      <HintPath>..\..\tools\mPower.Aggregation\mPower.Aggregation.Contract\bin\Debug\mPower.Aggregation.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.Config, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\Paralect\Paralect.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.Domain, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Domain.1.1.2.0\lib\net40\Paralect.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.ServiceBus, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.ServiceBus.1.1.2.0\lib\net40\Paralect.ServiceBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.ServiceLocator.StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.ServiceLocator.StructureMap.1.0.0.0\lib\net40\Paralect.ServiceLocator.StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.Transitions, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Transitions.1.1.2.0\lib\net40\Paralect.Transitions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.Transitions.Mongo, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Transitions.Mongo.1.1.2.0\lib\net40\Paralect.Transitions.Mongo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Quartz, Version=2.3.3.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\Quartz\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.0.1.318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.0.1.318\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=4.0.1.318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.0.1.318\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v2.0\Assemblies\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Topshelf, Version=3.3.154.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\Quartz\Topshelf.dll</HintPath>
+    </Reference>
+    <Reference Include="TransUnionWrapper">
+      <HintPath>..\..\libs\TransUnionWrapper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Environment\Configuration.cs" />
+    <Compile Include="Environment\IoCJobFactory.cs" />
+    <Compile Include="Environment\IQuartzServer.cs" />
+    <Compile Include="Environment\IScheduledJob.cs" />
+    <Compile Include="Environment\QuartzServerFactory.cs" />
+    <Compile Include="Jobs\AggregationTimeoutHandlingJob.cs" />
+    <Compile Include="Jobs\DownloadAccessDataJobScheduled.cs" />
+    <Compile Include="Jobs\NotificationSendScheduleJob.cs" />
+    <Compile Include="Jobs\PullIntuitDataJob.cs" />
+    <Compile Include="Jobs\UpdateCreditAlertsJob.cs" />
+    <Compile Include="Jobs\UpdateIntuitInstitutions.cs" />
+    <Compile Include="Jobs\UpdateSegmentsJob.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Environment\QuartzServer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <DependentUpon>App.config.xslt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="App_Readme\RequestReduce.readme.txt" />
+    <Content Include="NLog.config">
+      <DependentUpon>NLog.config.xslt</DependentUpon>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="quartz.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.config.xslt">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NLog.config.xslt">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="quartz_jobs.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Default\Default.csproj">
+      <Project>{56d1b15d-7d14-48f6-bb2a-2d1d877776fc}</Project>
+      <Name>Default</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Documents\mPower.Documents.Server.csproj">
+      <Project>{BFD9845E-DFD0-4E9E-941D-5532751C7153}</Project>
+      <Name>mPower.Documents.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Domain\mPower.Domain.csproj">
+      <Project>{CF6CBC87-0BF9-4E69-9937-650A47D54F7B}</Project>
+      <Name>mPower.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.EventHandlers\mPower.EventHandlers.csproj">
+      <Project>{CD6B321B-5046-4FB0-AA5F-B803FE8E4CC3}</Project>
+      <Name>mPower.EventHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Framework\mPower.Framework.csproj">
+      <Project>{3A145847-D3DF-46B9-B9F5-DC0244C24CC1}</Project>
+      <Name>mPower.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.OfferingsSystem\mPower.OfferingsSystem.csproj">
+      <Project>{15c74d9a-4fbe-49c2-b989-6f110b77fb0c}</Project>
+      <Name>mPower.OfferingsSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.TempDocuments.Server\mPower.TempDocuments.Server.csproj">
+      <Project>{CEAF8300-81FB-4CE2-98C7-4377C72C8A7B}</Project>
+      <Name>mPower.TempDocuments.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+start /MIN xcopy /s /y "$(SolutionDir)packages\RequestReduce.1.7.105\pngoptimization\*.exe" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

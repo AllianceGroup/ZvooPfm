@@ -1,0 +1,94 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="UserInfoGlobalCtrl.dismiss('cancel')">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Extended User Details
+    </h4>
+</div>
+<div class="modal-body row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <table class="table table-hover" style="margin-top: 20px">
+                <tbody>
+                <tr>
+                    <td>Id:</td>
+                    <td>{{UserInfoGlobalCtrl.user.Id}}</td>
+                </tr>
+                <tr>
+                    <td>Is Active:</td>
+                    <td>{{UserInfoGlobalCtrl.user.IsActive}}</td>
+                </tr>
+                <tr>
+                    <td>Tenant Id:</td>
+                    <td>{{UserInfoGlobalCtrl.user.ApplicationId}}</td>
+                </tr>
+                <tr>
+                    <td>Auth token:</td>
+                    <td>{{UserInfoGlobalCtrl.user.AuthToken}}</td>
+                </tr>
+                <tr>
+                    <td>Created date:</td>
+                    <td>{{UserInfoGlobalCtrl.user.CreateDate | date: 'MM/dd/yy'}}</td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>{{UserInfoGlobalCtrl.user.Email}}</td>
+                </tr>
+                <tr>
+                    <td>Zip code:</td>
+                    <td>{{UserInfoGlobalCtrl.user.ZipCode}}</td>
+                </tr>
+                <tr>
+                    <td>Full Name:</td>
+                    <td>{{UserInfoGlobalCtrl.user.FullName}}</td>
+                </tr>
+                <tr>
+                    <td>Is enrolled:</td>
+                    <td>{{UserInfoGlobalCtrl.user.IsEnrolled}}</td>
+                </tr>
+                <tr>
+                    <td>Last login date:</td>
+                    <td>{{UserInfoGlobalCtrl.user.LastLoginDate | date: 'MM/dd/yy'}}</td>
+                </tr>
+                <tr>
+                    <td>Mobile access token:</td>
+                    <td>{{UserInfoGlobalCtrl.user.MobileAccessToken}}</td>
+                </tr>
+                <tr>
+                    <td>Last password change date:</td>
+                    <td>{{UserInfoGlobalCtrl.user.LastPasswordChangedDate | date: 'MM/dd/yy'}}</td>
+                </tr>
+                <tr>
+                    <td>Password answer:</td>
+                    <td>{{UserInfoGlobalCtrl.user.PasswordAnswer}}</td>
+                </tr>
+                <tr>
+                    <td>Password question:</td>
+                    <td>{{UserInfoGlobalCtrl.user.PasswordQuestion}}</td>
+                </tr>
+                <tr>
+                    <td>Permissions:</td>
+                    <td>{{UserInfoGlobalCtrl.user.Permissions}}</td>
+                </tr>
+                <tr>
+                    <td>Phones:</td>
+                    <td>{{UserInfoGlobalCtrl.user.Phones}}</td>
+                </tr>
+                <tr>
+                    <td>Security level:</td>
+                    <td>{{UserInfoGlobalCtrl.user.SecurityLevel}}</td>
+                </tr>
+                <tr>
+                    <td>User name:</td>
+                    <td>{{UserInfoGlobalCtrl.user.UserName}}</td>
+                </tr>
+                <tr>
+                    <td>Referral code:</td>
+                    <td>{{UserInfoGlobalCtrl.user.ReferralCode}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

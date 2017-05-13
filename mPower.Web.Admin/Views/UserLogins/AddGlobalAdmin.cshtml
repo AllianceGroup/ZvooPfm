@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "User logins ";
+}
+
+@section pageTitle{ 
+    - add global admin permissions
+    }
+@using(Html.BeginForm())
+{
+    
+    <h1>Assign Global Admin Persmissions</h1>
+    <label>UserId</label>
+    <input type="text" name="userId" id="userId"/>
+    <input type="submit" value="Add Permissions"/>
+    
+}

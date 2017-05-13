@@ -1,0 +1,44 @@
+<div id="content">
+    <section>
+        <div class="col-md-12">
+            <div jarvis-widget
+                 data-widget-editbutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-togglebutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-custombutton="false"
+                 data-widget-sortable="true"
+                 data-widget-color="blue">
+                <header><h2>Send mail</h2></header>
+                <div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <p ng-repeat="error in mailCtrl.errors" class="alert alert-danger">{{error}}</p>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-8">
+                                <div class="widget-body">
+                                    <select multiple="multiple" ng-model="mailCtrl.ids" size="10" data-smart-duallistbox data-non-selected-filter="ion ([7-9]|[1][0-2])">
+                                        <option ng-repeat="segment in mailCtrl.model.Segments" value="{{segment.Id}}">{{segment.Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-md-4">
+                                <div style="margin: 20px;">
+                                    <label class="control-label"><h3>Select email content</h3></label>
+                                    <select class="form-control" ng-model="mailCtrl.model.ContentId">
+                                        <option ng-repeat="content in mailCtrl.model.Contents" value="{{content.Value}}">{{content.Text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div ng-if="mailCtrl.roles.AffiliateAdminEdit" class="col-md-12 text-center" style="margin-bottom: 20px;">
+                                <button class="btn btn-success" ng-click="mailCtrl.send()"><i class="fa fa-send-o"></i> Send mail</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

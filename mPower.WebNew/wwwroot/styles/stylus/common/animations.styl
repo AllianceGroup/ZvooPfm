@@ -1,0 +1,17 @@
+@keyframes slideDown
+  0%
+    transform translateY(-150px)
+  70%
+    transform translateY(0)
+
+@keyframes slideUp
+  0%
+  50%
+    transform translateY(0)
+  100%
+    transform translateY(-150px)
+
+.slideDown-add
+  animation slideDown .5s ease-out
+.slideDown-remove
+  animation slideUp .5s ease-in

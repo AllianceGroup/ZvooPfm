@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "TransferSingleUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section pageTitle{ - transfer single user}
+@using(Html.BeginForm()){
+   
+     @Html.TextBox("username")
+    <input type="submit" value="transfer" />
+}

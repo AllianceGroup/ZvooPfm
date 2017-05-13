@@ -1,0 +1,15 @@
+﻿@model mPower.Web.Admin.Controllers.IntuitLogFilter
+
+@using (Html.BeginForm("Logs", "Aggregation", FormMethod.Get))
+{
+    @Html.HiddenFor(x => x.PagingInfo.CurrentPage)
+    @Html.HiddenFor(x => x.PagingInfo.ItemsPerPage)
+
+    @Html.LabelFor(x => x.SearchKey)
+    @Html.TextBoxFor(x => x.SearchKey)
+    @Html.LabelFor(x => x.UserId)
+    @Html.TextBoxFor(x => x.UserId)
+    @Html.LabelFor(x => x.ExceptionId)
+    @Html.TextBoxFor(x => x.ExceptionId)
+    <input type="submit" value="Search"/>
+ }

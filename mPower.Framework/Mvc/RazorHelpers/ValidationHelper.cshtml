@@ -1,0 +1,19 @@
+﻿@using System.Web.Mvc
+@* Generator : MvcHelper *@
+@helper ValidationSummaryWithHtml(this HtmlHelper html)
+{
+    if (!html.ViewData.ModelState.IsValid)
+    {
+    <div class="validation-summary-errors">
+        <ul>
+            @foreach (var key in html.ViewData.ModelState.Keys)
+            {
+                foreach (var err in html.ViewData.ModelState[key].Errors)
+                {
+                <li>@html.Raw(err.ErrorMessage)</li>
+                }
+            }
+        </ul>
+    </div>
+    }
+}

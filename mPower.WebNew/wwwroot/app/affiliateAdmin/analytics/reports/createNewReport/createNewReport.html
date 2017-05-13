@@ -1,0 +1,931 @@
+<div id="content">
+    <div class="row">
+        <big-breadcrumbs items="['Affiliate Admin', 'Create new report']" class="col-xs-12 col-sm-7 col-md-7 col-lg-4" icon="file-text-o"></big-breadcrumbs>
+    </div>
+    <section id="widget-grid" widget-grid>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget id="form-grid-widget" data-widget-editbutton="false" data-widget-color="blue">
+                    <header></header>
+                    <div>
+                        <div class="widget-body">
+                            <form class="smart-form">
+                                <header class="text-center">
+                                    <h1>Target report</h1>
+                                </header>
+                                <fieldset>
+                                    <section>
+                                        <div>
+                                            <div class="col-md-6">
+                                                <div class="text-center">
+                                                    <h4>Report name:</h4><label class="input"><input type="text"></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 text-center" style="margin-top: 20px;">
+                                                <a data-ui-sref="app.affiliateAdmin.createReport"><h2>Clear all filters</h2></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top:20px;" id="tabs" data-smart-jqui-tabs>
+                                            <ul>
+                                                <li>
+                                                    <a href="#application">Application</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#demographics">Demographics</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#daterange">Date range</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#finances">Finances</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#merchants">Merchants</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#category">Category spending</a>
+                                                </li>
+                                            </ul>
+                                            <div id="application">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Available filters:</th>
+                                                        <th width="100">Condition</th>
+                                                        <th width="150">Condition</th>
+                                                        <th width="80">Value</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Number of logins
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Number of Aggregated Accounts
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Number of Bank Accounts
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Number of Credit Card Accounts
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Number of Loan Accounts
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Number of goals set up
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Number of Investment Accounts
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Number of Real Estate Properties
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Have set up debt elimination program
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Have set up mortgage acceleration program
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Have authenticated a credit identity
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Have set up mortgage acceleration program
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Have an emergency fund
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Have an retirement plan
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Include deactivated users
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Include all network users
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="demographics">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Available filters:</th>
+                                                        <th width="100">Value</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            Gender
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>---Select---</option>
+                                                                    <option>Male</option>
+                                                                    <option>Female</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Age Range From
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Age Range To
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            State
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>---Select---</option>
+                                                                    <option>AL</option>
+                                                                    <option>AK</option>
+                                                                    <option>AZ</option>
+                                                                    <option>AR</option>
+                                                                    <option>CA</option>
+                                                                    <option>CT</option>
+                                                                    <option>DE</option>
+                                                                    <option>FL</option>
+                                                                    <option>GA</option>
+                                                                    <option>HI</option>
+                                                                    <option>ID</option>
+                                                                    <option>IL</option>
+                                                                    <option>IN</option>
+                                                                    <option>IA</option>
+                                                                    <option>KS</option>
+                                                                    <option>KY</option>
+                                                                    <option>LA</option>
+                                                                    <option>ME</option>
+                                                                    <option>MD</option>
+                                                                    <option>MA</option>
+                                                                    <option>MI</option>
+                                                                    <option>MN</option>
+                                                                    <option>MS</option>
+                                                                    <option>MO</option>
+                                                                    <option>MT</option>
+                                                                    <option>NE</option>
+                                                                    <option>NV</option>
+                                                                    <option>NH</option>
+                                                                    <option>NJ</option>
+                                                                    <option>NM</option>
+                                                                    <option>NY</option>
+                                                                    <option>NC</option>
+                                                                    <option>ND</option>
+                                                                    <option>OH</option>
+                                                                    <option>OK</option>
+                                                                    <option>OR</option>
+                                                                    <option>PA</option>
+                                                                    <option>RI</option>
+                                                                    <option>SC</option>
+                                                                    <option>SD</option>
+                                                                    <option>TN</option>
+                                                                    <option>TX</option>
+                                                                    <option>UT</option>
+                                                                    <option>VT</option>
+                                                                    <option>VA</option>
+                                                                    <option>WA</option>
+                                                                    <option>WV</option>
+                                                                    <option>WI</option>
+                                                                    <option>WY</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Zip Code
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="daterange">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Available filters:</th>
+                                                        <th width="150"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            Date Range
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>Last 30 days</option>
+                                                                    <option>Last 60 days</option>
+                                                                    <option>Last 90 days</option>
+                                                                    <option>Custom range</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="finances">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Available filters:</th>
+                                                        <th width="150">Condition</th>
+                                                        <th width="150">Condition</th>
+                                                        <th width="100">Value</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Available cash
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Amount of debt
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Amount in investment accounts
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Amount of credit card debt
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Debt trend
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>increasing</option>
+                                                                    <option>decreasing</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Has setup a budget
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Over budget in a category
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                    Select Account...
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li class="dropdown-header">Income</li>
+                                                                    <li><a href="#">Paycheck/Salary</a></li>
+                                                                    <li><a href="#">Uncategorized Income</a></li>
+                                                                    <li class="dropdown-header">Expense</li>
+                                                                    <li><a href="#">Air Travel</a></li>
+                                                                    <li><a href="#">Allowance</a></li>
+                                                                    <li><a href="#">Baby Supplies</a></li>
+                                                                    <li><a href="#">Gifts & Donations</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Under budget in a category
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                    Select Account...
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li class="dropdown-header">Income</li>
+                                                                    <li><a href="#">Paycheck/Salary</a></li>
+                                                                    <li><a href="#">Uncategorized Income</a></li>
+                                                                    <li class="dropdown-header">Expense</li>
+                                                                    <li><a href="#">Air Travel</a></li>
+                                                                    <li><a href="#">Allowance</a></li>
+                                                                    <li><a href="#">Baby Supplies</a></li>
+                                                                    <li><a href="#">Gifts & Donations</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Available credit
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Mortgage amount
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Mortgage interest rate (% per year)
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Monthly income
+                                                            </label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="merchants">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Shops at:</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Available filters:</th>
+                                                        <th width="150">Condition</th>
+                                                        <th width="150">Condition</th>
+                                                        <th width="100">Value</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Number of purchases
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>per year</option>
+                                                                    <option>per month</option>
+                                                                    <option>per week</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Dollar volume
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>average</option>
+                                                                    <option>total</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="category">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Shops in category:</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="select">
+                                                                <select style="font-weight:normal">
+                                                                    <option value="0" selected="">--Select--</option>
+                                                                    <optgroup value="1" label="Auto & Transport">
+                                                                        <option value="2">Auto Insurance</option>
+                                                                        <option value="3">Parking</option>
+                                                                        <option value="4">Public Transportation</option>
+                                                                        <option value="5">Service & Parts</option>
+                                                                    </optgroup>
+                                                                </select> <i></i> </label>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Available filters:</th>
+                                                        <th width="150">Condition</th>
+                                                        <th width="150">Condition</th>
+                                                        <th width="100">Value</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Number of purchases
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>per year</option>
+                                                                    <option>per month</option>
+                                                                    <option>per week</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"><i></i>Dollar volume
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>average</option>
+                                                                    <option>total</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <select class="form-control">
+                                                                    <option>is greater than</option>
+                                                                    <option>is equal to</option>
+                                                                    <option>is less than</option>
+                                                                </select>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="input">
+                                                                <input type="text">
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </fieldset>
+                                <footer>
+                                    <button type="submit" class="btn btn-success">Apply</button>
+                                    <button type="button" class="btn btn-success">Save & finish</button>
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

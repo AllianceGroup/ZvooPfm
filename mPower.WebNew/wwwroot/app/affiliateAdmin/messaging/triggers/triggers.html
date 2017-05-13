@@ -1,0 +1,46 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-6 col-md-offset-3">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header><h2>Triggers</h2></header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-hover" style="margin-top: 20px">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="trigger in triggersCtrl.triggers">
+                                            <td>{{trigger.Name}}</td>
+                                            <td ng-if="trigger.Status == 0">Active</td>
+                                            <td ng-if="trigger.Status == 1">Inactive</td>
+                                            <td>
+                                                <button ng-if="triggersCtrl.roles.AffiliateAdminEdit" class='btn btn-xs btn-default' ng-click="triggersCtrl.editTrigger(trigger.Id)" title='edit triggers'><i class='fa fa-pencil'></i></button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

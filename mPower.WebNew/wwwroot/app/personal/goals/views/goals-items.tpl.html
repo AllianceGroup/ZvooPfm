@@ -1,0 +1,201 @@
+﻿<div ng-if="(goalsCtrl.activeGoalsExist || goalsCtrl.comleteGoalsExist || goalsCtrl.archivedGoalsExist)"
+     jarvis-widget
+     data-widget-editbutton="false"
+     data-widget-colorbutton="false"
+     data-widget-togglebutton="false"
+     data-widget-deletebutton="false"
+     data-widget-fullscreenbutton="false"
+     data-widget-custombutton="false"
+     data-widget-sortable="true"
+     data-widget-color="blue">
+    <header></header>
+    <div>
+        <div>
+            <div class="row">
+                <div class="col-md-7"><p class="alert alert-info">Your account has {{goalsCtrl.model.AvailableAmountInDollars | currency}} to allocate towards {{goalsCtrl.model.ActiveGoalsNumber}} goals</p></div>
+                <div class="col-md-1 hidden-xs text-right">Change linked account</div>
+                <div class="col-md-1 visible-xs">Change linked account</div>
+                <div class="col-md-4">
+                    <ol class="nya-bs-select" ng-model="goalsCtrl.availableAccounts.LinkedAccountId" data-size="6">
+                        <li nya-bs-option="account in goalsCtrl.availableAccounts.Accounts group by category.Group" data-value="account.Id" ng-click="goalsCtrl.changeLinkedAccount(account.Id, goalsCtrl.availableAccounts.LinkedAccountId)">
+                            <span class="dropdown-header">{{$group}}</span> <!-- group header cannot be searched -->
+                            <a>
+                                <strong>{{account.Name}}</strong>: {{account.Description}}<br/>{{account.BalanceInCents | centsCurrency}}
+                                <span class="glyphicon glyphicon-ok check-mark"></span>
+                            </a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="text-right hidden-xs">
+                <button class="btn btn-success" ui-sref="app.personal.goals.items.add.choose">Add a goal</button>
+            </div>
+            <div class="visible-xs mt10">
+                <button class="btn btn-success" ui-sref="app.personal.goals.items.add.choose">Add a goal</button>
+            </div>
+            <div class="container-fluid" ng-if="goalsCtrl.activeGoalsExist">
+                <h1>Active Goals</h1>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default row goal-item" ng-repeat="goal in goalsCtrl.model.ActiveItems" style="padding: 10px" ui-sref="app.personal.goals.details.item({goalId : goal.Id})">
+                            <div class="col-md-1">
+                                <h4 class="txt-color-orange">{{goal.StatusName}}</h4>
+                                <div style="margin-top: 30px">{{goal.PlannedDate | date : 'd MMM yyyy'}}</div>
+                            </div>
+                            <div class="col-md-1" >
+                                <img ng-src="/styles/img/app/{{goal.ImageName}}" />
+                            </div>
+                            <div class="col-md-9" ng-click="$event.stopPropagation()">
+                                <div class="row">
+                                    <div>
+                                        <slider min="0" step="1" max="goal.TotalAmountInDollars"
+                                                ng-model="goal.CurrentAmountInDollars"
+                                                on-stop-slide="goalsCtrl.changeMonthlyAmount(goal)"
+                                                ng-disabled="goal.Disabled"></slider>
+                                    </div>
+                                </div>
+                                <div class="row" ui-sref="app.personal.goals.details.item({goalId : goal.Id})">
+                                    <div class="col-md-6 text-left font-lg">{{goal.Title}}</div>
+                                    <div class="col-md-6 text-right font-md">
+                                        <span ng-if="goal.StatusName !== 'Projected'">Completed</span>
+                            <span ng-if="goal.StatusName === 'Projected'">
+                                <input class="text-right"  style="width: 70px" type="number"
+                                       ui-sref-ignore
+                                       ng-change="goalsCtrl.changeMonthlyAmount(goal)"
+                                       ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"
+                                       ng-model="goal.CurrentAmountInDollars"
+                                       ng-disabled="goal.Disabled" />
+                                ({{goal.MonthlyActualAmountInDollars}}$ of {{goal.MonthlyPlanAmountInDollars | currency}} this month)
+                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 text-center" style="margin-top: 20px">
+                                <h6>{{goal.TotalAmountInDollars | currency}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid" ng-if="goalsCtrl.comleteGoalsExist">
+                <h1>Completed Goals</h1>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default row goal-item" ng-repeat="goal in goalsCtrl.model.CompletedItems" style="padding: 10px"  ui-sref="app.personal.goals.details.item({goalId : goal.Id})">
+                            <div class="col-md-1">
+                                <h4 class="txt-color-orange">{{goal.StatusName}}</h4>
+                                <div style="margin-top: 30px">{{goal.PlannedDate | date : 'd MMM yyyy'}}</div>
+                            </div>
+                            <div class="col-md-1">
+                                <img ng-src="/styles/img/app/{{goal.ImageName}}" />
+                            </div>
+                            <div class="col-md-9"  ng-click="$event.stopPropagation()">
+                                <div class="row">
+                                    <div>
+                                        <slider min="0" step="1" max="goal.TotalAmountInDollars" ng-model="goal.MonthlyActualAmountInDollars" ng-disabled="true"></slider>
+                                    </div>
+                                </div>
+                                <div class="row" ui-sref="app.personal.goals.details.item({goalId : goal.Id})">
+                                    <div class="col-md-6 text-left font-lg">{{goal.Title}}</div>
+                                    <div class="col-md-6 text-right font-md">
+                                        <span ng-if="goal.StatusName !== 'Projected'">Completed</span>
+                                        <span ng-if="goal.StatusName === 'Projected'">({{goal.MonthlyActualAmountInDollars | currency}} of {{goal.MonthlyPlanAmountInDollars | currency}} this month)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 text-center" style="margin-top: 20px">
+                                <h6>{{goal.TotalAmountInDollars | currency}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid" ng-if="goalsCtrl.archivedGoalsExist">
+                <h1>ArchivedItems Goals</h1>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default row goal-item" ng-repeat="goal in goalsCtrl.model.ArchivedItems" style="padding: 10px" ui-sref="app.personal.goals.details.item({goalId : goal.Id})">
+                            <div class="col-md-1">
+                                <h4 class="txt-color-orange">{{goal.StatusName}}</h4>
+                                <div style="margin-top: 30px">{{goal.PlannedDate | date : 'd MMM yyyy'}}</div>
+                            </div>
+                            <div class="col-md-1">
+                                <img ng-src="/styles/img/app/{{goal.ImageName}}"/>
+                            </div>
+                            <div class="col-md-9" ng-click="$event.stopPropagation()">
+                                <div class="row">
+                                    <div>
+                                        <slider min="0" step="1" max="goal.TotalAmountInDollars" ng-model="goal.MonthlyActualAmountInDollars" ng-disabled="true"></slider>
+                                    </div>
+                                </div>
+                                <div class="row" ui-sref="app.personal.goals.details.item({goalId : goal.Id})">
+                                    <div class="col-md-6 text-left font-lg">{{goal.Title}}</div>
+                                    <div class="col-md-6 text-right font-md">
+                                        <span ng-if="goal.StatusName !== 'Projected'">Completed</span>
+                                        <span ng-if="goal.StatusName === 'Projected'">({{goal.MonthlyActualAmountInDollars | currency}} of {{goal.MonthlyPlanAmountInDollars | currency}} this month)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 text-center" style="margin-top: 20px">
+                                <h6>{{goal.TotalAmountInDollars | currency}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center">
+                <button ng-if="goalsCtrl.model.ArchivedItems" class="btn btn-info" ui-sref="app.personal.goals.items({type: 'Projected'})">View goals</button>
+                <button ng-if="!goalsCtrl.model.ArchivedItems" class="btn btn-info" ui-sref="app.personal.goals.items({type: 'Archived'})">View goals archive</button>
+            </p>
+        </div>
+    </div>
+</div>
+<div ng-if="!(goalsCtrl.activeGoalsExist || goalsCtrl.comleteGoalsExist) && goalsCtrl.type == 'Projected'">
+    <div class="row" ng-if="goalsCtrl.showStartWizard">
+        <article class="col-md-6 col-md-offset-3">
+            <div ng-mouseover="goalsCtrl.switch(true)"
+                 ng-mouseleave="goalsCtrl.switch(false)" class="well">
+                <div class="text-center">
+                    <div>
+                        <form class="lockscreen animated flipInY">
+                            <div>
+                                <span><h1>You don't have any goals yet</h1>
+                                    <img ng-if="goalsCtrl.isShowIcon" src="/styles/img/app/goal-no-items-hover.png"/>
+                                    <img ng-if="!goalsCtrl.isShowIcon" src="/styles/img/app/goal-no-items.png"/>
+                                </span>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <button ui-sref="app.personal.goals.items.add.choose" ng-click="goalsCtrl.switchWizard()" class="btn btn-success">add your first goal</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-info pull-right" ui-sref="app.personal.goals.items({type: 'Archived'})">View goals archive</button>
+        </article>
+    </div>
+</div>
+<div ng-if="!goalsCtrl.archivedGoalsExist && goalsCtrl.type == 'Archived'">
+    <article class="col-md-6 col-md-offset-3">
+        <div ng-mouseover="goalsCtrl.switch(true)"
+             ng-mouseleave="goalsCtrl.switch(false)" class="well">
+            <div class="text-center">
+                <div>
+                    <form class="lockscreen animated flipInY">
+                        <div>
+                            <span><h1>You don't have any archived goals yet</h1>
+                                <img ng-if="goalsCtrl.isShowIcon" src="/styles/img/app/goal-no-items-hover.png"/>
+                                <img ng-if="!goalsCtrl.isShowIcon" src="/styles/img/app/goal-no-items.png"/>
+                            </span>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <button ui-sref="app.personal.goals.items({type: 'Projected'})" class="btn btn-success">Back to goals</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>

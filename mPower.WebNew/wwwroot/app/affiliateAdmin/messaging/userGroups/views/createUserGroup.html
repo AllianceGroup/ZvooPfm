@@ -1,0 +1,566 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header class="text-center">
+                        <h2 ng-if="!createSegmentCtrl.model.Segment.IsNew">Edit user group</h2>
+                        <h2 ng-if="createSegmentCtrl.model.Segment.IsNew">Create user group</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body">
+                            <form class="smart-form">
+                                <fieldset>
+                                    <section>
+                                        <div>
+                                            <div class="row">
+                                                <p ng-repeat="error in createSegmentCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6">
+                                                        <label>
+                                                            <label class="input">
+                                                                <label>Name</label><input type="text" name="username" ng-model="createSegmentCtrl.model.Segment.Name">
+                                                            </label>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 text-right">
+                                                        <button type="button" ng-click="createSegmentCtrl.clearFilters()" class="btn btn-sm btn-info">Clear all filters</button>
+                                                        <label>
+                                                            <i class="fa fa-male fa-2x"></i>
+                                                            Estimated reach {{createSegmentCtrl.model.Segment.ReachFormatted}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div style="margin-top: 20px;" data-smart-jqui-accordion>
+                                                <div>
+                                                    <h4>Application</h4>
+                                                    <div class="padding-10">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th width="30%">Available filters:</th>
+                                                                <th width="63%">Condition</th>
+                                                                <th width="7%">Value</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat="option in createSegmentCtrl.model.Segment.ApplicationOptions">
+                                                                <td>
+                                                                    <label class="checkbox">
+                                                                        <input type="checkbox" name="checkbox-inline" ng-model="option.Enabled"><i></i>{{option.Title}}
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Full">
+                                                                        <select class="form-control" ng-model="option.Condition" ng-init="option.Condition = option.Condition.toString()">
+                                                                            <option value="0">average</option>
+                                                                            <option value="1">total</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Trend">
+                                                                        <select class="form-control" ng-model="option.Trend" ng-init="option.Trend = option.Trend.toString()">
+                                                                            <option value="0">increasing</option>
+                                                                            <option value="1">decreasing</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Default
+                                                                || option.Type == createSegmentCtrl.TypeEnum.Frequency || option.Type == createSegmentCtrl.TypeEnum.Full">
+                                                                        <select class="form-control" ng-model="option.Comparer" ng-init="option.Comparer = option.Comparer.toString()">
+                                                                            <option value="0">is equal to</option>
+                                                                            <option value="1">is greater than</option>
+                                                                            <option value="2">is less than</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Frequency">
+                                                                        <select class="form-control" ng-model="option.Frequency" ng-init="option.Frequency = option.Frequency.toString()">
+                                                                            <option value="0">per year</option>
+                                                                            <option value="1">per month</option>
+                                                                            <option value="2">per week</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Custom">
+                                                                        <label class="select">
+                                                                            <select ng-model="option.Value">
+                                                                                <option value="">-- Select Account --</option>
+                                                                                <option ng-repeat="category in createSegmentCtrl.model.CategoriesList" value="{{category.Value}}">
+                                                                                    {{category.Value}} ({{category.Group}})
+                                                                                </option>
+                                                                            </select> <i></i>
+                                                                        </label>
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label ng-if="option.Type == createSegmentCtrl.TypeEnum.Default
+                                                            || option.Type == createSegmentCtrl.TypeEnum.Frequency || option.Type == createSegmentCtrl.TypeEnum.Full"
+                                                                           class="input">
+                                                                        <input ng-model="option.Value" type="text">
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h4>Demographics</h4>
+                                                    <div class="padding-10">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Available filters:</th>
+                                                                <th width="100">Value</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    Gender
+                                                                </td>
+                                                                <td>
+                                                                    <label class="select">
+                                                                        <select ng-model="createSegmentCtrl.model.Segment.Gender" ng-init="createSegmentCtrl.model.Segment.Gender = createSegmentCtrl.model.Segment.Gender.toString()">
+                                                                            <option value="">---Select---</option>
+                                                                            <option value="0">Male</option>
+                                                                            <option value="1">Female</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Age Range From
+                                                                </td>
+                                                                <td>
+                                                                    <label class="input">
+                                                                        <input ng-model="createSegmentCtrl.model.Segment.AgeRangeFrom" type="text">
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Age Range To
+                                                                </td>
+                                                                <td>
+                                                                    <label class="input">
+                                                                        <input ng-model="createSegmentCtrl.model.Segment.AgeRangeTo" type="text">
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    State
+                                                                </td>
+                                                                <td>
+                                                                    <label>
+                                                                        <select ng-model="createSegmentCtrl.model.Segment.State" class="form-control">
+                                                                            <option value="">---Select---</option>
+                                                                            <option value="AL">AL</option>
+                                                                            <option value="AK">AK</option>
+                                                                            <option value="AZ">AZ</option>
+                                                                            <option value="AR">AR</option>
+                                                                            <option value="CA">CA</option>
+                                                                            <option value="CT">CT</option>
+                                                                            <option value="DE">DE</option>
+                                                                            <option value="FL">FL</option>
+                                                                            <option value="GA">GA</option>
+                                                                            <option value="HI">HI</option>
+                                                                            <option value="ID">ID</option>
+                                                                            <option value="IL">IL</option>
+                                                                            <option value="IN">IN</option>
+                                                                            <option value="IA">IA</option>
+                                                                            <option value="KS">KS</option>
+                                                                            <option value="KY">KY</option>
+                                                                            <option value="LA">LA</option>
+                                                                            <option value="ME">ME</option>
+                                                                            <option value="MD">MD</option>
+                                                                            <option value="MA">MA</option>
+                                                                            <option value="MI">MI</option>
+                                                                            <option value="MN">MN</option>
+                                                                            <option value="MS">MS</option>
+                                                                            <option value="MO">MO</option>
+                                                                            <option value="MT">MT</option>
+                                                                            <option value="NE">NE</option>
+                                                                            <option value="NV">NV</option>
+                                                                            <option value="NH">NH</option>
+                                                                            <option value="NJ">NJ</option>
+                                                                            <option value="NM">NM</option>
+                                                                            <option value="NY">NY</option>
+                                                                            <option value="NC">NC</option>
+                                                                            <option value="ND">ND</option>
+                                                                            <option value="OH">OH</option>
+                                                                            <option value="OK">OK</option>
+                                                                            <option value="OR">OR</option>
+                                                                            <option value="PA">PA</option>
+                                                                            <option value="RI">RI</option>
+                                                                            <option value="SC">SC</option>
+                                                                            <option value="SD">SD</option>
+                                                                            <option value="TN">TN</option>
+                                                                            <option value="TX">TX</option>
+                                                                            <option value="UT">UT</option>
+                                                                            <option value="VT">VT</option>
+                                                                            <option value="VA">VA</option>
+                                                                            <option value="WA">WA</option>
+                                                                            <option value="WV">WV</option>
+                                                                            <option value="WI">WI</option>
+                                                                            <option value="WY">WY</option>
+                                                                        </select>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Zip Code
+                                                                </td>
+                                                                <td>
+                                                                    <label class="input" ng-repeat="zipCode in createSegmentCtrl.model.Segment.ZipCodes">
+                                                                        <input type="text" ng-model="createSegmentCtrl.model.Segment.ZipCodes[$index]">
+                                                                    </label>
+
+                                                                    <button class='btn btn-xs btn-link' ng-click="createSegmentCtrl.addItem(createSegmentCtrl.model.Segment.ZipCodes)">add item (limit of 5)</button>
+                                                                    <button class='btn btn-xs btn-link' ng-click="createSegmentCtrl.removeItem(createSegmentCtrl.model.Segment.ZipCodes)">remove last</button>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h4>Date range</h4>
+                                                    <div class="padding-10">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Available filters:</th>
+                                                                <th width="150" ng-if="createSegmentCtrl.model.Segment.DateRange === '3'">From</th>
+                                                                <th width="150" ng-if="createSegmentCtrl.model.Segment.DateRange === '3'">To</th>
+                                                                <th width="120"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    Date Range
+                                                                </td>
+                                                                <td ng-show="createSegmentCtrl.model.Segment.DateRange === '3'">
+                                                                    <label class="input">
+                                                                        <i class="icon-append fa fa-calendar"></i>
+                                                                        <input type="text" name="startdate" data-smart-datepicker ng-model="createSegmentCtrl.customDateRangeStart">
+                                                                    </label>
+                                                                </td>
+                                                                <td ng-show="createSegmentCtrl.model.Segment.DateRange === '3'">
+                                                                    <label class="input">
+                                                                        <i class="icon-append fa fa-calendar"></i>
+                                                                        <input type="text" name="startdate" data-smart-datepicker ng-model="createSegmentCtrl.customDateRangeEnd">
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label>
+                                                                        <select ng-model="createSegmentCtrl.model.Segment.DateRange" class="form-control"
+                                                                                ng-init="createSegmentCtrl.model.Segment.DateRange = createSegmentCtrl.model.Segment.DateRange.toString()">
+                                                                            <option value="">---Select---</option>
+                                                                            <option value="0">Last 30 days</option>
+                                                                            <option value="1">Last 60 days</option>
+                                                                            <option value="2">Last 90 days</option>
+                                                                            <option value="3">Custom range</option>
+                                                                        </select>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h4>Finances</h4>
+                                                    <div class="padding-10">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th width="30%">Available filters:</th>
+                                                                <th width="63%">Condition</th>
+                                                                <th width="7%">Value</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat="option in createSegmentCtrl.model.Segment.FinancesOptions">
+                                                                <td>
+                                                                    <label class="checkbox">
+                                                                        <input type="checkbox" name="checkbox-inline" ng-model="option.Enabled"><i></i>{{option.Title}}
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Full">
+                                                                        <select class="form-control" ng-model="option.Condition" ng-init="option.Condition = option.Condition.toString()">
+                                                                            <option value="0">average</option>
+                                                                            <option value="1">total</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Trend">
+                                                                        <select class="form-control" ng-model="option.Trend" ng-init="option.Trend = option.Trend.toString()">
+                                                                            <option value="0">increasing</option>
+                                                                            <option value="1">decreasing</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Default
+                                                                || option.Type == createSegmentCtrl.TypeEnum.Frequency || option.Type == createSegmentCtrl.TypeEnum.Full">
+                                                                        <select class="form-control" ng-model="option.Comparer" ng-init="option.Comparer = option.Comparer.toString()">
+                                                                            <option value="0">is equal to</option>
+                                                                            <option value="1">is greater than</option>
+                                                                            <option value="2">is less than</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Frequency">
+                                                                        <select class="form-control" ng-model="option.Frequency" ng-init="option.Frequency = option.Frequency.toString()">
+                                                                            <option value="0">per year</option>
+                                                                            <option value="1">per month</option>
+                                                                            <option value="2">per week</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Custom">
+                                                                        <label class="select">
+                                                                            <select ng-model="option.Value">
+                                                                                <option value="">-- Select Account --</option>
+                                                                                <option ng-repeat="category in createSegmentCtrl.model.CategoriesList" value="{{category.Value}}">
+                                                                                    {{category.Value}} ({{category.Group}})
+                                                                                </option>
+                                                                            </select> <i></i>
+                                                                        </label>
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label ng-if="option.Type == createSegmentCtrl.TypeEnum.Default
+                                                            || option.Type == createSegmentCtrl.TypeEnum.Frequency || option.Type == createSegmentCtrl.TypeEnum.Full"
+                                                                           class="input">
+                                                                        <input ng-model="option.Value" type="text">
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h4>Merchants</h4>
+                                                    <div class="padding-10">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Shops at:</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="col col-3">
+                                                                <td class="col-md-4">
+                                                                    <label class="select" ng-repeat="select in createSegmentCtrl.model.Segment.MerchantSelections">
+                                                                        <select ng-model="createSegmentCtrl.model.Segment.MerchantSelections[$index].Operation"
+                                                                                ng-init="createSegmentCtrl.model.Segment.MerchantSelections[$index].Operation = createSegmentCtrl.model.Segment.MerchantSelections[$index].Operation.toString()">
+                                                                            <option value="0">And</option>
+                                                                            <option value="1">Or</option>
+                                                                            <option value="2">Not</option>
+                                                                        </select>
+                                                                    </label>
+
+                                                                    <button class='btn btn-xs btn-link' ng-click="createSegmentCtrl.addItem(createSegmentCtrl.model.Segment.MerchantSelections)">add item (limit of 5)</button>
+                                                                    <button class='btn btn-xs btn-link' ng-click="createSegmentCtrl.removeItem(createSegmentCtrl.model.Segment.MerchantSelections)">remove last</button>
+                                                                </td>
+                                                                <td class="col-md-8">
+                                                                    <label class="input" ng-repeat="select in createSegmentCtrl.model.Segment.MerchantSelections">
+                                                                        <input type="text" ng-model="createSegmentCtrl.model.Segment.MerchantSelections[$index].MerchantName">
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th width="30%">Available filters:</th>
+                                                                <th width="63%">Condition</th>
+                                                                <th width="7%">Value</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat="option in createSegmentCtrl.model.Segment.MerchantOptions">
+                                                                <td>
+                                                                    <label class="checkbox">
+                                                                        <input type="checkbox" name="checkbox-inline" ng-model="option.Enabled"><i></i>{{option.Title}}
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Full">
+                                                                        <select class="form-control" ng-model="option.Condition" ng-init="option.Condition = option.Condition.toString()">
+                                                                            <option value="0">average</option>
+                                                                            <option value="1">total</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Trend">
+                                                                        <select class="form-control" ng-model="option.Trend" ng-init="option.Trend = option.Trend.toString()">
+                                                                            <option value="0">increasing</option>
+                                                                            <option value="1">decreasing</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Default
+                                                                || option.Type == createSegmentCtrl.TypeEnum.Frequency || option.Type == createSegmentCtrl.TypeEnum.Full">
+                                                                        <select class="form-control" ng-model="option.Comparer" ng-init="option.Comparer = option.Comparer.toString()">
+                                                                            <option value="0">is equal to</option>
+                                                                            <option value="1">is greater than</option>
+                                                                            <option value="2">is less than</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Frequency">
+                                                                        <select class="form-control" ng-model="option.Frequency" ng-init="option.Frequency = option.Frequency.toString()">
+                                                                            <option value="0">per year</option>
+                                                                            <option value="1">per month</option>
+                                                                            <option value="2">per week</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Custom">
+                                                                        <label class="select">
+                                                                            <select ng-model="option.Value">
+                                                                                <option value="">-- Select Account --</option>
+                                                                                <option ng-repeat="category in createSegmentCtrl.model.CategoriesList" value="{{category.Value}}">
+                                                                                    {{category.Value}} ({{category.Group}})
+                                                                                </option>
+                                                                            </select> <i></i>
+                                                                        </label>
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label ng-if="option.Type == createSegmentCtrl.TypeEnum.Default
+                                                            || option.Type == createSegmentCtrl.TypeEnum.Frequency || option.Type == createSegmentCtrl.TypeEnum.Full"
+                                                                           class="input">
+                                                                        <input ng-model="option.Value" type="text">
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h4>Category spending</h4>
+                                                    <div class="padding-10">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Shops in category:</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td class="col col-2">
+                                                                    <label class="select" ng-repeat="spendingCatgegory in createSegmentCtrl.model.Segment.SpendingCategories">
+                                                                        <select ng-model="createSegmentCtrl.model.Segment.SpendingCategories[$index]">
+                                                                            <option value="">-- Select --</option>
+                                                                            <option ng-repeat="category in createSegmentCtrl.model.NewSpendingCategories" value="{{category}}">{{category}}</option>
+                                                                        </select> <i></i>
+                                                                    </label>
+                                                                    <button class='btn btn-xs btn-link' ng-click="createSegmentCtrl.addItem(createSegmentCtrl.model.Segment.SpendingCategories)">add item (limit of 5)</button>
+                                                                    <button class='btn btn-xs btn-link' ng-click="createSegmentCtrl.removeItem(createSegmentCtrl.model.Segment.SpendingCategories)">remove last</button>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th width="30%">Available filters:</th>
+                                                                <th width="63%">Condition</th>
+                                                                <th width="7%">Value</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat="option in createSegmentCtrl.model.Segment.SpendingCategoryOptions">
+                                                                <td>
+                                                                    <label class="checkbox">
+                                                                        <input type="checkbox" name="checkbox-inline" ng-model="option.Enabled"><i></i>{{option.Title}}
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Full">
+                                                                        <select class="form-control" ng-model="option.Condition" ng-init="option.Condition = option.Condition.toString()">
+                                                                            <option value="0">average</option>
+                                                                            <option value="1">total</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Trend">
+                                                                        <select class="form-control" ng-model="option.Trend" ng-init="option.Trend = option.Trend.toString()">
+                                                                            <option value="0">increasing</option>
+                                                                            <option value="1">decreasing</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Default
+                                                                || option.Type == createSegmentCtrl.TypeEnum.Frequency || option.Type == createSegmentCtrl.TypeEnum.Full">
+                                                                        <select class="form-control" ng-model="option.Comparer" ng-init="option.Comparer = option.Comparer.toString()">
+                                                                            <option value="0">is equal to</option>
+                                                                            <option value="1">is greater than</option>
+                                                                            <option value="2">is less than</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="select col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Frequency">
+                                                                        <select class="form-control" ng-model="option.Frequency" ng-init="option.Frequency = option.Frequency.toString()">
+                                                                            <option value="0">per year</option>
+                                                                            <option value="1">per month</option>
+                                                                            <option value="2">per week</option>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                    <label class="col-md-2" ng-if="option.Type == createSegmentCtrl.TypeEnum.Custom">
+                                                                        <label class="select">
+                                                                            <select ng-model="option.Value">
+                                                                                <option value="">-- Select Account --</option>
+                                                                                <option ng-repeat="category in createSegmentCtrl.model.CategoriesList" value="{{category.Value}}">
+                                                                                    {{category.Value}} ({{category.Group}})
+                                                                                </option>
+                                                                            </select> <i></i>
+                                                                        </label>
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label ng-if="option.Type == createSegmentCtrl.TypeEnum.Default
+                                                            || option.Type == createSegmentCtrl.TypeEnum.Frequency || option.Type == createSegmentCtrl.TypeEnum.Full"
+                                                                           class="input">
+                                                                        <input ng-model="option.Value" type="text">
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </section>
+                                </fieldset>
+                                <footer>
+                                    <label class="pull-right" style="margin-top: 10px;margin-left: 5px;" >
+                                        <i class="fa fa-male fa-2x"></i>
+                                        Estimated reach {{createSegmentCtrl.model.Segment.ReachFormatted}}
+                                    </label>
+
+                                    <button ng-if="createSegmentCtrl.model.Segment.IsNew" type="button" class="btn btn-success" ng-click="createSegmentCtrl.save()">Save & finish</button>
+                                    <button ng-if="!createSegmentCtrl.model.Segment.IsNew" type="button" class="btn btn-success" ng-click="createSegmentCtrl.update()">Update & finish</button>
+                                    <button ng-click="createSegmentCtrl.estimateSegment()" class="btn btn-info">Apply</button>
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

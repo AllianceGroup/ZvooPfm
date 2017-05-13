@@ -1,0 +1,129 @@
+<div id="content">
+    <div>
+        <section class="row">
+            <div class="col-md-3" ui-view="leftpanel"></div>
+            <div class="col-md-9">
+                <div class="row">
+                    <article class="col-md-12">
+                        <div id="snapshot" jarvis-widget
+                             class="hint-2" 
+                             data-widget-editbutton="false"
+                             data-widget-colorbutton="false"
+                             data-widget-togglebutton="false"
+                             data-widget-deletebutton="false"
+                             data-widget-fullscreenbutton="false"
+                             data-widget-custombutton="false"
+                             data-widget-sortable="true"
+                             data-widget-color="blue">
+                            <header>
+                                <h2>Financial snapshot - {{dashboardCtrl.Date | date: 'MMMM'}} (month-to-date)</h2>
+                            </header>
+                            <div>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <ul class="list-group">
+                                                <li class="list-group-item"><span class="badge">{{dashboardCtrl.Budgets.TotalIncome}}</span>Income</li>
+                                                <li class="list-group-item"><span class="badge">{{dashboardCtrl.Budgets.TotalExpense}}</span>Expenses</li>
+                                                <li class="list-group-item"><span class="badge">{{dashboardCtrl.Budgets.RemainingTotal}}</span>Remaining</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul class="list-group">
+                                                <li class="list-group-item"><span class="badge">N/A</span>Total Monthly Savings</li>
+                                                <li class="list-group-item" ui-sref="app.personal.trends"><a href="#">View My Details</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <button class="btn btn-primary" style="margin-bottom: 20px" data-ui-sref="app.personal.dashboard.charts">View charts</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="row">
+                    <article class="col-md-12">
+                        <div id="budget" jarvis-widget
+                             class="hint-3" 
+                             data-widget-editbutton="false"
+                             data-widget-colorbutton="false"
+                             data-widget-togglebutton="false"
+                             data-widget-deletebutton="false"
+                             data-widget-fullscreenbutton="false"
+                             data-widget-custombutton="false"
+                             data-widget-sortable="true"
+                             data-widget-color="blue">
+                            <header>
+                                <h2>Budget: {{dashboardCtrl.Date | date: 'MMMM yyyy'}}</h2>
+                            </header>
+                            <div>
+                                <div class="container-fluid">
+                                    <div class="row" ng-repeat="budget in dashboardCtrl.Budgets.Budgets">
+                                        <div class="col-md-2">
+                                            {{budget.AccountName}}
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="progress">
+                                                <div class="progress-bar" ng-class="budget.Color" ng-style="{'width': budget.Percentage + '%'}">{{budget.Percentage}}%</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            {{budget.SpentAmount | centsCurrency}} of {{budget.BudgetAmount | centsCurrency}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <button ng-if="dashboardCtrl.Budgets.Budgets.length != 0" data-ui-sref="app.personal.budget" class="btn btn-primary" style="margin-bottom: 20px">
+                                                See all budget categories
+                                            </button>
+                                            <button ng-if="dashboardCtrl.Budgets.Budgets.length == 0" data-ui-sref="app.personal.budget" class="btn btn-info" style="margin-bottom: 20px">
+                                                Setup your budget now!
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="row">
+                    <article class="col-md-12">
+                        <div id="alerts" jarvis-widget data-widget-editbutton="false"
+                             data-widget-colorbutton="false"
+                             data-widget-togglebutton="false"
+                             data-widget-deletebutton="false"
+                             data-widget-fullscreenbutton="false"
+                             data-widget-custombutton="false"
+                             data-widget-sortable="true"
+                             data-widget-color="blue">
+                            <header>
+                                <h2 class="hint-4">Alerts</h2>
+                            </header>
+                            <div>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="alert alert-success alert-dismissible" role="alert" ng-repeat="alert in dashboardCtrl.Alerts">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="dashboardCtrl.delete(alert.Id)"><span aria-hidden="true">&times;</span></button>
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-md-3">{{alert.Date | date : format : timezone}}</div>
+                                                        <div class="col-md-7">{{alert.Text}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

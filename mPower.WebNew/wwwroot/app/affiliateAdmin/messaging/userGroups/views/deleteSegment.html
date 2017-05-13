@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="deleteSegmentCtrl.dismiss('cancel')">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Are you sure?
+    </h4>
+</div>
+<div class="modal-body row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Are you sure that you want to delete <strong>{{deleteSegmentCtrl.segment.Name}}</strong> segment?</label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer text-center">
+    <button type="button" class="btn btn-danger" ng-click="deleteSegmentCtrl.deleteSegment(deleteSegmentCtrl.segment.Id)">
+        Delete
+    </button>
+    <button type="button" class="btn btn-info" ng-click="deleteSegmentCtrl.dismiss('cancel')">
+        Cancel
+    </button>
+</div>

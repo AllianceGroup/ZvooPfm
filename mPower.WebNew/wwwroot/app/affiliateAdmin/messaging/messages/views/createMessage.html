@@ -1,0 +1,107 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-6">
+                <div jarvis-widget
+                     data-widget-color="blue"
+                     data-widget-colorbutton="false"
+                     data-widget-editbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-sortable="false"
+                     data-widget-deletebutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
+                        <h2>Message</h2>
+                    </header>
+                    <div>
+                        <div class="row">
+                            <p ng-repeat="error in createMessageCtrl.errors" class="alert alert-danger">{{error}}</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="margin:20px;">
+                                    <span class="text-center"><h1>Create message</h1></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form action class="smart-form">
+                                <fieldset>
+                                    <div class="row">
+                                        <section class="col col-4">
+                                            <label>Name</label>
+                                            <label class="input"> <i class="icon-append fa fa-envelope"></i>
+                                                <input type="text" name="username" ng-model="createMessageCtrl.message.Name">
+                                            </label>
+                                        </section>
+
+                                        <section class="col col-4">
+                                            <div class="form-group">
+                                                <label>Template</label>
+                                                <select class="form-control"
+                                                        ng-model="createMessageCtrl.message.TemplateId"
+                                                        ng-options="key as val for (key, val) in createMessageCtrl.message.Templates"></select>
+                                            </div>
+                                        </section>
+
+                                        <section class="col col-4">
+                                            <label>Subject line</label>
+                                            <label class="input">
+                                                <input type="text" name="username" ng-model="createMessageCtrl.message.Subject">
+                                            </label>
+                                        </section>
+
+                                        <section class="col col-md-12">
+                                            <div class="message"></div>
+                                        </section>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="widget-body no-padding">
+                            <div class="widget-footer smart-form text-center">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-info" type="button" ng-click="createMessageCtrl.previewMessage()">
+                                        Preview
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-success" type="button" ng-click="createMessageCtrl.save('Draft')">
+                                        <i class="fa fa-pencil-square-o"></i> Save as draft
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-success" type="button" ng-click="createMessageCtrl.save('Active')">
+                                        <i class="fa fa-check"></i> Save and publish
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="col-md-6">
+                <div jarvis-widget
+                     data-widget-color="blue"
+                     data-widget-colorbutton="false"
+                     data-widget-editbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-sortable="false"
+                     data-widget-deletebutton="false">
+                    <header>
+                        <span class="widget-icon"> </span>
+                        <h2>Preview message</h2>
+                    </header>
+                    <div>
+                        <div class="row">
+                            <div ng-bind-html="createMessageCtrl.message.Html">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

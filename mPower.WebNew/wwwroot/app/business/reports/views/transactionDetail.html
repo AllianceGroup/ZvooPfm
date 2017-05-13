@@ -1,0 +1,106 @@
+<div id="content">
+    <section id="widget-grid" widget-grid>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header>
+                        <h2><strong>Transaction Detail</strong></h2>
+                    </header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row" style="background: #DCDCDC">
+                                <div class="col-md-3">
+                                    <span>Dates:</span>
+                                    <select ng-change="transactionDetailCtrl.changeDate()"
+                                            ng-init="transactionDetailCtrl.model.CurrentReportDateFormat = transactionDetailCtrl.model.CurrentReportDateFormat.toString()"
+                                            style="width: auto; display: inline-block; margin:10px;" class="form-control"
+                                            ng-model="transactionDetailCtrl.model.CurrentReportDateFormat">
+                                        <option ng-repeat="format in transactionDetailCtrl.model.ReportDateFormats" value="{{format.Id}}">{{format.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4" style="margin: 10px;">
+                                    <a ng-click="transactionDetailCtrl.exportReport(transactionDetailCtrl.getTransactionDetailToPdf, 'application/pdf')"
+                                       class="btn btn-labeled btn-success">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-floppy-disk"></i>
+                                            </span>Save
+                                    </a>
+                                    <a class="btn btn-labeled btn-info"
+                                       ng-click="transactionDetailCtrl.exportReport(transactionDetailCtrl.getTransactionDetailToExcel, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-export"></i>
+                                            </span>Export
+                                    </a>
+                                    <a class="btn btn-labeled btn-info" ng-click="transactionDetailCtrl.printReport()">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-print"></i>
+                                            </span>Print
+                                    </a>
+                                    <a ng-click="transactionDetailCtrl.refresh()"
+                                       class="btn btn-labeled btn-info">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-refresh"></i>
+                                            </span>Refresh
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-6">
+                                        <div class="input-group smart-form" style="margin:10px;">
+                                            <div class="input-group-addon">From:</div>
+                                            <label class="input"><i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="startdate" data-smart-datepicker placeholder="From date"
+                                                       ng-model="transactionDetailCtrl.model.From">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group smart-form" style="margin:10px;">
+                                            <div class="input-group-addon">To:</div>
+                                            <label class="input"><i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="startdate" data-smart-datepicker placeholder="From date"
+                                                       ng-model="transactionDetailCtrl.model.To">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="custom-scroll table-responsive text-center">
+                                    <h3><b>{{transactionDetailCtrl.model.LedgerName}}</b></h3>
+                                    <h5>Transaction Detail By Account "{{transactionDetailCtrl.model.ParentAccountName}}"</h5>
+                                    <h5>{{transactionDetailCtrl.model.TotalDatesFormatted}}</h5>
+                                    <div>
+                                        <table class="table table-hover table-bordered" style="margin-top: 10px;">
+                                            <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Memo</th>
+                                                <th>Debit</th>
+                                                <th>Credit</th>
+                                                <th>Balance</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="entry in transactionDetailCtrl.entries" ng-click="transactionDetailCtrl.showEditStandart(entry.Id)">
+                                                <td>{{entry.BookedDateString}}</td>
+                                                <td>{{entry.Memo}}</td>
+                                                <td>{{entry.DebitAmountInCents | centsCurrency}}</td>
+                                                <td>{{entry.CreditAmountInCents | centsCurrency}}</td>
+                                                <td>{{entry.balance | centsCurrency}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

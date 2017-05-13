@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5AFAD0F8-E3BE-4CA3-87D2-8140876481BE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Default.ViewModel</RootNamespace>
+    <AssemblyName>Default.ViewModel</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DataAnnotationsExtensions, Version=5.0.1.16, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataAnnotationsExtensions.5.0.1.16\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FusionChartsMVC">
+      <HintPath>..\..\libs\FusionChartsMVC\FusionChartsMVC.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountsController\AccountOrderModel.cs" />
+    <Compile Include="AccountsController\ConfirmDeleteModel.cs" />
+    <Compile Include="AccountsController\ShortAccountViewModel.cs" />
+    <Compile Include="Areas\Administration\ConfirmDeleteSegmentModel.cs" />
+    <Compile Include="Areas\Administration\ConfirmDeleteUserModel.cs" />
+    <Compile Include="Areas\Administration\SendMailModel.cs" />
+    <Compile Include="Areas\Administration\UserExtendedInfoModel.cs" />
+    <Compile Include="Areas\Business\AccountsController\ChartOfAccountsViewModel.cs" />
+    <Compile Include="Areas\Business\BusinessController\Account.cs" />
+    <Compile Include="Areas\Business\BusinessController\AccountCategoryModel.cs" />
+    <Compile Include="Areas\Business\BusinessController\BusinessAccount.cs" />
+    <Compile Include="Areas\Business\BusinessController\ChartOfAccounts.cs" />
+    <Compile Include="Areas\Business\BusinessController\AddManualAccountViewModel.cs" />
+    <Compile Include="Areas\Business\BusinessController\CreateLedger.cs" />
+    <Compile Include="Areas\Business\BusinessController\EditManualAccountViewModel.cs" />
+    <Compile Include="Areas\Business\Iif\AccountsMappingModel.cs" />
+    <Compile Include="Areas\Business\Iif\ImportedAccount.cs" />
+    <Compile Include="Areas\Business\Iif\ImportedEntry.cs" />
+    <Compile Include="Areas\Business\Iif\ImportedTransaction.cs" />
+    <Compile Include="Areas\Business\Iif\TransactionsSelectionModel.cs" />
+    <Compile Include="Areas\Business\BusinessController\NewTransaction.cs" />
+    <Compile Include="Areas\Business\BusinessController\RegisterAccounts.cs" />
+    <Compile Include="Areas\Business\BusinessController\Transactions.cs" />
+    <Compile Include="Areas\Business\BusinessController\UpdateAccountViewModel.cs" />
+    <Compile Include="Areas\Business\Categories\Categories.cs" />
+    <Compile Include="Areas\Business\StartController\AddLedgerViewModel.cs" />
+    <Compile Include="Areas\Business\StartController\Company.cs" />
+    <Compile Include="Areas\Business\StartController\IndexViewModel.cs" />
+    <Compile Include="Areas\Credit\Credit\CreditSocials.cs" />
+    <Compile Include="Areas\Credit\Credit\LoadCreditReport.cs" />
+    <Compile Include="Areas\Credit\IdGuard\CreditAlertSignUp.cs" />
+    <Compile Include="Areas\Credit\IdGuard\IdGuard.cs" />
+    <Compile Include="Areas\Credit\ReportCard\ReportCard.cs" />
+    <Compile Include="Areas\Credit\Report\Creditors.cs" />
+    <Compile Include="Areas\Credit\Report\CreditReport.cs" />
+    <Compile Include="Areas\Credit\Report\PersonalInfo.cs" />
+    <Compile Include="Areas\Credit\Report\PublicRecords.cs" />
+    <Compile Include="Areas\Credit\Report\ReportAccounts.cs" />
+    <Compile Include="Areas\Credit\Score\CreditAlert.cs" />
+    <Compile Include="Areas\Credit\Score\Score.cs" />
+    <Compile Include="Areas\Credit\Simulator\Simulator.cs" />
+    <Compile Include="Areas\Credit\Verification\QuestionaireAnswer.cs" />
+    <Compile Include="Areas\Credit\Verification\IdentityViewModel.cs" />
+    <Compile Include="Areas\Credit\Verification\VerificationAnswer.cs" />
+    <Compile Include="Areas\Credit\Verification\VerificationQuestion.cs" />
+    <Compile Include="Areas\Credit\Verification\VerificationQuestionsViewModel.cs" />
+    <Compile Include="Areas\Finance\BudgetController\BudgetModel.cs" />
+    <Compile Include="Areas\Finance\BudgetController\BudgetGraphModel.cs" />
+    <Compile Include="Areas\Finance\BudgetController\BudgetItemModel.cs" />
+    <Compile Include="Areas\Finance\BudgetController\BudgetsContract.cs" />
+    <Compile Include="Areas\Finance\BudgetController\BudgetWizardModel.cs" />
+    <Compile Include="Areas\Finance\BudgetController\BudgetItemContract.cs" />
+    <Compile Include="Areas\Finance\BudgetController\EditBudgetModel.cs" />
+    <Compile Include="Areas\Finance\BudgetController\Filters\BudgetFilter.cs" />
+    <Compile Include="Areas\Finance\BudgetController\Filters\BudgetGraphFilter.cs" />
+    <Compile Include="Areas\Finance\BudgetController\Filters\BudgetSummaryFilter.cs" />
+    <Compile Include="Areas\Finance\BudgetController\Filters\BudgetWizardFilter.cs" />
+    <Compile Include="Areas\Finance\BudgetController\Filters\BuildAllEntriesFilter.cs" />
+    <Compile Include="Areas\Finance\CategoriesController\Categories.cs" />
+    <Compile Include="Areas\Finance\DashboardController\DashboardAlertModel.cs" />
+    <Compile Include="Areas\Finance\DashboardController\DashboardBudgetModel.cs" />
+    <Compile Include="Areas\Finance\DashboardController\DashboardChartsModel.cs" />
+    <Compile Include="Areas\Finance\DashboardController\DashboardViewModel.cs" />
+    <Compile Include="Areas\Finance\DebtElimninationProgramController\AddManualDebtModel.cs" />
+    <Compile Include="Areas\Finance\DebtElimninationProgramController\DebtIdsModel.cs" />
+    <Compile Include="Areas\Finance\DebtElimninationProgramController\DebtModel.cs" />
+    <Compile Include="Areas\Finance\DebtElimninationProgramController\EditManualDebtViewModel.cs" />
+    <Compile Include="Areas\Finance\DebtElimninationProgramController\SelectPlanModel.cs" />
+    <Compile Include="Areas\Finance\DebtToIncomeRatioController\ChartItem.cs" />
+    <Compile Include="Areas\Finance\DebtToIncomeRatioController\DebtToIncomeRatioModel.cs" />
+    <Compile Include="Areas\Finance\DebtToIncomeRatioController\UpdateDebtIncomeModel.cs" />
+    <Compile Include="Areas\Finance\DebtToolsController\ChartViewModel.cs" />
+    <Compile Include="Areas\Finance\DebtToolsController\DebtEliminationShortModel.cs" />
+    <Compile Include="Areas\Finance\DebtToolsController\DebtToolsModel.cs" />
+    <Compile Include="Areas\Finance\GoalsController\GoalDetailedModel.cs" />
+    <Compile Include="Areas\Finance\GoalsController\GoalsArchiveModel.cs" />
+    <Compile Include="Areas\Finance\GoalsController\GoalsListItemModel.cs" />
+    <Compile Include="Areas\Finance\GoalsController\GoalSideBarItemModel.cs" />
+    <Compile Include="Areas\Finance\GoalsController\GoalSideBarModel.cs" />
+    <Compile Include="Areas\Finance\GoalsController\GoalsListingModel.cs" />
+    <Compile Include="Areas\Finance\GoalsController\SetupLinkedAccountModel.cs" />
+    <Compile Include="Areas\Finance\MortgageAcceleration\MortgageProgramModel.cs" />
+    <Compile Include="Areas\Finance\MortgageAcceleration\ProgramDetailsModel.cs" />
+    <Compile Include="Areas\Finance\MortgageAcceleration\UpdateProgramModel.cs" />
+    <Compile Include="Areas\Finance\TransactionsController\Transactions.cs" />
+    <Compile Include="Areas\Finance\TrendsController\TrendsModel.cs" />
+    <Compile Include="Areas\Shared\AccountsSidebarModel.cs" />
+    <Compile Include="Areas\Shared\Category.cs" />
+    <Compile Include="Areas\Shared\Entry.cs" />
+    <Compile Include="Areas\Shared\Transaction.cs" />
+    <Compile Include="AuthenticationController\Login.cs" />
+    <Compile Include="AuthenticationController\RegisterViewModel.cs" />
+    <Compile Include="BusinessController\Reports\BalanceSheetModel.cs" />
+    <Compile Include="BusinessController\Reports\BaseBusinessReportsModel.cs" />
+    <Compile Include="BusinessController\Reports\DateFormat.cs" />
+    <Compile Include="BusinessController\Reports\Matrix.cs" />
+    <Compile Include="BusinessController\Reports\ProfitLossModel.cs" />
+    <Compile Include="BusinessController\Reports\TransactionDetailModel.cs" />
+    <Compile Include="BusinessController\Reports\TransactionDocument.cs" />
+    <Compile Include="GettingStartedController\InstitutionModel.cs" />
+    <Compile Include="GettingStartedController\AssignAccountsToLedgerViewModel.cs" />
+    <Compile Include="GettingStartedController\InterAccountDuplicateEntry.cs" />
+    <Compile Include="GettingStartedController\InterAccountDuplicatesViewModel.cs" />
+    <Compile Include="GettingStartedController\SearchInstitutionsResultPartialViewModel.cs" />
+    <Compile Include="GroupedSelectListItem.cs" />
+    <Compile Include="HomeController\DebtEliminationResults.cs" />
+    <Compile Include="HomeController\Loan.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RealestateController\PropertyModel.cs" />
+    <Compile Include="RealestateController\RealestatesListModel.cs" />
+    <Compile Include="RealestateController\SearchResultsModel.cs" />
+    <Compile Include="TransactionsController\AddStandardTransactionViewModel.cs" />
+    <Compile Include="TransactionsController\AddTransactionPostEntry.cs" />
+    <Compile Include="TransactionsController\AddTransactionPostModel.cs" />
+    <Compile Include="TransactionsController\EditStandardTransactionViewModel.cs" />
+    <Compile Include="TransactionsController\EditTransactionViewModel.cs" />
+    <Compile Include="TransactionsController\TransactionsListViewModel.cs" />
+    <Compile Include="UploadController\ImageUploadViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mPower.Documents\mPower.Documents.Server.csproj">
+      <Project>{BFD9845E-DFD0-4E9E-941D-5532751C7153}</Project>
+      <Name>mPower.Documents.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Domain\mPower.Domain.csproj">
+      <Project>{CF6CBC87-0BF9-4E69-9937-650A47D54F7B}</Project>
+      <Name>mPower.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Framework\mPower.Framework.csproj">
+      <Project>{3A145847-D3DF-46B9-B9F5-DC0244C24CC1}</Project>
+      <Name>mPower.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

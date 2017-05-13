@@ -1,0 +1,81 @@
+﻿<div class="row" style="margin-bottom: 10px">
+    <div class="col-md-6 col-md-offset-3 well">
+        <h1 class="text-center">Finish your Goal</h1>
+        <p ng-repeat="error in step2Ctrl.errors" class="alert alert-danger">{{error}}</p>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Your goal</h3>
+                <div class="form-group">
+                    <label>Your title</label>
+                    <input type="text" class="form-control"
+                           ng-model="step2Ctrl.model.Title"/>
+                </div>
+                <div class="form-group">
+                    <label>I already have</label>
+                    <input type="text" class="form-control"
+                           ng-currency
+                           ng-model="step2Ctrl.model.StartingBalance"
+                           ng-change="step2Ctrl.estimateByAmmountAndDate()"
+                           ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }" />
+                </div>
+                <div class="form-group">
+                    <label>Your goal amount</label>
+                    <input type="text" class="form-control"
+                           ng-currency
+                           ng-model="step2Ctrl.model.Amount"
+                           ng-change="step2Ctrl.estimateByAmmountAndDate()"
+                           ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
+                    <!--<div class="note"><a>Re-estimate this goal</a>
+                    </div>-->
+                </div>
+                <div class="well">
+                    <h4>Amount needed</h4>
+                    You still need <strong>{{(step2Ctrl.model.Amount - step2Ctrl.model.Contributed - step2Ctrl.model.StartingBalance) | currency}}</strong> to reach your goal
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3> Your Plan</h3>
+                <div class="form-group">
+                    <label>Your planned date</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control"
+                                    ng-model="step2Ctrl.model.PlannedMonth"
+                                    ng-options="month.Value as month.Text for month in step2Ctrl.model.PlannedMonthes"
+                                    ng-change="step2Ctrl.estimateByAmmountAndDate()"
+                                    >
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control"
+                                    ng-model="step2Ctrl.model.PlannedYear"
+                                    ng-change="step2Ctrl.estimateByAmmountAndDate()">
+                                <option ng-repeat="year in step2Ctrl.model.PlannedYears" value="{{year.Value}}">{{year.Text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="note">{{step2Ctrl.model.DateAway}}</div>
+                </div>
+                <div class="form-group">
+                    <label>Your monthly contribution</label>
+                    <input type="text" class="form-control"
+                           ng-currency
+                           ng-model="step2Ctrl.model.MonthlyContribution"
+                           ng-change="step2Ctrl.estimateByMonthlyPayment()"
+                           ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
+                </div>
+                <div class="well">
+                    <h4>Projected Date</h4>
+                    <div ng-bind-html="step2Ctrl.model.Summary"></div>
+                </div>
+            </div>
+        </div>
+        <p class="row">
+            <div class="col-md-6 text-left"><button class="btn btn-danger" ui-sref="app.personal.goals.items">Cancel</button></div>
+            <div class="col-md-6 text-right">
+                <button class="btn btn-info" ng-if="step2Ctrl.hasPrevStepModel" ng-click="step2Ctrl.back()">Back</button>
+                <button class="btn btn-success" ng-click="step2Ctrl.createGoal()">Save goal</button>
+            </div>
+        </p>
+    </div>
+</div>

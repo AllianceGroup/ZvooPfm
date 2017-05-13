@@ -1,0 +1,65 @@
+﻿@inherits System.Web.Mvc.WebViewPage<mPower.Web.Admin.Models.Affiliate.AffiliateModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Affiliates management";
+}
+<script type="text/javascript">
+    function regenerateKey() {
+        $.ajax({
+            url: "/affiliates/getuniquekey",
+            type: "GET",
+            success: function (data) {
+                $("#CreateModel_AffiliateId").val(data);
+            }
+        });
+    }
+</script>
+@section pageTitle{
+     - manage affiliates
+    }
+@Html.ValidationSummary()
+<hr />
+@using (Html.BeginForm("Create", "Affiliates"))
+{
+    <text>Create new Affiliate</text>
+    <div class="box">
+        Id: @Html.TextBoxFor(m => m.CreateModel.AffiliateId, new { @style = "width: 200px;" })
+        &nbsp; <a id="regenerate" href="#" onclick="regenerateKey(); return false;">Generate</a>&nbsp;
+        Name: @Html.TextBoxFor(m => m.CreateModel.AffiliateName, new { @style = "width: 200px;" })
+        <input type="submit" value="Create Affiliate" />
+    </div>
+}
+<hr />
+@using (Html.BeginForm("Edit", "Affiliates"))
+{
+    <text>Edit affiliates:</text>
+    <div class="box">
+        @foreach (var item in Model.Affiliates)
+        {
+            <b>@item.Text</b><text> &nbsp&nbsp&nbsp</text> <a href="/Affiliates/Edit/@item.Value">Edit</a> 
+            <a class="delete" href="/Affiliates/Delete?id=@item.Value">Delete</a> 
+            <br />
+        }
+    </div>
+}
+<hr />
+@using (Html.BeginForm("RestartSite", "Affiliates"))
+{
+    <text>Apply changes to running site:</text>
+    <div class="box">
+        IIS application pool name: @Html.TextBoxFor(x => x.IisAppPoolName, new { style = "width: 200px;" })
+        <input type="submit" value="Restart" />
+        <br />
+    </div>
+}
+<hr />
+
+<script>
+    $(document).ready(function () {
+        $("a.delete").click(function () {
+            if (!confirm("Are you sure?")) {
+                return false;
+            }
+        });
+    });
+</script>

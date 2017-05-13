@@ -1,0 +1,184 @@
+﻿@* Generator : MvcHelper *@
+
+@using Default.ViewModel
+@using Default.ViewModel.Areas.Shared
+@using mPower.Framework.Mvc.RazorHelpers
+
+@helper GenerateEntryRows(IEnumerable<Entry> entries, IEnumerable<GroupedSelectListItem> accounts, int maxDescriptionLength = 43, bool isFake = false)
+{
+    foreach (var entry in entries)
+    {
+        var descriptionString = entry.Payee.Ellipsize(maxDescriptionLength);
+        
+        <tr id="@String.Concat("row_", entry.TransactionId)">
+            <td>
+                <div class="table-cell-top-left">@entry.AccountName</div>
+                <input name="" type="checkbox" value="" />
+            </td>
+            <td class="_entrySelector trans_date">@entry.BookedDate.ToShortDateString()</td>
+            <td class="_entrySelector" nowrap="nowrap">@descriptionString</td>
+            <td>
+                <div id="menu">
+                    @(isFake 
+                    ? EntryCatergorizationFakeSelectList(accounts, entry.OffsetAccountId, entry.TransactionId, entry.AccountId) 
+                    : EntryCatergorizationSelectList(accounts, entry.OffsetAccountId, entry.TransactionId, entry.AccountId))
+                </div>
+            </td>
+            <td class="@(entry.FormattedAmountInDollars.StartsWith("-") ? "" : "positive") rt _entrySelector">@entry.FormattedAmountInDollars</td>
+        </tr>      
+    }       
+}
+
+
+@helper EntryCatergorizationSelectList(IEnumerable<GroupedSelectListItem> accounts, string selectedAccountId, string transactionId, string baseAccountId, string id = "")
+    {
+    <select @(!String.IsNullOrEmpty(id) ? String.Format("id={0}", id) : String.Empty) name="@String.Concat(transactionId, '_', selectedAccountId)" class="_entryCategory combobox">
+		<option value="add new">Add New | |</option>
+		@{ 
+            var categories = new List<string> { 
+				"Income",
+				"Expense",
+				"Transfer/Payment",
+				"Other Accounts"
+			};
+
+            var groupedAccounts = categories.GroupJoin(accounts, x => x, y => y.Group, (_, y) => y);            
+
+            foreach (var group in groupedAccounts)
+            {
+                
+                var currentList = group.OrderBy(x =>
+                {
+                    string[] splitText = x.Text.Split('|');
+
+                    return splitText.Last();
+                });
+
+                foreach (var listItem in currentList)
+                {
+                    var selectedText = listItem.Value == selectedAccountId ? "selected=selected" : String.Empty;
+					<option value="@listItem.Value" @selectedText>@listItem.Text | @listItem.Group</option>
+                }
+            }
+		 }
+    </select>
+}
+
+@helper EntryCatergorizationFakeSelectList(IEnumerable<GroupedSelectListItem> accounts, string selectedAccountId, string transactionId, string baseAccountId, string cssClass = "")
+    {
+    <select name="@String.Concat(transactionId, '_', selectedAccountId)" class="_entryCategory combobox @cssClass">
+            @{var item = accounts.First(x => x.Value == selectedAccountId);}
+            <option value="@item.Value" selected="selected">@item.Text | @item.Group</option>            
+    </select>
+
+}
+
+
+@helper TransactionCatergorizationSelectList(IEnumerable<GroupedSelectListItem> categories, string selectName, string selectClass, string selectedAccountId = null)
+    {
+    <select name="@selectName" class="@selectClass">
+        <option value=" ">Select Account ...| |</option>
+        
+        @*<option value="add new">Add New | |</option>*@
+                
+        @foreach (var cat in categories.Where(x => x.Group == "Income"))
+        {
+            var selectedText = cat.Value == selectedAccountId ? "selected=selected" : String.Empty;
+            <option value="@cat.Value" @selectedText>@cat.Text | @cat.Group</option>
+        }
+
+        @foreach (var cat in categories.Where(x => x.Group == "Expense"))
+        {
+            var selectedText = cat.Value == selectedAccountId ? "selected=selected" : String.Empty;
+            <option value="@cat.Value" @selectedText>@cat.Text | @cat.Group</option>
+        }
+                
+        @foreach (var cat in categories.Where(x => x.Group == "Transfer/Payment"))
+        {
+            var selectedText = cat.Value == selectedAccountId ? "selected=selected" : String.Empty;
+            <option value="@cat.Value" @selectedText>@cat.Text | @cat.Group</option>
+        }
+
+        @foreach (var cat in categories.Where(x => x.Group == "Other Accounts"))
+        {
+            var selectedText = cat.Value == selectedAccountId ? "selected=selected" : String.Empty;
+            <option value="@cat.Value" @selectedText>@cat.Text | @cat.Group</option>
+        }
+        
+    </select>
+        
+}
+
+@helper DisplayDropDown(IEnumerable<Category> categories, string selectedAccountName, string selectedAccountId, string transactionId, string baseAccountId)
+    {
+    <ul class="menu" id="menu">
+        <li><a class="menulink">@selectedAccountName</a>
+            @if (!selectedAccountName.Equals("Split"))
+            {
+                <ul>
+                    @foreach (var cat in categories.Where(x => String.IsNullOrEmpty(x.ParentAccountId) && x.AccountId != baseAccountId))
+                    {                   
+                        <li><a id="@String.Concat(transactionId, '_', selectedAccountId, '_', cat.AccountId)" class="_entryCategory" href="#" name="@transactionId">@cat.AccountName <span class="dropdown-accountlabel">@cat.AccountLabel</span></a>
+                            @Hierarchy(categories, cat.AccountId, transactionId, selectedAccountId, "sub", baseAccountId)
+                        </li>
+                    }
+                    <li><a id="" class="sub" >Multiple Accounts...</a> </li>
+                </ul>
+            }
+        </li>
+    </ul>
+}
+
+
+@helper Hierarchy(IEnumerable<Category> categories, string accountId, string transactionId, string offsetAccountId, string subClass, string baseAccountId)
+    {                
+    if (categories.Count(x => x.ParentAccountId == accountId) > 0)
+    {
+
+        foreach (var sub in categories.Where(x => x.ParentAccountId == accountId && x.AccountId != baseAccountId))
+        {
+                <li><a id="@String.Concat(transactionId, '_', offsetAccountId, '_', sub.AccountId)" href="#" class="@subClass _entryCategory">@sub.AccountName</a>
+                    @Hierarchy(categories, sub.AccountId, transactionId, offsetAccountId, subClass + "sub", baseAccountId)
+                </li>           
+        }
+    }
+}
+
+
+@helper AccountDropDown(IEnumerable<Category> categories, string selectedAccountName = " ", string selectedAccountId = " ")
+    {
+    <ul class="menu" id="menu">
+        <li>
+            <a href="#" class="menulink selectedCategory">@selectedAccountName</a>
+            <ul>
+                @foreach (var cat in categories.Where(x => String.IsNullOrEmpty(x.ParentAccountId)))
+                {                   
+                    <li>
+                        <a id="@String.Concat(cat.AccountId, "_", cat.AccountName)" class="_transactionAccount" href="#">
+                            @cat.AccountName 
+                            <span class="dropdown-accountlabel">@cat.AccountLabel</span>
+                        </a>
+                        @AccountDropDownHierarchy(categories, cat.AccountId, selectedAccountId, "sub")
+                    </li>
+                }
+               
+            </ul>
+            
+        </li>
+    </ul>
+}
+
+
+@helper AccountDropDownHierarchy(IEnumerable<Category> categories, string accountId, string offsetAccountId, string subClass)
+    {                
+    if (categories.Count(x => x.ParentAccountId == accountId) > 0)
+    {
+
+        foreach (var sub in categories.Where(x => x.ParentAccountId == accountId))
+        {
+                <li><a id="@String.Concat(sub.AccountId, "_", sub.AccountName)" href="#" class="@subClass _transactionAccount">@sub.AccountName</a>
+                    @AccountDropDownHierarchy(categories, sub.AccountId, offsetAccountId, subClass + "sub")
+                </li>           
+        }
+    }
+}

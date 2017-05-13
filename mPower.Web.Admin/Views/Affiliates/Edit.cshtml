@@ -1,0 +1,85 @@
+﻿@inherits System.Web.Mvc.WebViewPage<mPower.Web.Admin.Models.Affiliate.UpdateAffiliateModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Update Affiliate";
+}
+<script type="text/javascript">
+    function regenerateKey() {
+        $.ajax({
+            url: "/Affiliates/getuniquekey",
+            type: "GET",
+            success: function (data) {
+                $("#MembershipApiKey").val(data);
+            }
+        });
+    }
+</script>
+@section pageTitle{
+- update affiliate
+}
+@using (Html.BeginForm("Update", "Affiliates"))
+{
+    <div class="box">
+        @Html.Hidden("ApplicationId", Model.ApplicationId)
+        ApplicationName: @Html.TextBoxFor(m => m.ApplicationName, new { @style = "width: 300px;" })
+        <br />
+        ChargifyApiKey:@Html.TextBoxFor(m => m.ChargifyApiKey, new { @style = "width: 300px;" })        
+        <br />
+        ChargifySharedKey:@Html.TextBoxFor(m => m.ChargifySharedKey, new { @style = "width: 300px;" })
+        <br />
+        ChargifyUrl:@Html.TextBoxFor(m => m.ChargifyUrl, new { @style = "width: 300px;" })
+        <br />
+        Sign up product with trial: @Html.DropDownListFor(m => m.Product, Model.Products) &nbsp; <a style="cursor: pointer;" href="#" onclick="Request.named('sync').post('@Url.Action("SynchProducts", "Affiliates")').addParams({AffiliateId: '@Model.ApplicationId'}).send();">Sync products with chargify</a>
+        <br />
+        Sign up product without trial: @Html.DropDownListFor(m => m.ProductWithoutTrial, Model.Products) 
+        <br />
+        Product for additional credit identity: @Html.DropDownListFor(m => m.ProductCreditIdentity, Model.Products) 
+        <br />
+        ContactPhoneNumber:@Html.TextBoxFor(m => m.ContactPhoneNumber)
+        <br />
+        DisplayName:@Html.TextBoxFor(m => m.DisplayName, new { @style = "width: 300px;" })
+        <br />
+        EmailSuffix:@Html.TextBoxFor(m => m.EmailSuffix)
+        <br />
+        LegalName:@Html.TextBoxFor(m => m.LegalName)       
+        <br />
+        Public URL:@Html.TextBoxFor(m => m.PublicUrl)
+        <br />
+        UrlPaths:@Html.TextBoxFor(m => m.UrlPaths, new { @style = "width: 500px;" })
+        <br />
+        MembershipApiKey:@Html.TextBoxFor(m => m.MembershipApiKey, new { @style = "width: 300px;" })
+        &nbsp; <a id="regenerate" href="#" onclick="regenerateKey(); return false;">Regenerate</a>
+        <br />
+        SmtpCredentialsEmail:@Html.TextBoxFor(m => m.SmtpCredentialsEmail, new { @style = "width: 300px;" })
+        <br />
+        SmtpCredentialsUserName:@Html.TextBoxFor(m => m.SmtpCredentialsUserName, new { @style = "width: 300px;" })
+        <br />
+        SmtpCredentialsPassword:@Html.TextBoxFor(m => m.SmtpCredentialsPassword)
+        <br />
+        SmtpEnableSsl:@Html.CheckBoxFor(m => m.SmtpEnableSsl)
+        <br />
+        SmtpHost:@Html.TextBoxFor(m => m.SmtpHost, new { @style = "width: 300px;" })
+        <br />
+        SmtpPort:@Html.TextBoxFor(m => m.SmtpPort)
+        <br />
+        Assembly name:@Html.TextBoxFor(m => m.AssemblyName, new { @style = "width: 500px;" })
+        <br />
+        JanrainAppApiKey name:@Html.TextBoxFor(m => m.JanrainAppApiKey, new { @style = "width: 500px;" })
+        <br />
+        JanrainAppUrl name:@Html.TextBoxFor(m => m.JanrainAppUrl, new { @style = "width: 500px;" })
+        <br />
+        Pfm Enabled:@Html.CheckBoxFor(m => m.PfmEnabled, new { @style = "width: 500px;" })
+        <br />
+        Bfm Enabled:@Html.CheckBoxFor(m => m.BfmEnabled, new { @style = "width: 500px;" })
+        <br />
+        Credit App Enabled:@Html.CheckBoxFor(m => m.CreditAppEnabled, new { @style = "width: 404px;" }) 
+        <br />
+        Savings Enabled:@Html.CheckBoxFor(m => m.SavingsEnabled, new { @style = "width: 404px;" })
+        <br />
+        Marketing Enabled:@Html.CheckBoxFor(m => m.MarketingEnabled, new { @style = "width: 404px;" })
+        <br />
+        Address: @Html.TextAreaFor(m => m.Address)
+        <br />
+        <input type="submit" value="Update Affiate" />
+    </div>
+}

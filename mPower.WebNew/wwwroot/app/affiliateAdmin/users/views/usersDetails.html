@@ -1,0 +1,240 @@
+<div id="content">
+
+    <div class="row">
+        <big-breadcrumbs items="['Affiliate Admin', 'Users']" class="col-xs-12 col-sm-7 col-md-7 col-lg-4" icon="group"></big-breadcrumbs>
+    </div>
+    <div class="clearfix">
+        <div class="advisers-actions pull-right mb10">
+            <button class="btn btn-info"><i class="fa fa-edit"></i> Edit adviser's profile</button>
+            <button class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+        </div>
+    </div>
+    <section id="widget-grid" widget-grid>
+        <div class="row">
+            <article class="col-md-4">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue"
+                     class="advisers-extended">
+                    <header role="headign">
+                        <h2>Extended adviser's details</h2>
+                    </header>
+                    <div role="content">
+                        <div class="widget-body">
+                            <ul class="list-unstyled">
+                                <li class="advisers-extended__item">
+                                    <span>Is active:</span>
+                                    <span>inactive</span>
+                                </li>
+                                <li class="advisers-extended__item">
+                                    <span>Created date:</span>
+                                    <span>mm/dd/yyyy</span>
+                                </li>
+                                <li class="advisers-extended__item">
+                                    <span>Email:</span>
+                                    <span><i class="fa fa-ban"></i></span>
+                                </li>
+                                <li class="advisers-extended__item">
+                                    <span>Zip code:</span>
+                                    <span>12344</span>
+                                </li>
+                                <li class="advisers-extended__item">
+                                    <span>Full name:</span>
+                                    <span>name</span>
+                                </li>
+                                <li class="advisers-extended__item">
+                                    <span>Last login date:</span>
+                                    <span>mm/dd/yyyy</span>
+                                </li>
+                                <li class="advisers-extended__item">
+                                    <span>Last password change date:</span>
+                                    <span>mm/dd/yyyy</span>
+                                </li>
+                                <li class="advisers-extended__item">
+                                    <span>Phones:</span>
+                                    <span><i class="fa fa-ban"></i></span>
+                                </li>
+                                <li class="advisers-extended__item">
+                                    <span>Security level:</span>
+                                    <span><i class="fa fa-ban"></i></span>
+                                </li>
+                                <li class="advisers-extended__item">
+                                    <span>User name:</span>
+                                    <span>name</span>
+                                </li>
+                                <li class="advisers-extended__item">
+                                    <span>Referral code:</span>
+                                    <span><i class="fa fa-ban"></i></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="col-md-8">
+                <div class="advisers-activity"
+                     jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+
+                    <header role="heading">
+                        <h2>Activity log</h2>
+                    </header>
+                    <div role="content">
+                        <div class="widget-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Event message</th>
+                                        <th>System event name</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            message here
+                                        </td>
+                                        <td>
+                                            event name here
+                                        </td>
+                                        <td>
+                                            date here
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="advisers-clients"
+                     jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+
+                    <header role="heading" class="advisers-clients__header">
+                        <h2>Advisers</h2>
+                        <button class="btn btn-xs btn-default advisers-clients__change-btn" data-ng-click="usersCtrl.changeAdviser()">
+                            <i class="fa fa-retweet"></i>
+                            Change adviser
+                        </button>
+                    </header>
+                    <div role="content">
+                        <div class="widget-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Asigned on</th>
+                                        <th>Status</th>
+                                        <th>PFM/BFM</th>
+                                        <th>View level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>David Johnson</td>
+                                        <td>d.johnson@hotmail.com</td>
+                                        <td>20/01/2016</td>
+                                        <td><span class="text-success">Active</span></td>
+                                        <td>PFM</td>
+                                        <td>Option #1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- If user not assigned adviser but choice Any in settings -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="advisers-clients"
+                     jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+
+                    <header role="heading" class="advisers-clients__header">
+                        <h2>Advisers</h2>
+                    </header>
+                    <div role="content">
+                        <div class="widget-body">
+                            <div class="alert alert-info alert-block">
+                                <h4 class="alert-heading">This user has requested to assign any adviser</h4>
+                                Please click on the button to choose adviser manually or let the system assign an adviser automatically.
+                                <p class="text-align-left">
+                                    <br>
+                                    <button class="btn btn-default">
+                                        <i class="fa fa-user-plus"></i>
+                                         Assign adviser
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- If user not assigned adviser and not choice in settings -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="advisers-clients"
+                     jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+
+                    <header role="heading" class="advisers-clients__header">
+                        <h2>Advisers</h2>
+                    </header>
+                    <div role="content">
+                        <div class="widget-body">
+                            <div class="alert alert-danger alert-block">
+                                <h4 class="alert-heading">This user has no adviser</h4>
+                                A user needs to authorize any adviser first to view his financial data in their PFM. After that it will be displayed here.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,71 @@
+﻿<div class="row" style="margin-bottom: 10px">
+    <div class="col-md-6 col-md-offset-3 well">
+        <h1 class="text-center">Buy a Home</h1>
+        <p ng-repeat="error in homeStep1Ctrl.errors" class="alert alert-danger">{{error}}</p>
+        <p class="alert alert-info">We recommend you set a goal of <strong>{{homeStep1Ctrl.model.EstimatedValue | currency}}</strong> to save the money you will
+             need for a <strong>down payment on your home</strong>.</p>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>How much can I afford?</h3>
+                <div class="form-group">
+                    <label>Annual Income</label>
+                    <input type="text" ng-currency
+                           class="form-control" ng-model="homeStep1Ctrl.model.AnnualIncome" required
+                           ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
+                </div>
+                <div class="form-group">
+                    <label>Mortgage Rate</label>
+                    <input type="number" class="form-control" ng-model="homeStep1Ctrl.model.MortgageRate" required
+                           ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
+                    <div class="note">average 30-year fixed rate is 3.98%</div>
+                </div>
+                <div class="form-group">
+                    <label>Percent Down Payment</label>
+                    <input type="number" class="form-control" ng-model="homeStep1Ctrl.model.PercentDownPayment" required
+                           ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
+                </div>
+                <div class="form-group">
+                    <label>Annual Insurance</label>
+                    <input type="text" ng-currency
+                           class="form-control" ng-model="homeStep1Ctrl.model.AnnualInsurance" required
+                           ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
+                    <div class="note">national average is $485</div>
+                </div>
+                <div class="form-group">
+                    <label>Annual Property Tax</label>
+                    <input type="number" class="form-control" ng-model="homeStep1Ctrl.model.AnnualPropertyTax" required
+                           ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
+                    <div class="note">national average is 1.00%</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>How much will I need?</h3>
+                <div class="form-group">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" class="radiobox" ng-model="homeStep1Ctrl.model.IsAgressive" ng-value="true"
+                                   ng-change="homeStep1Ctrl.estimate()"/>
+                            <span>Agressive</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" class="radiobox" ng-model="homeStep1Ctrl.model.IsAgressive" ng-value="false"
+                                   ng-change="homeStep1Ctrl.estimate()"/>
+                            <span>Conservative</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="well">
+                    <p>You can afford a <strong>home that costs</strong> {{homeStep1Ctrl.model.HomeCost | currency}}</p>
+                    <p>for a <strong>total monthly payment of</strong> {{homeStep1Ctrl.model.MonthlyPayment | currency}}</p>
+                    <p>You will need a <strong>down payment of</strong> {{homeStep1Ctrl.model.EstimatedValue | currency}}</p>
+                </div>
+            </div>
+        </div>
+        <p class="row">
+            <div class="col-md-6 text-left"><button class="btn btn-danger" ui-sref="app.personal.goals.items" ui-sref-opts="{reload: 'app.personal.goals.items'}">Cancel</button></div>
+            <div class="col-md-6 text-right"><button class="btn btn-success" ng-click="homeStep1Ctrl.step2()">Next</button></div>
+        </p>
+    </div>
+</div>

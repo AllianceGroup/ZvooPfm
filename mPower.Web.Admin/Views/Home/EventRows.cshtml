@@ -1,0 +1,5 @@
+﻿@model List<mPower.Documents.Documents.EventLogDocument>
+@foreach (var item in Model)
+{
+    Html.RenderPartial("EventRow", item);
+}

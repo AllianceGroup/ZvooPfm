@@ -1,0 +1,113 @@
+<div id="content">
+    <div>
+        <section class="row">
+            <div class="col-md-3" ui-view="leftpanel"></div>
+            <div class="col-md-9">
+                <article class="col-md-6">
+                    <div jarvis-widget
+                         data-widget-editbutton="false"
+                         data-widget-colorbutton="false"
+                         data-widget-togglebutton="false"
+                         data-widget-deletebutton="false"
+                         data-widget-fullscreenbutton="false"
+                         data-widget-custombutton="false"
+                         data-widget-sortable="true"
+                         data-widget-color="blue">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                            <h2>At-a-glance: profit & loss</h2>
+                        </header>
+                        <div>
+                            <div class="text-center">6 Months Trailing P&L</div>
+                            <div
+                                    bar-chart
+                                    bar-data='dashboardBusinessCtrl.model.Graph'
+                                    bar-x='label'
+                                    bar-y='["value"]'
+                                    bar-labels='["Profit/Loss"]'
+                                    bar-colors='["#6a7495"]'
+                                    bar-resize='true'>
+                            </div>
+                            <div class="text-center">Month</div>
+                        </div>
+                    </div>
+                </article>
+                <div class="row">
+                    <article class="col-md-6">
+                        <div jarvis-widget
+                             data-widget-editbutton="false"
+                             data-widget-colorbutton="false"
+                             data-widget-togglebutton="false"
+                             data-widget-deletebutton="false"
+                             data-widget-fullscreenbutton="false"
+                             data-widget-custombutton="false"
+                             data-widget-sortable="true"
+                             data-widget-color="blue">
+                            <header>
+                                <span class="widget-icon"><i class="fa fa-exchange"></i></span>
+                                <h2>Recent transactions</h2>
+                            </header>
+                            <div class="container-fluid">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="transaction in dashboardBusinessCtrl.model.Entries">
+                                        <td>{{transaction.BookedDate | date: 'MM/dd/yyyy'}}</td>
+                                        <td>{{transaction.Payee}}</td>
+                                        <td class="fg-green">{{transaction.FormattedAmountInDollars}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-right" style="margin-bottom:20px;">
+                                    <button class="btn btn-primary" data-ui-sref="app.business.transactions">See all transactions</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="row">
+                    <article class="col-md-12">
+                        <div jarvis-widget
+                             data-widget-editbutton="false"
+                             data-widget-colorbutton="false"
+                             data-widget-togglebutton="false"
+                             data-widget-deletebutton="false"
+                             data-widget-fullscreenbutton="false"
+                             data-widget-custombutton="false"
+                             data-widget-sortable="true"
+                             data-widget-color="blue">
+                            <header>
+                                <h2>Alerts</h2>
+                            </header>
+                            <div>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ng-repeat="alert in dashboardBusinessCtrl.model.Alerts" class="alert alert-success alert-dismissible" role="alert">
+                                                <button type="button" ng-click="dashboardBusinessCtrl.deleteAlert(alert.Id)" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-md-3">{{alert.Date | date : 'MMM d, yyyy'}}</div>
+                                                        <div class="col-md-7">{{alert.Text}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

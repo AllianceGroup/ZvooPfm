@@ -1,0 +1,69 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Transferring";
+}
+@section pageTitle{ - transferring}
+@helper TransferBlock(string objectNameForTransferring)
+    {
+    <div id="transfer@(objectNameForTransferring)">
+        <h2>
+            Transfering - @objectNameForTransferring</h2>
+        @using (Html.BeginForm("Transfer" + objectNameForTransferring, "Transfer"))
+        {
+            <input type="submit" value="Transfer @objectNameForTransferring"/>
+            <input type="button" id="delete@(objectNameForTransferring)" value="Clear @objectNameForTransferring" />
+            <br />
+            <span id="transfer@(objectNameForTransferring)Results"></span>
+            <span id="delete@(objectNameForTransferring)Results"></span>
+        }
+        <script type="text/javascript">
+
+            var clearMessages = function () {
+                $("#transfer@(objectNameForTransferring)Results").empty();
+                $("#delete@(objectNameForTransferring)Results").empty();
+            };
+
+            $("form[action$='/Transfer/transfer@(objectNameForTransferring)']").submit(function () {
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "post",
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        clearMessages();
+                        $("#transfer@(objectNameForTransferring)Results")
+                            .html("Number of @objectNameForTransferring transfered:" + data.NumberOfItemsFromSqlDatabase + " Time Elapsed: " + data.ElapsedTime);
+                    }
+                });
+                return false;
+            });
+
+            $("#delete@(objectNameForTransferring)").click(function () {
+                $.ajax({
+                    url: "/transfer/delete@(objectNameForTransferring)",
+                    type: "post",
+                    success: function (data) {
+                        clearMessages();
+                        $("#delete@(objectNameForTransferring)Results")
+                            .html("Read: " + data.DeletedReadCount + " object(s) deleted; Write: "
+                                + data.DeletedWriteCount + " object(s) deleted; Time Elapsed: " + data.ElapsedTime);
+                    }
+                });
+                return false;
+            });
+        </script>
+    </div> 
+}
+<h1>
+    Transferring <a href="/" style="font-size: 14px; font-weight: normal;">Back</a></h1>
+<div style="padding: 0px 8px 0px 8px">
+    @TransferBlock("Users")
+</div>
+
+<div style="padding: 0px 8px 0px 8px">
+    <h2>Single User Transfer</h2>
+@using(Html.BeginForm("TransferSingleUser","Transfer")){
+     <label>Username</label>
+     @Html.TextBox("username")
+    <input type="submit" value="Transfer" />
+}
+</div>

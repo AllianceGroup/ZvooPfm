@@ -1,0 +1,200 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="intuitCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 ng-if="intuitCtrl.isFound" class="modal-title">
+        Getting started
+    </h4>
+
+    <h4 ng-if="intuitCtrl.isAuthenticated" class="modal-title">
+        Connect to your account by entering your information below:
+    </h4>
+
+    <h4 ng-if="intuitCtrl.isSelected" class="modal-title">
+        We found {{intuitCtrl.model.AssignModel.Accounts.length}} account(s) for {{intuitCtrl.model.AssignModel.ContentServiceDisplayName}}
+    </h4>
+</div>
+<div class="modal-body row">
+    <div class="widget-body">
+        <div class="row">
+            <form novalidate="novalidate" data-smart-validate-form>
+                <div class="col-md-12" data-smart-wizard>
+                    <div style="margin-left: 180px;" class="form-bootstrapWizard clearfix">
+                        <ul class="bootstrapWizard">
+                            <li data-smart-wizard-tab="1" >
+                                <a> <span class="step">1</span> <span class="title">Add accounts</span></a>
+                            </li>
+                            <li data-smart-wizard-tab="2">
+                                <a> <span class="step">2</span> <span class="title">You're done</span> </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+
+
+                        <div class="tab-pane" data-smart-wizard-pane="1" >
+                            <div ng-if="intuitCtrl.isFound" class="row">
+                                <div style="margin-top: 25px;">
+                                    <p ng-repeat="error in intuitCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2" style="margin-top: 25px;">
+                                        <img src="/styles/img/app/what-acc-2.png"/>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p class="alert alert-info" style="margin-top: 25px;">
+                                            The first step in personal financial management is understanding where you spend your money.
+                                            When you add an account, you can see all of your spending habits along with account balances and account alerts.
+                                        </p>
+                                    </div>
+                                    <span>Enter your institution's name:</span>
+                                    <div class="input-group">
+                                        <input type="text" ng-enter="intuitCtrl.getFinancialInstitutions()" class="form-control" ng-model="intuitCtrl.searchText" required>
+                                        <div class="input-group-btn">
+                                            <button role="button" type="button" class="btn btn-info"
+                                                    ng-click="intuitCtrl.getFinancialInstitutions()"
+                                                    ng-enter="intuitCtrl.getFinancialInstitutions()"
+                                                    ng-disabled="intuitCtrl.isSearching">
+                                                Search
+                                                <i class="fa fa-spinner fa-spin" ng-if="intuitCtrl.isSearching"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <table class="table table-hover">
+                                        <tbody>
+                                        <tr ng-repeat="institut in intuitCtrl.institutions">
+                                            <td style="cursor: pointer" ng-click="intuitCtrl.authenticate(institut.Id)">{{institut.DisplayName}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-right" ng-if="intuitCtrl.institutionsFull.length > intuitCtrl.currentPage">
+                                        <uib-pagination total-items="intuitCtrl.institutionsFull.length"
+                                                        ng-model="intuitCtrl.currentPage"
+                                                        ng-change="intuitCtrl.updatePaging()"
+                                                        items-per-page="intuitCtrl.intemsPerPage"
+                                                        rotate="false"
+                                                        boundary-link-numbers="true"
+                                                        max-size="7">
+                                        </uib-pagination>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-if="intuitCtrl.isAuthenticated" class="row">
+                                <div class="col-md-12" style="margin-top: 25px;">
+                                    <div>
+                                        <p ng-repeat="error in intuitCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                    </div>
+                                    <div ng-if="!intuitCtrl.mfaSession">
+                                        <div class="form-group" ng-repeat="key in intuitCtrl.model.Keys">
+                                            <label>{{key.Description}}</label>
+                                            <input type="{{key.DisplayFlag?'text':'password'}}" class="form-control" ng-model="key.Value" />
+                                        </div>
+                                    </div>
+                                    <div ng-if="intuitCtrl.mfaSession">
+                                        <p class="alert alert-info">More information needed! Your financial institution requires the following information in order to connect</p>
+                                        <div ng-repeat="question in intuitCtrl.mfaSession.Questions">
+                                            <div ng-if="question.Type == 'text'" data-smart-include="app/personal/accounts/views/partials/finicity-text.tpl.html"></div>
+                                            <div ng-if="question.Type == 'multipleTextOptions'" data-smart-include="app/personal/accounts/views/partials/finicity-multipleTextOptions.tpl.html"></div>
+                                            <div ng-if="question.Type == 'imageCaptcha'" data-smart-include="app/personal/accounts/views/partials/finicity-imageCaptcha.tpl.html"></div>
+                                            <div ng-if="question.Type == 'imageChoice1'" data-smart-include="app/personal/accounts/views/partials/finicity-imageChoice1.html"></div>
+                                            <div ng-if="question.Type == 'imageChoice2'" data-smart-include="app/personal/accounts/views/partials/finicity-imageChoice2.html"></div>
+                                        </div>
+                                    </div>
+                                    <p class="text-center">
+                                        <button class="btn btn-info" ng-click="intuitCtrl.back()">
+                                            Back
+                                        </button>
+                                        <button class="btn btn-success" ng-click="intuitCtrl.submit()" ng-disabled="intuitCtrl.disabledSubmit">
+                                            <i class="fa fa-spinner fa-spin" ng-if="intuitCtrl.disabledSubmit"></i>
+                                            Submit
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div ng-if="intuitCtrl.isSelected" class="row">
+                                <div class="col-md-12" style="margin-top: 25px;">
+                                    <div>
+                                        <p ng-repeat="error in intuitCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                    </div>
+                                    <p class="alert alert-info">Use the drop down menu to specify where each account should be displayed.</p>
+                                    <table class="table table-hover">
+                                        <tbody>
+                                        <tr ng-repeat="account in intuitCtrl.model.AssignModel.Accounts">
+                                            <td class="smart-form">
+                                                <label class="checkbox">
+                                                    <input type="checkbox"
+                                                           ng-model="account.Selected">
+                                                    <i></i>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                {{account.Name}}
+                                            </td>
+                                            <td>
+                                                <ol class="nya-bs-select form-control" ng-model="account.AssignedAccountType" data-size="6">
+                                                    <li nya-bs-option="type in intuitCtrl.model.AssignModel.AccountTypes" data-value="type.Value">
+                                                        <a>
+                                                            <span>{{ type.Text }}</span>
+                                                            <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                        </a>
+                                                    </li>
+                                                </ol>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="text-center">
+                                        <button class="btn btn-info" ng-click="intuitCtrl.back()">
+                                            Back
+                                        </button>
+                                        <button class="btn btn-success" ng-click="intuitCtrl.aligntoledger()" ng-disabled="intuitCtrl.isAdding">
+                                            <i class="fa fa-spinner fa-spin" ng-if="intuitCtrl.isAdding"></i>
+                                            Add accounts
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane" data-smart-wizard-pane="2">
+                            <div class="row">
+                                <div class="col-md-12" style="margin-top: 25px;">
+                                    <h3 class="text-center">Congratulations!</h3>
+                                    <p class="alert alert-info">
+                                        You're now ready to begin managing your money using
+                                        our powerful personal finance management tools!
+                                    </p>
+                                    <h3 class="text-center">Where would you like to go next?</h3>
+                                    <button class="btn btn-info" ng-click="intuitCtrl.showDashboard()">go to my dashboard</button>
+                                    <button class="btn btn-info" ng-click="intuitCtrl.dismiss('app.personal.budget')">set up a budget</button>
+                                    <button class="btn btn-info" ng-click="intuitCtrl.dismiss('app.personal.debttools')">set up a debt elimination plan</button>
+                                    <button class="btn btn-info" ng-click="intuitCtrl.dismiss('app.personal.goals.items')">create a goal</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer text-center">
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ul class="pager wizard no-margin">
+                                            <li class="previous" data-smart-wizard-prev>
+                                                <a class="btn btn-lg btn-default"> Previous </a>
+                                            </li>
+                                            <li class="next" data-smart-wizard-next>
+                                                <a class="btn btn-lg btn-default"> Next </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

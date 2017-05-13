@@ -1,0 +1,37 @@
+﻿@inherits System.Web.Mvc.WebViewPage<mPower.Web.Admin.Models.EventLogsModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "mPower admin - home page";
+}
+@section pageTitle{
+- home
+    }
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(checkNewLogs, 5000);
+
+        $(".colorbox").colorbox();
+    });
+
+    function checkNewLogs() {
+        Request.named("getNewLogs")
+                .get('@Url.Action("RefreshItem")')
+                .addSuccess("slot", function (result) {
+                    $(".colorbox").colorbox();
+                    var date = result.getJson("date");
+                    if (date != null) {
+                        $("#LastEventDate").val(date);
+                        console.log(date);
+                    }
+                    setTimeout(checkNewLogs, 5000);
+                })
+                .addParams({ lastDate: $("#LastEventDate").val() })
+                .send();
+    }
+</script>
+@Html.Hidden("LastEventDate", Model.LastEventDate.Ticks)
+<h2>
+    Activity Monitor</h2>
+<div id="eventsLogContainer">
+        @{ Html.RenderPartial("EventRows", Model.Logs); }
+</div>

@@ -1,0 +1,72 @@
+﻿
+@using mPower.Web.Admin.Models
+@model ReadModelGenerationModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Read Model";
+}
+@section pageTitle{ 
+    - read model regeneration
+    }
+<div style="padding: 10px">
+    @Html.ValidationSummary()
+    @using (Html.BeginForm("GoToReadOnlyMode", "ReadModel"))
+    {  
+        <text>1.</text> @Html.TextBoxFor(x => x.SetReadModeUrl, new { style = "width: 500px;" })  <input
+            type="submit" value="Send App To Read Mode" />
+    }
+    <br />
+    2. @Html.ActionLink("Make database backup", "Index", "Backup")
+
+    @using (Html.BeginForm("RunPatch", "ReadModel"))
+    {
+        <h3>
+            3. Upgrade write model before regenerate</h3>
+        <div class="box">
+            Read connection string @Html.TextBoxFor(x => x.ReadConnectionString, new { style = "width: 400px;" })
+            <br />
+            Write connection string @Html.TextBoxFor(x => x.WriteConnectionString, new { style = "width: 400px;" })
+            <br />
+            @Html.DropDownList("PatchId", Model.Patches)
+            <div style="padding-top: 8px;">
+                <input type="submit" value="Apply patch" />
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm("Regenerate", "ReadModel"))
+    {
+        <h3>
+            4. Regenerate Read Model</h3>
+        <div class="box">
+            Read connection string @Html.TextBoxFor(x => x.ReadConnectionString, new { style = "width: 400px;" })
+            <br />
+            Write connection string @Html.TextBoxFor(x => x.WriteConnectionString, new { style = "width: 400px;" })
+            <br />
+            Use inmemory regeneration @Html.CheckBoxFor(x=> x.UseInMemoryRegeneration)
+            <br/>
+            <br/>
+            <span style="padding: 5px; background-color: #ffcccc;">Warning! It will <b>remove all
+                data</b> from read database before regeneration.</span>
+            <div style="padding-top: 8px;">
+                <input type="submit" value="Regenerate" />
+            </div>
+        </div>
+    }
+    5. Copy/Test Generated Database (for now we need to do it via mongovue), Publish
+    App,
+    @using (Html.BeginForm("GoToWriteMode", "ReadModel"))
+    {  
+        <text>6. Go to write mode</text>  @Html.TextBoxFor(x => x.DisableReadModeUrl, new { style = "width: 500px;" })  <input
+            type="submit" value="Send App Back To Write Mode" /><br />
+    }
+    @* @using (Html.BeginForm("CopyDatabase", "ReadModel"))
+    {  
+        <text>5. Copy database </text> 
+        <text>from:</text>  @Html.TextBoxFor(x => x.CopyFromDatabase, new { style = "width: 200px;" })  
+        <text>to:</text>   @Html.TextBoxFor(x => x.CopyToDatabase, new { style = "width: 200px;" })  
+        
+        <input type="submit" value="Copy Databases" /><br />
+    }*@
+    <br />
+</div>

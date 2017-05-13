@@ -1,0 +1,45 @@
+﻿@* Generator: MvcHelper *@
+@helper Build(bool affiliateAdmin, bool globalAdmin, bool pfmEnabled, bool bfmEnabled, bool creditAppEnabled)
+{
+    <select id="navigationDropDown">
+        
+        @if(pfmEnabled)
+        {
+            @Option("Personal Finances", "/Finance")
+        }
+        
+        @if(creditAppEnabled)
+        {
+            @Option("Credit Identity", "/Credit")
+        }
+        @if(bfmEnabled)
+        {
+             @Option("Business Finances", "/Business")
+        }
+        @if (affiliateAdmin)
+        {
+            <text> @Option("Affiliate Admin", "/Administration/Affiliate", "/Administration/Analytics", "/Administration/Marketing")</text>
+        }
+        @if (globalAdmin)
+        {
+            <text> @Option("Global Admin", "/Administration/Global")</text>
+        }
+    </select>
+}
+@helper Option(string title, params string [] values)
+{
+    var selected = false;
+    foreach (var v in values)
+    {
+        selected |= HttpContext.Current.Request.Url.LocalPath.ToLower().StartsWith(v.ToLower());
+    }
+    
+    <option @(selected ? "selected='selected'" : "") value="@values.First()">@title</option>
+}
+@functions 
+{
+    public static bool IsMoreThanOneAreaAllowed(params bool [] areaIsEnabled)
+    {
+        return areaIsEnabled.Count(x => x) > 1;
+    }
+}

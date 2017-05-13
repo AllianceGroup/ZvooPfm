@@ -1,0 +1,193 @@
+{
+  "prebuild": [
+    "jquery",
+    "jquery-ui",
+    "lodash",
+    "bootstrap",
+    "angular",
+    "angular-sanitize",
+    "angular-ui-router",
+    "ngAnimate",
+    "angular-resource",
+    "angular-bootstrap",
+    "angular-morris-charts",
+    "angular-local-storage",
+    "restangular",
+    "fastclick",
+    "moment",
+    "moment-timezone",
+    "fullcalendar",
+    "notification",
+    "smartwidgets",
+    "easy-pie",
+    "nya-bootstrap-select",
+    "bootstrap-slider",
+    "angular-bootsrap-slider",
+    "checklist-model",
+    "angular-file-saver",
+    "enjoyhint",
+    "ngprogress",
+    "signalR",
+    "ng-currency"
+  ],
+  "paths": {
+
+    "jquery": "lib/jquery/dist/jquery.min.js",
+    "jquery-ui": "lib/jquery-ui/jquery-ui.min.js",
+
+    "bootstrap": "lib/bootstrap/dist/js/bootstrap.min.js",
+
+    "angular": "lib/angular/angular.min.js",
+    "angular-resource": "lib/angular-resource/angular-resource.min.js",
+    "restangular": "lib/restangular/dist/restangular.min.js",
+    "angular-sanitize": "lib/angular-sanitize/angular-sanitize.min.js",
+    "ngAnimate": "./lib/angular-animate/angular-animate.min.js",
+    "angular-ui-router": "lib/angular-ui-router/release/angular-ui-router.min.js",
+
+    "angular-google-maps": "lib/angular-google-maps/dist/angular-google-maps.min.js",
+
+    "google-maps": "https://maps.googleapis.com/maps/api/js?v=3.exp",
+
+    "angular-bootstrap": "lib/angular-bootstrap/ui-bootstrap-tpls.min.js",
+
+    "angular-easyfb": "lib/angular-easyfb/src/angular-easyfb.js",
+    "angular-google-plus": "lib/angular-google-plus/dist/angular-google-plus.min.js",
+
+    "pace": "lib/pace/pace.min.js",
+
+    "fastclick": "lib/fastclick/lib/fastclick.js",
+
+    "jquery-color": "lib/jquery-color/jquery.color.js",
+
+    "select2": "lib/select2//dist/js/select2.min.js",
+
+    "summernote": "lib/summernote/dist/summernote.min.js",
+
+    "he": "lib/he/he.js",
+    "to-markdown": "lib/to-markdown/dist/to-markdown.js",
+    "markdown": "lib/markdown/lib/markdown.js",
+    "bootstrap-markdown": "lib/bootstrap-markdown/js/bootstrap-markdown.js",
+
+    "ckeditor": "lib/ckeditor/ckeditor.js",
+
+    "moment": "lib/moment/min/moment-with-locales.min.js",
+    "moment-timezone": "lib/moment-timezone/builds/moment-timezone.min.js",
+
+    "sparkline": "lib/relayfoods-jquery.sparkline/dist/jquery.sparkline.min.js",
+    "easy-pie": "lib/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js",
+
+    "flot": "smartadmin-plugin/flot/jquery.flot.cust.min.js",
+    "flot-resize": "smartadmin-plugin/flot/jquery.flot.resize.min.js",
+    "flot-fillbetween": "smartadmin-plugin/flot/jquery.flot.fillbetween.min.js",
+    "flot-orderBar": "smartadmin-plugin/flot/jquery.flot.orderBar.min.js",
+    "flot-pie": "smartadmin-plugin/flot/jquery.flot.pie.min.js",
+    "flot-time": "smartadmin-plugin/flot/jquery.flot.time.min.js",
+    "flot-tooltip": "smartadmin-plugin/flot/jquery.flot.tooltip.min.js",
+
+    "raphael": "lib/raphael/raphael.min.js",
+    "morris": "lib/morrisjs/morris.js",
+
+    "dygraphs": "lib/dygraphs/dygraph-combined.js",
+
+    "chartjs": "lib/chartjs/chart.min.js",
+
+    "datatables": "lib/datatables/media/js/jquery.dataTables.min.js",
+    "datatables-bootstrap": "lib/datatables-bootstrap/3/dataTables.bootstrap.js",
+    "datatables-tools": "lib/datatables-tabletools/js/dataTables.tableTools.js",
+    "datatables-colvis": "lib/datatables-colvis/js/dataTables.colVis.js",
+    "datatables-responsive": "lib/datatables-responsive/js/datatables.responsive.js",
+
+
+    "jqgrid": "lib/jqgrid/js/minified/jquery.jqGrid.min.js",
+    "jqgrid-locale-en": "lib/jqgrid/js/i18n/grid.locale-en.js",
+
+
+    "jquery-maskedinput": "lib/jquery-maskedinput/dist/jquery.maskedinput.min.js",
+    "jquery-validation": "lib/jquery-validation/dist/jquery.validate.min.js",
+    "jquery-form": "lib/jquery-form/jquery.form.js",
+
+    "bootstrap-validator": "lib/bootstrap-validator/dist/validator.min.js",
+
+    "bootstrap-timepicker": "lib/bootstrap-timepicker/js/bootstrap-timepicker.js",
+    "clockpicker": "lib/clockpicker/dist/bootstrap-clockpicker.min.js",
+    "nouislider": "lib/nouislider/distribute/nouislider.min.js",
+    "ionslider": "lib/ion.rangeSlider/js/ion.rangeSlider.min.js",
+    "bootstrap-duallistbox": "lib/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js",
+    "bootstrap-colorpicker": "lib/bootstrap-colorpicker/js/bootstrap-colorpicker.js",
+    "jquery-knob": "lib/jquery-knob/dist/jquery.knob.min.js",
+    "bootstrap-slider": "lib/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js",
+    "bootstrap-tagsinput": "lib/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js",
+    "x-editable": "lib/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js",
+
+    "fuelux-wizard": "lib/fuelux/js/wizard.js",
+
+    "dropzone": "lib/dropzone/dist/min/dropzone.min.js",
+
+    "jcrop": "lib/jcrop/js/Jcrop.min.js",
+
+
+    "bootstrap-progressbar": "lib/bootstrap-progressbar/bootstrap-progressbar.min.js",
+    "jquery-nestable": "lib/jquery-nestable-bower/jquery.nestable.js",
+
+    "superbox": "lib/superbox/src/superbox.min.js",
+
+
+    "jquery-jvectormap": "smartadmin-plugin/vectormap/jquery-jvectormap-1.2.2.min.js",
+    "jquery-jvectormap-world-mill-en": "smartadmin-plugin/vectormap/jquery-jvectormap-world-mill-en.js",
+
+
+    "lodash": "lib/lodash/lodash.min.js",
+
+
+    "magnific-popup": "lib/magnific-popup/dist/jquery.magnific-popup.min.js",
+
+    "fullcalendar": "smartadmin-plugin/fullcalendar/jquery.fullcalendar.min.js",
+    "smartwidgets": "smartadmin-plugin/smartwidgets/jarvis.widget.min.js",
+
+    "notification": "smartadmin-plugin/notification/SmartNotification.min.js",
+
+    "angular-morris-charts": "lib/angular-morris-chart/src/angular-morris-chart.min.js",
+    "nya-bootstrap-select": "lib/nya-bootstrap-select/dist/js/nya-bs-select.js",
+    "angular-bootsrap-slider": "lib/angular-bootstrap-slider/slider.js",
+    "checklist-model": "lib/checklist-model/checklist-model.js",
+    "angular-local-storage": "lib/angular-local-storage/dist/angular-local-storage.min.js",
+    "angular-vertilize": "lib/angular-vertilize/angular-vertilize.min.js",
+    "angular-file-saver": "lib/angular-file-saver/dist/angular-file-saver.bundle.min.js",
+    "enjoyhint": "lib/enjoyhint/enjoyhint.min.js",
+    "ngprogress": "lib/ngprogress/build/ngprogress.min.js",
+    "signalR": "lib/signalr/jquery.signalR.min.js",
+    "ng-currency": "lib/ng-currency/dist/ng-currency.js"
+  },
+  "shim": {
+    "to-markdown": {"deps": ["he"]},
+
+    "bootstrap-markdown": { "deps": ["markdown", "to-markdown"]},
+
+    "moment-timezone": { "deps": ["moment"]},
+    "moment-timezone-data": { "deps": ["moment"]},
+    "moment-helper": { "deps": ["moment-timezone-data"]},
+    "bootstrap-daterangepicker": { "deps": ["moment"]},
+
+    "flot-resize": { "deps": ["flot"]},
+    "flot-fillbetween": { "deps": ["flot"]},
+    "flot-orderBar": { "deps": ["flot"]},
+    "flot-pie": { "deps": ["flot"]},
+    "flot-time": { "deps": ["flot"]},
+    "flot-tooltip": { "deps": ["flot"]},
+
+    "morris": {"deps": ["raphael"]},
+
+    "datatables-colvis":{"deps": ["datatables"]},
+    "datatables-tools":{"deps": ["datatables"]},
+    "datatables-bootstrap":{"deps": ["datatables"]},
+    "datatables-responsive": {"deps": ["datatables"]},
+
+    "jqgrid-locale-en" : {"deps": ["jqgrid"]},
+
+    "jcrop":{"deps": ["jquery-color"]},
+
+    "jquery-jvectormap-world-mill-en": { "deps": ["jquery-jvectormap"]},
+
+    "smartwidgets": { "deps": [ "jquery-ui" ] }
+  }
+}

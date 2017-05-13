@@ -1,0 +1,21 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="ctrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        {{ctrl.model.Title}}
+    </h4>
+</div>
+<div class="modal-body row">
+    <div class="col-md-12">
+        <p><h3>{{ctrl.model.Text}}</h3></p>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="ctrl.dismiss()">
+        Close
+    </button>
+    <button type="button" class="btn btn-primary" ng-click="ctrl.confirm()">
+        Confirm
+    </button>
+</div>

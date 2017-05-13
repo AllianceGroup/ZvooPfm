@@ -1,0 +1,189 @@
+<div id="content">
+    <div>
+        <section>
+            <div class="row">
+                <div class="col-md-3">
+                    <div ui-view="leftpanel"></div>
+                </div>
+                <article class="col-md-9">
+                    <div jarvis-widget
+                         data-widget-editbutton="false"
+                         data-widget-colorbutton="false"
+                         data-widget-togglebutton="false"
+                         data-widget-deletebutton="false"
+                         data-widget-fullscreenbutton="false"
+                         data-widget-custombutton="false"
+                         data-widget-sortable="true"
+                         data-widget-color="blue">
+                        <header><h2>Transactions: {{transactionsCtrl.accountName}}</h2></header>
+                        <div>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button id="addTransaction" class="btn btn-success" ng-click="transactionsCtrl.transactionsToggle()">Add transaction</button>
+                                    </div>
+                                    <div class="col-md-2 pull-right">
+                                        <div class="input-group smart-form">
+                                            <div class="input-group-addon">To:</div>
+                                            <label class="input">
+                                                <i class="icon-append fa fa-calendar"></i>
+                                                <input class="form-control" type="text" name="startdate" data-smart-datepicker placeholder="To date" ng-model="transactionsCtrl.filter.to">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 pull-right">
+                                        <div class="input-group smart-form">
+                                            <div class="input-group-addon">From:</div>
+                                            <label class="input">
+                                                <i class="icon-append fa fa-calendar"></i>
+                                                <input class="form-control" type="text" name="startdate" data-smart-datepicker placeholder="From date" ng-model="transactionsCtrl.filter.from">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 20px;" class="row">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-default" ng-disabled="transactionsCtrl.transactionIds.length === 0" ng-click="transactionsCtrl.showEtitMultiple()">Edit multiple</button>
+                                        <button class="btn btn-danger" ng-disabled="transactionsCtrl.transactionIds.length === 0" ng-click="transactionsCtrl.deleteMultiple()">Delete multiple</button>
+                                        <span style="margin: 10px;">
+                                            <span>show:</span>
+                                            <span href="#" style="margin: 5px; cursor: pointer" class="label" ng-class="transactionsCtrl.filter.mode == '' ? 'label-info' : 'label-default'"
+                                                  ng-click="transactionsCtrl.updateByMode('')">All</span>
+                                            <span href="#" style="margin: 5px; cursor: pointer" class="label label-default" ng-class="transactionsCtrl.filter.mode == 'bank' ? 'label-info' : 'label-default'"
+                                                  ng-click="transactionsCtrl.updateByMode('bank')">Bank</span>
+                                            <span href="#" style="margin: 5px; cursor: pointer" class="label label-default" ng-class="transactionsCtrl.filter.mode == 'creditcard' ? 'label-info' : 'label-default'"
+                                                  ng-click="transactionsCtrl.updateByMode('creditcard')">Credit card</span>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4 .col-md-offset-2 pull-right">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="transactionsCtrl.filter.request" on-enter-click="transactionsCtrl.updateFilter()">
+                                            <div class="input-group-btn">
+                                                <button id="search" role="button" type="button" class="btn btn-info" ng-click="transactionsCtrl.updateFilter()"><i class="fa fa-search"></i> Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="transactions-box">
+                                    <div class="row" ng-show="transactionsCtrl.toggle" ng-class="{'slideDown': transactionsCtrl.toggle}">
+                                        <div class="col-md-3 text-center">
+                                            <a class="transactions-box__item" ng-click="transactionsCtrl.showAdd('Check')">
+                                                <img src="/styles/img/app/check-icon.png" />
+                                                <h5>Write checks</h5>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <a class="transactions-box__item" ng-click="transactionsCtrl.showAdd('CreditCard')">
+                                                <img src="/styles/img/app/visa-icon.png" />
+                                                <h5>Credit card transaction</h5>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <a class="transactions-box__item" ng-click="transactionsCtrl.showAdd('BankTransfer')">
+                                                <img src="/styles/img/app/transfer-icon.png" />
+                                                <h5>Bank transfer</h5>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <a class="transactions-box__item" ng-click="transactionsCtrl.showAdd('Deposit')">
+                                                <img src="/styles/img/app/deposit-icon.png" />
+                                                <h5>Make deposits</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-hover" style="margin-top: 20px">
+                                            <thead id="transactions">
+                                                <tr>
+                                                    <th width="2%" class="smart-form">
+                                                        <label class="checkbox">
+                                                            <input type="checkbox" name="checkbox-inline" ng-click="transactionsCtrl.toggleAllIds()">
+                                                            <i style="top: -17px !important"></i>
+                                                        </label>
+                                                    </th>
+                                                    <th width="5%">Date</th>
+                                                    <th width="23%">Account</th>
+                                                    <th width="20%">Description</th>
+                                                    <th width="20%">Category</th>
+                                                    <th width="5%">Amount</th>
+                                                    <th width="5%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="transaction in transactionsCtrl.transactionsList.Entries"
+                                                    ng-mouseover="transactionsCtrl.show(transaction)" ng-mouseleave="transactionsCtrl.hide(transaction)">
+                                                    <td class="smart-form">
+                                                        <label class="checkbox">
+                                                            <input type="checkbox"
+                                                                   ng-checked="transactionsCtrl.transactionIds.indexOf(transaction.TransactionId) > -1"
+                                                                   ng-click="transactionsCtrl.toggleId(transaction.TransactionId)">
+                                                            <i></i>
+                                                        </label>
+                                                    </td>
+                                                    <td>{{transaction.BookedDate | date:'shortDate'}}</td>
+                                                    <td>{{transaction.AccountName}}</td>
+                                                    <td>{{transaction.Payee}}</td>
+                                                    <td>
+                                                        <ol class="nya-bs-select" ng-model="transaction.OffsetAccountId" data-live-search="true" data-size="6">
+                                                            <li nya-bs-option="category in transactionsCtrl.categories group by category.Group" data-value="category.Value" ng-click="transactionsCtrl.assignToAccount(transaction.TransactionId, category.Value)">
+                                                                <span class="dropdown-header">{{$group}}</span> <!-- group header cannot be searched -->
+                                                                <a>
+                                                                    <span>{{ category.Text }}</span> <!-- this content will be search first -->
+                                                                    <em class="small text-right">{{ category.Group }}</em>
+                                                                    <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                                </a>
+                                                            </li>
+                                                        </ol>
+                                                    </td>
+                                                    <td ng-class="transaction.FormattedAmountInDollars.indexOf('-') == -1 ? 'text-success' : ''">{{transaction.FormattedAmountInDollars}}</td>
+                                                    <td>
+                                                        <button ng-if="transaction.show" class="btn btn-xs btn-default" title="Edit transaction" ng-click="transactionsCtrl.showEditStandart(transaction.TransactionId)">
+                                                            <i class="fa fa-lg fa-pencil"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h3>Showing {{transactionsCtrl.transactionsList.Paging.IndexOfFirstItem}} - {{transactionsCtrl.lastTransactionNumber}} of {{transactionsCtrl.transactionsList.Paging.TotalCount}}</h3>
+                                                </div>
+                                                <div class="col-md-6 text-right">
+                                                    <uib-pagination total-items="transactionsCtrl.transactionsList.Paging.TotalCount"
+                                                                    ng-model="transactionsCtrl.filter.page"
+                                                                    ng-change="transactionsCtrl.updateFilter()"
+                                                                    items-per-page="transactionsCtrl.filter.itemsPerPage"
+                                                                    rotate="false"
+                                                                    boundary-link-numbers="true"
+                                                                    max-size="7">
+                                                    </uib-pagination>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 text-right">
+                                                    <span>Show</span>
+                                                    <select id="pages" style="width: auto; display: inline-block; margin: 10px;" class="form-control"
+                                                            ng-model="transactionsCtrl.filter.itemsPerPage"
+                                                            ng-change="transactionsCtrl.updateFilter()">
+                                                        <option value="10">10</option>
+                                                        <option value="20">20</option>
+                                                        <option value="30">30</option>
+                                                        <option value="50">50</option>
+                                                    </select>
+                                                    <span>transactions</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+</div>

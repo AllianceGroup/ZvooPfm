@@ -1,0 +1,7 @@
+project.lock.json
+node_modules
+wwwroot/lib
+wwwroot/build
+wwwroot/_references.js
+wwwroot/app/.idea
+wwwroot/.idea

@@ -1,0 +1,74 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="addUserCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Add New User
+    </h4>
+</div>
+<div class="modal-body row">
+    <form id="smart-form-register" class="smart-form" data-smart-registration-form>
+        <fieldset>
+            <section>
+                <div class="row">
+                    <p ng-repeat="error in addUserCtrl.errors" class="alert alert-danger">{{error}}</p>
+                </div>
+            </section>
+            <section>
+                <label>Email</label>
+                <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                    <input type="email" name="email" ng-model="addUserCtrl.user.Email">
+                </label>
+            </section>
+
+            <section>
+                <label>User name</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input type="text" name="username" ng-model="addUserCtrl.user.UserName">
+                </label>
+            </section>
+
+            <section>
+                <label>First name</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input type="text" name="username" ng-model="addUserCtrl.user.FirstName">
+                </label>
+            </section>
+
+            <section>
+                <label>Last name</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input type="text" name="username" ng-model="addUserCtrl.user.LastName">
+                </label>
+            </section>
+
+            <section>
+                <label>Password</label>
+                <label class="input"> <i class="icon-append fa fa-lock"></i>
+                    <input type="password" name="password" ng-model="addUserCtrl.user.NewPassword" id="password">
+                </label>
+            </section>
+
+            <section>
+                <label>Permissions: </label>
+                <label>
+                    <input ng-change="addUserCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="addUserCtrl.user.AffiliateAdminView">
+                    <span>View affiliate admin</span>
+                </label>
+                <label>
+                    <input ng-change="addUserCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="addUserCtrl.user.AffiliateAdminEdit">
+                    <span>Edit affiliate admin</span>
+                </label>
+                <label>
+                    <input ng-change="addUserCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="addUserCtrl.user.AffiliateAdminDelete">
+                    <span>Delete affiliate admin</span>
+                </label>
+            </section>
+        </fieldset>
+        <footer>
+            <button type="submit" class="btn btn-primary" ng-click="addUserCtrl.addUser()">
+                Add User
+            </button>
+        </footer>
+    </form>
+</div>

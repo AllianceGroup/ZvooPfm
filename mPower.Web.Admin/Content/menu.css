@@ -1,0 +1,85 @@
+.menu
+{
+    border: 0 none;
+    font-family: verdana,geneva,arial,helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+}
+.menu ul
+{
+    background: url("images/menu-bg.gif") repeat-x scroll left top transparent;
+    height: 43px;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.menu li
+{
+    float: left;
+    padding: 0 8px;
+}
+.menu li a
+{
+    color: #666666;
+    display: block;
+    font-weight: bold;
+    line-height: 43px;
+    padding: 0 25px;
+    text-align: center;
+    text-decoration: none;
+}
+.menu li a:hover
+{
+    color: #000000;
+    text-decoration: none;
+}
+.menu li ul
+{
+    background: none repeat scroll 0 0 #E0E0E0;
+    border-bottom: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-right: 2px solid #000000;
+    display: none;
+    height: auto;
+    opacity: 0.95;
+    position: absolute;
+    width: 225px;
+    z-index: 200;
+}
+.menu li:hover ul
+{
+    display: block;
+}
+.menu li li
+{
+    display: block;
+    float: none;
+    padding: 0;
+    width: 225px;
+}
+.menu li ul a
+{
+    display: block;
+    font-size: 12px;
+    font-style: normal;
+    padding: 0 10px 0 15px;
+    text-align: left;
+}
+.menu li ul a:hover
+{
+    background: none repeat scroll 0 0 #949494;
+    color: #000000;
+    opacity: 1;
+}
+.menu p
+{
+    clear: left;
+}
+.menu #current
+{
+    background: url("images/current-bg.gif") repeat-x scroll left top transparent;
+    color: #FFFFFF;
+}

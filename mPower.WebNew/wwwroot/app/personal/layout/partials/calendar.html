@@ -1,0 +1,277 @@
+<div class="triarc-calendar-widget" ng-class="{'full-view': calendarCtrl.fullViewCalendar, 'collapseble': !calendarCtrl.collapseCalendar && !calendarCtrl.fullViewCalendar}">
+    <div data-widget-editbutton="false"
+         data-widget-colorbutton="false"
+         data-widget-deletebutton="false"
+         data-widget-collapsed="true"
+         data-jarvis-widget
+         data-widget-color="blue">
+        <header>
+            <h2>Calendar</h2>
+            <div class="jarviswidget-ctrls">
+                <a href="javascript:void(0)" class="button-icon" ng-click="calendarCtrl.toggleCalendar()" ng-class="{'hidden': calendarCtrl.fullViewCalendar}">
+                    <i class="fa" ng-class="{'fa-plus': !calendarCtrl.collapseCalendar, 'fa-minus': calendarCtrl.collapseCalendar}"></i>
+                </a>
+            </div>
+        </header>
+        <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+
+                        <div class="row" ng-show="calendarCtrl.IsCalendarView">
+                            <div class="col-md-6 col-md-offset-3">
+                                <h1 class="text-center">Add calendar</h1>
+                                <div>
+                                    <p ng-repeat="error in calendarCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control" ng-model="calendarCtrl.newCalendar.Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control" ng-model="calendarCtrl.newCalendar.Description"></textarea>
+                                </div>
+                                <p class="text-center">
+                                    <button class="btn btn-info" ng-click="calendarCtrl.backToDefault()">Back</button>
+                                    <button class="btn btn-success" ng-click="calendarCtrl.saveCalendar()">Save</button>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div ng-show="calendarCtrl.IsEventView">
+                            <h1 class="text-center">Add event</h1>
+                            <div>
+                                <p ng-repeat="error in calendarCtrl.errors" class="alert alert-danger">{{error}}</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-horizontal">
+                                    <div class="form-group">
+                                        <label>Date and Time</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="input-group smart-form">
+                                                    <label class="input ">
+                                                        <i class="icon-append fa fa-calendar"></i>
+                                                        <input type="text" name="startdate" data-smart-datepicker ng-model="calendarCtrl.newEvent.Date">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top:-35px">
+                                                <uib-timepicker ng-model="mytime" hour-step="1" minute-step="1" show-meridian="false"></uib-timepicker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="radio radio-inline">
+                                            <input type="radio" class="radiobox" ng-model="calendarCtrl.newEvent.Type" value="Onetime">
+                                            <span>One-time</span>
+                                        </label>
+                                        <label class="radio radio-inline">
+                                            <input type="radio" class="radiobox" ng-model="calendarCtrl.newEvent.Type" value="Repeating">
+                                            <span>Repeating</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Calendar</label>
+                                        <select class="form-control"
+                                                ng-model="calendarCtrl.newEvent.CalendarId"
+                                                ng-options="cal.Value as cal.Text for cal in calendarCtrl.newEvent.Calendars"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea class="form-control" ng-model="calendarCtrl.newEvent.Description"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Alert</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <select class="form-control"
+                                                        ng-model="calendarCtrl.newEvent.SendAlertOptions.Mode"
+                                                        ng-options="mode.Value as mode.Text for mode in calendarCtrl.newEvent.SendAlertOptions.Modes"></select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="number" class="form-control" ng-model="calendarCtrl.newEvent.SendAlertOptions.Count" />
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h5>minutes</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div ng-show="calendarCtrl.newEvent.Type === 'Repeating'">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Repeats</label>
+                                                <select class="form-control"
+                                                        ng-model="calendarCtrl.newEvent.Frequency"
+                                                        ng-options="cal.Text as cal.Text for cal in calendarCtrl.newEvent.Frequencies"></select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Repeat every</label>
+                                                <select class="form-control"
+                                                        ng-model="calendarCtrl.newEvent.Repeat"
+                                                        ng-options="cal.Text as cal.Text for cal in calendarCtrl.newEvent.RepeatList"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-if="calendarCtrl.newEvent.Frequency === 'Weekly'">
+                                            <label class="checkbox-inline" ng-repeat="day in calendarCtrl.newEvent.AvailibleDays">
+                                                <input type="checkbox" class="checkbox"
+                                                       checklist-model="calendarCtrl.newEvent.Days"
+                                                       checklist-value="day.Text">
+                                                <span>{{day.Text.charAt(0)}}</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-horizontal" ng-if="calendarCtrl.newEvent.Frequency === 'Monthly'">
+                                            <label class="radio radio-inline">
+                                                <input type="radio" class="radiobox" ng-model="calendarCtrl.newEvent.DayAsPartOf" value="Month">
+                                                <span>day of the month</span>
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" class="radiobox" ng-model="calendarCtrl.newEvent.DayAsPartOf" value="Week">
+                                                <span>day of the week</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Starts on</label>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="input-group smart-form">
+                                                        <label class="input ">
+                                                            <i class="icon-append fa fa-calendar"></i>
+                                                            <input type="text" name="startdate" data-smart-datepicker ng-model="calendarCtrl.newEvent.StartDate">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" style="margin-top:-35px">
+                                                    <uib-timepicker ng-model="mytime" hour-step="1" minute-step="1" show-meridian="false"></uib-timepicker>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-horizontal">
+                                            <label>Ends</label>
+                                            <div style="margin-left: 20px">
+                                                <label class="radio margin-bottom-10">
+                                                    <input type="radio" class="radiobox" ng-model="calendarCtrl.newEvent.EndEventRepeating" value="Never">
+                                                    <span>Never</span>
+                                                </label>
+                                                <label class="radio margin-bottom-10">
+                                                    <input type="radio" class="radiobox" ng-model="calendarCtrl.newEvent.EndEventRepeating" value="After">
+                                                    <span>After</span>
+                                                    <label><input class="form-control" type="number" ng-model="calendarCtrl.newEvent.EndAfter" /></label>
+                                                    <span>occurances</span>
+                                                </label>
+                                                <label class="radio margin-bottom-10">
+                                                    <input type="radio" class="radiobox" ng-model="calendarCtrl.newEvent.EndEventRepeating" value="On">
+                                                    <span>On</span>
+                                                    <label>
+                                                        <input type="text" name="startdate" data-smart-datepicker ng-model="calendarCtrl.newEvent.EndDate" class="form-control">
+                                                    </label>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-center">
+                                <button class="btn btn-info" ng-click="calendarCtrl.backToDefault()">Back</button>
+                                <button class="btn btn-success" ng-click="calendarCtrl.saveEvent()">Save</button>
+                            </p>
+                        </div>
+
+                        <div class="row" ng-show="!calendarCtrl.IsCalendarView && !calendarCtrl.IsEventView">
+                            <div class="col-md-6">
+                                <div class="calendar__header">
+                                    <div class="calendar__header-actions">
+                                        <div class="form-group">
+                                            <select ng-model="calendarCtrl.filter.CalendarId"
+                                                    ng-options="cal.Value as cal.Text for cal in calendarCtrl.calendar.Calendars"
+                                                    ng-change="calendarCtrl.updateEvents()"
+                                                    class="form-control"></select>
+                                        </div>
+                                        <p class="text-right">
+                                            <button class="btn btn-success btn-labeled" ng-click="calendarCtrl.showAddCalendarView()">
+                                                <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add calendar
+                                            </button>
+                                        </p>
+                                    </div>
+                                    <div class="calendar__current-date">
+                                        Current date:
+                                        <br>
+                                        <span>{{calendarCtrl.filter.Date | date : 'd MMM yyyy'}}</span>
+                                    </div>
+                                </div>
+                                <!--<p class="alert alert-info">To create new event, click to day</p>-->
+                                <full-calendar id="main-calendar-widget" class=""
+                                               data-date="calendarCtrl.filter.Date"
+                                               data-date-changed="calendarCtrl.updateByDate"
+                                               data-events="calendarCtrl.formatedEvents"
+                                               data-month-changed="calendarCtrl.updateCalendarEvents"></full-calendar>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-right">
+                                    <button class="btn btn-success btn-labeled"
+                                            ng-click="calendarCtrl.showAddEventView()">
+                                        <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add event
+                                    </button>
+                                </p>
+                                <div>
+                                    <div>
+                                        <span class="label label-success" style="padding: 5px; cursor: pointer"
+                                              ng-click="calendarCtrl.filter.TimeSpanFilter = 'ByDay';calendarCtrl.updateEvents();"
+                                              ng-class="calendarCtrl.filter.TimeSpanFilter === 'ByDay' ? 'label-success' : 'label-info'">Day</span>
+                                        <span class="label label-info" style="padding: 5px; cursor: pointer"
+                                              ng-click="calendarCtrl.filter.TimeSpanFilter = 'ByWeek';calendarCtrl.updateEvents();"
+                                              ng-class="calendarCtrl.filter.TimeSpanFilter === 'ByWeek' ? 'label-success' : 'label-info'">Week</span>
+                                        <span class="label label-info" style="padding: 5px; cursor: pointer"
+                                              ng-click="calendarCtrl.filter.TimeSpanFilter = 'ByMonths';calendarCtrl.updateEvents();"
+                                              ng-class="calendarCtrl.filter.TimeSpanFilter === 'ByMonths' ? 'label-success' : 'label-info'">Month</span>
+                                        <span class="label label-info" style="padding: 5px; cursor: pointer"
+                                              ng-click="calendarCtrl.filter.TimeSpanFilter = 'ByYear';calendarCtrl.updateEvents();"
+                                              ng-class="calendarCtrl.filter.TimeSpanFilter === 'ByYear' ? 'label-success' : 'label-info'">Year</span>
+                                        <span class="pull-right">
+                                            <span>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" class="checkbox" ng-model="calendarCtrl.filter.IsDone" ng-change="calendarCtrl.updateEvents()" />
+                                                    <span>Show completed</span>
+                                                </label>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div style="overflow-y: auto; max-height: 330px; margin-top: 15px">
+                                        <ul class="todo smart-form">
+                                            <li class="todo__item" ng-class="{complete: event.IsDone}" ng-repeat="event in calendarCtrl.events">
+                                                <span class="handle">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox"
+                                                               ng-model="event.IsDone"
+                                                               ng-change="calendarCtrl.changeEventStatus(event)"
+                                                               name="checkbox-inline">
+                                                        <i></i>
+                                                    </label>
+                                                </span>
+
+                                                <p class="todo__item-description">
+                                                    <strong class="text-muted">
+                                                        {{event.Description}}
+                                                    </strong>
+                                                    <span class="date">
+                                                        {{event.Date | date : 'd MMM'}}
+                                                    </span>
+                                                </p>
+                                                <span class="todo__item-remove">
+                                                    <a ng-click="calendarCtrl.deleteEvent(event)" class="text-muted">
+                                                        <i class="fa fa-trash-o txt-color-red" style="font-size: 2em"></i>
+                                                    </a>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

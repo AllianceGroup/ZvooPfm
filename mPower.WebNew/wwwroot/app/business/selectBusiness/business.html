@@ -1,0 +1,38 @@
+<div id="widget-grid">
+	<div id="extr-page">
+		<header id="header" class="animated fadeInDown">
+			<div id="logo-group">
+				<span id="logo"> <img src="styles/img/Alliance-pfm.png"> </span>
+			</div>
+
+            	<span id="extr-page-header-space">
+					<a ui-sref="app.personal.dashboard" class="btn btn-success">Return to personal finances</a>
+            	</span>
+		</header>
+
+		<div id="content" class="animated fadeInDown">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="conteiner-fluid">
+						<div class="row">
+							<div class="text-center">
+								<h2>Select your business:</h2>
+							</div>
+							<ul class="list-group">
+								<li ng-repeat="company in businessCtrl.listBusiness.Companies" class="list-group-item">
+									<h4 class="list-group-item-heading">
+										<i class="fa fa-lg fa-bank"></i>
+										{{company.Name}}
+										<button class="btn btn-success pull-right" ui-sref="app.business.dashboard({businessId: company.LedgerId})">Select</button>
+									</h4>
+									<div class="note">added {{company.DateCreated | date: "MM/dd/yyyy"}}</div>
+								</li>
+							</ul>
+							<button class="btn btn-success pull-right" ng-click="businessCtrl.addBusiness()" style="margin-right:15px;">Add new business</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

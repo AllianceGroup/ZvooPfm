@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CEAF8300-81FB-4CE2-98C7-4377C72C8A7B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mPower.TempDocuments.Server</RootNamespace>
+    <AssemblyName>mPower.TempDocuments.Server</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Lucene.Net, Version=2.9.2.2, Culture=neutral, PublicKeyToken=d590fe6f575d2f50, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.2.9.2.2\lib\net40\Lucene.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=1.11.0.92, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.11.0\lib\net35\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.11.0.92, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.11.0\lib\net35\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\NLog\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.Domain, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Domain.1.1.2.0\lib\net40\Paralect.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.ServiceBus, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.ServiceBus.1.1.2.0\lib\net40\Paralect.ServiceBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.Transitions, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Transitions.1.1.2.0\lib\net40\Paralect.Transitions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\libs\ServiceStack\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.0.1.318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.0.1.318\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=4.0.1.318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.0.1.318\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TransUnionWrapper">
+      <HintPath>..\..\libs\TransUnionWrapper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DocumentServices\Lucene\OfferLuceneService.cs" />
+    <Compile Include="DocumentServices\MerchantDocumentService.cs" />
+    <Compile Include="DocumentServices\OfferDocumentService.cs" />
+    <Compile Include="DocumentServices\OfferGroupDocumentService.cs" />
+    <Compile Include="DocumentServices\ZipCodeDocumentService.cs" />
+    <Compile Include="Documents\MerchantDocument.cs" />
+    <Compile Include="Documents\OfferDocument.cs" />
+    <Compile Include="Documents\OfferGroupDocument.cs" />
+    <Compile Include="Documents\ZipCodeDocument.cs" />
+    <Compile Include="Handlers\EventLogDocumentEventHandler.cs" />
+    <Compile Include="Handlers\IntuitEventHandler.cs" />
+    <Compile Include="Notifications\Handlers\UserNotificationsEventHandler.cs" />
+    <Compile Include="Sql\OffersRepository.cs" />
+    <Compile Include="Sql\IOffersRepository.cs" />
+    <Compile Include="Sql\OfferEntity.cs" />
+    <Compile Include="Notifications\DocumentServices\DashboardAlertTempService.cs" />
+    <Compile Include="DocumentServices\CommandLogDocumentService.cs" />
+    <Compile Include="DocumentServices\Filters\AlertFilter.cs" />
+    <Compile Include="DocumentServices\Filters\NotificationFilter.cs" />
+    <Compile Include="Notifications\DocumentServices\NotificationTempService.cs" />
+    <Compile Include="Documents\CommandLogDocument.cs" />
+    <Compile Include="Notifications\DashboardAlertBuilder.cs" />
+    <Compile Include="Notifications\Documents\DashboardAlerts\AvailableCreditAlertDocument.cs" />
+    <Compile Include="Notifications\Documents\DashboardAlerts\CalendarEventAlertDocument.cs" />
+    <Compile Include="Notifications\Documents\DashboardAlerts\LargePurchaseAlertDocument.cs" />
+    <Compile Include="Notifications\Documents\DashboardAlerts\LowBalanceAlertDocument.cs" />
+    <Compile Include="Notifications\Documents\DashboardAlerts\OverBudgetAlertDocument.cs" />
+    <Compile Include="Notifications\Documents\DashboardAlerts\UnusualSpendingAlertDocument.cs" />
+    <Compile Include="Notifications\Documents\BaseNotification.cs" />
+    <Compile Include="Notifications\Documents\DashboardAlerts\DashboardAlertDocument.cs" />
+    <Compile Include="Notifications\Documents\System\ManuallyCreatedNotification.cs" />
+    <Compile Include="Notifications\Documents\Triggers\NewCreditIdentityTriggerNotification.cs" />
+    <Compile Include="Notifications\Documents\Triggers\NewAggregatedAccountTriggerNotification.cs" />
+    <Compile Include="Notifications\Handlers\ManualEmailHandler.cs" />
+    <Compile Include="Notifications\IEmailHtmlBuilder.cs" />
+    <Compile Include="Notifications\Messages\AlertsRemovedMessage.cs" />
+    <Compile Include="Notifications\Messages\EmailManuallyCreatedMessage.cs" />
+    <Compile Include="Notifications\Messages\SendMailMessage.cs" />
+    <Compile Include="Notifications\NotificationBuilder.cs" />
+    <Compile Include="Notifications\Handlers\DashboardAlertsHandler.cs" />
+    <Compile Include="Notifications\Handlers\CalendarEventAlertDocumentEventHandler.cs" />
+    <Compile Include="Notifications\Handlers\EmailHandler.cs" />
+    <Compile Include="Notifications\Handlers\TriggerEventHandler.cs" />
+    <Compile Include="Handlers\ChargifyEventHandler.cs" />
+    <Compile Include="Notifications\NuggetHtmlBuilder.cs" />
+    <Compile Include="Notifications\Nuggets\AccountNameNugget.cs" />
+    <Compile Include="Notifications\Nuggets\CreditIdentitySsnNugget.cs" />
+    <Compile Include="Notifications\Nuggets\DashboardAlerts\AvailableCreditAlertSetAmountNugget.cs" />
+    <Compile Include="Notifications\Nuggets\DashboardAlerts\AvailableCreditAlertAvailableCreditNugget.cs" />
+    <Compile Include="Notifications\Nuggets\DashboardAlerts\OverBudgetAlertDifferenceAmountNugget.cs" />
+    <Compile Include="Notifications\Nuggets\DashboardAlerts\OverBudgetAlertBudgetAmountNugget.cs" />
+    <Compile Include="Notifications\Nuggets\DashboardAlerts\OverBudgetAlertMonthNugget.cs" />
+    <Compile Include="Notifications\Nuggets\DashboardAlerts\UnusualSpendingAlertAmountNugget.cs" />
+    <Compile Include="Notifications\Nuggets\DashboardAlerts\LargePurchaseAlertPurchaseNugget.cs" />
+    <Compile Include="Notifications\Nuggets\DashboardAlerts\LowBalanceAlertNewBalanceNugget.cs" />
+    <Compile Include="Notifications\Nuggets\Calendar\CalendarEventDateNugget.cs" />
+    <Compile Include="Notifications\Nuggets\Calendar\CalendarEventDetailsNugget.cs" />
+    <Compile Include="Notifications\Nuggets\CurrentDateNugget.cs" />
+    <Compile Include="Notifications\Nuggets\ResetPasswordLinkNugget.cs" />
+    <Compile Include="Notifications\Nuggets\User\UserNameNugget.cs" />
+    <Compile Include="Notifications\Nuggets\User\UserEmailNugget.cs" />
+    <Compile Include="Notifications\Nuggets\User\LastNameNugget.cs" />
+    <Compile Include="Notifications\Nuggets\User\FirstNameNugget.cs" />
+    <Compile Include="Notifications\Nuggets\INugget.cs" />
+    <Compile Include="Notifications\TriggerBuilder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Documents\ImportTemporaryDocument.cs" />
+    <Compile Include="Documents\LedgerImportDocument.cs" />
+    <Compile Include="DocumentServices\Filters\ImportFilter.cs" />
+    <Compile Include="DocumentServices\ImportTemporaryService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\tools\mPower.Aggregation\mPower.Aggregation.Client\mPower.Aggregation.Client.csproj">
+      <Project>{1cd8e0e8-67d6-48c7-b136-b4b8f5b307a9}</Project>
+      <Name>mPower.Aggregation.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tools\mPower.Aggregation\mPower.Aggregation.Contract\mPower.Aggregation.Contract.csproj">
+      <Project>{5e839fd9-1dc9-4141-a33f-57fe5e318472}</Project>
+      <Name>mPower.Aggregation.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Documents\mPower.Documents.Server.csproj">
+      <Project>{BFD9845E-DFD0-4E9E-941D-5532751C7153}</Project>
+      <Name>mPower.Documents.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Domain\mPower.Domain.csproj">
+      <Project>{CF6CBC87-0BF9-4E69-9937-650A47D54F7B}</Project>
+      <Name>mPower.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Framework\mPower.Framework.csproj">
+      <Project>{3A145847-D3DF-46B9-B9F5-DC0244C24CC1}</Project>
+      <Name>mPower.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

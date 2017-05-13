@@ -1,0 +1,68 @@
+﻿@inherits WebViewPage<mPower.Web.Admin.Models.LogsModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Logs";
+}
+<style type="text/css">
+    .exception
+    {
+        border: 1px solid red;
+        padding: 4px 4px 4px 10px;
+        font-family: Courier New;
+        margin-top: 3px;
+        font-size: 14px;
+        display: none;
+    }
+</style>
+<script type="text/javascript">
+	$(document).ready(function () {
+	    $("#search").bind("click", function() {
+	        window.location.href = '@Url.Action("Index")' + getFilterQueryString();
+	    });
+
+	    $("#download").bind("click", function() {
+	        window.location.href = '@Url.Action("Download")' + getFilterQueryString();
+	    });
+	    
+	    var getFilterQueryString =function()
+	    {
+	        return "?searchKey=" + $("#searchKey").val() + "&date=" + $("#date option:selected").val() + "&sort=" + $("#sort option:selected").val() + "&level=" + $("#level option:selected").val() + "&pageSize=" + $("#pageSize").val() + "&pageNr=0";
+	    };
+
+		var refresh = function () {
+		    $('#logs-container').fadeOut('medium').load(window.location.protocol + "://" + window.location.host + "/" + window.location.pathname).fadeIn('medium');
+		};
+
+		var refreshId;
+
+		$('#auto-refresh').change(function () {
+			var checkbox = $(this);
+			
+			if (checkbox.is(':checked')) {
+				refreshId = setInterval(refresh, 5000);
+			} else {
+				clearInterval(refreshId);
+			}
+		});
+	});
+    
+</script>
+@section pageTitle{ 
+    - logs
+    }
+@Html.ValidationSummary()
+<br />
+Search key: <input type="text" id="searchKey" value="@Model.SearchKey" />&nbsp;|&nbsp;
+Show @Html.DropDownList("date", Model.DateOptions) logs on @Html.DropDownList("level", Model.LevelOptions) level &nbsp;|&nbsp;
+Sort by @Html.DropDownList("sort", Model.SortOptions) &nbsp;|&nbsp;
+Show <input type="text" id="pageSize" value="@Model.PaginInfo.ItemsPerPage" /> logs per page &nbsp;|&nbsp;
+<input type="button" id="search" onclick="return false;" value="Search" />
+<input type="button" id="download" onclick="return false;" value="Download" />
+<label for="auto-refresh">Auto refresh</label>
+<input type="checkbox" id="auto-refresh" />
+<br />
+<br />
+
+<div id="logs-container">
+@Html.Partial("LogTable", Model)
+</div>

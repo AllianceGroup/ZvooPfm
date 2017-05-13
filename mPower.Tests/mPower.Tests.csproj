@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="ParalectConfig" BeforeTargets="PreBuildEvent">
+    <Exec Command="&quot;$(MSBuildProjectDirectory)\..\Paralect.Config.exe&quot; /silent" />
+  </Target>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A51B79AF-1D29-4D24-A291-D8AAB94D8DBB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mPower.Tests</RootNamespace>
+    <AssemblyName>mPower.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Idcs">
+      <HintPath>..\..\libs\Idcs\Idcs.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=1.11.0.92, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.11.0\lib\net35\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.11.0.92, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.11.0\lib\net35\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\libs\Moq\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="mPower.Aggregation.Client">
+      <HintPath>..\..\libs\Intuit\mPower.Aggregation.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="mPower.Aggregation.Contract">
+      <HintPath>..\..\libs\Intuit\mPower.Aggregation.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="mPower.MembershipApi">
+      <HintPath>..\..\libs\mPower.Membership\mPower.MembershipApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\NLog\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\libs\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.Config, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <ExecutableExtension>.exe</ExecutableExtension>
+      <HintPath>..\..\libs\Paralect\Paralect.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.Domain, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Domain.1.1.2.0\lib\net40\Paralect.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.ServiceBus, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.ServiceBus.1.1.2.0\lib\net40\Paralect.ServiceBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.ServiceLocator.StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.ServiceLocator.StructureMap.1.0.0.0\lib\net40\Paralect.ServiceLocator.StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.ServiceLocator.Unity">
+      <HintPath>..\..\libs\Paralect\Paralect.ServiceLocator.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Paralect.Transitions, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Transitions.1.1.2.0\lib\net40\Paralect.Transitions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Paralect.Transitions.Mongo, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paralect.Core.Transitions.Mongo.1.1.2.0\lib\net40\Paralect.Transitions.Mongo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Prelude, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\Prelude.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\..\libs\Quartz\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\libs\ServiceStack\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.0.1.318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.0.1.318\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=4.0.1.318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.0.1.318\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TransUnionWrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\TransUnionWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Yodlee.NET">
+      <HintPath>..\..\libs\Yodlee\Yodlee.NET.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Environment\Extentions.cs" />
+    <Compile Include="Environment\IMock.cs" />
+    <Compile Include="Environment\ObjectComparer.cs" />
+    <Compile Include="MoqObjects\Common\CommandServiceMock.cs" />
+    <Compile Include="MoqObjects\Common\IIdGeneratorMock.cs" />
+    <Compile Include="MoqObjects\DocumentServices\AffiliateDocumentServiceMock.cs" />
+    <Compile Include="MoqObjects\DocumentServices\BudgetDocumentServiceMock.cs" />
+    <Compile Include="MoqObjects\DocumentServices\BusinessReportDocumentServiceMock.cs" />
+    <Compile Include="MoqObjects\DocumentServices\ContentServiceItemDocumentServiceMock.cs" />
+    <Compile Include="MoqObjects\DocumentServices\TransactionDocumentServiceMock.cs" />
+    <Compile Include="MoqObjects\DocumentServices\LedgerDocumentServiceMock.cs" />
+    <Compile Include="MoqObjects\DocumentServices\EntryDocumentServiceMock.cs" />
+    <Compile Include="MoqObjects\Intuit\AggregationClientMock.cs" />
+    <Compile Include="MoqObjects\Lucene\TransactionLuceneSerivceMock.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\AccountingFormatterTests.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Ledger\BudgetTests\budget_creation_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Ledger\BudgetTests\budget_update_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Aggregation\AggregationCallbackTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_Account_AggregatedBalanceUpdatedEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_Account_ArchivedEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_Account_IsUpdating_ChangedEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_Account_AddedEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_Account_RemovedEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_Account_UpdatedEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_Account_UpdatedOrderEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_Budget_SetEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_Budget_UpdatedEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_DeletedEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Ledger\Ledger_TransactionMap_ItemAddedEventTest.cs" />
+    <Compile Include="UnitTests\OfferingsSystem\AccessDataRepsitoryTest.cs" />
+    <Compile Include="UnitTests\OfferingsSystem\DownloadAccessDataJobTest.cs" />
+    <Compile Include="UnitTests\Services\BudgetDocumentServiceTest.cs" />
+    <Compile Include="UnitTests\Services\BusinessReportDocumentServiceTest.cs" />
+    <Compile Include="UnitTests\Services\LedgerDocumentServiceTest.cs" />
+    <Compile Include="UnitTests\Services\TransactionDocumentServiceTests.cs" />
+    <Compile Include="UnitTests\Web\Controllers\Integrations\AggregationControllerTests.cs" />
+    <Compile Include="UnitTests\EventHandlers\Transactions\Transaction_DeletedEventTest.cs" />
+    <Compile Include="UnitTests\EventHandlers\Transactions\Transaction_ModifiedEventTest.cs" />
+    <Compile Include="MoqObjects\Mongodb\MongoYodleeMock.cs" />
+    <Compile Include="UnitTests\Services\BaseServiceTest.cs" />
+    <Compile Include="UnitTests\Services\EntryDocumentServiceTest.cs" />
+    <Compile Include="UnitTests\Services\TransactionLuceneSerivceTest.cs" />
+    <Compile Include="UnitTests\Services\TransactionsStatisticDocumentServiceTest.cs" />
+    <Compile Include="UnitTests\Web\Factories\Commands\AccountCommandsFactoryTest.cs" />
+    <Compile Include="UnitTests\Web\Factories\Commands\AggregateIntuitDataCommandFactoryTests.cs" />
+    <Compile Include="UnitTests\Web\Factories\Commands\Budget_SetCommandFactoryTest.cs" />
+    <Compile Include="UnitTests\Web\Factories\Commands\Transaction_CreateCommandFactoryTest.cs" />
+    <Compile Include="UnitTests\Web\Factories\Commands\Transaction_ModifyCommandFactoryTest.cs" />
+    <Compile Include="UnitTests\Web\Factories\ViewModel\AccountListViewModelFactoryTest.cs" />
+    <Compile Include="UnitTests\Web\Factories\ViewModel\AccountsSidebarFactoryTest.cs" />
+    <Compile Include="UnitTests\Web\Factories\ViewModel\AccountViewModelFactoryTest.cs" />
+    <Compile Include="UnitTests\Web\Factories\ViewModel\BudgetViewModelFactoryTest.cs" />
+    <Compile Include="UnitTests\Web\Factories\ViewModel\LegerViewModelFactoryTest.cs" />
+    <Compile Include="MoqObjects\DocumentServices\TransactionsStatisticDocumentServiceMock.cs" />
+    <Compile Include="MoqObjects\MockFactory.cs" />
+    <Compile Include="MoqObjects\Mongodb\MongoReadMock.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Calendar\CalendarTest.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Calendar\calendar_creation_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Calendar\calendar_deletion_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Calendar\calendar_onetime_event_adding_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Calendar\calendar_onetime_event_change_status_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Calendar\calendar_onetime_event_deleting_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Calendar\calendar_repeating_event_deleting_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\CreditIdentity\CreditIdentityTests.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\CreditIdentity\Report\AddReport.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Iif\CommandsGeneratorTest.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Iif\FormatterTest.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Iif\IifTest.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Iif\ParserTest.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\IntuitTransaction_CommandHandlerTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UnitTests\Domain\Accounting\Ledger\AccountTests\accounts_archiving_removing_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Ledger\AccountTests\two_accounts_creation_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Ledger\LedgerTest.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Ledger\ledger_removing_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Ledger\UserTests\ledger_user_add_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Ledger\UserTests\ledger_user_remove_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\LocalCalculatorTests.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\TransactionDocumentEventHandlerTest.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting1\enter_rent_bill.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting1\pay_rent_no_bill.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting1\pay_rent_yes_bill.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting1\transfer_from_checking_to_savings.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting2\cancel_sell_product_on_account.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting2\collected_from_customer.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting2\deliver_inventory_to_customer.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting2\return_inventory_to_warehouse.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting2\sell_product_on_account.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting3\issue_share_certificates.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting3\purchase_computer_on_amex.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\Accounting3\purchase_treasury_shares.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\asset_purchase_with_loan_transaction_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\correct_transaction_creation_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\incorrect_transaction_creation_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\invoice_create_transaction_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\invoice_void_transaction_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\statistic_transaction_creation_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\statistic_transaction_deletion_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\statistic_transaction_modification_test.cs" />
+    <Compile Include="UnitTests\Domain\Accounting\Transaction\TransactionTest.cs" />
+    <Compile Include="UnitTests\Domain\Membership\Subscription\SubscriptionTest.cs" />
+    <Compile Include="UnitTests\Domain\Membership\Subscription\subscription_creation_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\Subscription\subscription_deletion_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\Subscription\subscription_subscribed_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\ApiTest.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\UserDocumentService.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\user_api_authentication_question.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\user_api_change_password.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\user_api_change_password_with_invalid_old.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\user_api_create_empty.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\user_api_create_valid.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\user_api_create_with_existsing_name.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\user_api_get_by_username.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\user_api_invalid_login_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\Api\user_api_valid_login_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\UserTest.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_activation_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_add_permission_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_add_two_same_permissions_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_change_password_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_creation_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_deactivation_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_deletion_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_login_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_remove_permission_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_remove_two_same_permissions_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_reset_password_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_update_reset_password_token_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_update_security_question_test.cs" />
+    <Compile Include="UnitTests\Domain\Membership\User\user_update_test.cs" />
+    <Compile Include="UnitTests\EventHandlers\BaseHandlerTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UnitTests\EventHandlers\Transactions\Transaction_CreatedEventTest.cs" />
+    <Compile Include="UnitTests\Framework\Utils\DateUtilTests.cs" />
+    <Compile Include="UnitTests\Framework\Utils\StreamUtilTests.cs" />
+    <Compile Include="Environment\AggregateTest.cs" />
+    <Compile Include="Environment\Bootstrapper.cs" />
+    <Compile Include="Environment\DirectAggregateTest.cs" />
+    <Compile Include="Environment\Fake.cs" />
+    <Compile Include="UnitTests\Framework\MultiTenancy\ContainerControllerFactoryTests.cs" />
+    <Compile Include="UnitTests\Framework\MultiTenancy\DefaultTenantSelectorTests.cs" />
+    <Compile Include="UnitTests\Framework\MultiTenancy\EnsureTests.cs" />
+    <Compile Include="UnitTests\Framework\MultiTenancy\ExecutionFilterAttributeTests.cs" />
+    <Compile Include="UnitTests\Framework\MultiTenancy\ProperController.cs" />
+    <Compile Include="UnitTests\Framework\MultiTenancy\TenantContainerResolverTests.cs" />
+    <Compile Include="Environment\MvcMockHelpers.cs" />
+    <Compile Include="Environment\TestServerRegistry.cs" />
+    <Compile Include="Environment\TestEventService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\Services\VerificationServiceTests.cs" />
+    <Compile Include="UnitTests\Services\ViewModelBuilderTests.cs" />
+    <Compile Include="UnitTests\Web\Areas\Administration\Services\UserSearchTests.cs" />
+    <Compile Include="UnitTests\Web\Areas\Credit\Controllers\BaseCreditControllerTest.cs" />
+    <Compile Include="UnitTests\Web\Areas\Credit\Controllers\CreditIdentityControllerTests.cs" />
+    <Compile Include="UnitTests\Web\Areas\Credit\Controllers\ScoreControllerTests.cs" />
+    <Compile Include="UnitTests\Web\BaseWebTest.cs" />
+    <Compile Include="UnitTests\Web\Controllers\ControllerBaseTest.cs" />
+    <Compile Include="UnitTests\Web\Controllers\VerificationControllerTests.cs" />
+    <Compile Include="UnitTests\Web\Factories\Commands\YodleeUserInfoFactoryTests.cs" />
+    <Compile Include="UnitTests\Web\AggregationHelperTests.cs" />
+    <Compile Include="UnitTests\Web\Factories\ViewModel\TransactionsListViewModelFactoryTest.cs" />
+    <Compile Include="UnitTests\Web\Factories\ViewModel\TrendsViewModelFactoryTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Default\Default.csproj">
+      <Project>{56d1b15d-7d14-48f6-bb2a-2d1d877776fc}</Project>
+      <Name>Default</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Documents\mPower.Documents.Server.csproj">
+      <Project>{BFD9845E-DFD0-4E9E-941D-5532751C7153}</Project>
+      <Name>mPower.Documents.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Domain\mPower.Domain.csproj">
+      <Project>{CF6CBC87-0BF9-4E69-9937-650A47D54F7B}</Project>
+      <Name>mPower.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.EventHandlers\mPower.EventHandlers.csproj">
+      <Project>{CD6B321B-5046-4FB0-AA5F-B803FE8E4CC3}</Project>
+      <Name>mPower.EventHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.Framework\mPower.Framework.csproj">
+      <Project>{3A145847-D3DF-46B9-B9F5-DC0244C24CC1}</Project>
+      <Name>mPower.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mPower.OfferingsSystem\mPower.OfferingsSystem.csproj">
+      <Project>{15c74d9a-4fbe-49c2-b989-6f110b77fb0c}</Project>
+      <Name>mPower.OfferingsSystem</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <DependentUpon>App.config.xslt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="UnitTests\Domain\Accounting\Iif\IifFiles\iif_formatter_ledger_test.iif" />
+    <None Include="UnitTests\Domain\Accounting\Transaction\Accounting1\Accounting Testing 1.xlsx" />
+    <None Include="UnitTests\Domain\Accounting\Transaction\Accounting2\Accounting Testing 2.xlsx" />
+    <None Include="UnitTests\Domain\Accounting\Transaction\Accounting3\Accounting Testing 3.xlsx" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.config.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UnitTests\EventHandlers\Yodlee\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

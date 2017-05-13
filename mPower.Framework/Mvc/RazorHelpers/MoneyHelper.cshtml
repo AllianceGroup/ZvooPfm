@@ -1,0 +1,12 @@
+﻿@* Generator : MvcHelper *@
+@using System.Web.Mvc
+
+@helper Money(this HtmlHelper helper, long value, bool includeDollarSign = false)
+{
+    <span class='@(value < 0 ? "amount red" : String.Empty) '>@(includeDollarSign ? (value/100.0).ToString("C2") : (value/100.0).ToString("C2")@*.Replace("$", String.Empty)*@)</span>
+}
+
+@helper MoneyColored(this HtmlHelper helper, long value, bool includeDollarSign = false, string cssClass = "amount")
+{
+    <span class='@(value < 0 ? "amount red" : cssClass) '>@(includeDollarSign ? (value / 100.0).ToString("C2") : (value / 100.0).ToString("C2")@*.Replace("$", String.Empty)*@)</span>
+}

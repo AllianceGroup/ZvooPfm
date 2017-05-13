@@ -1,0 +1,72 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-6">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header>
+                        <h2>Edit template</h2>
+                    </header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <p ng-repeat="error in editTemplateCtrl.errors" class="alert alert-danger">{{error}}</p>
+                            </div>
+                            <div class="row">
+                                <form id="smart-form-register" class="smart-form" data-smart-registration-form>
+                                    <section class="col col-4">
+                                        <label>Name</label>
+                                        <label class="input"> <i class="icon-append fa fa-user"></i>
+                                            <input type="text" name="username" ng-model="editTemplateCtrl.template.Name">
+                                        </label>
+                                    </section>
+                                    <section class="col-md-12">
+                                        <div class="template"></div>
+                                    </section>
+                                    <footer>
+                                        <button type="submit" class="btn btn-success" ng-click="editTemplateCtrl.save()">
+                                            Save template
+                                        </button>
+                                        <button class="btn btn-info" ng-click="editTemplateCtrl.previewTemplate()">
+                                            Preview
+                                        </button>
+                                    </footer>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="col-md-6">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header>
+                        <h2>Preview template</h2>
+                    </header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div ng-bind-html="editTemplateCtrl.template.Html">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

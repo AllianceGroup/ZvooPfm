@@ -1,0 +1,16 @@
+<div class="trends-sidebar" jarvis-widget data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="true" data-widget-color="blue">
+    <header class="trends-sidebar__header">
+        <h2>Monthly Budgets & Spending Charts</h2>
+    </header>
+    <ul class="list-group trends-sidebar__list">
+        <li class="list-group-item item-hover" ng-repeat="item in trendsCtrl.Trends.Categories" ng-click="trendsCtrl.ViewTransactions(item.AccountId, item.Name)">
+            <span class="badge">{{item.Amount | centsCurrency}}</span>{{item.Name}}
+        </li>
+    </ul>
+    <div class="text-align-center" ng-if="trendsCtrl.filter.All">
+        <button class="btn btn-success mb10" ng-click="trendsCtrl.RefreshByQuantity(false)">Show top 10</button>
+    </div>
+    <div class="text-align-center" ng-if="trendsCtrl.filter.All != true">
+        <button class="btn btn-success mb10" ng-click="trendsCtrl.RefreshByQuantity(true)">Show all</button>
+    </div>
+</div>

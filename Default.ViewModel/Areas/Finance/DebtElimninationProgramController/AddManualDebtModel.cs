@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Web.Mvc;
+using mPower.Domain.Accounting.Enums;
+
+namespace Default.ViewModel.Areas.Finance.DebtElimninationProgramController
+{
+    public class AddManualDebtModel
+    {
+        private const double MaxAmountValue = 1000000000;
+
+        [Required]
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public AccountTypeEnum Type { get; set; }
+
+        [Required]
+        [Display(Name = "Account Type")]
+        public AccountLabelEnum Label { get; set; }
+
+        public string Number { get; set; }
+
+        public string ParentAccountId { get; set; }
+
+        [Range(0.1, 1000)]
+        [Display(Name = "Interest Rate")]
+        public float InterestRatePercentage { get; set; }
+
+        [Range(0.01, MaxAmountValue)]
+        [Display(Name = "Minimum Monthly Payment")]
+        public decimal MinMonthPaymentInDollars { get; set; }
+
+        public IEnumerable<SelectListItem> AccountLabels { get; set; }
+
+        public IEnumerable<SelectListItem> Accounts { get; set; }
+
+        [Range(0.01, MaxAmountValue)]
+        [Display(Name = "Opening Balance")]
+        public decimal OpeningBalance { get; set; }
+
+        public decimal CreditLimitInDollars { get; set; }
+    }
+}

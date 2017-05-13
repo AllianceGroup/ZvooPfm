@@ -1,0 +1,161 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="profileCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        My profile
+    </h4>
+</div>
+<div class="modal-body row">
+    <div class="my-alerts">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="well">
+                    <h1>Contact Information</h1>
+                    <div>
+                        <p class="alert alert-danger" ng-repeat="error in profileCtrl.model.UserDetails.errors">{{error}}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" ng-model="profileCtrl.model.UserDetails.FirstName"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" ng-model="profileCtrl.model.UserDetails.LastName"/>
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail address</label>
+                                <input type="text" class="form-control" ng-model="profileCtrl.model.UserDetails.Email"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <div class="smart-form">
+                                    <input type="text" data-smart-datepicker class="form-control" ng-model="profileCtrl.model.UserDetails.BirthDate">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Zip code</label>
+                                <input type="text" class="form-control" ng-model="profileCtrl.model.UserDetails.ZipCode"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select class="form-control" ng-options="k as v for (k, v) in profileCtrl.model.UserDetails.Genders" ng-model="profileCtrl.model.UserDetails.Gender"></select>
+                            </div>
+                        </div>
+                        <p class="text-center">
+                            <button class="btn-success btn" ng-click="profileCtrl.saveUserDetails()" ng-disabled="profileCtrl.model.UserDetails.disabled">
+                                <i class="fa fa-spinner fa-spin" ng-if="profileCtrl.model.UserDetails.disabled"></i>
+                                Save changes
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="well">
+                    <h1>Change Password</h1>
+                    <div>
+                        <p class="alert alert-danger" ng-repeat="error in profileCtrl.model.ChangePasswordModel.errors">{{error}}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Current password</label>
+                        <input type="password" class="form-control" ng-model="profileCtrl.model.ChangePasswordModel.OldPassword"/>
+                    </div>
+                    <div class="form-group">
+                        <label>New password</label>
+                        <input type="password" class="form-control" ng-model="profileCtrl.model.ChangePasswordModel.NewPassword"/>
+                        <div class="note">The only restriction is that Passwords must be at least 6 characters long, but we recommend stronger settings below...</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confitm new password</label>
+                        <input type="password" class="form-control" ng-model="profileCtrl.model.ChangePasswordModel.NewPasswordConfirmation"/>
+                    </div>
+
+                    <p class="text-center">
+                        <button class="btn-success btn" ng-click="profileCtrl.changePassword()" ng-disabled="profileCtrl.model.ChangePasswordModel.disabled">
+                            <i class="fa fa-spinner fa-spin" ng-if="profileCtrl.model.ChangePasswordModel.disabled"></i>
+                            Save changes
+                        </button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <h1>Security level</h1>
+                    <div>
+                        <p class="alert alert-danger" ng-repeat="error in profileCtrl.model.SecurityLevel.errors">{{error}}</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Set security level</label>
+                        <select class="form-control"
+                                ng-model="profileCtrl.model.SecurityLevel.SelectedLevel"
+                                ng-options="item.Value as item.Text for item in profileCtrl.model.SecurityLevel.SecurityLevels"></select>
+                    </div>
+                    <p class="text-center">
+                        <button class="btn-success btn" ng-click="profileCtrl.saveSecurity()" ng-disabled="profileCtrl.model.SecurityLevel.disabled">
+                            <i class="fa fa-spinner fa-spin" ng-if="profileCtrl.model.SecurityLevel.disabled"></i>
+                            Save changes
+                        </button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <h1>Security questions</h1>
+                    <div>
+                        <p class="alert alert-danger" ng-repeat="error in profileCtrl.model.SecurityQuestion.errors">{{error}}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Question</label>
+                        <select class="form-control"
+                                ng-model="profileCtrl.model.SecurityQuestion.SecurityQuestion"
+                                ng-options="item.Text as item.Text for item in profileCtrl.model.SecurityQuestion.Questions"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Answer</label>
+                        <input class="form-control" type="text" ng-model="profileCtrl.model.SecurityQuestion.Answer"/>
+                    </div>
+                    <p class="text-center">
+                        <button class="btn-success btn" ng-click="profileCtrl.saveSequrityQuestion()" ng-disabled="profileCtrl.model.SecurityQuestion.disabled">
+                            <i class="fa fa-spinner fa-spin" ng-if="profileCtrl.model.SecurityQuestion.disabled"></i>
+                            Save changes
+                        </button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <h1>Security settings</h1>
+                    <div>
+                        <p class="alert alert-danger" ng-repeat="error in profileCtrl.model.SecuritySettings.errors">{{error}}</p>
+                    </div>
+
+                    <div class="checkbox">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="checkbox" ng-model="profileCtrl.model.SecuritySettings.EnableAdminAccess" />
+                            <span>Enable Admin Access</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="checkbox" ng-model="profileCtrl.model.SecuritySettings.EnableAggregationLogging" />
+                            <span>Enable Aggregation Logging</span>
+                        </label>
+                    </div>
+                    <p class="text-center">
+                        <button class="btn-success btn" ng-click="profileCtrl.saveSequritySettings()" ng-disabled="profileCtrl.model.SecuritySettings.disabled">
+                            <i class="fa fa-spinner fa-spin" ng-if="profileCtrl.model.SecuritySettings.disabled"></i>
+                            Save changes
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

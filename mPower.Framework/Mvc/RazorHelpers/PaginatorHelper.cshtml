@@ -1,0 +1,66 @@
+﻿@* Generator : MvcHelper *@
+@using System.Web.Mvc
+@using mPower.Framework.Services
+@helper Paginator(this HtmlHelper helper, PagingInfo info, string containerId, string refreshUrl)
+    {
+    if (info.TotalCount > 0)
+    {
+    <div class="pagination">
+        <strong class="totals">Showing @info.IndexOfFirstItem - @info.IndexOfLastItem of @info.TotalCount</strong>
+        <ul>
+            @{int pageCount = info.TotalPagesCount;}
+            @if (info.CurrentPage > 1 && pageCount > 1)
+            {
+                <li><a onclick="Grid.refresh('@containerId','@refreshUrl', @(info.CurrentPage - 1)); return false;" href="#">
+                    &#171;</a></li>
+            }
+            @if (pageCount > 1 && pageCount < 10)
+            {
+                for (int index = 0; index < pageCount; index++)
+                {
+                <li>
+                    @if (index == info.CurrentPage - 1)
+                    { <strong>@(index + 1)</strong>
+                    }
+                    else
+                    {
+                        <a onclick="Grid.refresh('@containerId','@refreshUrl',@(index + 1)); return false;" href="#">@(index + 1)</a>
+                    }
+                </li>
+                }
+            }
+            else if (pageCount >= 10)
+            {
+                int startIndex = Math.Min(info.CurrentPage > 4 ? info.CurrentPage - 4 : 1, pageCount - 8);
+                if (startIndex > 1)
+                {
+                <li>...</li>
+                }
+                int i;
+                for (i = startIndex; (i < startIndex + 9) && i <= pageCount; i++)
+                {
+                <li>
+                    @if (i == info.CurrentPage)
+                    {
+                        <strong>@i</strong>
+                    }
+                    else
+                    {
+                        <a onclick="Grid.refresh('@containerId','@refreshUrl',@i); return false;" href="#">@i</a>
+                    }
+                </li>
+                }
+                if (i < pageCount)
+                {
+                <li>...</li>
+                }
+            }
+            @if (pageCount > info.CurrentPage + 1 && pageCount > 1)
+            { 
+                <li><a onclick="Grid.refresh('@containerId','@refreshUrl',@(info.CurrentPage + 1)); return false;" href="#">
+                    &#187;</a></li>
+            }
+        </ul>
+    </div>
+    }
+}

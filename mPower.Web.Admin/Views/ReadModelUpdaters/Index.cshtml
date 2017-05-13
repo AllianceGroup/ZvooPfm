@@ -1,0 +1,52 @@
+﻿@model string
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "mPower admin - Update Read Model";
+}
+@section pageTitle{ 
+    - read model updates
+    }
+@Html.ValidationSummary()
+<h3>@Model </h3>
+@using (Html.BeginForm("UpdateLedgersAccountBalance", "ReadModelUpdaters"))
+{
+    <h3>
+        Update ledgers accounts balances</h3>
+    <div class="box">
+        You can also sepcify ledger id to update: @Html.TextBox("ledgerId")
+        <input type="submit" value="Update Ledger(s) Accounts Balance" />
+    </div>
+}
+
+@using (Html.BeginForm("RemoveLedger", "ReadModelUpdaters"))
+{
+    <h3>
+        Delete ledger</h3>
+    <div class="box">
+        Ledger Id: @Html.TextBox("ledgerId")
+        <input type="submit" value="Delete" />
+    </div>
+}
+
+@using (Html.BeginForm("ImportZipCodes", "ReadModelUpdaters", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h3>
+        Import Zip Codes</h3>
+    <div class="box">
+        Zip Codes CSV file: <input type="file"  name="file" id="file"/>
+        <input type="submit" value="Import" />
+    </div>
+}
+
+@using (Html.BeginForm("PullOffers", "ReadModelUpdaters", FormMethod.Post))
+{
+    <h3>
+        Pull offers from Access development.</h3>
+    <div class="box">
+        Drop Merchants:
+        @Html.CheckBox("dropMerchants")
+        Drop Offers:
+        @Html.CheckBox("dropOffers")
+        <input type="submit" value="Start" />
+    </div>
+}

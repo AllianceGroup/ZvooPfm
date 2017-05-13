@@ -1,0 +1,115 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="realEstateCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Real Estate
+    </h4>
+</div>
+<div class="modal-body row">
+    <div class="my-alerts">
+        <div>
+            <p class="alert alert-danger" ng-repeat="error in realEstateCtrl.errors">{{error}}</p>
+        </div>
+        <p class="text-right">
+            <button class="btn btn-success" ng-click="realEstateCtrl.addRealEstate()">Add real estate</button>
+        </p>
+        ﻿<div class="row" ng-if="realEstateCtrl.ShowAddingField">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input class="form-control" type="text" ng-model="realEstateCtrl.searchModel.address"/>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Zip</label>
+                        <input class="form-control" type="text" ng-model="realEstateCtrl.searchModel.zip"/>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-success" style="margin-top: 23px" ng-click="realEstateCtrl.search()">Find property</button>
+                    <div class="note" style="cursor: pointer;" ng-click="realEstateCtrl.getModalRealEstate()">Enter my real estate's value manually</div>
+                </div>
+            </div>
+            <div class="row" ng-if="realEstateCtrl.items && realEstateCtrl.items.length > 0">
+                <div class="well" style="cursor: pointer;" ng-repeat="item in realEstateCtrl.items" ng-click="realEstateCtrl.getModalRealEstate(item.Id)">
+                    <h4>{{item.Address}}</h4>
+                    <div class="note">{{item.Description}}</div>
+                </div>
+            </div>
+            <div class="row" ng-if="realEstateCtrl.items && realEstateCtrl.items.length === 0">
+                <h2 class="text-center">No items</h2>
+            </div>
+        </div>
+        </div>
+        <div class="row" ng-if="realEstateCtrl.showSaveField">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input class="form-control" type="text" ng-model="realEstateCtrl.saveModel.Name"/>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Value</label>
+                            <div class="input-group">
+                                <input ng-currency amount="realEstateCtrl.saveModel.Value" class="form-control" ng-model="realEstateCtrl.saveModel.Value" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-success" style="margin-top: 23px" ng-click="realEstateCtrl.save()">Save property</button>
+                        <div class="note" style="cursor: pointer;" ng-click="realEstateCtrl.addRealEstate()">Or search again</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group smart-accordion-default" id="accordion" ng-show ="realEstateCtrl.model.length > 0">
+            <div class="panel panel-default" ng-repeat="realEst in realEstateCtrl.model">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#{{realEst.Id}}" aria-expanded="false" class="collapsed">
+                            <i class="fa fa-lg fa-angle-down pull-right"></i>
+                            <i class="fa fa-lg fa-angle-up pull-right"></i>
+                            {{realEst.Name}} <span class="badge pull-right bg-color-green">{{realEst.Value | currency}}</span>                  
+                        </a>
+                    </h4>
+                </div>
+                <div id="{{realEst.Id}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                    <div class="panel-body font-md">
+                        <div class="row text-center">
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <b>Name:</b> {{realEst.Name | ifEmpty}}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <b>Value:</b> {{realEst.Value | currency}}
+                                    </div>
+                                    <br/>                               
+                                        <label>
+                                            <input type="checkbox" class="checkbox style-0" ng-model="realEst.IsIncludedInWorth" ng-click="realEstateCtrl.incudeInWorth(realEst)">
+                                            <span><b>Include in my net worth</b></span>
+                                        </label>                          
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            <span>
+                                <a class="text-muted" ng-click="realEstateCtrl.delete(realEst.Id)" uib-tooltip="Delete">
+                                    <i class="fa fa-trash-o txt-color-red" style="font-size: 2em"></i>
+                                </a>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="realEstateCtrl.model.length === 0" class="text-center">No real estate accounts</div>
+    </div>
+</div>

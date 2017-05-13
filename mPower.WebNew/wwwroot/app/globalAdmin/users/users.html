@@ -1,0 +1,117 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header><h2>Manage users</h2></header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <p ng-repeat="error in usersGlobalCtrl.errors" class="alert alert-danger">{{error}}</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" ng-model="usersGlobalCtrl.SearchKey">
+                                </div>
+                                <div class="col-md-1">
+                                    <select class="form-control" ng-model="usersGlobalCtrl.Affiliate">
+                                        <option ng-repeat="affiliate in usersGlobalCtrl.usersList.Affiliates" value="{{affiliate.Value}}">{{affiliate.Text}}</option>
+                                    </select><i></i>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" ng-click="usersGlobalCtrl.refreshUsers()" class="btn btn-info"><i class="fa fa-search"></i> Search</button>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="text-right">
+                                        <button ng-if="usersGlobalCtrl.roles.GlobalAdminEdit" class="btn btn-info" ng-click="usersGlobalCtrl.addUser()"><i class="fa fa-user-plus"></i> Add user</button>
+                                        <button class="btn btn-success" ng-click="usersGlobalCtrl.exportUsers()"><i class="fa fa-file"></i> Export to CSV</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-hover" style="margin-top: 20px">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Created on</th>
+                                            <th>Name</th>
+                                            <th>User name</th>
+                                            <th>Affiliate main</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="user in usersGlobalCtrl.usersList.Users">
+                                            <td class="smart-form">
+                                                <label class="checkbox">
+                                                    <input type="checkbox" ng-model="usersGlobalCtrl.ids[user.Id]">
+                                                    <i></i>
+                                                </label>
+                                            </td>
+                                            <td>{{user.CreateDate | date: 'MM/dd/yyyy'}}</td>
+                                            <td>{{user.FullName}}</td>
+                                            <td>{{user.UserName}}</td>
+                                            <td>{{user.AffiliateName}}</td>
+                                            <td>
+                                                <button ng-class="usersGlobalCtrl.roles.GlobalAdminEdit ? '' : 'disabled'"
+                                                        title="active/de-activate user" class='btn btn-xs btn-default' ng-click="usersGlobalCtrl.toggleUserIsActive(user.Id)">
+                                                    <i ng-if="user.IsActive" class='fa fa-circle txt-color-green'></i>
+                                                    <i ng-if="!user.IsActive" class='fa fa-circle txt-color-red'></i>
+                                                </button>
+                                            <td>
+                                                <button ng-if="usersGlobalCtrl.roles.GlobalAdminEdit" class='btn btn-xs btn-default' title="edit user" ng-click="usersGlobalCtrl.editProfile(user.Id)"><i class='fa fa-pencil'></i></button>
+                                                <button ng-if="usersGlobalCtrl.roles.GlobalAdminDelete" class='btn btn-xs btn-default' title='log in as user' ng-click="usersGlobalCtrl.loginAsUser(user.Id)"><i class='fa fa-laptop'></i></button>
+                                                <button class='btn btn-xs btn-default' title='extended user details' ng-click="usersGlobalCtrl.getUserDetails(user.Id)"><i class='fa fa-user'></i></button>
+                                                <button ng-if="usersGlobalCtrl.roles.GlobalAdminDelete" class='btn btn-xs btn-danger' title='delete user' ng-click="usersGlobalCtrl.confirmDelete(user.Id)"><i class='fa fa-times'></i></button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h3>Showing {{usersGlobalCtrl.usersList.Paging.IndexOfFirstItem}} - {{usersGlobalCtrl.usersList.Paging.IndexOfLastItem}} of {{usersGlobalCtrl.usersList.Paging.TotalCount}}</h3>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <uib-pagination
+                                                    total-items="usersGlobalCtrl.usersList.Paging.TotalCount"
+                                                    ng-model="usersGlobalCtrl.usersList.Paging.CurrentPage"
+                                                    ng-change="usersCtrl.refreshUsers()"
+                                                    items-per-page="usersGlobalCtrl.usersList.Paging.ItemsPerPage"
+                                                    rotate="false"
+                                                    boundary-link-numbers="true"
+                                                    max-size="7">
+                                            </uib-pagination>
+                                        </div>
+                                    </div>
+                                    <div ng-if="usersGlobalCtrl.roles.GlobalAdminEdit" class="row" style="margin-bottom: 20px;">
+                                        <div class="select col-md-2">
+                                            <select class="form-control" ng-model="usersGlobalCtrl.bulkOption">
+                                                <option value="">--Bulk Options--</option>
+                                                <option ng-if="usersGlobalCtrl.roles.GlobalAdminDelete" value="Delete">Delete Selected</option>
+                                                <option value="Deactivate">Deactivate Selected</option>
+                                                <option value="Activate">Activate Selected</option>
+                                            </select><i></i>
+                                        </div>
+                                        <div>
+                                            <button class='btn btn-default' ng-click="usersGlobalCtrl.bulk()">Go <i class='fa fa-lg fa-angle-double-right'></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

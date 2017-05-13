@@ -1,0 +1,112 @@
+<div>
+    <div id="extr-page">
+        <header id="header" class="animated fadeInDown">
+
+            <div id="logo-group">
+                <span id="logo"> <img src="styles/img/Alliance-pfm.png"> </span>
+            </div>
+
+            <span id="extr-page-header-space">
+                <span class="hidden-mobile hiddex-xs">Need an account?</span> <a ui-sref="signup" class="btn btn-danger">Create account</a>
+            </span>
+
+        </header>
+        <div id="main" role="main">
+
+            <div id="content" class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+                        <h1 class="txt-color-red login-header-big">Alliance PFM</h1>
+
+                        <div class="hero">
+                            <div class="pull-left login-desc-box-l">
+                                <ul class="list-unstyled text-left price-features">
+                                    <li><i class="fa fa-check text-success"></i>All your accounts in one place</li>
+                                    <li><i class="fa fa-check text-success"></i>Powerful budgeting tools</li>
+                                    <li><i class="fa fa-check text-success"></i>Automatically track your spending</li>
+                                    <li><i class="fa fa-check text-success"></i>Monitor and track your credit score</li>
+                                    <li><i class="fa fa-check text-success"></i>Eliminate debt</li>
+                                    <li><i class="fa fa-check text-success"></i>Set goals and track your progress</li>
+                                    <li><i class="fa fa-check text-success"></i>Safe and secure environment</li>
+                                    <li><i class="fa fa-check text-success"></i>Bank level security <label class="txt-color-red">128 bit SSL encryption</label></li>
+                                </ul>
+                            </div>
+                            <img src="styles/img/demo/iphoneview.png" class="pull-right display-image" alt style="width:210px">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                        <p class="alert alert-success" ng-if="loginCtrl.message">{{loginCtrl.message}}</p>
+                        <p class="alert alert-danger" ng-repeat="error in loginCtrl.errors" ng-bind-html="error"></p>
+                        <div class="well no-padding">
+                            <form id="login-form" class="smart-form client-form">
+                                <header>
+                                    Sign In
+                                </header>
+                                <fieldset>
+                                    <section ng-hide="loginCtrl.model.SecurityQuestion">
+                                        <label class="label">E-mail</label>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-user"></i>
+                                            <input type="email"
+                                                   name="email"
+                                                   data-required
+                                                   data-email
+                                                   data-message-required="Please enter your email address"
+                                                   data-message-email="Please enter a VALID email address"
+                                                   ng-model="loginCtrl.model.Email">
+                                            <b class="tooltip tooltip-top-right">
+                                                <i class="fa fa-user txt-color-teal"></i>
+                                                Please enter email address/username
+                                            </b>
+                                        </label>
+                                    </section>
+                                    <section ng-hide="loginCtrl.model.SecurityQuestion">
+                                        <label class="label">Password</label>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-lock"></i>
+                                            <input ng-enter="loginCtrl.login()"
+                                                   type="password" name="password"
+                                                   data-required
+                                                   data-minlength="1"
+                                                   data-maxnlength="20"
+                                                   data-message="Please enter your email password"
+                                                   ng-model="loginCtrl.model.Password">
+                                            <b class="tooltip tooltip-top-right">
+                                                <i class="fa fa-lock txt-color-teal"></i> Enter
+                                                your password
+                                            </b>
+                                        </label>
+
+                                        <div class="note">
+                                            <a ui-sref="forgotPassword">Forgot password?</a>
+                                        </div>
+                                    </section>
+                                    <section ng-show="loginCtrl.model.SecurityQuestion">
+                                        <label class="label">{{loginCtrl.model.SecurityQuestion}}</label>
+                                        <label class="input">
+                                            <input type="text"
+                                                   data-required
+                                               data-minlength="1"
+                                                   data-maxnlength="20"
+                                                   data-message="Please enter your email password"
+                                                   ng-model="loginCtrl.model.SecurityQuestionAnswer">
+                                            <b class="tooltip tooltip-top-right">
+                                                <i class="fa fa-lock txt-color-teal"></i> Enter
+                                                answer
+                                            </b>
+                                        </label>
+                                    </section>
+                                </fieldset>
+                                <footer>
+                                    <button type="button" class="btn btn-primary" ng-click="loginCtrl.login()">
+                                        Sign in
+                                    </button>
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

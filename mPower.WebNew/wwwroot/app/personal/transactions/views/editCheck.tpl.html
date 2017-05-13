@@ -1,0 +1,86 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="editCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        {{editCtrl.actionType}} check transaction
+    </h4>
+</div>
+<div class="modal-body row">
+    <div>
+        <p ng-repeat="error in editCtrl.errors" class="alert alert-danger">{{error}}</p>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Bank account</label>
+            <ol class="nya-bs-select form-control" ng-model="editCtrl.model.AccountId">
+                <li nya-bs-option="category in editCtrl.model.FilteredAccounts" data-value="category.Value">
+                    <a>
+                        <span>{{ category.Text }}</span>
+                        <em class="small text-right">{{ category.Group }}</em>
+                        <span class="glyphicon glyphicon-ok check-mark"></span>
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div class="form-group">
+            <label>No</label>
+            <input type="text" class="form-control" ng-model="editCtrl.model.ReferenceNumber"/>
+        </div>
+        <div class="form-group">
+            <label>Pay to the order of</label>
+            <input type="text" class="form-control" ng-model="editCtrl.model.Payee"/>
+        </div>
+        <div class="form-group">
+            <label>Memo</label>
+            <input type="text" class="form-control" ng-model="editCtrl.model.Memo" />
+        </div>
+        <div class="form-group">
+            <label>Categorization</label>
+            <ol class="nya-bs-select form-control" ng-model="editCtrl.model.OffSetAccountId" data-live-search="true" data-size="6">
+                <li nya-bs-option="category in editCtrl.model.Accounts group by category.Group" data-value="category.Value">
+                    <span class="dropdown-header">{{$group}}</span>
+                    <a>
+                        <span>{{ category.Text }}</span>
+                        <em class="small text-right">{{ category.Group }}</em>
+                        <span class="glyphicon glyphicon-ok check-mark"></span>
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div class="form-group" ng-if="editCtrl.actionType === 'Edit'">
+            <label class="checkbox-inline">
+                <input type="checkbox" class="checkbox" ng-model="editCtrl.model.MemorizeCategorization"/>
+                <span>Remember categorization</span>
+            </label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Date</label>
+            <div class="input-group">
+                <input type="text" class="form-control pull-left" uib-datepicker-popup="{{'MM/dd/yyyy'}}" show-button-bar="false"
+                       ng-model="editCtrl.model.BookedDate" is-open="popup.opened" ng-required="true" ng-click="popup.opened = true"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="popup.opened = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Amount</label>
+            <input format="currency" amount="editCtrl.model.AmountInDollars" type="text" class="form-control" ng-model="editCtrl.model.AmountInDollars" />
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="editCtrl.dismiss()">
+        Close
+    </button>
+    <button type="button" class="btn btn-danger" ng-if="editCtrl.actionType === 'Edit'" ng-click="editCtrl.delete()">
+        Delete
+    </button>
+    <button type="button" class="btn btn-primary" ng-click="editCtrl.edit()">
+        {{editCtrl.actionType}}
+    </button>
+</div>

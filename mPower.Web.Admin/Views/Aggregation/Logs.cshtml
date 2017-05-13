@@ -1,0 +1,71 @@
+﻿@using mPower.Web.Admin.Controllers
+@using mPower.Web.Admin.Helpers
+@model IntuitLogsModel
+   
+
+    <script src="@Url.Content("~/Scripts/shCore.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/shAutoloader.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/shLegacy.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/shBrushXml.js")" type="text/javascript"></script>      
+    <link rel='stylesheet' type='text/css' href='@Url.Content("~/Content/shCore.css")' />
+    <link rel='stylesheet' type='text/css' href='@Url.Content("~/Content/shCoreDefault.css")' />
+    <script type="text/javascript">
+        SyntaxHighlighter.all()
+    </script>
+
+<div id="logs-container">
+@Html.Partial("Filter",Model.Filter)    
+     <table border="1px solid black" cellpadding="0" cellspacing="0">
+        <thead>
+            <th style="width: 200px;">
+                Id
+            </th>
+            <th style="width: 100px;">
+                User Id
+            </th>
+            <th style="width: 500px;">
+                Message
+            </th>
+            <th style="width: 200px;">
+                Date
+            </th>
+        </thead>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Id
+                </td>
+                <td>@item.UserId
+                </td>
+                <td>
+                @if (String.IsNullOrEmpty(item.ExceptionId))
+                {
+                    if (item.LogMessage.Contains("<?xml"))
+                    {
+                        var xmlStart = item.LogMessage.IndexOf("<?xml", StringComparison.Ordinal);
+                        <span >@item.LogMessage.Substring(0,xmlStart) </span>
+                        <pre class="brush: xml">@item.LogMessage.Substring(xmlStart)</pre>   
+                    }
+                    else
+                    {
+                        <span >@item.LogMessage </span>   
+                    }
+
+                }
+                else
+                {
+                     <span style='color: Red;'>@item.LogMessage 
+                     <br />
+                     ExceptionId: @item.ExceptionId 
+                     </span>
+                }
+                                
+                </td>
+                <td>@item.Date
+                </td>
+            </tr>
+        }
+    </table>
+    
+    @Html.Paging(Model.Filter.PagingInfo)
+</div>

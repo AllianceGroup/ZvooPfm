@@ -1,0 +1,54 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-6 col-md-offset-3">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header><h2>Messages</h2></header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row" ng-if="messagesCtrl.roles.AffiliateAdminEdit">
+                                <div class="text-right">
+                                    <button class="btn btn-success" data-ui-sref="app.affiliateAdmin.createMessages"><i class="fa fa-plus"></i> Create new message</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-hover" style="margin-top: 20px">
+                                        <thead>
+                                        <tr>
+                                            <th>Created</th>
+                                            <th>Name</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="message in messagesCtrl.messages">
+                                            <td>{{message.Created | date : 'MM/dd/yyyy'}}</td>
+                                            <td>{{message.Name}}</td>
+                                            <td ng-if="message.Status == 1">Draft</td>
+                                            <td ng-if="message.Status == 2">Active</td>
+                                            <td>
+                                                <button ng-if="messagesCtrl.roles.AffiliateAdminEdit" class='btn btn-xs btn-default' title="edit message" ng-click="messagesCtrl.editMessage(message.Id)"><i class='fa fa-pencil'></i></button>
+                                                <button ng-if="!message.IsDefault && messagesCtrl.roles.AffiliateAdminDelete" class='btn btn-xs btn-danger' title='delete message' ng-click="messagesCtrl.delete(message.Id)"><i class='fa fa-times'></i></button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

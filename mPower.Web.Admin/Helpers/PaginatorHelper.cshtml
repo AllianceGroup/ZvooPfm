@@ -1,0 +1,140 @@
+﻿@* Generator : MvcHelper *@
+
+@using System.Web.Mvc
+@using mPower.Framework.Services
+@helper Paginator(this HtmlHelper helper, mPower.Web.Admin.Models.LogsModel info, string className) {
+    if (info.PaginInfo.TotalPagesCount > 1)
+    {
+
+        <div class="@className">
+            <ul>
+                @{ int pageCount = info.PaginInfo.TotalPagesCount; }
+                @if (info.PaginInfo.HasPreviousPage)
+                {
+                    <li>
+                        <a href="@string.Format("/logs/Index?searchKey={0}&date={1}&sort={2}&level={3}&pageNr={4}&pageSize={5}",
+                                                             info.SearchKey,
+                                                             info.DateOptions.First(x => x.Selected).Value,
+                                                             info.SortOptions.First(x => x.Selected).Value,
+                                                             info.LevelOptions.First(x => x.Selected).Value,
+                                                             info.PaginInfo.CurrentPage - 1,
+                                                             info.PaginInfo.ItemsPerPage)">
+                            &#171;
+                        </a>
+                    </li>
+                }
+                @{
+                    int startIndex = Math.Min(info.PaginInfo.CurrentPage > 4 ? info.PaginInfo.CurrentPage - 4 : 1, pageCount - 8);
+                    startIndex = startIndex >= 1 ? startIndex : 1;
+                    if (startIndex > 1)
+                    {
+                        <li>...</li>
+                    }
+                    int i;
+                    for (i = startIndex; (i < startIndex + 9) && i <= pageCount; i++)
+                    {
+                        <li>
+                            @if (i == info.PaginInfo.CurrentPage)
+                            {
+                                <strong>@i</strong>
+                            }
+                            else
+                            {
+                                <a href="@string.Format("/logs/Index?searchKey={0}&date={1}&sort={2}&level={3}&pageNr={4}&pageSize={5}",
+                                                                     info.SearchKey,
+                                                                     info.DateOptions.First(x => x.Selected).Value,
+                                                                     info.SortOptions.First(x => x.Selected).Value,
+                                                                     info.LevelOptions.First(x => x.Selected).Value,
+                                                                     i,
+                                                                     info.PaginInfo.ItemsPerPage)">
+                                    @i
+                                </a>
+                            }
+                        </li>
+                    }
+                    if (i < pageCount)
+                    {
+                        <li>...</li>
+                    }
+                }
+                @if (info.PaginInfo.HasNextPage)
+                {
+                    <li>
+                        <a href="@string.Format("/logs/Index?searchKey={0}&date={1}&sort={2}&level={3}&pageNr={4}&pageSize={5}",
+                                                             info.SearchKey,
+                                                             info.DateOptions.First(x => x.Selected).Value,
+                                                             info.SortOptions.First(x => x.Selected).Value,
+                                                             info.LevelOptions.First(x => x.Selected).Value,
+                                                             info.PaginInfo.CurrentPage + 1,
+                                                             info.PaginInfo.ItemsPerPage)">
+                            &#187;
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}
+        
+        @helper Paging(this HtmlHelper helper, PagingInfo info) {
+            if (info.TotalPagesCount > 1)
+            {
+
+                <div id="paging" class="paginator">
+                    <ul>
+                        @{ int pageCount = info.TotalPagesCount; }
+                        @if (info.HasPreviousPage)
+                        {
+                            <li>
+                                <a href="#" data-page="@(info.CurrentPage -1)">
+                                    &#171;
+                                </a>
+                            </li>
+                        }
+                        @{
+                            int startIndex = Math.Min(info.CurrentPage > 4 ? info.CurrentPage - 4 : 1, pageCount - 8);
+                            startIndex = startIndex >= 1 ? startIndex : 1;
+                            if (startIndex > 1)
+                            {
+                                <li>...</li>
+                            }
+                            int i;
+                            for (i = startIndex; (i < startIndex + 9) && i <= pageCount; i++)
+                            {
+                                <li>
+                                    @if (i == info.CurrentPage)
+                                    {
+                                        <strong>@i</strong>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" data-page="@(i)">
+                                            @i
+                                        </a>
+                                    }
+                                </li>
+                            }
+                            if (i < pageCount)
+                            {
+                                <li>...</li>
+                            }
+                        }
+                        @if (info.HasNextPage)
+                        {
+                            <li>
+                                <a href="#" data-page="@(info.CurrentPage  + 1)">
+                                    &#187;
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+            <script>
+                $("#paging li a").click(function () {
+                    var pageNumberInput = $("input[name*='PagingInfo.CurrentPage']");
+                    pageNumberInput.val($(this).data("page"));
+                    pageNumberInput.parents("form").submit();
+                })
+            </script>
+        }

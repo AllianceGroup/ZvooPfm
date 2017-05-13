@@ -1,0 +1,161 @@
+<div id="content">
+    <div ng-if="BudgetCtrl.Budget.IsBudgetForLedgerSet">
+        <section>
+            <div class="row">
+                <div class="col-md-2">
+                    <div data-smart-include="app/personal/budget/views/budgetOverview.tpl.html"></div>
+                </div>
+                <article class="col-md-10">
+                    <div jarvis-widget
+                         data-widget-editbutton="false"
+                         data-widget-colorbutton="false"
+                         data-widget-togglebutton="false"
+                         data-widget-deletebutton="false"
+                         data-widget-fullscreenbutton="false"
+                         data-widget-custombutton="false"
+                         data-widget-sortable="true"
+                         data-widget-color="blue">
+                        <header><h2>Budget: {{BudgetCtrl.Budget.GraphModel.Date | date : 'MMMM yyyy' : timezone}}</h2></header>
+                        <div>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h1>{{BudgetCtrl.Budget.GraphModel.Date | date : 'MMMM yyyy' : timezone}} </h1>
+                                        <div data-smart-include="app/layout/partials/monthLine.tpl.html"></div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin: 10px 0">
+                                    <div class="col-md-12 text-right">
+                                        <button class="btn btn-success" ng-click="BudgetCtrl.EditCategories()">Add/Edit budget categories</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left font-xl">Income</div>
+                                        <div class="col-md-6 text-right font-lg">{{BudgetCtrl.Budget.GraphModel.IncomeSpentTotal | centsCurrency}} of {{BudgetCtrl.Budget.GraphModel.IncomeBudgetedTotal | centsCurrency}}</div>
+                                    </div>
+                                    <div class="panel panel-default smart-accordion-default" ng-repeat="item in BudgetCtrl.Budget.GraphModel.IncomeItems">
+                                        <div ng-mouseover="BudgetCtrl.show(item)" ng-mouseleave="BudgetCtrl.hide(item)" class="panel-heading budget-item">
+                                            <div class="row">
+                                                <h4 class="col-md-4 text-left">{{item.AccountName}}</h4>
+                                                <div class="col-md-4 text-center">
+                                                    <div ng-if="item.show">
+                                                        <button class="btn btn-info" ng-click="BudgetCtrl.ViewTransactions(item.AccountId, item.AccountName)">View transactions</button>
+                                                        <button class="btn btn-info" ng-click="BudgetCtrl.EditBudget(item)">Edit budget amount</button>
+                                                    </div>
+                                                </div>
+                                                <h5 class="col-md-4 text-right">{{item.AmountSpent | centsCurrency}} of {{item.AmountBudgeted | centsCurrency}}</h5>
+                                            </div>
+                                            <div ng-if="item.SubBudgets.length > 0" class="pull-right panel-title">
+                                                <a data-toggle="collapse" href="#{{item.Id}}" aria-expanded="false" class="collapsed" title="Help">
+                                                    <i class="fa fa-lg fa-angle-down pull-right"></i><i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                </a>
+                                            </div>
+                                            <div class="progress" style="margin-right: 20px">
+                                                <div class="progress-bar" ng-class="BudgetCtrl.ColorBar(item.Color)" ng-style="{'width': item.Persent + '%'}">{{item.Persent}}%</div>
+                                            </div>
+                                            <div ng-if="item.Edit" class="input-group text-right col-md-3">
+                                                <div class="input-group">
+                                                    <input format="centsCurrency" amount="item.newAmountBudgeted" type="text" class="form-control" ng-model="item.newAmountBudgeted" required placeholder="{{item.AmountBudgeted | centsCurrency}}">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-info" ng-click="BudgetCtrl.Update(item)">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ng-if="item.SubBudgets.length > 0" id="{{item.Id}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                            <div class="panel-body no-padding">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item sub-budget-item" ng-repeat="sub in item.SubBudgets">
+                                                        <div class="row">
+                                                            <h4 class="col-md-5 text-left">{{sub.AccountName}}</h4>
+                                                            <button class="btn btn-info col-md-2 text-center" ng-click="BudgetCtrl.ViewTransactions(sub.Id, sub.AccountName)">View transactions</button>
+                                                            <h5 class="col-md-5 text-right">{{sub.AmountSpent | centsCurrency}}</h5>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left font-xl">Expenses</div>
+                                        <div class="col-md-6 text-right font-lg">{{BudgetCtrl.Budget.GraphModel.ExpenseSpentTotal | centsCurrency}} of {{BudgetCtrl.Budget.GraphModel.ExpenseBudgetedTotal | centsCurrency}}</div>
+                                    </div>
+                                    <div class="panel panel-default smart-accordion-default" ng-repeat="item in BudgetCtrl.Budget.GraphModel.ExpenseItems">
+                                        <div class="panel-heading budget-item" ng-mouseover="BudgetCtrl.show(item)" ng-mouseleave="BudgetCtrl.hide(item)">
+                                            <div class="row">
+                                                <h4 class="col-md-4 text-left">{{item.AccountName}}</h4>
+                                                <div class="col-md-4 text-center">
+                                                    <div ng-if="item.show">
+                                                        <button class="btn btn-info" ng-click="BudgetCtrl.ViewTransactions(item.AccountId, item.AccountName)">View transactions</button>
+                                                        <button class="btn btn-info" ng-click="BudgetCtrl.EditBudget(item)">Edit budget amount</button>
+                                                    </div>
+                                                </div>
+                                                <h5 class="col-md-4 text-right">{{item.AmountSpent | centsCurrency}} of {{item.AmountBudgeted | centsCurrency}}</h5>
+                                            </div>
+                                            <div ng-if="item.SubBudgets.length > 0" class="pull-right panel-title">
+                                                <a data-toggle="collapse" href="#{{item.Id}}" aria-expanded="false" class="collapsed" title="Help">
+                                                    <i class="fa fa-lg fa-angle-down pull-right"></i><i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                </a>
+                                            </div>
+                                            <div class="progress" style="margin-right: 20px">
+                                                <div class="progress-bar" ng-class="BudgetCtrl.ColorBar(item.Color)" ng-style="{'width': item.Persent + '%'}">{{item.Persent}}%</div>
+                                            </div>
+                                            <div class="text-center">
+                                                <div ng-if="item.Edit" class="input-group text-right col-md-3">
+                                                    <div class="input-group">
+                                                        <input format="centsCurrency" amount="item.newAmountBudgeted" type="text" class="form-control" ng-model="item.newAmountBudgeted" required placeholder="{{item.AmountBudgeted | centsCurrency}}">
+                                                        <div class="input-group-btn">
+                                                            <button role="button" type="submit" class="btn btn-info" ng-click="BudgetCtrl.Update(item)">Update</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="{{item.Id}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                            <div ng-if="item.SubBudgets.length > 0" class="panel-body no-padding">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item sub-budget-item" ng-repeat="sub in item.SubBudgets">
+                                                        <div class="row">
+                                                            <h4 class="col-md-5 text-left">{{sub.AccountName}}</h4>
+                                                            <button class="btn btn-info col-md-2 text-center" ng-click="BudgetCtrl.ViewTransactions(sub.Id, sub.AccountName)">View transactions</button>
+                                                            <h5 class="col-md-5 text-right">{{sub.AmountSpent | centsCurrency}}</h5>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+    <div ng-if="!BudgetCtrl.Budget.IsBudgetForLedgerSet">
+        <div class="row">
+            <article class="col-md-6 col-md-offset-3">
+                <div ng-mouseover="BudgetCtrl.switch(true)"
+                     ng-mouseleave="BudgetCtrl.switch(false)" class="well">
+                    <div class="text-center">
+                        <div>
+                            <form class="lockscreen animated flipInY">
+                                <div>
+                                        <span><h1>You haven't set up a budget yet</h1>
+                                            <img ng-if="BudgetCtrl.isShowIcon" src="/styles/img/app/goal-no-items-hover.png"/>
+                                            <img ng-if="!BudgetCtrl.isShowIcon" src="/styles/img/app/goal-no-items.png"/>
+                                        </span>
+                                </div>
+                                <div style="margin-top: 20px;">
+                                    <button ng-click="BudgetCtrl.EditCategories()" class="btn btn-success">set up my budget!</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>

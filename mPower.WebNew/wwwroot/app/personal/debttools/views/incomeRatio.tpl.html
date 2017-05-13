@@ -1,0 +1,102 @@
+﻿<div id="content">
+    <div class="row">
+        <big-breadcrumbs items="['Debt tools', 'Mortage Acceleration']" class="col-xs-12 col-sm-7 col-md-7 col-lg-4" icon="wrench"></big-breadcrumbs>
+    </div>
+
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header></header>
+                    <div>
+                        <div class="container-fluid">
+                            <h1>Mortgage Acceleration</h1>
+                            <p class="alert alert-info">
+                                Debt-to-income ratio (or DTI) is the percentage of your monthly gross income matched against your debt. more
+                                <span style="cursor: pointer" data-toggle="tooltip" tooltip-placement="bottom" uib-tooltip="The full ratio is exhibited using the notation x/y (e.g. 28/36).
+                 The first number is considered your front-end ratio, the latter number is your back-end ratio. The front-end ratio is taken from the percentage of income that goes toward
+                  your housing costs. And the back-end ratio shows you and lenders the percentage of your income that goes toward all your recurring debt payments (e.g. house payments,
+                  credit card payments, car loan payments, etc.).">info</span>
+                            </p>
+                            <div class="text-center">
+                                <h1 class="txt-color-green">
+                                    Debt to income ratio
+                                    <span ng-if="incomeRatioCtrl.model.IsDebtToIncomeCalculatedBefore">is: {{incomeRatioCtrl.model.DebtToIncomeRatio}}</span>
+                                </h1>
+                                <h4 class="txt-color-orange">Eliminate Debt in 3 Easy Steps</h4>
+                            </div>
+                            <div class="row" style="margin-top: 10px" ng-if="incomeRatioCtrl.model.LeftChart !== null && incomeRatioCtrl.model.RightChart != null">
+
+                                <div class="col-md-3 col-md-offset-3">
+                                    <div donut-chart
+                                         donut-data='incomeRatioCtrl.model.LeftChart'
+                                         donut-formatter='incomeRatioCtrl.Formatter'
+                                         donut-resize='true'>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div donut-chart
+                                         donut-data='incomeRatioCtrl.model.RightChart'
+                                         donut-formatter='incomeRatioCtrl.Formatter'
+                                         donut-resize='true'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <div>
+                                        <p ng-repeat="error in incomeRatioCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                    </div>
+                                    <div class="col-md-12 form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Monthly Gross Income</label>
+                                            <div class="col-md-4">
+                                                <input class="form-control" ng-model="incomeRatioCtrl.model.MonthlyGrossIncome" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Total Monthly Rent</label>
+                                            <div class="col-md-4">
+                                                <input class="form-control" ng-model="incomeRatioCtrl.model.TotalMonthlyRent" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Total Monthly PITIA</label>
+                                            <div class="col-md-4">
+                                                <input class="form-control" ng-model="incomeRatioCtrl.model.TotalMonthlyPitia" />
+                                                <p class="note">
+                                                    <strong>Monthly PITIA = </strong> monthly mortgage payment, plus mortgage insurance premium, hazard insurance, property taxes, and homeowner's association dues [when applicable].
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Total Monthly Debt</label>
+                                            <div class="col-md-4">
+                                                <input class="form-control" ng-model="incomeRatioCtrl.model.TotalMonthlyDebt" />
+                                            </div>
+                                        </div>
+                                        <p class="text-center">
+                                            <button class="btn btn-success" ng-disabled="incomeRatioCtrl.disableSaveOrUpdate" ng-click="incomeRatioCtrl.saveOrUpdate()">Save changes</button>
+                                            <button class="btn btn-danger" ng-click="incomeRatioCtrl.deleteProgram()">Delete/Reset</button>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

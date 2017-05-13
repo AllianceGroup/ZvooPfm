@@ -1,0 +1,179 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header>
+                        <h2>Chart of accounts</h2>
+                    </header>
+                    <div>
+                        <article class="col-md-12">
+                            <div class="row">
+                                <button class="btn btn-success ml10 mb10" ng-click="accountsCtrl.addAccounts()">Add account</button>
+                            </div>
+                            <div class="panel-group smart-accordion-default">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading bg-color-lighten">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" class="collapsed">
+                                                <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                Income Accounts
+                                            </a></h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <table class="table table-hover" style="margin-top: 20px">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 40%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 25%;">Balance</th>
+                                                <th style="width: 20%;">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="account in accountsCtrl.Income">
+                                                <td ng-if="account.ParentAccountId === null"><b>{{account.Name}}</b></td>
+                                                <td ng-if="account.ParentAccountId !== null">{{account.Name}}</td>
+                                                <td>{{account.Label}}</td>
+                                                <td>{{account.Balance}}</td>
+                                                <td>
+                                                    <button class='btn btn-xs btn-default' title="Edit" ng-click="accountsCtrl.Edit(account.Id)"><i class='fa fa-pencil'></i></button>
+                                                    <button class='btn btn-xs btn-default' title="View Transactions" data-ui-sref="app.business.transactions({accountId: account.Id, accountName: account.Name})"><i class='fa fa-desktop'></i></button>
+                                                    <button ng-if="!account.IsCoreAccount" title="Delete" class='btn btn-xs btn-danger' ng-click='accountsCtrl.Delete(account.Id)'><i class='fa fa-times'></i></button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-group smart-accordion-default">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading bg-color-lighten">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapseTwo" aria-expanded="false" class="collapsed">
+                                                <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                Expense Accounts
+                                            </a></h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <table class="table table-hover" style="margin-top: 20px">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 40%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 25%;">Balance</th>
+                                                <th style="width: 20%;">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="account in accountsCtrl.Expense">
+                                                <td ng-if="account.ParentAccountId === null"><b>{{account.Name}}</b></td>
+                                                <td ng-if="account.ParentAccountId !== null">{{account.Name}}</td>
+                                                <td>{{account.Label}}</td>
+                                                <td>{{account.Balance}}</td>
+                                                <td>
+                                                    <button class='btn btn-xs btn-default' title="Edit" ng-click="accountsCtrl.Edit(account.Id)"><i class='fa fa-pencil'></i></button>
+                                                    <button class='btn btn-xs btn-default' title="View Transactions" data-ui-sref="app.business.transactions({accountId: account.Id, accountName: account.Name})"><i class='fa fa-desktop'></i></button>
+                                                    <button ng-if="!account.IsCoreAccount" title="Delete" class='btn btn-xs btn-danger' ng-click='accountsCtrl.Delete(account.Id)'><i class='fa fa-times'></i></button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-group smart-accordion-default">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading bg-color-lighten">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapseThree" aria-expanded="false" class="collapsed">
+                                                <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                Financial Institution Accounts
+                                            </a></h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <table class="table table-hover" style="margin-top: 20px">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 40%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 25%;">Balance</th>
+                                                <th style="width: 20%;">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="account in accountsCtrl.Institution">
+                                                <td ng-if="account.ParentAccountId === null"><b>{{account.Name}}</b></td>
+                                                <td ng-if="account.ParentAccountId !== null">{{account.Name}}</td>
+                                                <td>{{account.Label}}</td>
+                                                <td>{{account.Balance}}</td>
+                                                <td>
+                                                    <button class='btn btn-xs btn-default' title="Edit" ng-click="accountsCtrl.Edit(account.Id)"><i class='fa fa-pencil'></i></button>
+                                                    <button class='btn btn-xs btn-default' title="View Transactions" data-ui-sref="app.business.transactions({accountId: account.Id, accountName: account.Name})"><i class='fa fa-desktop'></i></button>
+                                                    <button ng-if="!account.IsCoreAccount" title="Delete" class='btn btn-xs btn-danger' ng-click='accountsCtrl.Delete(account.Id)'><i class='fa fa-times'></i></button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-group smart-accordion-default" style="margin-bottom: 25px;">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading bg-color-lighten">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapseFor" aria-expanded="false" class="collapsed">
+                                                <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                Other Accounts
+                                            </a></h4>
+                                    </div>
+                                    <div id="collapseFor" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <table class="table table-hover" style="margin-top: 20px">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 40%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 25%;">Balance</th>
+                                                <th style="width: 20%;">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="account in accountsCtrl.Other">
+                                                <td ng-if="account.ParentAccountId === null"><b>{{account.Name}}</b></td>
+                                                <td ng-if="account.ParentAccountId !== null">{{account.Name}}</td>
+                                                <td>{{account.Label}}</td>
+                                                <td>{{account.Balance}}</td>
+                                                <td>
+                                                    <button class='btn btn-xs btn-default' title="Edit" ng-click="accountsCtrl.Edit(account.Id)"><i class='fa fa-pencil'></i></button>
+                                                    <button class='btn btn-xs btn-default' title="View Transactions" data-ui-sref="app.business.transactions({accountId: account.Id, accountName: account.Name})"><i class='fa fa-desktop'></i></button>
+                                                    <button ng-if="!account.IsCoreAccount" title="Delete" class='btn btn-xs btn-danger' ng-click='accountsCtrl.Delete(account.Id)'><i class='fa fa-times'></i></button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

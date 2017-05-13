@@ -1,0 +1,379 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-6">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header>
+                        <h2><strong>Profit & Loss</strong></h2>
+                    </header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row" style="background: #DCDCDC">
+                                <div class="col-md-8">
+                                    <span>Columns:</span>
+                                    <select ng-change="reportsBusinessCtrl.refresh(reportsBusinessCtrl.modelProfitLoss, reportsBusinessCtrl.refreshProfitLoss, 'ProfitLoss')"
+                                            ng-init="reportsBusinessCtrl.modelProfitLoss.Format = reportsBusinessCtrl.modelProfitLoss.Format.toString()"
+                                            ng-model="reportsBusinessCtrl.modelProfitLoss.Format"
+                                            style="width: auto; display: inline-block; margin: 10px" class="form-control">
+                                        <option value="1">Total</option>
+                                        <option value="2">Month</option>
+                                        <option value="3">Quarter</option>
+                                        <option value="4">Year</option>
+                                    </select>
+                                    <span>Dates:</span>
+                                    <select style="width: auto; display: inline-block; margin:10px;" class="form-control"
+                                            ng-change="reportsBusinessCtrl.changeDate(reportsBusinessCtrl.modelProfitLoss, reportsBusinessCtrl.refreshProfitLoss, 'ProfitLoss')"
+                                            ng-model="reportsBusinessCtrl.modelProfitLoss.CurrentReportDateFormat"
+                                            ng-init="reportsBusinessCtrl.modelProfitLoss.CurrentReportDateFormat = reportsBusinessCtrl.modelProfitLoss.CurrentReportDateFormat.toString()">
+                                        <option ng-repeat="format in reportsBusinessCtrl.modelProfitLoss.ReportDateFormats" value="{{format.Id}}">{{format.Name}}</option>
+                                    </select>
+                                    <div style="margin: 10px;">
+                                        <a ng-click="reportsBusinessCtrl.exportReport(reportsBusinessCtrl.getProfitLossToPdf, reportsBusinessCtrl.modelProfitLoss,
+                                        'application/pdf', 'ProfitLoss_')" class="btn btn-labeled btn-success">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-floppy-disk"></i>
+                                            </span>Save
+                                        </a>
+                                        <a ng-click="reportsBusinessCtrl.exportReport(reportsBusinessCtrl.getProfitLossToExcel,
+                                        reportsBusinessCtrl.modelProfitLoss, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'ProfitLoss_')" class="btn btn-labeled btn-info">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-export"></i>
+                                            </span>Export
+                                        </a>
+                                        <a class="btn btn-labeled btn-info" ng-click="reportsBusinessCtrl.printReport(reportsBusinessCtrl.getProfitLossToPdf, reportsBusinessCtrl.modelProfitLoss)">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-print"></i>
+                                            </span>Print
+                                        </a>
+                                        <a ng-click="reportsBusinessCtrl.refresh(reportsBusinessCtrl.modelProfitLoss, reportsBusinessCtrl.refreshProfitLoss, 'ProfitLoss')"
+                                           class="btn btn-labeled btn-info">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-refresh"></i>
+                                            </span>Refresh
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-12">
+                                        <div class="input-group smart-form" style="margin:10px;">
+                                            <div class="input-group-addon">From:</div>
+                                            <label class="input"><i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="startdate" data-smart-datepicker placeholder="From date"
+                                                       ng-model="reportsBusinessCtrl.modelProfitLoss.From">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input-group smart-form" style="margin:10px;">
+                                            <div class="input-group-addon">To:</div>
+                                            <label class="input"><i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="startdate" data-smart-datepicker placeholder="From date"
+                                                       ng-model="reportsBusinessCtrl.modelProfitLoss.To">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="custom-scroll table-responsive text-center">
+                                    <h3><b>{{reportsBusinessCtrl.modelProfitLoss.LedgerName}}</b></h3>
+                                    <h5>{{reportsBusinessCtrl.modelProfitLoss.TotalDatesRange}}</h5>
+                                    <div>
+                                        <table class="table table-hover table-bordered" style="margin-top: 10px;">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th class="text-center" ng-repeat="head in reportsBusinessCtrl.modelProfitLoss.Headers">
+                                                    {{head}}
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td colspan="{{reportsBusinessCtrl.modelProfitLoss.Headers.length + 1}}">
+                                                    <span><b>{{reportsBusinessCtrl.modelProfitLoss.IncomeMatrix.Title}}</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="income in reportsBusinessCtrl.modelProfitLoss.IncomeMatrix.Rows">
+                                                <td>{{income.Title}}</td>
+                                                <td ng-repeat="value in income._values">
+                                                    <a ui-sref="app.business.transactionDetail({From: value.Range.FromFormatted, To: value.Range.ToFormatted, Id: income.Id})"
+                                                          ng-if="value.Amount < 0">
+                                                        ({{-value.Amount | centsCurrency}})
+                                                    </a>
+                                                    <a ui-sref="app.business.transactionDetail({From: value.Range.FromFormatted, To: value.Range.ToFormatted, Id: income.Id})"
+                                                            ng-if="value.Amount >= 0">
+                                                        {{value.Amount | centsCurrency}}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{reportsBusinessCtrl.modelProfitLoss.IncomeMatrix.TotalRow.Title}}</td>
+                                                <td ng-repeat="value in reportsBusinessCtrl.modelProfitLoss.IncomeMatrix.TotalRow._values">
+                                                        <span ng-if="value.Amount < 0">
+                                                            ({{-value.Amount | centsCurrency}})
+                                                        </span>
+                                                        <span ng-if="value.Amount >= 0">
+                                                            {{value.Amount | centsCurrency}}
+                                                        </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="{{reportsBusinessCtrl.modelProfitLoss.Headers.length + 1}}">
+                                                    <span><b>{{reportsBusinessCtrl.modelProfitLoss.ExpenseMatrix.Title}}</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="expense in reportsBusinessCtrl.modelProfitLoss.ExpenseMatrix.Rows">
+                                                <td>{{expense.Title}}</td>
+                                                <td ng-repeat="value in expense._values">
+                                                    <a ui-sref="app.business.transactionDetail({From: value.Range.FromFormatted, To: value.Range.ToFormatted, Id: expense.Id})"
+                                                       ng-if="value.Amount < 0">
+                                                        ({{-value.Amount | centsCurrency}})
+                                                    </a>
+                                                    <a ui-sref="app.business.transactionDetail({From: value.Range.FromFormatted, To: value.Range.ToFormatted, Id: expense.Id})"
+                                                       ng-if="value.Amount >= 0">
+                                                        {{value.Amount | centsCurrency}}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{reportsBusinessCtrl.modelProfitLoss.ExpenseMatrix.TotalRow.Title}}</td>
+                                                <td ng-repeat="value in reportsBusinessCtrl.modelProfitLoss.ExpenseMatrix.TotalRow._values">
+                                                        <span ng-if="value.Amount < 0">
+                                                            ({{-value.Amount | centsCurrency}})
+                                                        </span>
+                                                        <span ng-if="value.Amount >= 0">
+                                                            {{value.Amount | centsCurrency}}
+                                                        </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{reportsBusinessCtrl.modelProfitLoss.NetIncome.Title}}</td>
+                                                <td ng-repeat="value in reportsBusinessCtrl.modelProfitLoss.NetIncome._values">
+                                                        <span ng-if="value.Amount < 0">
+                                                            ({{-value.Amount | centsCurrency}})
+                                                        </span>
+                                                        <span ng-if="value.Amount >= 0">
+                                                            {{value.Amount | centsCurrency}}
+                                                        </span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="col-md-6">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header>
+                        <h2><strong>Balance Sheet</strong></h2>
+                    </header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row" style="background: #DCDCDC">
+                                <div class="col-md-8">
+                                    <span>Columns:</span>
+                                    <select ng-change="reportsBusinessCtrl.refresh(reportsBusinessCtrl.modelBalanceSheet, reportsBusinessCtrl.refreshBalanceSheet, 'BalanceSheet')"
+                                            ng-init="reportsBusinessCtrl.modelBalanceSheet.Format = reportsBusinessCtrl.modelBalanceSheet.Format.toString()"
+                                            ng-model="reportsBusinessCtrl.modelBalanceSheet.Format"
+                                            style="width: auto; display: inline-block; margin: 10px" class="form-control">
+                                        <option value="1">Total</option>
+                                        <option value="2">Month</option>
+                                        <option value="3">Quarter</option>
+                                        <option value="4">Year</option>
+                                    </select>
+                                    <span>Dates:</span>
+                                    <select ng-change="reportsBusinessCtrl.changeDate(reportsBusinessCtrl.modelBalanceSheet, reportsBusinessCtrl.refreshBalanceSheet, 'BalanceSheet')"
+                                            style="width: auto; display: inline-block; margin:10px;" class="form-control"
+                                            ng-init="reportsBusinessCtrl.modelBalanceSheet.CurrentReportDateFormat = reportsBusinessCtrl.modelBalanceSheet.CurrentReportDateFormat.toString()"
+                                            ng-model="reportsBusinessCtrl.modelBalanceSheet.CurrentReportDateFormat">
+                                        <option ng-repeat="format in reportsBusinessCtrl.modelBalanceSheet.ReportDateFormats" value="{{format.Id}}">{{format.Name}}</option>
+                                    </select>
+                                    <div style="margin: 10px;">
+                                        <a class="btn btn-labeled btn-success" ng-click="reportsBusinessCtrl.exportReport(reportsBusinessCtrl.getBalanceSheetToPdf,
+                                        reportsBusinessCtrl.modelBalanceSheet, 'application/pdf', 'BalanceSheet_')">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-floppy-disk"></i>
+                                            </span>Save
+                                        </a>
+                                        <a class="btn btn-labeled btn-info" ng-click="reportsBusinessCtrl.exportReport(reportsBusinessCtrl.getBalanceSheetToExcel,
+                                        reportsBusinessCtrl.modelBalanceSheet, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'BalanceSheet_')">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-export"></i>
+                                            </span>Export
+                                        </a>
+                                        <a class="btn btn-labeled btn-info" ng-click="reportsBusinessCtrl.printReport(reportsBusinessCtrl.getBalanceSheetToPdf, reportsBusinessCtrl.modelBalanceSheet)">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-print"></i>
+                                            </span>Print
+                                        </a>
+                                        <a ng-click="reportsBusinessCtrl.refresh(reportsBusinessCtrl.modelBalanceSheet, reportsBusinessCtrl.refreshBalanceSheet, 'BalanceSheet')"
+                                           class="btn btn-labeled btn-info">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-refresh"></i>
+                                            </span>Refresh
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-12">
+                                        <div class="input-group smart-form" style="margin:10px;">
+                                            <div class="input-group-addon">As of:</div>
+                                            <label class="input"><i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="startdate" data-smart-datepicker placeholder="As of"
+                                                       ng-model="reportsBusinessCtrl.modelBalanceSheet.To">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="custom-scroll table-responsive text-center">
+                                    <h3><b>{{reportsBusinessCtrl.modelBalanceSheet.LedgerName}}</b></h3>
+                                    <h5>{{reportsBusinessCtrl.modelBalanceSheet.TotalDatesRange}}</h5>
+                                    <div>
+                                        <table class="table table-hover table-bordered" style="margin-top: 10px;">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th class="text-center" ng-repeat="head in reportsBusinessCtrl.modelBalanceSheet.Headers">
+                                                    {{head}}
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td colspan="{{reportsBusinessCtrl.modelBalanceSheet.Headers.length + 1}}">
+                                                    <span><b>{{reportsBusinessCtrl.modelBalanceSheet.AssetsMatrix.Title}}</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="assets in reportsBusinessCtrl.modelBalanceSheet.AssetsMatrix.Rows">
+                                                <td>{{assets.Title}}</td>
+                                                <td ng-repeat="value in assets._values">
+                                                    <a ui-sref="app.business.transactionDetail({From: value.Range.FromFormatted, To: value.Range.ToFormatted, Id: assets.Id})"
+                                                       ng-if="value.Amount < 0">
+                                                        ({{-value.Amount | centsCurrency}})
+                                                    </a>
+                                                    <a ui-sref="app.business.transactionDetail({From: value.Range.FromFormatted, To: value.Range.ToFormatted, Id: assets.Id})"
+                                                       ng-if="value.Amount >= 0">
+                                                        {{value.Amount | centsCurrency}}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{reportsBusinessCtrl.modelBalanceSheet.AssetsMatrix.TotalRow.Title}}</td>
+                                                <td ng-repeat="value in reportsBusinessCtrl.modelBalanceSheet.AssetsMatrix.TotalRow._values">
+                                                        <span ng-if="value.Amount < 0">
+                                                            ({{-value.Amount | centsCurrency}})
+                                                        </span>
+                                                        <span ng-if="value.Amount >= 0">
+                                                            {{value.Amount | centsCurrency}}
+                                                        </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="{{reportsBusinessCtrl.modelBalanceSheet.Headers.length + 1}}">
+                                                    <span><b>{{reportsBusinessCtrl.modelBalanceSheet.LiabilityEquityMatrix.Title}}</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="{{reportsBusinessCtrl.modelBalanceSheet.Headers.length + 1}}">
+                                                    <span><b>{{reportsBusinessCtrl.modelBalanceSheet.LiabilityMatrix.Title}}</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="liability in reportsBusinessCtrl.modelBalanceSheet.LiabilityMatrix.Rows">
+                                                <td>{{liability.Title}}</td>
+                                                <td ng-repeat="value in liability._values">
+                                                    <a ui-sref="app.business.transactionDetail({From: value.Range.FromFormatted, To: value.Range.ToFormatted, Id: liability.Id})"
+                                                       ng-if="value.Amount < 0">
+                                                        ({{-value.Amount | centsCurrency}})
+                                                    </a>
+                                                    <a ui-sref="app.business.transactionDetail({From: value.Range.FromFormatted, To: value.Range.ToFormatted, Id: liability.Id})"
+                                                       ng-if="value.Amount >= 0">
+                                                        {{value.Amount | centsCurrency}}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{reportsBusinessCtrl.modelBalanceSheet.LiabilityMatrix.TotalRow.Title}}</td>
+                                                <td ng-repeat="value in reportsBusinessCtrl.modelBalanceSheet.LiabilityMatrix.TotalRow._values">
+                                                        <span ng-if="value.Amount < 0">
+                                                            ({{-value.Amount | centsCurrency}})
+                                                        </span>
+                                                        <span ng-if="value.Amount >= 0">
+                                                            {{value.Amount | centsCurrency}}
+                                                        </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="{{reportsBusinessCtrl.modelBalanceSheet.Headers.length + 1}}">
+                                                    <span><b>{{reportsBusinessCtrl.modelBalanceSheet.EquityMatrix.Title}}</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="equity in reportsBusinessCtrl.modelBalanceSheet.EquityMatrix.Rows">
+                                                <td>{{equity.Title}}</td>
+                                                <td ng-if="equity.Id == null" ng-repeat="value in equity._values">
+                                                    <span ng-if="value.Amount < 0">
+                                                        ({{-value.Amount | centsCurrency}})
+                                                    </span>
+                                                    <span ng-if="value.Amount >= 0">
+                                                        {{value.Amount | centsCurrency}}
+                                                    </span>
+                                                </td>
+                                                <td ng-if="equity.Id != null" ng-repeat="value in equity._values">
+                                                    <a ui-sref="app.business.transactionDetail({From: value.Range.FromFormatted, To: value.Range.ToFormatted, Id: equity.Id})"
+                                                       ng-if="value.Amount < 0">
+                                                        ({{-value.Amount | centsCurrency}})
+                                                    </a>
+                                                    <a ui-sref="app.business.transactionDetail({From: value.Range.FromFormatted, To: value.Range.ToFormatted, Id: equity.Id})"
+                                                       ng-if="value.Amount >= 0">
+                                                        {{value.Amount | centsCurrency}}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{reportsBusinessCtrl.modelBalanceSheet.EquityMatrix.TotalRow.Title}}</td>
+                                                <td ng-repeat="value in reportsBusinessCtrl.modelBalanceSheet.EquityMatrix.TotalRow._values">
+                                                        <span ng-if="value.Amount < 0">
+                                                            ({{-value.Amount | centsCurrency}})
+                                                        </span>
+                                                        <span ng-if="value.Amount >= 0">
+                                                            {{value.Amount | centsCurrency}}
+                                                        </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{reportsBusinessCtrl.modelBalanceSheet.LiabilityEquityMatrix.TotalRow.Title}}</td>
+                                                <td ng-repeat="value in reportsBusinessCtrl.modelBalanceSheet.LiabilityEquityMatrix.TotalRow._values">
+                                                        <span ng-if="value.Amount < 0">
+                                                            ({{-value.Amount | centsCurrency}})
+                                                        </span>
+                                                        <span ng-if="value.Amount >= 0">
+                                                            {{value.Amount | centsCurrency}}
+                                                        </span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

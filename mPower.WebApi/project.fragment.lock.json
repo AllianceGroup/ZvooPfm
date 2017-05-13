@@ -1,0 +1,344 @@
+{
+  "version": 2,
+  "exports": {
+    "mPower.Aggregation.Client/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/mPower.Aggregation.Client.dll": {}
+      },
+      "runtime": {
+        "../../../libs/Microsoft.Practices/Microsoft.Practices.ServiceLocation.dll": {},
+        "../../../libs/Paralect/Paralect.Config.dll": {},
+        "../../../libs/ServiceStack/ServiceStack.Common.dll": {},
+        "../../../libs/ServiceStack/ServiceStack.Interfaces.dll": {},
+        "../../../libs/ServiceStack/ServiceStack.Text.dll": {},
+        "../../../source/packages/Paralect.Domain.1.1.0/lib/net45/Paralect.Domain.dll": {},
+        "../../../source/packages/Paralect.Domain.1.1.0/lib/net45/Paralect.Transitions.dll": {},
+        "../../../source/packages/Paralect.ServiceBus.1.1.0/lib/net45/Paralect.ServiceBus.dll": {},
+        "../../../source/packages/Paralect.ServiceLocator.StructureMap.1.0.0.0/lib/net40/Paralect.ServiceLocator.StructureMap.dll": {},
+        "../../../source/packages/StructureMap.4.4.2/lib/net45/StructureMap.dll": {},
+        "../packages/Newtonsoft.Json.10.0.1/lib/net45/Newtonsoft.Json.dll": {},
+        "bin/Debug/mPower.Aggregation.Client.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/mPower.Aggregation.Client.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "Default/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Default.dll": {}
+      },
+      "runtime": {
+        "../../libs/Excel/EPPlus.dll": {},
+        "../../libs/FusionChartsMVC/FusionChartsMVC.dll": {},
+        "../../libs/Idcs/Idcs.dll": {},
+        "../../libs/NLog/NLog.dll": {},
+        "../../libs/Prelude.dll": {},
+        "../../libs/ServiceStack/ServiceStack.Common.dll": {},
+        "../../libs/ServiceStack/ServiceStack.Text.dll": {},
+        "../../libs/TransUnionWrapper.dll": {},
+        "../../libs/Yodlee/Yodlee.NET.dll": {},
+        "../../libs/Zillow.Net.dll": {},
+        "../../libs/mPower.Membership/mPower.MembershipApi.dll": {},
+        "../packages/CommonServiceLocator.1.3/lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {},
+        "../packages/DataAnnotationsExtensions.5.0.1.16/lib/NETFramework40/DataAnnotationsExtensions.dll": {},
+        "../packages/DynamicImage.2.0.2/lib/NET40/SoundInTheory.DynamicImage.dll": {},
+        "../packages/Microsoft.AspNet.Mvc.5.2.3/lib/net45/System.Web.Mvc.dll": {},
+        "../packages/Microsoft.AspNet.Razor.3.2.3/lib/net45/System.Web.Razor.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.Helpers.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.Deployment.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.Razor.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.dll": {},
+        "../packages/Microsoft.Web.Infrastructure.1.0.0.0/lib/net40/Microsoft.Web.Infrastructure.dll": {},
+        "../packages/Newtonsoft.Json.10.0.1/lib/net45/Newtonsoft.Json.dll": {},
+        "../packages/Paralect.Core.Domain.1.1.2.0/lib/net40/Paralect.Domain.dll": {},
+        "../packages/Paralect.Core.ServiceBus.1.1.2.0/lib/net40/Paralect.ServiceBus.dll": {},
+        "../packages/Paralect.Core.Transitions.1.1.2.0/lib/net40/Paralect.Transitions.dll": {},
+        "../packages/chargify.1.1.5879.22909/lib/net40/ChargifyNET.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Bson.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Driver.dll": {},
+        "../packages/structuremap.4.0.1.318/lib/net40/StructureMap.Net4.dll": {},
+        "../packages/structuremap.4.0.1.318/lib/net40/StructureMap.dll": {},
+        "bin/Default.dll": {}
+      },
+      "contentFiles": {
+        "bin/Default.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "mPower.OfferingsSystem/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/mPower.OfferingsSystem.dll": {}
+      },
+      "runtime": {
+        "../../libs/NUnit/nunit.framework.dll": {},
+        "../packages/BouncyCastle.1.7.0/lib/Net40-Client/BouncyCastle.Crypto.dll": {},
+        "../packages/CsvHelper.1.4.0/lib/net40-client/CsvHelper.dll": {},
+        "../packages/DotNetZip.1.9.1.8/lib/net20/Ionic.Zip.dll": {},
+        "../packages/SSH.NET.2012.3.9/lib/net40/Renci.SshNet.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Bson.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Driver.dll": {},
+        "../packages/structuremap.4.0.1.318/lib/net40/StructureMap.Net4.dll": {},
+        "../packages/structuremap.4.0.1.318/lib/net40/StructureMap.dll": {},
+        "bin/Debug/mPower.OfferingsSystem.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/mPower.OfferingsSystem.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "mPower.Signals/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/mPower.Signals.dll": {}
+      },
+      "runtime": {
+        "../packages/CommonServiceLocator.1.3/lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {},
+        "../packages/Newtonsoft.Json.10.0.1/lib/net45/Newtonsoft.Json.dll": {},
+        "../packages/Paralect.Core.Domain.1.1.2.0/lib/net40/Paralect.Domain.dll": {},
+        "../packages/Paralect.Core.ServiceBus.1.1.2.0/lib/net40/Paralect.ServiceBus.dll": {},
+        "../packages/Paralect.Core.Transitions.1.1.2.0/lib/net40/Paralect.Transitions.dll": {},
+        "bin/Debug/mPower.Signals.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/mPower.Signals.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "Default.ViewModel/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/Default.ViewModel.dll": {}
+      },
+      "runtime": {
+        "../../libs/FusionChartsMVC/FusionChartsMVC.dll": {},
+        "../packages/DataAnnotationsExtensions.5.0.1.16/lib/NETFramework40/DataAnnotationsExtensions.dll": {},
+        "../packages/Microsoft.AspNet.Mvc.5.2.3/lib/net45/System.Web.Mvc.dll": {},
+        "../packages/Microsoft.AspNet.Razor.3.2.3/lib/net45/System.Web.Razor.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.Helpers.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.Deployment.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.Razor.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.dll": {},
+        "../packages/Microsoft.Web.Infrastructure.1.0.0.0/lib/net40/Microsoft.Web.Infrastructure.dll": {},
+        "bin/Debug/Default.ViewModel.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/Default.ViewModel.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "mPower.Aggregation.Contract/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/mPower.Aggregation.Contract.dll": {}
+      },
+      "runtime": {
+        "../../../libs/Paralect/Paralect.Config.dll": {},
+        "../../../source/packages/MongoDB.Bson.2.4.3/lib/net45/MongoDB.Bson.dll": {},
+        "../../../source/packages/MongoDB.Driver.2.4.3/lib/net45/MongoDB.Driver.dll": {},
+        "../../../source/packages/MongoDB.Driver.Core.2.4.3/lib/net45/MongoDB.Driver.Core.dll": {},
+        "../../../source/packages/System.Runtime.InteropServices.RuntimeInformation.4.0.0/lib/net45/System.Runtime.InteropServices.RuntimeInformation.dll": {},
+        "bin/Debug/mPower.Aggregation.Contract.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/mPower.Aggregation.Contract.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "mPower.Documents.Server/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/mPower.Documents.dll": {}
+      },
+      "runtime": {
+        "../../libs/NLog/NLog.dll": {},
+        "../packages/CommonServiceLocator.1.3/lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {},
+        "../packages/FluentNHibernate.1.3.0.733/lib/FluentNHibernate.dll": {},
+        "../packages/GeoAPI.1.7.1/lib/net40-client/GeoAPI.dll": {},
+        "../packages/Iesi.Collections.3.2.0.4000/lib/Net35/Iesi.Collections.dll": {},
+        "../packages/Lucene.Net.2.9.2.2/lib/net40/Lucene.Net.dll": {},
+        "../packages/NHibernate.3.3.3.4000/lib/Net35/NHibernate.dll": {},
+        "../packages/Newtonsoft.Json.10.0.1/lib/net45/Newtonsoft.Json.dll": {},
+        "../packages/Paralect.Core.Domain.1.1.2.0/lib/net40/Paralect.Domain.dll": {},
+        "../packages/Paralect.Core.ServiceBus.1.1.2.0/lib/net40/Paralect.ServiceBus.dll": {},
+        "../packages/Paralect.Core.Transitions.1.1.2.0/lib/net40/Paralect.Transitions.dll": {},
+        "../packages/chargify.1.1.5879.22909/lib/net40/ChargifyNET.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Bson.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Driver.dll": {},
+        "bin/Debug/mPower.Documents.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/mPower.Documents.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "mPower.Domain/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/mPower.Domain.dll": {}
+      },
+      "runtime": {
+        "../../libs/AutoMapper.2.0.0/lib/net40-client/AutoMapper.dll": {},
+        "../../libs/NLog/NLog.dll": {},
+        "../../libs/Yodlee/Yodlee.NET.dll": {},
+        "../../libs/Zillow.Net.dll": {},
+        "../packages/CommonServiceLocator.1.3/lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {},
+        "../packages/Microsoft.AspNet.Mvc.5.2.3/lib/net45/System.Web.Mvc.dll": {},
+        "../packages/Microsoft.AspNet.Razor.3.2.3/lib/net45/System.Web.Razor.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.Helpers.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.Deployment.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.Razor.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.dll": {},
+        "../packages/Microsoft.Web.Infrastructure.1.0.0.0/lib/net40/Microsoft.Web.Infrastructure.dll": {},
+        "../packages/Newtonsoft.Json.10.0.1/lib/net45/Newtonsoft.Json.dll": {},
+        "../packages/Paralect.Core.Domain.1.1.2.0/lib/net40/Paralect.Domain.dll": {},
+        "../packages/Paralect.Core.ServiceBus.1.1.2.0/lib/net40/Paralect.ServiceBus.dll": {},
+        "../packages/Paralect.Core.Transitions.1.1.2.0/lib/net40/Paralect.Transitions.dll": {},
+        "../packages/Paralect.Core.Transitions.Mongo.1.1.2.0/lib/net40/Paralect.Transitions.Mongo.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Bson.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Driver.dll": {},
+        "bin/Debug/mPower.Domain.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/mPower.Domain.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "mPower.EventHandlers/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/mPower.EventHandlers.dll": {}
+      },
+      "runtime": {
+        "../../libs/NLog/NLog.dll": {},
+        "../../libs/Prelude.dll": {},
+        "../../libs/ServiceStack/ServiceStack.Text.dll": {},
+        "../packages/CommonServiceLocator.1.3/lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {},
+        "../packages/Newtonsoft.Json.10.0.1/lib/net45/Newtonsoft.Json.dll": {},
+        "../packages/Paralect.Core.Domain.1.1.2.0/lib/net40/Paralect.Domain.dll": {},
+        "../packages/Paralect.Core.ServiceBus.1.1.2.0/lib/net40/Paralect.ServiceBus.dll": {},
+        "../packages/Paralect.Core.Transitions.1.1.2.0/lib/net40/Paralect.Transitions.dll": {},
+        "../packages/Paralect.Core.Transitions.Mongo.1.1.2.0/lib/net40/Paralect.Transitions.Mongo.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Bson.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Driver.dll": {},
+        "bin/Debug/mPower.EventHandlers.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/mPower.EventHandlers.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "mPower.Framework/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/mPower.Framework.dll": {}
+      },
+      "runtime": {
+        "../../libs/Elmah/Elmah.dll": {},
+        "../../libs/FusionChartsMVC/FusionChartsMVC.dll": {},
+        "../../libs/Moq/Moq.dll": {},
+        "../../libs/NLog/NLog.dll": {},
+        "../../libs/NUnit/nunit.framework.dll": {},
+        "../../libs/Paralect/Paralect.Config.dll": {},
+        "../../libs/Prelude.dll": {},
+        "../../libs/mPower.Membership/mPower.MembershipApi.dll": {},
+        "../packages/CommonServiceLocator.1.3/lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {},
+        "../packages/DynamicImage.2.0.2/lib/NET40/SoundInTheory.DynamicImage.dll": {},
+        "../packages/Microsoft.AspNet.Mvc.5.2.3/lib/net45/System.Web.Mvc.dll": {},
+        "../packages/Microsoft.AspNet.Razor.3.2.3/lib/net45/System.Web.Razor.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.Helpers.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.Deployment.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.Razor.dll": {},
+        "../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.dll": {},
+        "../packages/Microsoft.Web.Infrastructure.1.0.0.0/lib/net40/Microsoft.Web.Infrastructure.dll": {},
+        "../packages/Newtonsoft.Json.10.0.1/lib/net45/Newtonsoft.Json.dll": {},
+        "../packages/Paralect.Core.Domain.1.1.2.0/lib/net40/Paralect.Domain.dll": {},
+        "../packages/Paralect.Core.ServiceBus.1.1.2.0/lib/net40/Paralect.ServiceBus.dll": {},
+        "../packages/Paralect.Core.Transitions.1.1.2.0/lib/net40/Paralect.Transitions.dll": {},
+        "../packages/Paralect.Core.Transitions.Mongo.1.1.2.0/lib/net40/Paralect.Transitions.Mongo.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Bson.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Driver.dll": {},
+        "../packages/structuremap.4.0.1.318/lib/net40/StructureMap.Net4.dll": {},
+        "../packages/structuremap.4.0.1.318/lib/net40/StructureMap.dll": {},
+        "bin/Debug/mPower.Framework.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/mPower.Framework.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "mPower.TempDocuments.Server/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/mPower.TempDocuments.Server.dll": {}
+      },
+      "runtime": {
+        "../../libs/NLog/NLog.dll": {},
+        "../../libs/ServiceStack/ServiceStack.Text.dll": {},
+        "../../libs/TransUnionWrapper.dll": {},
+        "../packages/CommonServiceLocator.1.3/lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {},
+        "../packages/Lucene.Net.2.9.2.2/lib/net40/Lucene.Net.dll": {},
+        "../packages/Newtonsoft.Json.10.0.1/lib/net45/Newtonsoft.Json.dll": {},
+        "../packages/Paralect.Core.Domain.1.1.2.0/lib/net40/Paralect.Domain.dll": {},
+        "../packages/Paralect.Core.ServiceBus.1.1.2.0/lib/net40/Paralect.ServiceBus.dll": {},
+        "../packages/Paralect.Core.Transitions.1.1.2.0/lib/net40/Paralect.Transitions.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Bson.dll": {},
+        "../packages/mongocsharpdriver.1.11.0/lib/net35/MongoDB.Driver.dll": {},
+        "../packages/structuremap.4.0.1.318/lib/net40/StructureMap.Net4.dll": {},
+        "../packages/structuremap.4.0.1.318/lib/net40/StructureMap.dll": {},
+        "bin/Debug/mPower.TempDocuments.Server.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/mPower.TempDocuments.Server.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    }
+  }
+}

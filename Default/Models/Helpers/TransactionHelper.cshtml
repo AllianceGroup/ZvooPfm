@@ -1,0 +1,33 @@
+﻿ @* Generator: MvcHelper *@
+ 
+ @helper Split(dynamic entryId)
+        {
+        
+        <div class="split-trans-container">    
+        @*<div class="border-bottom"></div> *@
+        <div class="account">
+            <label class="lightbox-form-label">account i.d.</label>
+            <input type="text" name="Entries[@entryId].AccountId" class="account-form" />
+        </div>
+
+        <div class="payee">
+            <label class="lightbox-form-label">payee</label>
+            <input type="text" name="Entries[@entryId].Payee" class="payee-form" />
+        </div>
+
+        <div class="amount">
+            <label class="lightbox-form-label">amount</label>
+            <input type="text" name="Entries[@entryId].Amount" class="amount-form" />
+        </div>
+        <div class="clear"></div>
+        <div class="memo">
+            <label class="lightbox-form-label">memo</label>
+            <input type="text" name="Entries[@entryId].Memo" class="memo-form" />
+        </div>
+                
+        <br/>
+        <div class="clear"></div>
+        <a id="remove">remove</a>
+        </div>
+
+    }

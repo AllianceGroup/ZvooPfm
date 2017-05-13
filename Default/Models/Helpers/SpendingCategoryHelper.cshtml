@@ -1,0 +1,31 @@
+﻿@using System.Text.RegularExpressions
+@using mPower.Domain.Accounting
+
+
+@helper GenerateCategoriesList(string name, List<RootExpenseAccount> spendingCategories, string selectedValue)
+{
+    var id = new Regex("[\\[\\]\\.]").Replace(name, "_");
+    <select id="@id" name="@name">
+        <option @GetSelectedAttr(selectedValue, "") value="">-- Select --</option>
+        @if (spendingCategories != null)
+        {
+            foreach (var acc in spendingCategories)
+            {
+                <option value="@acc.Name" @GetSelectedAttr(selectedValue, @acc.Name) data-id="@acc.Name">@acc.Name</option>    
+                foreach (var subAcc in acc.SubAccounts)
+                {
+                    <option value="@subAcc.Name" @GetSelectedAttr(selectedValue, @subAcc.Name) data-id="@subAcc.Name" data-parent-id="@acc.Name">@subAcc.Name</option>
+                }
+            }
+        }
+    </select>
+}
+
+@functions
+{
+    static string GetSelectedAttr(string selectedValue, string value)
+    {
+        return (selectedValue ?? string.Empty) == value ? "selected='selected'" : "";
+    }
+
+}

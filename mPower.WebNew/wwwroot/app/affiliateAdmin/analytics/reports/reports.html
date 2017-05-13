@@ -1,0 +1,81 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header><h2>Reports page</h2></header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <div ng-if="reportsCtrl.roles.AffiliateAdminEdit" class="pull-right" style="margin-bottom: 20px;">
+                                        <button class="btn btn-success" data-ui-sref="app.affiliateAdmin.createUserGroup"><i class="fa fa-plus"></i> Create new reports</button>
+                                    </div>
+                                    <table ng-repeat="segment in reportsCtrl.model.Segments" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th width="150">
+                                                    {{segment.Name}}
+                                                </th>
+                                                <th width="100"></th>
+                                                <th width="100"></th>
+                                                <th width="100">
+                                                    <button title="show details" ng-if="!segment.show" class='btn btn-xs btn-default' ng-click="reportsCtrl.showDetails(segment.Id)">
+                                                        <i class='fa fa-plus-square'></i>
+                                                    </button>
+                                                    <button title="hide details" ng-if="segment.show" class='btn btn-xs btn-default' ng-click="reportsCtrl.hideDetails(segment.Id)">
+                                                        <i class='fa fa-minus-square'></i>
+                                                    </button>
+                                                    <button ng-if="reportsCtrl.roles.AffiliateAdminEdit" title="edit" class="btn btn-xs btn-success" data-ui-sref="app.affiliateAdmin.editUserGroup({id: segment.Id})"><i class="fa fa-edit"></i></button>
+                                                    <button ng-if="reportsCtrl.roles.AffiliateAdminDelete" title="delete" class="btn btn-xs btn-danger" ng-click="reportsCtrl.delete(segment.Id)"><i class="fa fa-times"></i></button>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>User</td>
+                                            <td>{{segment.Past30DaysGrowthInPct}}%</td>
+                                            <td>{{segment.Past60DaysGrowthInPct}}%</td>
+                                            <td>{{segment.Past90DaysGrowthInPct}}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{segment.Reach}}</td>
+                                            <td>Past 30</td>
+                                            <td>past 60</td>
+                                            <td>Past 90</td>
+                                        </tr>
+                                        <tr ng-if="segment.show">
+                                            <td>
+                                                <div ng-repeat="option in segment.BasicOptions">
+                                                    {{option}}
+                                                </div>
+                                                <div ng-repeat="option in segment.AllOptions">
+                                                    <div ng-if="option.Enabled">
+                                                        {{option.FormatString}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

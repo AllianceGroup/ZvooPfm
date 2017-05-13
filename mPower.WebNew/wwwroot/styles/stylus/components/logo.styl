@@ -1,0 +1,27 @@
+#logo
+  margin 0
+  display block
+
+#header>div#logo-group
+  display flex
+  justify-content center
+  align-items center
+  background whiteColor
+  @media only screen and (max-width 479px) and (min-width 320px)
+    width 118px !important
+
+  &>span.minify-menu
+    height auto
+
+  #logo
+    height auto
+    padding 10px
+    box-sizing border-box
+
+    img
+      width 100%
+      max-width 100%
+
+#header .header-dropdown-list>li>.dropdown-toggle
+  @media (max-width 979px)
+    color textColor !important

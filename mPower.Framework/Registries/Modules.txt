@@ -1,0 +1,77 @@
+﻿    public class CommandServerBusModule : AppModule
+    {
+        public override void Start()
+        {
+            var bus = ServiceBus.Run(c => c
+                .SetServiceLocator(new Paralect.ServiceLocator.Unity.UnityServiceLocator(Container))
+                .MemorySynchronousTransport()
+                .SetName("Command Service Bus")
+                .SetInputQueue("MPower.CommandServer")
+                .AddEndpoint(type => type.FullName.EndsWith("Event"), "MPower.DocumentServer")
+                .Dispatcher(d => d
+                    .AddHandlers(typeof(CommandServerBusModule).Assembly)
+                )
+            );
+
+            Container.RegisterInstance<IBus>(bus);            
+        }
+    }
+     
+    public class CommandServerDomainModule : Paralect.App.AppModule
+    {
+        [Dependency]
+        public MPowerSettings MPowerSettings { get; set; }
+
+        public override void Start()
+        {
+            var dataTypeRegistry = new AssemblyQualifiedDataTypeRegistry();
+
+            var transitionsRepository = new MongoTransitionRepository(
+                new AssemblyQualifiedDataTypeRegistry(),
+                MPowerSettings.MongoWriteDatabaseConnectionString);
+
+            var transitionsStorage = new TransitionStorage(transitionsRepository);
+
+            Container.RegisterInstance<ITransitionStorage>(transitionsStorage);
+            Container.RegisterInstance<IDataTypeRegistry>(dataTypeRegistry);
+            Container.RegisterType<IEventBus, ParalectServiceBusEventBus>();
+        }
+    }
+      
+      
+    public class DocumentServerBusModule : AppModule
+    {
+        public override void Start()
+        {
+            var bus = ServiceBus.Run(c => c
+                .SetServiceLocator(new Paralect.ServiceLocator.Unity.UnityServiceLocator(Container))
+                .MemorySynchronousTransport()
+                .SetName("Document Server Bus")
+                .SetInputQueue("MPower.DocumentServer")
+                .Dispatcher(d => d
+                    .AddHandlers(typeof(DocumentServerBusModule).Assembly)
+                )
+            );
+
+            Container.RegisterInstance<IBus>(bus);
+        }
+    }     
+
+    public class WebServerBusModule : AppModule
+    {
+        public override void Start()
+        {
+            var bus = ServiceBus.Run(c => c
+                .SetServiceLocator(new Paralect.ServiceLocator.Unity.UnityServiceLocator(Container))
+                .MemorySynchronousTransport()
+                .SetName("Web Server Bus")
+                .SetInputQueue("MPower.WebServer")
+                .AddEndpoint(type => type.FullName.EndsWith("Command"), "MPower.CommandServer")
+                .Dispatcher(d => d
+                    .AddHandlers(typeof(WebServerBusModule).Assembly)
+                )
+            );
+
+            Container.RegisterInstance<IBus>(bus);
+        }
+    }     

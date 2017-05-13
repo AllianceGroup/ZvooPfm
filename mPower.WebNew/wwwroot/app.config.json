@@ -1,0 +1,8 @@
+{
+  "Production": {
+    "webapiUrl": "https://acceleratedfamilywealth.com:5443/"
+  },
+  "Development": {
+    "webapiUrl": "http://localhost:5000/"
+  }
+}

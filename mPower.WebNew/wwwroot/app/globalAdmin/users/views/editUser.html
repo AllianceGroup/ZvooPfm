@@ -1,0 +1,116 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="editUserGlobalCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Edit user profile
+    </h4>
+</div>
+<div class="modal-body row">
+    <form id="smart-form-register" class="smart-form" data-smart-registration-form>
+        <fieldset>
+            <section>
+                <div class="row">
+                    <p ng-repeat="error in editUserGlobalCtrl.errors" class="alert alert-danger">{{error}}</p>
+                </div>
+            </section>
+
+            <section>
+                <label>Status</label>
+                <label>
+                    <input disabled="disabled" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.IsActive">
+                    <span>Active</span>
+                </label>
+            </section>
+
+            <section>
+                <label>User id</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input disabled="disabled" type="text" name="username" ng-model="editUserGlobalCtrl.user.UserId">
+                </label>
+            </section>
+
+            <section>
+                <label>Legacy pkid</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input disabled="disabled" type="text" name="username" ng-model="editUserGlobalCtrl.user.UserId">
+                </label>
+            </section>
+
+            <section>
+                <label>User name</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input disabled="disabled" type="text" name="username" ng-model="editUserGlobalCtrl.user.UserName">
+                </label>
+            </section>
+
+            <section>
+                <label>Email</label>
+                <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                    <input type="email" name="email" ng-model="editUserGlobalCtrl.user.Email">
+                </label>
+            </section>
+
+            <section>
+                <label>First name</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input type="text" name="username" ng-model="editUserGlobalCtrl.user.FirstName">
+                </label>
+            </section>
+
+            <section>
+                <label>Last name</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input type="text" name="username" ng-model="editUserGlobalCtrl.user.LastName">
+                </label>
+            </section>
+
+            <section>
+                <label>Password</label>
+                <label class="input"> <i class="icon-append fa fa-lock"></i>
+                    <input type="password" name="password" ng-model="editUserGlobalCtrl.user.NewPassword" id="password">
+                </label>
+            </section>
+
+            <section>
+                <label>Confirm password</label>
+                <label class="input"> <i class="icon-append fa fa-lock"></i>
+                    <input type="password" name="passwordConfirm" ng-model="editUserGlobalCtrl.user.ConfirmNewPassword">
+                </label>
+            </section>
+
+            <section>
+                <label>Permissions: </label>
+                <label>
+                    <input ng-change="editUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.AffiliateAdminView">
+                    <span>View affiliate admin</span>
+                </label>
+                <label>
+                    <input ng-change="editUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.AffiliateAdminEdit">
+                    <span>Edit affiliate admin</span>
+                </label>
+                <label>
+                    <input ng-change="editUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.AffiliateAdminDelete">
+                    <span>Delete affiliate admin</span>
+                </label>
+                <label>
+                    <input ng-change="editUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.GlobalAdminView">
+                    <span>View global admin</span>
+                </label>
+                <label>
+                    <input ng-change="editUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.GlobalAdminEdit">
+                    <span>Edit global admin</span>
+                </label>
+                <label>
+                    <input ng-change="editUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.GlobalAdminDelete">
+                    <span>Delete global admin</span>
+                </label>
+            </section>
+        </fieldset>
+        <footer>
+            <button type="submit" class="btn btn-primary" ng-click="editUserGlobalCtrl.updateProfile()">
+                Update
+            </button>
+        </footer>
+    </form>
+</div>
