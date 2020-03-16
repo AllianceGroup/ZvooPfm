@@ -72,7 +72,8 @@ body.modal-open {
 
 .depttools-commands {
     list-style: none;
-    margin-left: 40px;
+    /*margin-left: 40px;*/
+    margin-left:185px;
 }
 
 .depttools-commands a {
@@ -133,3 +134,197 @@ body.modal-open {
     bottom: -30px;
     z-index: 999;
 }
+.tableBorder{
+    border:3px solid #000!important;
+}
+.tableBorder>thead>tr>th ,.tableBorder>tbody>tr>td,.tableBorder>thead>tr>td{
+    border:3px solid #000!important;
+}
+.tableBorder>thead>tr>th,.tableBorder>thead>tr>td{
+    font-size:15px;
+    font-weight:700;
+}
+.tableBorder>tbody>tr>td
+{
+     font-size:15px;
+}
+.mbox {   
+    display: inline-block;
+    width: 100px;
+    height: 18px;
+    margin: 10px 16px 10px 25px;
+    padding-left: 4px;
+}
+
+.mboxImage {
+        display: inline-block;
+    width: 60px;
+    height: 15px;
+    margin: 10px 20px 10px 25px;
+    padding-left: 4px;
+}
+.debtStartButtons{
+        background-color: #1E8449;
+    font-weight: bold;
+    font-size:larger;
+}
+.debtTableRed {
+    background-color:#FF0000 !important;
+    color:#FFF;
+}
+.debtTableGreen {
+    background-color:#6AA84F !important;
+    color:#FFF;
+}
+#debtCalculator .wtHider,#debtCalculator .wtSpreader{
+    width:100% !important
+}
+#debtCalculator .htCore{
+    table-layout:auto !important;
+    width:100% !important
+}
+#debtCalculator .wtHolder{
+    width:100% !important;
+   min-height:100px !important;
+   height:0 ;
+}
+
+
+.debtSummaryTable>tbody>tr>td{
+    border:0 !important;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.UserName{
+    color:black;
+    display:inline-block;
+    text-align:center;
+    vertical-align:middle;
+    padding:6px,12px !important;
+    font-size:17px;
+    margin-bottom: -11px;
+    font-weight: 400;
+    touch-action: manipulation;
+    border: 1px solid transparent;
+}
+
+ .smart-style-4 aside
+ {
+     background:#2966b5 !important;
+ }
+
+ .account-box__panel-heading .panel-title a{
+     background:#7d27db !important;
+     color:#fff !important
+ }
+
+ .menu-on-top aside#left-panel nav>ul>li{
+     border-left: 1px solid #225ead !important;
+     border-right: 1px solid #225ead !important;
+ }
+
+ .jarviswidget-color-blue>header{
+     background:#2966b5 !important;
+ }
+ .btn-success, .custom-theme .btn-info, .custom-theme .btn-primary, .vfb-submit{
+     background-color: #ef703b !important;
+     border-color: #ef703b !important;
+     color: #fff !important;
+ }
+ .fuelux .wizard , .well,.visual-form-builder fieldset{
+     background-color: #fff !important;
+ }
+ .account-box__actions-btn{
+     color: #efefef !important;
+ }
+
+ .dropdown-menu>li>a:hover
+ {
+      background:#2966b5 !important;
+ }
+
+ .smart-style-4 nav ul li.open>a {
+      background:#2966b5 !important;
+ }
+
+ .Calulatortable {
+    border-collapse: collapse;
+    width:100%;
+}
+
+.Calulatortable tbody th, .Calulatortable tbody td {
+    /*border: 1px solid black;*/
+}
+.Calulatortable h5{
+    color: #000 !important;
+    font-weight: bold;
+}
+
+.Calulatortable { display:table; }
+.Calulatortable-row { display:table-row; }
+.Calulatortable-cell { display:table-cell;   }
+
+.txt-color-Charcoal{
+    color: #404041;
+}
+.txt-color-LGray{
+    color: #a4a4a4;
+}
+.alert-info{
+    background:#7d27db !important;
+    border-color: #7d27db !important;
+    color:#fff !important;
+}
+.alert-success
+{
+    border-color: #f4f776 !important;
+    background-color: #f4f776 !important;
+}
+ 
+
+.ConsumerDebtBox{  max-width: 800px; margin: 50px auto; color: #404041; overflow: hidden;}
+	.box-header{ padding: 20px 15px;  text-align: center;}
+	.box-header h2{ padding: 0; margin: 0; font-size: 28px; color: #404041; font-weight:bold}
+	.custom-btn{ background: #1E8449; padding: 0 20px; height: 36px; line-height: 36px; font-size: 16px; color: #fff; text-decoration: none;    }
+	ul.block-list{ padding: 0; margin: 0; list-style: none outside none; font-size: 18px;  float: left; width: 100%;}
+	ul.block-list > li:first-child{ padding: 20px;   -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
+	ul.block-list > li{ float: left; width: 100%;}
+	
+	.ConsumerDebtBox .left-box{ width: 55%; float : left; padding: 20px;}
+	.ConsumerDebtBox .right-box{width: 45%; float : left; padding: 16px;}
+	.ConsumerDebtBox img{ max-width: 100%;}
+	
+	.ConsumerDebtBox h3{ margin: 0; padding-bottom: 20px; font-size: 20px;}
+	
+	.ConsumerDebtBox ul.comman-list-style{ padding: 0 0 20px 0; font-weight:bold}
+	.ConsumerDebtBox ul.comman-list-style li{ margin: 0 0 10px;}
+
+
+    .DEPHeader{
+            padding-left: 29px;
+    padding-bottom: 1em;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.7em;
+    font-family: "Open Sans", Arial, sans-serif;
+    }
+
+    .DEPHeader ul.DEPtext li{
+    height: auto !important;
+    padding-left: 5px !important;
+    font-size: 16px !important;
+    line-height: 42px !important;
+    position: relative;
+    float: none !important;
+    margin: -11px !important;
+    color: #666 !important;
+    cursor: default;
+    background: none !important;
+    }
+    .DEPHeader ul.DEPtext {
+   list-style:decimal !important;
+   padding-left: 30px !important;
+   width:100% !important;
+    }
+ 

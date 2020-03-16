@@ -17,7 +17,11 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tools\mPower.Aggregation\mPower.Aggregation.Client\mPower.Aggregation.Client.csproj" />
+    <ProjectReference Include="..\..\tools\mPower.Aggregation\mPower.Aggregation.Contract\mPower.Aggregation.Contract.csproj" />
+    <ProjectReference Include="..\Default.ViewModel\Default.ViewModel.csproj" />
     <ProjectReference Include="..\Default\Default.csproj" />
+    <ProjectReference Include="..\mPower.Documents\mPower.Documents.Server.csproj" />
+    <ProjectReference Include="..\mPower.EventHandlers\mPower.EventHandlers.csproj" />
     <ProjectReference Include="..\mPower.OfferingsSystem\mPower.OfferingsSystem.csproj" />
     <ProjectReference Include="..\mPower.Signals\mPower.Signals.csproj" />
   </ItemGroup>

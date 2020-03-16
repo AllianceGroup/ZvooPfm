@@ -1,0 +1,1892 @@
+﻿
+<script>
+    var setPaymentArray = [];
+    var dataArray = [];
+    var summaryDataArray = [];
+    var rowCounts = 20;
+    var Years = 20;
+    createRows();
+    var AvgROR = 0, ActROR = 0;
+    var FirstYearValue, LastYearValue;
+    var tableColumns = [
+          { data: 'Year', readOnly: true },
+          {
+              data: 'BegValue',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+              readOnly: true
+          },
+          {
+              data: 'EarningRate',
+              type: 'numeric',
+              format: '(0,0.00)',
+              numericFormat: {
+                  pattern: '(0,0.00)'
+              },
+          },
+          {
+              data: 'AnnualCash1',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+          },
+          {
+              data: 'AnnualCash2',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+          },
+          {
+              data: 'AnnualCash3',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+          },
+          {
+              data: 'InterestEarning',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+              readOnly:true
+          },
+          {
+              data: 'TaxPayment',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+              readOnly: true
+          },
+          {
+              data: 'MiscFees',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+              readOnly: true
+          },
+          {
+              data: 'EndValue',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+              readOnly:true
+          }
+
+    ]
+    var summarytableColumns = [
+         { data: 'Total', type:'text', readOnly: true },
+         {
+             data: 'BegValue',
+             type: 'numeric',
+             numericFormat: {
+                 pattern: '(0,0)'
+             },
+             readOnly: true
+         },
+         {
+             data: 'EarningRate',
+             type: 'numeric',
+             numericFormat: {
+                 pattern: '(0,0.00)'
+             },
+             readOnly: true
+            
+         },
+         {
+             data: 'AnnualCash1',
+             type: 'numeric',
+             numericFormat: {
+                 pattern: '(0,0)'
+             },
+             readOnly: true
+         },
+          {
+              data: 'AnnualCash2',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+              readOnly: true
+          },
+          {
+              data: 'AnnualCash3',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+              readOnly: true
+          },
+          {
+              data: 'InterestEarning',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+              readOnly: true
+          },
+          {
+              data: 'TaxPayment',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+              readOnly: true
+          },
+          {
+              data: 'MiscFees',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '(0,0)'
+              },
+              readOnly: true
+          },
+         {
+             data: 'EndValue',
+             type: 'numeric',
+             numericFormat: {
+                 pattern: '(0,0)'
+             },
+             readOnly: true
+         }
+
+    ]
+    var data = container1 = document.getElementById('example1'),
+    container2 = document.getElementById('summary'),
+      hot1, summary;
+    var yearIndex = 0;
+    var rCount = 0;
+    Handsontable.renderers.registerRenderer('negativeValueRenderer', negativeValueRenderer);
+   
+    summary = new Handsontable(container2, {
+        data: summaryDataArray,
+        height: 100,
+        colWidths: 130,
+        columns: summarytableColumns,
+        fillHandle: {
+            direction: 'vertical',
+            autoInsertRow: false,
+        },
+      //  minSpareRows:1,
+        cells: function (row, col, prop) {
+            var cellProperties = {};
+            if (col === 0) {
+                cellProperties.readOnly = true;
+            }
+            cellProperties.renderer = "negativeValueRenderer";
+            return cellProperties;
+        },
+    });
+
+    hot1 = new Handsontable(container1, {
+        data: dataArray,
+        height:550,
+        colWidths: 130,
+        fillHandle: {
+            direction: 'vertical',
+            autoInsertRow: false,
+        },
+      //  stretchH: 'all',
+      //  minRows:1,
+      //  fixedRowsBottom:1,
+       //
+
+        
+        colHeaders: ['Year', 'Beg. of Year Acct. Value', 'Earnings Rate', 'Annual Cash Flow', 'Annual Cash Flow', 'Annual Cash Flow', 'Interest Earnings',
+            'Tax Payment','Misc Fees', 'End of Year Acct. Value'],
+        
+        afterChange: function (changes, source) {
+            $('.wtHolder').css("overflow-x", "hidden");
+            if (source != 'edit' && source != 'paste' && source != 'autofill' && source != "CopyPaste.paste")
+            {
+                return;
+            }
+
+            setPaymentArray = [];
+            var BegValue = 0, EarningRate = 0, AnnualCash1 = 0, InterestEarning = 0, EndValue = 0;
+            if (changes != null) {
+                var ht = this.getInstance();
+                var rCount = (ht.countRows()-1);
+                var iterator = 1;
+                var chkExistingValue = changes[changes.length-1];
+                var chkExistingLine = chkExistingValue[0];
+                if ((rCount) == chkExistingLine && source != 'edit') {
+                    for (var i = 0; i < changes.length; i= i+ iterator) {
+                        var change = changes[i];
+                        var line = change[0];
+                        var changeColumn = change[1];
+                        var changeValue = change[3];
+
+                        BegValue = isNaN(parseFloat(this.getDataAtCell(line, 1))) ? '' : parseFloat(this.getDataAtCell(line, 1));
+                        EarningRate = isNaN(parseFloat(this.getDataAtCell(line, 2))) ? '' : parseFloat(this.getDataAtCell(line, 2));
+
+                        dataArray[line].BegValue = BegValue;
+                        dataArray[line].EarningRate = EarningRate
+
+                        if (dataArray[line].AnnualCash1 != undefined && changeColumn == "AnnualCash1") {
+                            dataArray[line].AnnualCash1 = changeValue == '' ? 0 : changeValue;
+                        }
+                        if (dataArray[line].AnnualCash2 != undefined && changeColumn == "AnnualCash2") {
+                            dataArray[line].AnnualCash2 = changeValue
+                        }
+                        if (dataArray[line].AnnualCash3 != undefined && changeColumn == "AnnualCash3") {
+                            dataArray[line].AnnualCash3 = changeValue
+                        }
+                        if (dataArray[line].MiscFees != undefined && changeColumn == "MiscFees") {
+                            dataArray[line].MiscFees = changeValue
+                        }
+                        if (dataArray[line].TaxPayment != undefined && changeColumn == "TaxPayment") {
+                            dataArray[line].TaxPayment = changeValue
+                        }
+                        if (changeColumn == "EarningRate") {
+                            for (var j = line; j < dataArray.length; j++) {
+                                dataArray[j].EarningRate = changeValue == '' ? 0 : isNaN(changeValue) ? 0 : changeValue;
+                            }
+                        }
+ 
+                    }
+                }
+                else {
+                   
+                    var predictedSource = '';
+ 
+
+                    if (predictedSource != 'delete') {
+                        for (var i = 0; i < changes.length; i++) {
+                            //line = 1;
+                            var preLine = (i - 1);
+                            var change = changes[i];
+                            var line = change[0];
+                            var changeColumn = change[1];
+                            var changeValue = change[3];
+
+                            BegValue = isNaN(parseFloat(this.getDataAtCell(line, 1))) ? '' : parseFloat(this.getDataAtCell(line, 1));
+                            EarningRate = isNaN(parseFloat(this.getDataAtCell(line, 2))) ? '' : parseFloat(this.getDataAtCell(line, 2));
+
+                            dataArray[line].BegValue = BegValue;
+                            dataArray[line].EarningRate = EarningRate
+
+                            if (dataArray[line].AnnualCash1 != undefined && changeColumn == "AnnualCash1") {
+                                dataArray[line].AnnualCash1 = changeValue == '' ? 0 : isNaN(changeValue) ? 0 : changeValue;
+                            }
+                            if (dataArray[line].AnnualCash2 != undefined && changeColumn == "AnnualCash2") {
+                                dataArray[line].AnnualCash2 = changeValue == '' ? 0 : isNaN(changeValue) ? 0 : changeValue
+                            }
+                            if (dataArray[line].AnnualCash3 != undefined && changeColumn == "AnnualCash3") {
+                                dataArray[line].AnnualCash3 = changeValue == '' ? 0 : isNaN(changeValue) ? 0 : changeValue
+                            }
+                            if (dataArray[line].MiscFees != undefined && changeColumn == "MiscFees") {
+                                dataArray[line].MiscFees = changeValue == '' ? 0 : isNaN(changeValue) ? 0 : changeValue
+                            }
+                            if (dataArray[line].TaxPayment != undefined && changeColumn == "TaxPayment") {
+                                dataArray[line].TaxPayment = changeValue == '' ? 0 : isNaN(changeValue) ? 0 : changeValue
+                            }
+
+                            if(changeColumn == "AnnualCash1")
+                            {
+                                for (var j = line; j < dataArray.length; j++) {
+                                    dataArray[j].AnnualCash1 = changeValue == '' ? 0 : isNaN(changeValue) ? 0 : changeValue;
+                                }
+                            }
+                            if (changeColumn == "AnnualCash2") {
+                                for (var j = line; j < dataArray.length; j++) {
+                                    dataArray[j].AnnualCash2 = changeValue == '' ? 0 : isNaN(changeValue) ? 0 : changeValue;
+                                }
+                            }
+                            if (changeColumn == "AnnualCash3") {
+                                for (var j = line; j < dataArray.length; j++) {
+                                    dataArray[j].AnnualCash3 = changeValue == '' ? 0 : isNaN(changeValue) ? 0 : changeValue;
+                                }
+                            }
+                            if (changeColumn == "EarningRate") {
+                                for (var j = line; j < dataArray.length; j++) {
+                                    dataArray[j].EarningRate = changeValue == '' ? 0 : isNaN(changeValue) ? 0 : changeValue;
+                                }
+                            }
+
+                        }
+                      
+                    }
+                     
+                }
+            }
+
+
+            for (var i = 0; i < setPaymentArray.length; i++) {
+                 dataArray = setPaymentArray;
+                
+            }
+            CashFlowCalculation();
+ 
+        },
+        cells: function (row, col, prop) {
+            var cellProperties = {};
+            if (col === 0) {
+                cellProperties.readOnly = true;
+                $('.ht_clone_top').find('table > thead > tr').each(function () {
+                    $(this).find('th').addClass('blueBackground')
+                })
+            }
+            if (col === 1)
+            {
+                cellProperties.readOnly = true;
+            }
+            
+            cellProperties.renderer = "negativeValueRenderer";
+
+
+            return cellProperties;
+        },
+        afterRemoveRow: function (index, amount) {
+            
+        },
+
+        afterScrollVertically: function()
+        {
+            $('.wtHolder').css("overflow-x", "hidden");
+        }
+
+
+    });
+
+    var exportPlugin = hot1.getPlugin('exportFile');
+    function negativeValueRenderer(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.NumericRenderer.apply(this, arguments);
+     
+        if (col === 0) {
+            td.className = 'blueBackground';
+        }
+        else {
+            if (prop == "BegValue" || prop == "EarningRate" || prop == "EndValue") {
+                td.className="center blue-text"
+            }
+            else {
+                td.className = 'center green-text';
+            }
+            if (parseFloat(value) < 0) {
+                td.className = 'make-me-red';
+            }
+           
+        }
+
+    }
+ 
+    function createRows() {
+        var years = parseInt($('#txtYears').val())
+        for (var i = 1; i <= years; i++) {
+            dataArray.push({
+                Year: i,
+                BegValue: '',
+                EarningRate: '',
+                AnnualCash1: '',
+                AnnualCash2: '',
+                AnnualCash3: '',
+                InterestEarning: '',
+                TaxPayment: '',
+                MiscFees:'',
+                EndValue: ''
+            });
+        }
+ 
+        summaryDataArray.push({
+            Total: 'Summary',
+            BegValue: '',
+            EarningRate: '',
+            AnnualCash1: '',
+            AnnualCash2: '',
+            AnnualCash3: '',
+            InterestEarning: '',
+            TaxPayment: '',
+            MiscFees: '',
+            EndValue: ''
+        });
+
+        summaryDataArray.push({
+            Total: 'Future Tax Liability',
+            BegValue: '',
+            EarningRate: '',
+            AnnualCash1: '',
+            AnnualCash2: '',
+            AnnualCash3: '',
+            InterestEarning: '',
+            TaxPayment: '',
+            MiscFees: '',
+            EndValue: ''
+        });
+
+        
+    }
+
+    $(document).ready(function () {
+        $('#hot-display-license-info').remove();
+        $('#hot-display-license-info').empty();
+        $('#example1').width($('.wtHider').width());
+        $('.wtHolder').css("overflow-x", "hidden");
+        $('#summary').width($('.wtHider').width());
+        $('#divRORLabels').width($('.wtHider').width());
+        $('#FutureTaxLibility').width($('.wtHider').width());
+
+        var url = "";
+        var hostName= window.location.hostname;
+        if (hostName.indexOf("localhost") > -1)
+        {
+            url = "http://localhost:5000/api/";
+        }
+        else if (hostName.indexOf("staging") > -1) {
+            url = "https://staging.acceleratedfamilywealth.com:5443/api/";
+        }
+
+        else if (hostName.indexOf("accelerated") > -1) {
+            url = "https://acceleratedfamilywealth.com:5443/api/";
+        }
+
+        url = url + "calculator/GetMarketHistoryDateRange"
+        
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: {},
+            success: function (result) {
+                FirstYearValue = result[0];
+                LastYearValue = result[1];
+                $('#txtStartYear').prop("min", result[0]);
+                $('#txtEndYear').prop("max", result[1]);
+            }
+        });
+   
+    });
+
+    $(document).on('change', '#txtYears', function () {
+
+        if ($(this).val() == "")
+        {
+            $('#txtYears').val(Years);
+            return;
+        }
+        if (parseInt($(this).val()) < 1)
+        {
+            alert("Years should not be negative or Zero.");
+            $('#txtYears').val(Years);
+            return;
+        }
+        var years = parseInt($(this).val());
+        Years = years;
+        if (hot1.countRows() != 1 && hot1.countRows() > years) {
+            var count = hot1.countRows() - years;
+            hot1.alter('remove_row', years, count);
+            CashFlowCalculation();
+        }
+        else if (hot1.countRows() > 0 && dataArray[0].BegValue != '') {
+            var sch = hot1.getSchema();
+            var annualcash1 = dataArray[dataArray.length - 1].AnnualCash1;
+            var annualcash2 = dataArray[dataArray.length - 1].AnnualCash2;
+            var annualcash3 = dataArray[dataArray.length - 1].AnnualCash3;
+             for (var i = dataArray.length; i < years; i++) {
+                var srNo = i +1;
+                hot1.alter('insert_row', srNo);
+                dataArray[i].Year = srNo;
+                dataArray[i].BegValue = '';
+                dataArray[i].EarningRate = '';
+                dataArray[i].AnnualCash1 = annualcash1;
+                dataArray[i].AnnualCash2 = annualcash2;
+                dataArray[i].AnnualCash3 = annualcash3;
+                dataArray[i].MiscFees = '';
+                dataArray[i].TaxPayment = '';
+                dataArray[i].InterestEarning = '';
+                dataArray[i].EndValue = '';
+            }
+             CashFlowCalculation();
+        }
+        else {
+            for (var i = 0; i < years; i++) {
+                var srNo = i;
+                hot1.setDataAtCell(i, 0, srNo + 1, 'Year');
+                hot1.setDataAtCell(i, 1, '', 'BegValue');
+                hot1.setDataAtCell(i, 2, '', 'EarningRate');
+                hot1.setDataAtCell(i, 3, '', 'AnnualCash1');
+                hot1.setDataAtCell(i, 4, '', 'AnnualCash2');
+                hot1.setDataAtCell(i, 5, '', 'AnnualCash3');
+                hot1.setDataAtCell(i, 6, '', 'InterestEarning');
+                hot1.setDataAtCell(i, 7, '', 'TaxPayment');
+                hot1.setDataAtCell(i, 8, '', 'MiscFees');
+                hot1.setDataAtCell(i, 9, '', 'EndValue');
+            }
+            $('.wtHolder').css("overflow-x", "hidden");
+        }
+
+        $('.wtHolder').css("overflow-x", "hidden");
+     
+    });
+
+    $(document).on('change', '#txtEarningRate', function () {
+        var rate = $(this).val();
+        for (var i = 0; i < dataArray.length; i++) {
+            var srNo = i;
+            var obj = dataArray[i];
+            dataArray[i].EarningRate = rate;
+        }
+        CashFlowCalculation();
+    });
+   
+    $(document).on('change', '#txtPV', function () {
+        var presentValue = $(this).val() == '' ? '' : parseFloat($(this).val());
+        
+        for (var i = 0; i < dataArray.length; i++) {
+  
+            var obj = dataArray[i];
+            dataArray[i].BegValue = presentValue;
+            dataArray[i].EndValue = presentValue;
+        }
+        CashFlowCalculation();
+        
+    });
+    
+    $(document).on('change', '#txtCashFlow1', function () {
+        var CashFlow1 = $(this).val() == '' ? '' : parseFloat($(this).val());
+
+        for (var i = 0; i < dataArray.length; i++) {
+            var srNo = i;
+            var obj = dataArray[i];
+            dataArray[i].AnnualCash1 = CashFlow1;
+        }
+        CashFlowCalculation();
+
+    });
+    $(document).on('change', '#txtCashFlow2', function () {
+        var CashFlow2 = $(this).val() == '' ? '' : parseFloat($(this).val());
+
+        for (var i = 0; i < dataArray.length; i++) {
+            var srNo = i;
+            var obj = dataArray[i];
+            dataArray[i].AnnualCash2 = CashFlow2;
+        }
+        CashFlowCalculation();
+
+    });
+    $(document).on('change', '#txtCashFlow3', function () {
+        var CashFlow3 = $(this).val() == '' ? '' : parseFloat($(this).val());
+
+        for (var i = 0; i < dataArray.length; i++) {
+            var srNo = i;
+            var obj = dataArray[i];
+            dataArray[i].AnnualCash3 = CashFlow3;
+        }
+        CashFlowCalculation();
+
+    });
+    $(document).on('change', '#txtMiscFees', function () {
+        var MiscFees = $(this).val() == '' ? '' : parseFloat($(this).val());
+
+        for (var i = 0; i < dataArray.length; i++) {
+            var srNo = i;
+            var obj = dataArray[i];
+            dataArray[i].MiscFees = MiscFees;
+        }
+        CashFlowCalculation();
+
+    });
+    $(document).on('change', '#txtTaxPayment', function () {
+        var TaxPayment = $(this).val() == '' ? '' : parseFloat($(this).val());
+
+        for (var i = 0; i < dataArray.length; i++) {
+            var srNo = i;
+            var obj = dataArray[i];
+            dataArray[i].TaxPayment = TaxPayment;
+        }
+        CashFlowCalculation();
+
+    });
+
+    $(document).on('click', '#lblCashFlow1', function () {
+
+        var sch = hot1.getSchema();
+        var summarySch = summary.getSchema();
+
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $('#divCashFlow1').css('visibility', 'hidden');
+            $('#txtCashFlow1').addClass('hidden');
+
+            delete sch['AnnualCash1'];
+            delete summarySch['AnnualCash1'];
+
+            var columnHeader = hot1.getColHeader();
+            var index = 3;
+            columnHeader.splice(index, 1);
+
+            tableColumns.splice(index, 1);
+            summarytableColumns.splice(index, 1);
+
+            hot1.updateSettings({
+                dataSchema: sch,
+                colHeaders: columnHeader,
+                columns: tableColumns
+            });
+
+            summary.updateSettings({
+                dataSchema: summarySch,
+                columns: summarytableColumns
+            });
+
+        }
+        else {
+
+            sch.AnnualCash1 = null;
+            summarySch.AnnualCash1 = null;
+
+            $(this).addClass('active');
+            $('#divCashFlow1').css('visibility', 'visible');
+            $('#txtCashFlow1').removeClass('hidden');
+
+            var columnHeader = hot1.getColHeader();
+            var index = 3;
+            columnHeader.splice(index, 0, "Annual Cash Flow");
+            tableColumns.splice(index, 0, {
+                data: "AnnualCash1", type: "numeric", numericFormat: {
+                    pattern: '(0,0)'
+                },
+            });
+            summarytableColumns.splice(index, 0, { data: "AnnualCash1", type: "numeric", numericFormat: {
+                pattern: '(0,0)'
+            }, readOnly: true });
+
+            hot1.updateSettings({
+                dataSchema: sch,
+                colHeaders: columnHeader,
+                columns: tableColumns
+            });
+
+            summary.updateSettings({
+                dataSchema: summarySch,
+                columns: summarytableColumns
+            });
+
+        }
+
+        $('#example1').width($('.wtHider').width());
+        $('#summary').width($('.wtHider').width());
+        $('#divRORLabels').width($('.wtHider').width());
+        CashFlowCalculation();
+    });
+    $(document).on('click', '#lblCashFlow2', function () {
+ 
+        var sch = hot1.getSchema();
+        var summarySch = summary.getSchema();
+ 
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $('#divCashFlow2').css('visibility', 'hidden');
+            $('#txtCashFlow2').addClass('hidden');
+ 
+            delete sch['AnnualCash2'];
+            delete summarySch['AnnualCash2'];
+
+            var columnHeader = hot1.getColHeader();
+            var index = -1;
+            var val = "AnnualCash2"
+            var filteredObj = tableColumns.find(function (item, i) {
+                if (item.data == val)
+                { index = i; return; }
+            });
+            if (index > -1)
+                columnHeader.splice(index, 1);
+
+           
+            tableColumns.splice(index, 1);
+            summarytableColumns.splice(index, 1);
+
+            hot1.updateSettings({
+                dataSchema: sch,
+                colHeaders: columnHeader,
+                columns: tableColumns
+            });
+
+            summary.updateSettings({
+                dataSchema: summarySch,
+                columns: summarytableColumns
+            });
+
+        }
+        else {
+
+            sch.AnnualCash2 = null;
+            summarySch.AnnualCash2 = null;
+          
+            $(this).addClass('active');
+            $('#divCashFlow2').css('visibility', 'visible');
+            $('#txtCashFlow2').removeClass('hidden');
+           
+            var columnHeader = hot1.getColHeader();
+            var index = -1;
+            var filteredObj = tableColumns.find(function (item, i) {
+                if (item.data == "AnnualCash1")
+                { index = i; return; }
+            });
+            if (index == -1)
+            {
+                var filteredObj = tableColumns.find(function (item, i) {
+                    if (item.data == "EarningRate")
+                    { index = i; return; }
+                });
+            }
+          
+            columnHeader.splice(index+1, 0, "Annual Cash Flow");
+            tableColumns.splice(index + 1, 0, {
+                data: "AnnualCash2", type: "numeric", numericFormat: {
+                    pattern: '(0,0)'
+                },
+            });
+            summarytableColumns.splice(index + 1, 0, {
+                data: "AnnualCash2", type: "numeric", numericFormat: {
+                    pattern: '(0,0)'
+                }, readOnly: true
+            });
+           
+             hot1.updateSettings({
+                 dataSchema: sch,
+                 colHeaders: columnHeader,
+                 columns: tableColumns
+             });
+             summary.updateSettings({
+                 dataSchema: summarySch,
+                 columns: summarytableColumns
+             });
+
+        }
+        $('#example1').width($('.wtHider').width());
+        $('#summary').width($('.wtHider').width());
+        $('#divRORLabels').width($('.wtHider').width());
+        CashFlowCalculation();
+    });
+    $(document).on('click', '#lblCashFlow3', function () {
+
+        var sch = hot1.getSchema();
+        var summarySch = summary.getSchema();
+
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $('#divCashFlow3').css('visibility', 'hidden');
+            $('#txtCashFlow3').addClass('hidden');
+
+            delete sch['AnnualCash3'];
+            delete summarySch['AnnualCash3'];
+
+            var columnHeader = hot1.getColHeader();
+            var index = -1;
+            var val = "AnnualCash3"
+            var filteredObj = tableColumns.find(function (item, i) {
+                if (item.data == val)
+                { index = i; return; }
+            });
+            if (index > -1)
+                columnHeader.splice(index, 1);
+
+
+            tableColumns.splice(index, 1);
+            summarytableColumns.splice(index, 1);
+
+            hot1.updateSettings({
+                dataSchema: sch,
+                colHeaders: columnHeader,
+                columns: tableColumns
+            });
+            summary.updateSettings({
+                dataSchema: summarySch,
+                columns: summarytableColumns
+            });
+        }
+        else {
+
+            sch.AnnualCash3 = null;
+            summarySch.AnnualCash3 = null;
+
+            $(this).addClass('active');
+            $('#divCashFlow3').css('visibility', 'visible');
+            $('#txtCashFlow3').removeClass('hidden');
+
+            var columnHeader = hot1.getColHeader();
+
+            var index = -1;
+            var filteredObj = tableColumns.find(function (item, i) {
+                if (item.data == "AnnualCash2")
+                { index = i; return; }
+            });
+            if (index == -1) {
+                var filteredObj = tableColumns.find(function (item, i) {
+                    if (item.data == "AnnualCash1")
+                    { index = i; return; }
+                });
+            }
+            if (index == -1) {
+                var filteredObj = tableColumns.find(function (item, i) {
+                    if (item.data == "EarningRate")
+                    { index = i; return; }
+                });
+            }
+
+            columnHeader.splice(index + 1, 0, "Annual Cash Flow");
+
+            tableColumns.splice(index + 1, 0, {
+                data: "AnnualCash3", type: "numeric", numericFormat: {
+                    pattern: '(0,0)'
+                },
+            });
+            summarytableColumns.splice(index + 1, 0, {
+                data: "AnnualCash3", type: "numeric", numericFormat: {
+                    pattern: '(0,0)'
+                }, readOnly: true
+            });
+
+            hot1.updateSettings({
+                dataSchema: sch,
+                colHeaders: columnHeader,
+                columns: tableColumns
+            });
+            summary.updateSettings({
+                dataSchema: summarySch,
+                columns: summarytableColumns
+            });
+
+        }
+        $('#example1').width($('.wtHider').width());
+        $('#summary').width($('.wtHider').width());
+        $('#divRORLabels').width($('.wtHider').width());
+        CashFlowCalculation();
+    });
+
+    $(document).on('click', '#lblMiscFees', function () {
+
+        var sch = hot1.getSchema();
+        var summarySch = summary.getSchema();
+
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $('#divMiscFees').css('visibility','hidden');
+            $('#txtMiscFees').parent().css('visibility', 'hidden');
+
+            delete sch['MiscFees'];
+            delete summarySch['MiscFees'];
+
+            var columnHeader = hot1.getColHeader();
+            var index = -1;
+            var val = "MiscFees"
+            var filteredObj = tableColumns.find(function (item, i) {
+                if (item.data == val)
+                { index = i; return; }
+            });
+            if (index > -1)
+                columnHeader.splice(index, 1);
+
+
+            tableColumns.splice(index, 1);
+            summarytableColumns.splice(index, 1);
+
+            hot1.updateSettings({
+                dataSchema: sch,
+                colHeaders: columnHeader,
+                columns: tableColumns
+            });
+            summary.updateSettings({
+                dataSchema: summarySch,
+                columns: summarytableColumns
+            });
+
+        }
+        else {
+
+            sch.MiscFees = null;
+            summarySch.MiscFees = null;
+
+            $(this).addClass('active');
+            $('#divMiscFees').css('visibility', 'visible');
+            $('#txtMiscFees').parent().css('visibility', 'visible');
+
+            var columnHeader = hot1.getColHeader();
+
+            var index = -1;
+            var filteredObj = tableColumns.find(function (item, i) {
+                if (item.data == "TaxPayment")
+                { index = i; return; }
+            });
+            if (index == -1) {
+                var filteredObj = tableColumns.find(function (item, i) {
+                    if (item.data == "InterestEarning")
+                    { index = i; return; }
+                });
+            }
+
+            columnHeader.splice(index + 1, 0, "Misc. Fees");
+
+            tableColumns.splice(index + 1, 0, {
+                data: "MiscFees", type: "numeric", numericFormat: {
+                    pattern: '(0,0)'
+                }, readOnly: true
+            });
+            summarytableColumns.splice(index + 1, 0, {
+                data: "MiscFees", type: "numeric", numericFormat: {
+                    pattern: '(0,0)'
+                }, readOnly: true
+            });
+
+            hot1.updateSettings({
+                dataSchema: sch,
+                colHeaders: columnHeader,
+                columns: tableColumns
+            });
+            summary.updateSettings({
+                dataSchema: summarySch,
+                columns: summarytableColumns
+            });
+
+        }
+        $('#example1').width($('.wtHider').width());
+        $('#summary').width($('.wtHider').width());
+        $('#divRORLabels').width($('.wtHider').width());
+        CashFlowCalculation();
+    });
+
+    $(document).on('click', '#lblTaxPayment', function () {
+
+        var sch = hot1.getSchema();
+        var summarySch = summary.getSchema();
+
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $('#divTaxPayment').addClass('hidden');
+            $('#txtTaxPayment').parent().css('visibility', 'hidden');
+            $('#divQW').css('visibility', 'hidden');
+
+            delete sch['TaxPayment'];
+            delete summarySch['TaxPayment'];
+
+            var columnHeader = hot1.getColHeader();
+            var index = -1;
+            var val = "TaxPayment"
+            var filteredObj = tableColumns.find(function (item, i) {
+                if (item.data == val)
+                { index = i; return; }
+            });
+            columnHeader.splice(index, 1);
+
+            tableColumns.splice(index, 1);
+            summarytableColumns.splice(index, 1);
+
+            hot1.updateSettings({
+                dataSchema: sch,
+                colHeaders: columnHeader,
+                columns: tableColumns
+            });
+            summary.updateSettings({
+                dataSchema: summarySch,
+                columns: summarytableColumns
+            });
+
+        }
+        else {
+
+            sch.TaxPayment = null;
+            summarySch.TaxPayment = null;
+
+            $(this).addClass('active');
+            $('#divTaxPayment').removeClass('hidden');
+            $('#txtTaxPayment').parent().css('visibility', 'visible');
+            $('#divQW').css('visibility', 'visible');
+
+            var columnHeader = hot1.getColHeader();
+
+            var index = -1;
+            var filteredObj = tableColumns.find(function (item, i) {
+                if (item.data == "InterestEarning")
+                { index = i; return; }
+            });
+            
+            columnHeader.splice(index + 1, 0, "Tax Payment");
+
+            tableColumns.splice(index + 1, 0, {
+                data: "TaxPayment", type: "numeric", numericFormat: {
+                    pattern: '(0,0)'
+                }, readOnly: true
+            });
+            summarytableColumns.splice(index + 1, 0, {
+                data: "TaxPayment", type: "numeric", numericFormat: {
+                    pattern: '(0,0)'
+                }, readOnly: true
+            });
+
+            hot1.updateSettings({
+                dataSchema: sch,
+                colHeaders: columnHeader,
+                columns: tableColumns
+            });
+            summary.updateSettings({
+                dataSchema: summarySch,
+                columns: summarytableColumns
+            });
+
+
+        }
+        $('#example1').width($('.wtHider').width());
+        $('#summary').width($('.wtHider').width());
+        $('#divRORLabels').width($('.wtHider').width());
+        CashFlowCalculation();
+    });
+
+   
+   
+    $("input[name='rbCashFlow1']").click(function () {
+        CashFlowCalculation();
+    });
+    $("input[name='rbCashFlow2']").click(function () {
+        CashFlowCalculation();
+    });
+    $("input[name='rbCashFlow3']").click(function () {
+        CashFlowCalculation();
+    });
+    $("input[name='rbMiscFees']").click(function () {
+        CashFlowCalculation();
+    });
+
+    $('#chkQW').click(function()
+    {
+        CashFlowCalculation();
+    })
+
+    function CashFlowCalculation()
+    {
+        summaryDataArray[0].BegValue = 0;
+        summaryDataArray[0].EarningRate = 0;
+        summaryDataArray[0].AnnualCash1 = 0;
+        summaryDataArray[0].AnnualCash2 = 0;
+        summaryDataArray[0].AnnualCash3 = 0;
+        summaryDataArray[0].MiscFees = 0;
+        summaryDataArray[0].TaxPayment = 0;
+        summaryDataArray[0].InterestEarning = 0;
+        summaryDataArray[0].EndValue = 0;
+
+        var totalExtraInvestments = 0;
+
+        var sch = hot1.getSchema();
+
+        var applyCashFlow1 = 1, applyCashFlow2 = 1, applyCashFlow3 = 1, applyMiscFees = 1;;
+        if (document.getElementById('rbCashFlow1End').checked) {
+            applyCashFlow1 = document.getElementById('rbCashFlow1End').value;
+        }
+        if (document.getElementById('rbCashFlow2End').checked) {
+            applyCashFlow2 = document.getElementById('rbCashFlow2End').value;
+        }
+        if (document.getElementById('rbCashFlow3End').checked) {
+            applyCashFlow3 = document.getElementById('rbCashFlow3End').value;
+        }
+        if (document.getElementById('rbMiscFeesEnd').checked) {
+            applyMiscFees = document.getElementById('rbMiscFeesEnd').value;
+        }
+
+        var earningRate = isNaN(parseFloat($('#txtEarningRate').val())) ? '' : parseFloat($('#txtEarningRate').val());
+        var annualCash1 = isNaN(parseFloat($('#txtCashFlow1').val())) ? '' : parseFloat($('#txtCashFlow1').val());
+        var annualCash2 = isNaN(parseFloat($('#txtCashFlow2').val())) ? '' : parseFloat($('#txtCashFlow2').val());
+        var annualCash3 = isNaN(parseFloat($('#txtCashFlow3').val())) ? '' : parseFloat($('#txtCashFlow3').val());
+        var miscFees = isNaN(parseFloat($('#txtMiscFees').val())) ? 0 : parseFloat($('#txtMiscFees').val());
+        var taxPayment = isNaN(parseFloat($('#txtTaxPayment').val())) ? 0 : parseFloat($('#txtTaxPayment').val());
+
+       
+        var cashInterest = parseFloat(dataArray[0].AnnualCash1);
+        ActROR = 0;
+        for (var i = 0; i < dataArray.length; i++) {
+            var obj = dataArray[i];
+            var begValue = i == 0 ? (obj.BegValue == '' ? 0 : obj.BegValue) : dataArray[i - 1].EndValue;
+            var begValueForCalculation = begValue;
+            var rates = obj.EarningRate == '' || obj.EarningRate == null ? (i != 0 && dataArray[i - 1].EarningRate != '') ? dataArray[i - 1].EarningRate : (earningRate == '' ? 0 : earningRate) : obj.EarningRate;
+            rates = parseFloat(rates);
+
+            var cashFlow1 = sch.hasOwnProperty('AnnualCash1') ? obj.AnnualCash1 == '' && (obj.AnnualCash1 == parseInt('') || isNaN(obj.AnnualCash1)) ? (annualCash1 == '' || isNaN(annualCash1)) ? 0 : annualCash1 : obj.AnnualCash1 : 0;
+            var cashFlow2 = sch.hasOwnProperty('AnnualCash2') ? obj.AnnualCash2 == '' && (obj.AnnualCash2 == parseInt('') || isNaN(obj.AnnualCash2)) ? (annualCash2 == '' || isNaN(annualCash2)) ? 0 : annualCash2 : obj.AnnualCash2 : 0;
+            var cashFlow3 = sch.hasOwnProperty('AnnualCash3') ? obj.AnnualCash3 == '' && (obj.AnnualCash3 == parseInt('') || isNaN(obj.AnnualCash3)) ? (annualCash3 == '' || isNaN(annualCash3)) ? 0 : annualCash3 : obj.AnnualCash3 : 0;
+            //cashFlow1 = sch.hasOwnProperty('AnnualCash1') ? (cashFlow1 == '' || cashFlow1 == undefined) && (i != 0 && dataArray[i - 1].AnnualCash1 != '') ? (dataArray[i - 1].AnnualCash1 == '' ? 0 : dataArray[i - 1].AnnualCash1) : cashFlow1 : 0;
+            //cashFlow2 = sch.hasOwnProperty('AnnualCash2') ?(cashFlow2 == '' || cashFlow2 == undefined) && (i != 0 && dataArray[i - 1].AnnualCash2 != '') ? (dataArray[i - 1].AnnualCash2 == '' ? 0 : dataArray[i - 1].AnnualCash2) : cashFlow2 : 0;
+            //cashFlow3 = sch.hasOwnProperty('AnnualCash3') ?(cashFlow3 == '' || cashFlow3 == undefined) && (i != 0 && dataArray[i - 1].AnnualCash3 != '') ? (dataArray[i - 1].AnnualCash3 == '' ? 0 : dataArray[i - 1].AnnualCash3) : cashFlow3 : 0;
+
+            cashFlow1 = sch.hasOwnProperty('AnnualCash1') ? (cashFlow1 == '' || cashFlow1 == undefined) && (i != 0 && dataArray[i - 1].AnnualCash1 != '') ? (dataArray[i - 1].AnnualCash1 == '' ? 0 : cashFlow1) : cashFlow1 : 0;
+            cashFlow2 = sch.hasOwnProperty('AnnualCash2') ? (cashFlow2 == '' || cashFlow2 == undefined) && (i != 0 && dataArray[i - 1].AnnualCash2 != '') ? (dataArray[i - 1].AnnualCash2 == '' ? 0 : cashFlow2) : cashFlow2 : 0;
+            cashFlow3 = sch.hasOwnProperty('AnnualCash3') ? (cashFlow3 == '' || cashFlow3 == undefined) && (i != 0 && dataArray[i - 1].AnnualCash3 != '') ? (dataArray[i - 1].AnnualCash3 == '' ? 0 : cashFlow3) : cashFlow3 : 0;
+
+            cashFlow1 = cashFlow1 == '' || cashFlow1 == undefined ? 0 : parseInt(cashFlow1);
+            cashFlow2 = cashFlow2 == '' || cashFlow2 == undefined ? 0 : parseInt(cashFlow2);
+            cashFlow3 = cashFlow3 == '' || cashFlow3 == undefined ? 0 : parseInt(cashFlow3);
+
+            var interestEarning = ((begValue + (sch.hasOwnProperty('AnnualCash1') ? applyCashFlow1 == 1 ? parseFloat(cashFlow1) : 0 : 0)
+                + (sch.hasOwnProperty('AnnualCash2') ? applyCashFlow2 == 1 ? parseFloat(cashFlow2) : 0 : 0)
+                + (sch.hasOwnProperty('AnnualCash3') ?  applyCashFlow3 == 1 ? parseFloat(cashFlow3) : 0 : 0)
+                ) * parseFloat(rates)) / 100;
+
+            
+            var miscFeesValue = sch.hasOwnProperty('MiscFees') ?
+               parseInt(applyMiscFees == 1 ? (begValueForCalculation * (miscFees / 100)) :
+                (begValue + (sch.hasOwnProperty('AnnualCash1') ? parseFloat(cashFlow1) : 0)
+               + (sch.hasOwnProperty('AnnualCash2') ? parseFloat(cashFlow2) : 0)
+               + (sch.hasOwnProperty('AnnualCash3') ? parseFloat(cashFlow3) : 0)
+            + interestEarning) * (miscFees / 100)) : 0
+
+            if (sch.hasOwnProperty('MiscFees'))
+            {
+                if (applyMiscFees == 1) {
+                    interestEarning = 0;
+                    miscFeesValue = parseInt(begValueForCalculation * (miscFees / 100));
+                    begValueForCalculation = begValueForCalculation - miscFeesValue
+                    interestEarning = ((begValueForCalculation + (sch.hasOwnProperty('AnnualCash1') ? applyCashFlow1 == 1 ? parseFloat(cashFlow1) : 0 : 0)
+                   + (sch.hasOwnProperty('AnnualCash2') ? applyCashFlow2 == 1 ? parseFloat(cashFlow2) : 0 : 0)
+                   + (sch.hasOwnProperty('AnnualCash3') ? applyCashFlow3 == 1 ? parseFloat(cashFlow3) : 0 : 0)
+                   ) * parseFloat(rates)) / 100;
+                }
+            }
+
+            var QFAmountForInterest = $('#chkQW').prop('checked') ?
+                ((cashFlow1 < 0 ? cashFlow1 : 0) + (cashFlow2 < 0 ? cashFlow2 : 0) + (cashFlow3 < 0 ? cashFlow3 : 0)) : 0;
+
+            QFAmountForInterest= parseInt(QFAmountForInterest);
+
+            var taxPaymentValue = 0;
+            //sch.hasOwnProperty('TaxPayment') ? parseInt((interestEarning + miscFeesValue - QFAmountForInterest) * (taxPayment / 100)) : 0;
+            if ($('#chkQW').prop('checked'))
+            {
+                taxPaymentValue = sch.hasOwnProperty('TaxPayment') ? (-QFAmountForInterest) * (taxPayment / 100) : 0;
+            }
+            else {
+                taxPaymentValue = sch.hasOwnProperty('TaxPayment') ? (interestEarning - miscFeesValue) * (taxPayment / 100) : 0;
+            }
+
+            taxPaymentValue = $('#chkQW').prop('checked') ? -taxPaymentValue : interestEarning < 0 ? 0 : -taxPaymentValue;
+            miscFeesValue =  -miscFeesValue;
+            
+            var endValue = begValueForCalculation + interestEarning + parseFloat(cashFlow1)
+            + parseFloat(cashFlow2) + parseFloat(cashFlow3) 
+            + (sch.hasOwnProperty('MiscFees') ? parseInt(applyMiscFees == 2 ? miscFeesValue : 0) : 0) + taxPaymentValue;
+
+            var a = a = Math.round(begValue * (Math.pow((1 + ((rates / 100))), 1) - 1), 2);
+            a = Math.round(begValue * (Math.pow((1 + ((rates / 100))), 1) -1), 2);
+            
+            cashInterest= cashInterest * (Math.pow((1 + (rates / 100)), 1));
+         
+            var srNo = i;
+            dataArray[i].Year = srNo + 1;
+            dataArray[i].BegValue = begValue == 0 && obj.BegValue == '' && $('#txtPV').val() == '' ? '' : begValue;
+            dataArray[i].EarningRate = rates == 0 ?'' : rates;
+
+            if (sch.hasOwnProperty('AnnualCash1')) {
+                dataArray[i].AnnualCash1 = cashFlow1 == 0 ? '' : cashFlow1;
+                dataArray[i].AnnualCash1 = dataArray[i].AnnualCash1 == 0 ? '' : dataArray[i].AnnualCash1;
+                summaryDataArray[0].AnnualCash1 += (dataArray[i].AnnualCash1 == '' ? 0 : dataArray[i].AnnualCash1);
+            }
+            if (sch.hasOwnProperty('AnnualCash2')) {
+                dataArray[i].AnnualCash2 = cashFlow2 == 0 ? '' : cashFlow2;
+                dataArray[i].AnnualCash2 = dataArray[i].AnnualCash2 == 0 ? '' : dataArray[i].AnnualCash2;
+                summaryDataArray[0].AnnualCash2 += (dataArray[i].AnnualCash2 == '' ? 0 : dataArray[i].AnnualCash2);
+            }
+            if (sch.hasOwnProperty('AnnualCash3')) {
+                dataArray[i].AnnualCash3 = cashFlow3 == 0 ? '' : cashFlow3;
+                dataArray[i].AnnualCash3 = dataArray[i].AnnualCash3 == 0 ? '' : dataArray[i].AnnualCash3;
+                summaryDataArray[0].AnnualCash3 += (dataArray[i].AnnualCash3 == '' ? 0 : dataArray[i].AnnualCash3);
+            }
+            if (obj.MiscFees != undefined) {
+                dataArray[i].MiscFees = (obj.MiscFees == '' || obj.MiscFees == undefined) ? (miscFeesValue == 0  ? 0 : miscFeesValue) : (miscFeesValue == 0 ? 0 : miscFeesValue);
+                dataArray[i].MiscFees = dataArray[i].MiscFees == 0 && $('#txtMiscFees').val() == '' ? '' : dataArray[i].MiscFees;
+                summaryDataArray[0].MiscFees += (dataArray[i].MiscFees == '' ? 0 : dataArray[i].MiscFees);
+            }
+            if (obj.TaxPayment != undefined) {
+                dataArray[i].TaxPayment = $('#txtTaxPayment').val() != '' ? taxPaymentValue : '';
+                //  dataArray[i].TaxPayment = dataArray[i].TaxPayment == 0 ? '' : dataArray[i].TaxPayment;
+                summaryDataArray[0].TaxPayment += (dataArray[i].TaxPayment == '' ? 0 : dataArray[i].TaxPayment);
+            }
+
+            dataArray[i].InterestEarning = interestEarning == 0 && earningRate ==0 ? '' : interestEarning;
+            dataArray[i].EndValue = endValue == 0 && obj.EndValue == '' && $('#txtPV').val() == '' ? '' : endValue;
+ 
+            summaryDataArray[0].BegValue = (dataArray[i].BegValue == '' ? 0 : dataArray[i].BegValue);
+            summaryDataArray[0].EarningRate += parseFloat(rates);
+            summaryDataArray[0].InterestEarning += interestEarning;
+            summaryDataArray[0].EndValue = dataArray[i].EndValue;
+
+            totalExtraInvestments += (cashFlow1 + cashFlow2 + cashFlow3);
+
+        }
+        hot1.loadData(
+           dataArray
+           );
+
+        summaryDataArray[0].BegValue = summaryDataArray[0].BegValue == 0 && $('#txtPV').val() == '' ? '' : summaryDataArray[0].BegValue;
+        summaryDataArray[0].InterestEarning = summaryDataArray[0].InterestEarning == 0 && summaryDataArray[0].EarningRate == 0 ? '' : summaryDataArray[0].InterestEarning;
+        summaryDataArray[0].AnnualCash1 = summaryDataArray[0].AnnualCash1 == 0 ? '' : summaryDataArray[0].AnnualCash1;
+        summaryDataArray[0].AnnualCash2 = summaryDataArray[0].AnnualCash2 == 0 ? '' : summaryDataArray[0].AnnualCash2;
+        summaryDataArray[0].AnnualCash3 = summaryDataArray[0].AnnualCash3 == 0 ? '' : summaryDataArray[0].AnnualCash3;
+        summaryDataArray[0].EndValue = summaryDataArray[0].EndValue == 0 && $('#txtPV').val() == '' ? '' : summaryDataArray[0].EndValue;
+        summaryDataArray[0].EarningRate = summaryDataArray[0].EarningRate == 0 ? '' :  (summaryDataArray[0].EarningRate / dataArray.length).toFixed(2);
+        summaryDataArray[0].TaxPayment = summaryDataArray[0].TaxPayment == 0 && $('#txtTaxPayment').val() == '' ? '' : summaryDataArray[0].TaxPayment;
+        summaryDataArray[0].MiscFees = summaryDataArray[0].MiscFees == 0 && $('#txtMiscFees').val() == '' ? '' : summaryDataArray[0].MiscFees;
+
+        summaryDataArray[1].TaxPayment = taxPayment == 0 ? "" : $('#chkQW').prop('checked') ? summaryDataArray[0].EndValue < 0 ? summaryDataArray[0].EndValue * (taxPayment / 100) : -summaryDataArray[0].EndValue * (taxPayment / 100) : 0;
+
+        AvgROR =parseFloat(summaryDataArray[0].EarningRate);
+
+        if ($('#txtPV').val() != '' && dataArray[0].EarningRate != '') {
+            var totalAmount = (parseInt($('#txtPV').val()) + totalExtraInvestments);;
+        for (var i = 0; i < 15; i++) {
+            
+            var investment = summaryDataArray[0].EndValue / (totalAmount);
+            var pow = 0;
+            if (investment < 0) {
+                investment = -investment;
+                pow = Math.pow(investment, 1 / parseInt($('#txtYears').val()));
+            }
+            else {
+                pow = Math.pow(investment, 1 / parseInt($('#txtYears').val()));
+            }
+
+            ActROR = (pow.toFixed(4) - 1) * 100;
+          //  ActROR = Math.floor(ActROR * 100, 2) / 100;
+            var actualInvestment = 0;
+            var actualInvestmentArray = [];
+            for (var k = 0; k < dataArray.length; k++) {
+                var CashFlow1 = dataArray[k].AnnualCash1 == "" || (!sch.hasOwnProperty('AnnualCash1')) ? 0 : dataArray[k].AnnualCash1;
+                var CashFlow2 = dataArray[k].AnnualCash2 == "" || (!sch.hasOwnProperty('AnnualCash2')) ? 0 : dataArray[k].AnnualCash2;
+                var CashFlow3 = dataArray[k].AnnualCash3 == "" || (!sch.hasOwnProperty('AnnualCash3')) ? 0 : dataArray[k].AnnualCash3;
+                var CF1 = applyCashFlow1 == 2 && k == 0 ? 0 : CashFlow1;
+                var CF2 = applyCashFlow2 == 2 && k == 0 ? 0 : CashFlow2;
+                var CF3 = applyCashFlow3 == 2 && k == 0 ? 0 : CashFlow3;
+
+                var total = CF1 + CF2 + CF3;
+                //var total = CashFlow1 + CashFlow2 + CashFlow3;
+
+                if (total == 0 && (CashFlow1 + CashFlow2 + CashFlow3 == 0))
+                {
+                    var investment = summaryDataArray[0].EndValue / (parseInt($('#txtPV').val()));
+                    var pow = 0;
+                    if (investment < 0) {
+                        investment = -investment;
+                        pow = Math.pow(investment, 1 / parseInt($('#txtYears').val()));
+                    }
+                    else {
+                        pow = Math.pow(investment, 1 / parseInt($('#txtYears').val()));
+                    }
+
+                    ActROR = (pow.toFixed(4) - 1) * 100;
+                    break;
+                }
+                if (k == 0) {
+                    actualInvestment += total;
+                }
+                else {
+                    var powValue = total / (Math.pow((1 + (ActROR / 100)), k))
+                    powValue = parseFloat(powValue);
+                    actualInvestment += powValue;
+                    actualInvestmentArray.push(powValue)
+                }
+                
+
+            }
+            var diff = parseInt(totalAmount) - parseInt(actualInvestment + parseInt($('#txtPV').val()));
+            diff = diff < 0 ? parseInt(actualInvestment + parseInt($('#txtPV').val())) - parseInt(totalAmount) : diff;
+         
+                if (parseInt(totalAmount) == parseInt(actualInvestment + parseInt($('#txtPV').val()))
+                 || (diff < 5)) {
+                    break;
+                }
+
+            totalAmount = parseInt(actualInvestment + parseInt($('#txtPV').val()));
+        }
+    }
+        
+        if($('#txtPV').val() != '' && dataArray[0].EarningRate !='')
+        {
+            $('#spnAvgROR').html(AvgROR.toFixed(2))
+            $('#spnActROR').html(ActROR.toFixed(2))
+          //  alert('Actual ROR ' + ActROR);
+        }
+
+        summary.loadData(
+            summaryDataArray
+            );
+
+        var sch = hot1.getSchema();
+        var columnHeader = hot1.getColHeader();
+        hot1.updateSettings({
+            dataSchema: sch,
+            colHeaders: columnHeader,
+            columns: tableColumns
+        });
+
+        $('.wtHolder').css("overflow-x", "hidden");
+    }
+
+
+    $(document).on('click', '#btnClear', function () {
+        var sch = hot1.getSchema();
+        var indexCF2 = -1, indexCF3 = -1, indexMF = -1, indexTP = -1
+        var columnHeader = hot1.getColHeader();
+         
+        $('#txtYears').val(20);
+        $('#txtPV').val('');
+        $('#txtEarningRate').val('');
+        $('#txtCashFlow1').val('');
+        $('#txtCashFlow2').val('');
+        $('#txtCashFlow3').val('');
+        $('#txtMiscFees').val('');
+        $('#txtTaxPayment').val('');
+        $('#lblCashFlow2').addClass('active');
+        $('#lblCashFlow3').addClass('active');
+        $('#lblMiscFees').addClass('active');
+        $('#lblTaxPayment').addClass('active');
+
+        $('#spnAvgROR').html('');
+        $('#spnActROR').html('');
+        $('#txtStartYear').val('');
+        $('#txtEndYear').val('')
+
+        dataArray = [];
+        summaryDataArray = [];
+        createRows();
+        hot1.updateSettings({
+            dataSchema: sch,
+            colHeaders: columnHeader,
+            columns: tableColumns
+        });
+
+        hot1.loadData(
+          dataArray
+          );
+        summary.loadData(
+           summaryDataArray
+           );
+
+        $('#example1').width($('.wtHider').width());
+        $('#summary').width($('.wtHider').width());
+        $('#divRORLabels').width($('.wtHider').width());
+        $('.wtHolder').css("overflow-x", "hidden");
+    });
+
+    $(document).on('click', '#btnTitleSave', function () {
+        document.title = $('#txtTitle').val();
+        $('.modal').modal('hide');
+        $('#spnTitle').html(' - ' + $('#txtTitle').val())
+    });
+
+    //$(document).on('click', '#btnSave', function () {
+    //    exportPlugin.downloadFile('csv', {
+    //        filename: 'MyFile',
+    //        columnHeaders: true,
+    //    });
+    //});
+ 
+    $(document).on('click', '#btnSave', function () {
+        var pdf = new jsPDF('p', 'pt');
+        var doc = new jsPDF('l', 'pt');
+
+        var applyCashFlow1 = 'Beg', applyCashFlow2 = 'Beg', applyCashFlow3 = 'Beg', applyMiscFees = 'Beg';
+        if (document.getElementById('rbCashFlow1End').checked) {
+            applyCashFlow1 = 'End';
+        }
+        if (document.getElementById('rbCashFlow2End').checked) {
+            applyCashFlow2 = 'End';
+        }
+        if (document.getElementById('rbCashFlow3End').checked) {
+            applyCashFlow3 = 'End';
+        }
+        if (document.getElementById('rbMiscFeesEnd').checked) {
+            applyMiscFees = 'End';
+        }
+
+        var sch = hot1.getSchema();
+
+        var Headers = hot1.getColHeader();
+
+
+        const headerTable = [
+{ title: "Year", dataKey: "Year" },
+{ title: "Beg. of Year Acct. Value", dataKey: "BegValue" },
+{ title: "Earnings Rate", dataKey: "EarningRate" },
+sch.hasOwnProperty('AnnualCash1') ? { title: "Annual Cash Flow", dataKey: "AnnualCash1" } : '',
+sch.hasOwnProperty('AnnualCash2') ? { title: "Annual Cash Flow", dataKey: "AnnualCash2" } : '',
+sch.hasOwnProperty('AnnualCash3') ? { title: "Annual Cash Flow", dataKey: "AnnualCash3" } : '',
+{ title: "Interest Earnings", dataKey: "InterestEarning" },
+sch.hasOwnProperty('TaxPayment') ? { title: "Tax Payment", dataKey: "TaxPayment" } : '',
+sch.hasOwnProperty('MiscFees') ? { title: "Misc Fees", dataKey: "MiscFees" } : '',
+{ title: "End of Year Acct. Value", dataKey: "EndValue" },
+
+        ];
+
+
+        var data = [];
+        for (var i = 0; i < dataArray.length; i++) {
+            data.push({
+                Year: dataArray[i].Year,
+                BegValue: dataArray[i].BegValue == '' ? '' : Math.round(dataArray[i].BegValue, 0).toLocaleString('eu'),
+                EarningRate: dataArray[i].EarningRate,
+                AnnualCash1: dataArray[i].AnnualCash1 == '' ? '' : Math.round(dataArray[i].AnnualCash1, 0).toLocaleString('eu'),
+                AnnualCash2: dataArray[i].AnnualCash2 == '' ? '' : Math.round(dataArray[i].AnnualCash2, 0).toLocaleString('eu'),
+                AnnualCash3: dataArray[i].AnnualCash3 == '' ? '' : Math.round(dataArray[i].AnnualCash3, 0).toLocaleString('eu'),
+                InterestEarning: dataArray[i].InterestEarning == '' ? '' : Math.round(dataArray[i].InterestEarning, 0).toLocaleString('eu'),
+                TaxPayment: dataArray[i].TaxPayment == '' ? '' : Math.round(dataArray[i].TaxPayment, 0).toLocaleString('eu'),
+                MiscFees: dataArray[i].MiscFees == '' ? '' : Math.round(dataArray[i].MiscFees, 0).toLocaleString('eu'),
+                EndValue: dataArray[i].EndValue == '' ? '' : Math.round(dataArray[i].EndValue, 0).toLocaleString('eu'),
+
+            });
+        }
+
+        for (var i = 0; i < summaryDataArray.length; i++) {
+            data.push({
+                Year: summaryDataArray[i].Total,
+                BegValue: summaryDataArray[i].BegValue == '' ? '' : Math.round(summaryDataArray[i].BegValue, 0).toLocaleString('eu'),
+                EarningRate: summaryDataArray[i].EarningRate,
+                AnnualCash1: summaryDataArray[i].AnnualCash1 == '' ? '' : Math.round(summaryDataArray[i].AnnualCash1, 0).toLocaleString('eu'),
+                AnnualCash2: summaryDataArray[i].AnnualCash2 == '' ? '' : Math.round(summaryDataArray[i].AnnualCash2, 0).toLocaleString('eu'),
+                AnnualCash3: summaryDataArray[i].AnnualCash3 == '' ? '' : Math.round(summaryDataArray[i].AnnualCash3, 0).toLocaleString('eu'),
+                InterestEarning: summaryDataArray[i].InterestEarning == '' ? '' : Math.round(summaryDataArray[i].InterestEarning, 0).toLocaleString('eu'),
+                TaxPayment: summaryDataArray[i].TaxPayment == '' ? '' : Math.round(summaryDataArray[i].TaxPayment, 0).toLocaleString('eu'),
+                MiscFees: summaryDataArray[i].MiscFees == '' ? '' : Math.round(summaryDataArray[i].MiscFees, 0).toLocaleString('eu'),
+                EndValue: summaryDataArray[i].EndValue == '' ? '' : Math.round(summaryDataArray[i].EndValue, 0).toLocaleString('eu'),
+
+            });
+        }
+
+        doc.setFontStyle('bold');
+        doc.text(320, 70, "Family Banking Calculator");
+        
+   
+        doc.text(40, 100, $('#txtTitle').val());
+        doc.setFontStyle('normal');
+        doc.setFontSize(14);
+        doc.text(40, 120, "Years: " + $('#txtYears').val().toLocaleString('eu'));
+        doc.text(40, 140, "Present Value: " + $('#txtPV').val());
+        doc.text(40, 160, "Earning Rates: " + ($('#txtEarningRate').val() == '' ? '' : $('#txtEarningRate').val() + '%'));
+        if (sch.hasOwnProperty('AnnualCash1')) {
+         //   doc.text(400, 80, '(' + applyCashFlow1 + ')');
+            doc.text(400, 120, '(Beginning Year)');
+            doc.text(510, 120, 'Cash Flow 1: ' + $('#txtCashFlow1').val());
+        }
+
+        if (sch.hasOwnProperty('AnnualCash2')) {
+          //  doc.text(400, 100, '(' + applyCashFlow2 + ')');
+            doc.text(400, 140, '(Beginning Year)');
+            doc.text(510, 140, 'Cash Flow 2: ' + $('#txtCashFlow2').val());
+        }
+        if (sch.hasOwnProperty('AnnualCash3')) {
+          //  doc.text(400, 120, '(' + applyCashFlow3 + ')');
+            doc.text(400, 160, '(Beginning Year)');
+            doc.text(510, 160, 'Cash Flow 3: ' + $('#txtCashFlow3').val());
+        }
+        var y = 160;
+        if (sch.hasOwnProperty('MiscFees')) {
+            y = y + 20;
+            doc.text(40, y, '(' + applyMiscFees + ')');
+            doc.text(80, y, 'Miscellaneous Fees: ' + ($('#txtMiscFees').val() == '' ? '' : $('#txtMiscFees').val() + '%'));
+        }
+        if (sch.hasOwnProperty('TaxPayment')) {
+            y = y + 20;
+            doc.text(40, y, 'Tax Bracket: ' + ($('#txtTaxPayment').val() == '' ? '' : $('#txtTaxPayment').val() + '%'));
+            doc.text(180, y, ($('#chkQW').prop('checked') ? '(Qualified Withdrawl)' : ''));
+        }
+
+        y = y + 20;
+        doc.text(40, y, 'Average ROR: ' + ($('#spnAvgROR').html() == '' ? '' : $('#spnAvgROR').html() + '%'));
+        doc.text(400, y, 'Actual ROR: ' + ($('#spnActROR').html() == '' ? '' : $('#spnActROR').html() + '%'));
+        y = y + 20;
+        doc.autoTable(headerTable, data, {
+            startY: y,
+            startX: 40,
+            tableWidth: 'auto',
+            columnWidth: 'auto',
+            styles: {
+                overflow: 'linebreak'
+            },
+            drawCell: function (cell, data) {
+
+                var rows = data.table.rows;
+                if (data.row.index == rows.length - 1 || data.row.index == rows.length - 2) {
+                    doc.setFillColor(40, 127, 186);
+                    doc.setTextColor(255, 255, 255);
+                    cell.styles.textColor = [255, 255, 255]
+                }
+                if (data.column.dataKey === 'AnnualCash1' || data.column.dataKey === 'AnnualCash2' || data.column.dataKey === 'AnnualCash3') {
+                    cell.styles.textColor = [255, 255, 255];
+
+                }
+            }
+        });
+
+        doc.save(document.title + '.pdf');
+    });
+
+    $(document).on('change', '#txtStartYear', function () {
+        if ($('#txtEndYear').val() != "") {
+            if ($('#txtStartYear').val() > $('#txtEndYear').val()) {
+                alert("Start year should not be greater than end year");
+                $('#txtStartYear').val("");
+                return;
+            }
+        }
+        
+        if (parseInt($(this).val()) < FirstYearValue) {
+            alert("Start year should not be less than " + FirstYearValue);
+            return;
+        }
+      
+
+    });
+
+    $(document).on('change', '#txtEndYear', function () {
+        if ($('#txtStartYear').val() != "") {
+            if ($('#txtStartYear').val() > $('#txtEndYear').val()) {
+                alert("End year should not be less than start year");
+                $('#txtEndYear').val("");
+                return;
+            }
+        }
+
+        if (parseInt($(this).val()) > LastYearValue) {
+            alert("End year should not be greater than " + LastYearValue);
+            return;
+        }
+
+    });
+
+    $(document).on('click', '#btnGetHistoryData', function () {
+
+        var url = "";
+        var hostName = window.location.hostname;
+        if (hostName.indexOf("localhost") > -1) {
+            url = "http://localhost:5000/api/";
+        }
+        else if (hostName.indexOf("staging") > -1) {
+            url = "https://staging.acceleratedfamilywealth.com:5443/api/";
+        }
+
+        else if (hostName.indexOf("accelerated") > -1) {
+            url = "https://acceleratedfamilywealth.com:5443/api/";
+        }
+
+        url = url + "calculator/GetSPHistoryData"
+
+        var startYear = $('#txtStartYear').val() == "" ? 0 : parseInt($('#txtStartYear').val());
+        var endYear = $('#txtEndYear').val() == "" ? 0 : parseInt($('#txtEndYear').val());
+
+        if (startYear == 0)
+        {
+            alert("Enter start year");
+             return;
+        }
+        if (endYear == 0) {
+            alert("Enter end year.");
+            return;
+        }
+
+        if ((endYear - startYear) +1 != $('#txtYears').val()) {
+            alert("Difference of Start year and End year should be equals to " + $('#txtYears').val());
+            return;
+        }
+        
+         $.ajax({
+             type:'POST',
+             url: url,
+             data: { StartYear: startYear, EndYear: endYear, },
+             success: function (result) {
+                 for (var i = 0; i < result.length; i++) {
+                     var rate = result[i];
+                     dataArray[i].EarningRate = rate;
+                 }
+                 CashFlowCalculation();
+             }
+         });
+    });
+</script>
+ 
+<style type="text/css">
+    .handsontable table thead th {
+  white-space: pre-line;
+  max-width: 100px;
+  height:46px;
+}
+    .make-me-red {
+        color: #f00;
+        text-align: center !important;
+        /*font-size: large !important;*/
+        font-weight: bold !important;
+    }
+
+    .blueBackground {
+        background-color: #9999FF !important;
+        color: black;
+        text-align: center !important;
+        /*font-size: large !important;*/
+        font-weight: bold !important;
+    }
+
+    .center {
+        text-align: center;
+        /*font-size: large;*/
+        font-weight: bold;
+    }
+   .ht_clone_top th{
+        vertical-align: bottom !important;
+    }
+   .blue-text{
+       color:#0000FF
+   }
+   .green-text{
+       /*color:#32cd32;*/
+       color:#068606
+   }
+   .headerSection-col{
+      float: left;
+    width: 20%;
+   }
+   .headerSection-row
+   {
+        display: table;
+        width: 100%;
+        color: #646466;
+        font-size: 12px;
+        margin: 0 0 4px 0;
+   }
+   .headerSection-col-1{
+            display: table-cell;
+    width: 120px;
+    font-weight: bolder;
+    text-align: right;
+    padding:0 6px 2px 0px;
+    /*font-size: larger;*/
+    vertical-align: middle;
+   }
+   .headerSection-col-2{
+        display: table-cell;
+        text-align: left;
+        padding-left:1%
+   }
+   .hidden{
+       display: none !important
+   }
+   input{
+       line-height: 21px;
+       border: 1px solid #ccc;
+   }
+
+   .headerSection-col-1.active
+   {
+        background-color: lightgray;
+        border: 1px gray solid;
+   }
+
+   .AvgRORLabels{
+       float:left; 
+       width:50%;
+       background-color:#D5DFEE;
+       color:#1A1D5F;
+       border:1px solid lightgrey;
+       height: 42px;
+       text-align: center;
+       padding-top: 10px;
+       font-weight: bolder;
+       font-size:15px;
+   }
+   .ActualRORLabels{
+       float:left; 
+       width:50%;
+       background-color:#D5DFEE;
+       color:#068606;
+       border:1px solid lightgrey;
+       height: 42px;
+       text-align: center;
+       padding-top: 10px;
+       font-weight: bolder;
+       font-size:15px;
+   }
+
+   
+</style>
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header>
+                        <h2 class="ng-binding">Family Banking Calculator <span id="spnTitle"></span></h2>
+                    </header>
+                    <div>
+                        <div class="container-fluid" id="form-container">
+                           
+                            <div class="row">
+                                <div class="headerSection-col">
+                                    <div class="headerSection-row">
+                                        <div class="headerSection-col-1">Years: </div>
+                                        <div class="headerSection-col-2"><input type="number" id="txtYears" min="0" value="20"/></div>
+                                    </div>
+                                    <div class="headerSection-row">
+                                        <div class="headerSection-col-1">Present Value: </div>
+                                        <div class="headerSection-col-2"><input type="number" id="txtPV" min="0" /></div>
+                                    </div>
+                                    <div class="headerSection-row">
+                                        <div class="headerSection-col-1">Earning Rate: </div>
+                                        <div class="headerSection-col-2"><input type="number" id="txtEarningRate" value="" />%</div>
+                                    </div>
+                                </div>
+                                <div class="headerSection-col" style="width:7%">
+                                    <div id="divCashFlow1" class="headerSection-row" >
+                                        <div class="headerSection-col-1" >
+                                            <input class="hidden" type="radio" id="rbCashFlow1Beg" name="rbCashFlow1" value="1" checked="checked" />
+                                            <input class="hidden" type="radio" id="rbCashFlow1End" name="rbCashFlow1" value="2" />
+                                            <div style="margin-top:3%">Beginning Year</div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div id="divCashFlow2" class="headerSection-row" >
+                                        <div class="headerSection-col-1">
+                                            <input class="hidden" type="radio" id="rbCashFlow2Beg" name="rbCashFlow2" value="1" checked="checked" />
+                                            <input class="hidden" type="radio" id="rbCashFlow2End" name="rbCashFlow2" value="2" />
+                                            <div style="margin-top:6%">Beginning Year</div>
+                                        </div>
+                                         
+                                    </div>
+                                    <div id="divCashFlow3" class="headerSection-row" >
+                                        <div class="headerSection-col-1">
+                                            <input class="hidden" type="radio" id="rbCashFlow3Beg" name="rbCashFlow3" value="1" checked="checked" />
+                                            <input class="hidden" type="radio" id="rbCashFlow3End" name="rbCashFlow3" value="2" />
+                                            <div style="margin-top:6%">Beginning Year</div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                                <div class="headerSection-col">
+                                    <div class="headerSection-row">
+                                        <div class="headerSection-col-1 active" id="lblCashFlow1" style="line-height: 21px;">Cash Flow 1: </div>
+                                        <div class="headerSection-col-2"><input type="number" id="txtCashFlow1" /></div>
+                                    </div>
+                                    <div class="headerSection-row">
+                                        <div class="headerSection-col-1 active" id="lblCashFlow2" style="line-height: 21px;">Cash Flow 2: </div>
+                                        <div class="headerSection-col-2"><input type="number" id="txtCashFlow2" /></div>
+                                    </div>
+                                    <div class="headerSection-row">
+                                        <div class="headerSection-col-1 active" id="lblCashFlow3" style="line-height: 21px;">Cash Flow 3: </div>
+                                        <div class="headerSection-col-2"><input type="number" id="txtCashFlow3" /></div>
+                                    </div>
+                                </div>
+                                <!--<div class="headerSection-col" style="width:8%">
+                                    <div class="headerSection-row" style="height:21px">
+                                       
+                                    </div>
+                                    <div class="headerSection-row">
+                                        <input type="checkbox" />Qualified Withdrawl
+                                    </div>
+     
+                                </div>-->
+                                <div class="headerSection-col" style="width:12%">
+                                    <div id="divMiscFees" class="headerSection-row" style="">
+                                        <div class="headerSection-col-1">
+                                            <input type="radio" id="rbMiscFeesBeg" name="rbMiscFees" value="1" checked="checked" />Beg
+                                            <input type="radio" id="rbMiscFeesEnd" name="rbMiscFees" value="2" />End
+                                        </div>
+                                        
+                                    </div>
+                                  
+                                    <div class="headerSection-row" style="text-align: right;padding-right: 2%;">
+                                        <div class="headerSection-col-1" id="divQW">
+                                            <input type="checkbox" id="chkQW" />Qualified Withdrawl
+                                        </div>
+                                    </div>
+                                    <div class="headerSection-row" style="display: inline-block;text-align: right;padding-right: 2%;">
+                                            <button id="btnNew" ng-click="cashFlowCtrl.newCashCalci('cashFlowCalculator', '_blank')">New</button>
+                                            <button id="btnTitle" href="#popup-Title" data-toggle="modal">Title</button>
+                                         
+                                        <button id="btnClear">Clear</button>
+                                        <button id="btnSave">Save</button>
+                                    </div>
+                                    </div>
+                                <div class="headerSection-col" style="width:30%">
+                                    <div class="headerSection-row">
+                                        <div class="headerSection-col-1 active" id="lblMiscFees" style="width:150px;line-height: 21px;">Miscellaneous Fees: </div>
+                                        <div class="headerSection-col-2" style=""><input  type="number" id="txtMiscFees" />%</div>
+                                    </div>
+                                    <div class="headerSection-row">
+                                        <div class="headerSection-col-1 active" id="lblTaxPayment" style="width:150px;line-height: 21px;">Tax Bracket: </div>
+                                        <div class="headerSection-col-2" style=""><input  type="number" id="txtTaxPayment" />%</div>
+                                    </div>
+                                     
+                                </div>
+                            </div>
+                             
+                            <div class="row" style="margin-top: 15px;">
+                                <div class="headerSection-col" style="width: 40%">
+                                    <div class="headerSection-row">
+                                        <div class="headerSection-col-1">S&P History: </div>
+                                        <div class="headerSection-col-2"> <span style="font-weight: bolder;">Start </span> <input type="number" id="txtStartYear"  />
+                                           <span style="font-weight: bolder;">End </span><input type="number" id="txtEndYear"  />
+                                            <button id="btnGetHistoryData">Get</button>
+                                        </div>
+                                    </div>
+                                     
+                                   
+                                </div>
+                             </div>
+                                <div class="" style="margin-top: 10px;padding:20px">
+                                    <div style="margin:auto">
+                                        <div class="row" id="divRORLabels" style="margin:0">
+                                            <div class="AvgRORLabels">Average ROR: <span id="spnAvgROR"></span></div>
+                                            <div class="ActualRORLabels">Actual ROR: <span id="spnActROR"></span> </div>
+                                        </div>
+                                        <div id="example1" class="hot handsontable htColumnHeaders"></div>
+                                        <div id="summary" class="hot handsontable htColumnHeaders"></div>
+                                        <div id="FutureTaxLibility" class="hot handsontable htColumnHeaders"></div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+
+
+<div id="popup-Title" class="modal fade">
+    <div class="modal-dialog modal-process-popup pic-costmr-popup">
+        <div class="modal-content" style="width:300px">
+            <div class="modal-header gradient-color">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                
+            </div>
+            <div class="modal-body padd-0">
+                <div class="modal-process-wrap">
+                    
+                    <div class="modal-process-contant full-width">
+                        <h3>Enter A New Calculator Title</h3>
+                        <div class="type-srl full-width">
+                            <div>
+                                <input type="text" id="txtTitle" />
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnTitleSave">Enter</button>
+
+                <button type="button" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -20,8 +20,19 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <button id="addTransaction" class="btn btn-success" ng-click="transactionsCtrl.transactionsToggle()">Add transaction</button>
+                                        <button id="addTransaction" class="btn btn-success" ng-click="transactionsCtrl.transactionsToggle()">ADD TRANSACTION</button>
+                                        <button id="ImportTransaction" class="btn btn-success"
+                                                ng-click="transactionsCtrl.ImportTransaction()">
+                                            IMPORT TRANSACTION
+                                        </button>
                                     </div>
+                                   
+
+                                    <!--<div class="col-md-6">
+                                        <button id="ImportTransaction" class="btn btn-success" data-ui-sref="app.personal.ImportTransactions" ui-sref-opts="{reload: 'app.personal.cashFlowCalculator'}">
+                                        IMPORT TRANSACTION
+                                        </button>
+                                    </div>-->
                                     <div class="col-md-2 pull-right">
                                         <div class="input-group smart-form">
                                             <div class="input-group-addon">To:</div>
@@ -43,8 +54,8 @@
                                 </div>
                                 <div style="margin-top: 20px;" class="row">
                                     <div class="col-md-6">
-                                        <button class="btn btn-default" ng-disabled="transactionsCtrl.transactionIds.length === 0" ng-click="transactionsCtrl.showEtitMultiple()">Edit multiple</button>
-                                        <button class="btn btn-danger" ng-disabled="transactionsCtrl.transactionIds.length === 0" ng-click="transactionsCtrl.deleteMultiple()">Delete multiple</button>
+                                        <button class="btn btn-default" ng-disabled="transactionsCtrl.transactionIds.length === 0" ng-click="transactionsCtrl.showEtitMultiple()">EDIT MULTIPLE</button>
+                                        <button class="btn btn-danger" ng-disabled="transactionsCtrl.transactionIds.length === 0" ng-click="transactionsCtrl.deleteMultiple()">DELETE MULTIPLE</button>
                                         <span style="margin: 10px;">
                                             <span>show:</span>
                                             <span href="#" style="margin: 5px; cursor: pointer" class="label" ng-class="transactionsCtrl.filter.mode == '' ? 'label-info' : 'label-default'"
@@ -172,6 +183,9 @@
                                                         <option value="20">20</option>
                                                         <option value="30">30</option>
                                                         <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                        <option value="250">250</option>
+                                                        <option value="500">500</option>
                                                     </select>
                                                     <span>transactions</span>
                                                 </div>

@@ -274,12 +274,10 @@
     <Content Include="Scripts\shBrushXml.js" />
     <Content Include="Scripts\shCore.js" />
     <Content Include="Scripts\shLegacy.js" />
-    <Content Include="Views\Web.config" />
-    <Content Include="wallet.ico" />
-    <Content Include="Web.config">
-      <DependentUpon>Web.config.xslt</DependentUpon>
+    <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="wallet.ico" />
     <Content Include="Web.config.xslt">
       <SubType>Designer</SubType>
     </Content>
@@ -412,6 +410,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

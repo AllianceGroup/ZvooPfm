@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('app.personal').controller('BudgetController', function BudgetController($uibModal ,budgetService, budgetsList, _, $state, transactionsPage, $rootScope) {
+angular.module('app.personal').controller('BudgetController',
+    function BudgetController($uibModal, budgetService, budgetsList, _, $state, transactionsPage, $rootScope) {
 
     var ctrl = this;
     ctrl.Budget = budgetsList;

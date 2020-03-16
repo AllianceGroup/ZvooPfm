@@ -19,5 +19,8 @@ namespace mPower.Documents.Documents.Accounting.DebtElimination
         public long PrincipalPaymentInCents { get; set; }
 
         public long InterestPaymentInCents { get; set; } 
+
+        public string ErrorMessage { get; set; }
+        public long ClosingBalanceInCents { get; set; }
     }
 }

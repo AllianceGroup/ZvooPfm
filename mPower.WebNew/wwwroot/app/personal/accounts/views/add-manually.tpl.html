@@ -8,7 +8,7 @@
 </div>
 <div class="modal-body row">
     <div class="widget-body">
-        <div class="row">
+        <div class="">
             <div>
                 <p ng-repeat="error in editAccountCtrl.errors" class="alert alert-danger">{{error}}</p>
             </div>
@@ -37,7 +37,7 @@
                         <label>Limit</label>
                         <input format="currency" amount="editAccountCtrl.model.CreditLimitInDollars" type="text" class="form-control" ng-model="editAccountCtrl.model.CreditLimitInDollars"/>
                     </div>
-                    <div class="form-group"
+                    <!--<div class="form-group"
                          ng-if="editAccountCtrl.model.Label === 'CreditCard' || editAccountCtrl.model.Label === 'Loan'">
                         <label>Interest rate (%)</label>
                         <input type="text" class="form-control" ng-model="editAccountCtrl.model.InterestRatePercentage"/>
@@ -46,6 +46,16 @@
                          ng-if="editAccountCtrl.model.Label === 'CreditCard' || editAccountCtrl.model.Label === 'Loan'">
                         <label>Minimum monthly payment</label>
                         <input format="currency" amount="editAccountCtrl.model.MinMonthPaymentInDollars" type="text" class="form-control" ng-model="editAccountCtrl.model.MinMonthPaymentInDollars"/>
+                    </div>-->
+
+                    <!-- 12 July 2017  Change Requirements-->
+                    <div class="form-group">
+                        <label>Interest rate (%)</label>
+                        <input type="text" class="form-control" ng-model="editAccountCtrl.model.InterestRatePercentage" />
+                    </div>
+                    <div class="form-group">
+                        <label>Minimum monthly payment</label>
+                        <input format="currency" amount="editAccountCtrl.model.MinMonthPaymentInDollars" type="text" class="form-control" ng-model="editAccountCtrl.model.MinMonthPaymentInDollars" />
                     </div>
                     <div class="form-group">
                         <label>Parent account</label>
@@ -62,7 +72,7 @@
                 </div>
             </div>
             <p class="text-center">
-                <button class="btn btn-success" ng-click="editAccountCtrl.add()">Add acoount</button>
+                <button class="btn btn-success" ng-click="editAccountCtrl.add()">ADD ACCOUNT</button>
             </p>
         </div>
     </div>

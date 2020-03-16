@@ -13,20 +13,20 @@ angular.module('app.personal')
                         templateUrl: 'app/personal/trends/trends.tpl.html'
                     }
                 },
-                data:{
+                data: {
                     title: 'Trends'
                 },
                 resolve: {
-                    transactionsPage: function(){
+                    transactionsPage: function () {
                         return "app.personal.transactions";
                     },
-                    accountsPage: function(){
+                    accountsPage: function () {
                         return "app.personal.chartofaccounts"
                     },
-                    trendsList: function(trendsService){
+                    trendsList: function (trendsService) {
                         return trendsService.getTrends();
                     },
-                    filter: function(){
+                    filter: function () {
                         return {
                             Filter: 'ThisMonth',
                             ShowFormat: 'Spending',
@@ -41,7 +41,7 @@ angular.module('app.personal')
                             FilterByAccountUrl: null
                         };
                     },
-                    scripts: function(lazyScript){
+                    scripts: function (lazyScript) {
                         return lazyScript.register([
                             'morris'
                         ]);
@@ -49,4 +49,6 @@ angular.module('app.personal')
                 }
 
             });
+
+           
     });

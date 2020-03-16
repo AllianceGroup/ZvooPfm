@@ -124,7 +124,7 @@ namespace mPower.Documents.Documents.Membership
 
         public void AcceptOffer(string offerId, DateTime date, string offerAffiliateId, OfferTypeEnum offerType, long? offerValueInCents, float? offerValueInPerc)
         {
-            if (AcceptedOffers.Any(x=> x.Id == offerId))
+            if (AcceptedOffers.Any(x => x.Id == offerId))
             {
                 return;
             }
@@ -136,5 +136,9 @@ namespace mPower.Documents.Documents.Membership
         {
             return AcceptedOffers.Any(x => x.Id == id && x.OfferAffiliateId == applicationId);
         }
+
+        public bool IsAgent { get; set; }
+        public bool IsCreatedByAgent { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

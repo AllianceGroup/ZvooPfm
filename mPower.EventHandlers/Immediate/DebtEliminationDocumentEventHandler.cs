@@ -81,9 +81,33 @@ namespace mPower.EventHandlers.Immediate
         public void Handle(DebtElimination_EliminationPlanUpdatedEvent message)
         {
             var query = Query.EQ("_id", message.Id);
+            foreach(var loans in message.MaxLoans)
+            {
+                var updateLoans = Update.Pull("MaxLoans", new BsonDocument() { { "Year", loans.Year } });
+
+                _debtEliminationService.UpdateMany(query, updateLoans);
+            }
 
             var update = Update<DebtEliminationDocument>.Set(x => x.PlanId, message.PlanId)
-                               .Set(x => x.MonthlyBudgetInCents, message.MonthlyBudgetInCents);
+                               .Set(x => x.MonthlyBudgetInCents, message.MonthlyBudgetInCents)
+                               .Set(x => x.EstimatedInvestmentEarningsRate, message.EstimatedInvestmentEarningsRate)
+                               .Set(x => x.YearsUntilRetirement, message.YearsUntilRetirement)
+                               .Set(x => x.AmountToSavings, message.AmountToSavings)
+                               .Set(x => x.LumpSumAmount, message.LumpSumAmount)
+                               .Set(x => x.NewLoanAmount, message.NewLoanAmount)
+                               .Set(x => x.CurrentDebtMonth, message.CurrentDebtMonth)
+                               .Set(x => x.LoanInterestRate, message.LoanInterestRate)
+                               .Set(x => x.MaxLoans, message.MaxLoans)
+                               .Set(x => x.CurrentSavingsTotal, message.CurrentSavingsTotal)
+                               .Set(x => x.CurrentDeathBenefit, message.CurrentDeathBenefit)
+                               .Set(x => x.DeathBenefitTerminatesAge, message.DeathBenefitTerminatesAge)
+                               .Set(x => x.MonthlySavingsContribution, message.MonthlySavingsContribution)
+                               .Set(x => x.Term1,message.Term1)
+                               .Set(x => x.Term2, message.Term2)
+                               .Set(x => x.Term1Amount,message.Term1Amount)
+                               .Set(x => x.Term2Amount,message.Term2Amount)
+                               .Set(x => x.MonthlyContributionFBS,message.MonthlyContributionFBS)
+                               .Set(x => x.BudgetForFBS,message.BudgetForFBS);
 
             _debtEliminationService.Update(query, update);
         }

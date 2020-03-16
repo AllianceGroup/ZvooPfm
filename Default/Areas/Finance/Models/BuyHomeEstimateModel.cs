@@ -77,5 +77,9 @@ namespace Default.Areas.Finance.Models
         {
             IsAgressive = true;
         }
+
+        [Range(0, 100000000, ErrorMessage = "Please enter a valid home cost")]
+        [PropertyBinder(typeof(MoneyBinder))]
+        public decimal CustomHomeCost { get; set; }
     }
 }

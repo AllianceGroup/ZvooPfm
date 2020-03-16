@@ -94,8 +94,8 @@
                                         </div>
                                     </div>
                                     <p class="text-center">
-                                        <button class="btn btn-success" ng-disabled="mortgageAccelerationCtrl.disableSaveOrUpdate" ng-click="mortgageAccelerationCtrl.saveOrUpdate()">Save changes</button>
-                                        <button class="btn btn-danger" ng-if="mortgageAccelerationCtrl.model.SelectedProgram.Id !== '-1'" ng-click="mortgageAccelerationCtrl.deleteProgram()">Delete/Reset</button>
+                                        <button class="btn btn-success" ng-disabled="mortgageAccelerationCtrl.disableSaveOrUpdate" ng-click="mortgageAccelerationCtrl.saveOrUpdate()">SAVE CHANGES</button>
+                                        <button class="btn btn-danger" ng-if="mortgageAccelerationCtrl.model.SelectedProgram.Id !== '-1'" ng-click="mortgageAccelerationCtrl.deleteProgram()">DELETE/RESET</button>
                                     </p>
 
                                 </div>
@@ -133,7 +133,7 @@
                                                     <td>{{mortgageAccelerationCtrl.model.SelectedProgram.AcceleratedParams.TotalInterestPaidInCents | centsCurrency}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Total Savings</td>
+                                                    <td>Total Interest Savings</td>
                                                     <td>{{mortgageAccelerationCtrl.model.SelectedProgram.OriginalParams.TotalSavingsInCents | centsCurrency}}</td>
                                                     <td>{{mortgageAccelerationCtrl.model.SelectedProgram.AcceleratedParams.TotalSavingsInCents | centsCurrency}}</td>
                                                 </tr>
@@ -150,12 +150,12 @@
                             <div ng-if="!mortgageAccelerationCtrl.model.SelectedProgram.AddedToCalendar">
                                 <p class="alert alert-info" style="margin-top: 10px">This Mortgage Acceleration Program is not yet added to your Calendar.</p>
                                 <div class="text-center">
-                                    <button class="btn btn-success" ng-click="mortgageAccelerationCtrl.addToCalendar()">Add to calendar</button>
+                                    <button class="btn btn-success" ng-click="mortgageAccelerationCtrl.addToCalendar()">ADD TO CALENDAR</button>
                                 </div>
                             </div>
                             <div ng-if="mortgageAccelerationCtrl.model.SelectedProgram.AddedToCalendar">
                                 <div class="text-center">
-                                    <button class="btn btn-success" ng-click="mortgageAccelerationCtrl.addToCalendar()">Update in calendar</button>
+                                    <button class="btn btn-success" ng-click="mortgageAccelerationCtrl.addToCalendar()">UPDATE IN CALENDAR</button>
                                 </div>
                             </div>
                         </div>

@@ -30,7 +30,8 @@ namespace mPower.EventHandlers.Immediate
         IMessageHandler<Transaction_CreateMultipleMessage>,
         IMessageHandler<Ledger_Account_AggregationStatus_UpdatedEvent>,
         IMessageHandler<Ledger_Account_InterestRate_ChangedEvent>,
-        IMessageHandler<Ledger_Account_RenamedEvent>
+        IMessageHandler<Ledger_Account_RenamedEvent>,
+        IMessageHandler<Ledger_Account_DateLastAggregated_ChangedEvent>
     {
         private readonly LedgerDocumentService _ledgerService;
         private readonly IEventService _eventService;
@@ -258,6 +259,11 @@ namespace mPower.EventHandlers.Immediate
         public void Handle(Ledger_Account_InterestRate_ChangedEvent message)
         {
             _ledgerService.ChangeInterestRate(message.LedgerId, message.AccountId, message.InterestRatePerc);
+        }
+
+        public void Handle(Ledger_Account_DateLastAggregated_ChangedEvent message)
+        {
+            _ledgerService.SetAggregatedDate(message.LedgerId, message.AccountId, message.DateLastAggregated);
         }
     }
 }

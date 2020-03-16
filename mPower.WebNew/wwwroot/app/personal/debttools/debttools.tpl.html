@@ -3,13 +3,21 @@
         <div class="row">
             <article class="col-md-12">
                 <div>
-                    <div>
-                        <h1 class="text-center">Our custom Debt Tools will show you how to pay down debt and guide you step by step to meet your financial goals.</h1>
+                    <div class="col-md-12">
+                        <!--<h1 class="text-center">Our custom Debt Tools will show you how to pay down debt and guide you step by step to meet your financial goals.</h1>-->
+                        <h1 class="text-center"><b>WHAT DEBT DO YOU WANT TO WORK ON?</b></h1>
                         <div class="container-fluid">
                             <div class="row debttools-list">
                                 <div class="col-md-6 text-center debttools-item">
-                                    <div class="well well-margin">
-                                        <div ng-if="debttoolsCtrl.debttoolsModel.DebtElimination === null">
+                                    <div class="well well-margin" style="min-height:500px !important; max-height:600px !important">
+                                        <div>
+                                            <!--<h1><b>Consumer Debt</b></h1>-->
+                                            <img src="/styles/img/app/consumer-debt.jpg" style="padding-top:2%"  />
+                                            <div class="text-center" style="padding-top:8%">
+                                                <button class="btn btn-success debtStartButtons"  ui-sref="app.personal.DebtStart">GET STARTED</button>
+                                            </div>
+                                        </div>
+                                        <!--<div ng-if="debttoolsCtrl.debttoolsModel.DebtElimination === null">
                                             <img src="/styles/img/app/debt-elimination.jpg" />
                                             <h1 class="txt-color-green">Debt elimination program</h1>
                                             <h4 class="txt-color-orange"><b>Eliminate Debt in 3 Easy Steps</b></h4>
@@ -17,8 +25,8 @@
                                             <div class="text-center">
                                                 <button class="btn btn-success" ui-sref="app.personal.eliminationProgram">Get started</button>
                                             </div>
-                                        </div>
-                                        <div ng-if="debttoolsCtrl.debttoolsModel.DebtElimination !== null">
+                                        </div>-->
+                                        <div ng-if="debttoolsCtrl.debttoolsModel.DebtElimination !== null" style="display:none">
                                             <img src="/styles/img/app/debt-elimination-s.jpg" />
                                             <h1 class="txt-color-green">Debt elimination program</h1>
                                             <h4 class="txt-color-orange"><b>Eliminate Debt in 3 Easy Steps</b></h4>
@@ -26,7 +34,7 @@
                                             <h4 class="txt-color-orange"><b>Your Current Program Summary</b></h4>
                                             <div ng-if="debttoolsCtrl.debttoolsModel.DebtElimination.WrongProgramParams">
                                                 <h5>For some reasons your debt elimination program has invalid parameters. Please follow the link below to recreate it.</h5>
-                                                <button class="btn btn-success">Recreate Program</button>
+                                                <button class="btn btn-success">RECREATE PROGRAM</button>
                                             </div>
                                             <div ng-if="!debttoolsCtrl.debttoolsModel.DebtElimination.WrongProgramParams">
                                                 <h5>
@@ -54,7 +62,7 @@
                                     </div>
 
                                 </div>
-                                <div ng-if="" class="col-md-4 text-center debttools-item">
+                                <div ng-if="" class="col-md-4 text-center debttools-item" style="display:none">
                                     <div class="well well-margin">
                                         <div ng-if="debttoolsCtrl.debttoolsModel.DebtToIncomeRatio === null">
                                             <img src="/styles/img/app/debt-income.jpg" />
@@ -62,7 +70,7 @@
                                             <h4 class="txt-color-orange">Calculate your DTI Ratio</h4>
                                             <h5>Learn how to maximize your borrowing power by reducing your debt-to-income ratio.</h5>
                                             <div class="text-center">
-                                                <button class="btn btn-success" ui-sref="app.personal.incomeRation">Get started</button>
+                                                <button class="btn btn-success" ui-sref="app.personal.incomeRation">GET STARTED</button>
                                             </div>
                                         </div>
                                         <div ng-if="debttoolsCtrl.debttoolsModel.DebtToIncomeRatio !== null">
@@ -91,8 +99,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 text-center debttools-item">
-                                    <div class="well well-margin">
-                                        <div ng-if="debttoolsCtrl.debttoolsModel.CurrentMortgageProgram === null">
+                                    <div class="well well-margin" style="min-height:500px !important; max-height:600px !important" >
+                                        <div>
+                                            <!--<h1><b>Mortgage acceleration</b></h1>-->
+                                            <!--<h1><b>Shave Years off your Mortgage</b></h1>-->
+                                            <img src="/styles/img/app/mortgage-acceleration.jpg"  style="padding-top:2%"/>
+                                            <div class="text-center" style="padding-top:8%">
+                                                <button class="btn btn-success debtStartButtons" ui-sref="app.personal.mortageAcceleration">GET STARTED</button>
+                                            </div>
+                                        </div>
+                                        <!--<div ng-if="debttoolsCtrl.debttoolsModel.CurrentMortgageProgram === null">
                                             <img src="/styles/img/app/debt-mortgage.jpg" />
                                             <h1 class="txt-color-green">Mortgage acceleration</h1>
                                             <h4 class="txt-color-orange">Shave Years off your Mortgage</h4>
@@ -100,8 +116,8 @@
                                             <div class="text-center">
                                                 <button class="btn btn-success" ui-sref="app.personal.mortageAcceleration">Get started</button>
                                             </div>
-                                        </div>
-                                        <div ng-if="debttoolsCtrl.debttoolsModel.CurrentMortgageProgram !== null">
+                                        </div>-->
+                                        <div ng-if="debttoolsCtrl.debttoolsModel.CurrentMortgageProgram !== null" style="display:none">
                                             <img src="/styles/img/app/debt-mortgage-s.jpg" />
                                             <h1 class="txt-color-green">Mortgage acceleration</h1>
                                             <h4 class="txt-color-orange">Shave Years off your Mortgage</h4>
@@ -127,6 +143,80 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+<div id="debtcontentStart" style="display:none">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div>
+                    <div class="col-md-12">
+                        <!--<h1 class="text-center">Our custom Debt Tools will show you how to pay down debt and guide you step by step to meet your financial goals.</h1>-->
+                        <h1 class="text-center"><b>What Debt Do You Wanty To Work On?</b></h1>
+                        <div class="container-fluid">
+                            <div class="row debttools-list">
+                                <div class="col-md-6 text-center debttools-item">
+                                    <div class="well well-margin">
+                                        <div>
+                                            <h1><b>Consumer Debt Elimination Program</b></h1>
+                                             <p>The first step to financial freedom is eliminating your debt.  
+                                            On the following pages we will walk you through a consumer debt elimination program that is simple to follow, 
+                                            it takes discipline but it is worth it.
+                                            </p>
+                                        </div>
+                                        
+                                        <div ng-if="debttoolsCtrl.debttoolsModel.DebtElimination !== null" style="display:none">
+               
+                                            <h4 class="txt-color-orange"><b>Your Current Program Summary</b></h4>
+                                            <div ng-if="debttoolsCtrl.debttoolsModel.DebtElimination.WrongProgramParams">
+                                                <h5>For some reasons your debt elimination program has invalid parameters. Please follow the link below to recreate it.</h5>
+                                                <button class="btn btn-success">Recreate Program</button>
+                                            </div>
+                                            <div ng-if="!debttoolsCtrl.debttoolsModel.DebtElimination.WrongProgramParams">
+                                                <h5>
+                                                    You are currently commiting an extra <span class="txt-color-green">{{debttoolsCtrl.debttoolsModel.DebtElimination.MonthlyBudget | currency}}</span> per month towards paying off your debt.
+                                                </h5>
+                                                <h6>TOTAL DEBT: <span class="txt-color-green">{{debttoolsCtrl.debttoolsModel.DebtElimination.TotalPayedViaPlan | centsCurrency}}</span></h6>
+                                                <h6>PAYOFF TIME: <span class="txt-color-green">{{debttoolsCtrl.debttoolsModel.DebtElimination.PayoffTimeViaPlan}} yrs</span></h6>
+                                                <ul class="depttools-commands text-left">
+                                                    <li><a ui-sref="app.personal.eliminationProgram({currentStep: 3})"><i class="glyphicon glyphicon-circle-arrow-right" style="padding: 3px"></i>Show Detailed Summary</a></li>
+                                                </ul>
+                                                <h5>
+                                                    You are saving a total of <span class="txt-color-green">{{debttoolsCtrl.debttoolsModel.DebtElimination.MoneySaved | centsCurrency}}</span> and shaving off
+                                                    <span class="txt-color-green">{{debttoolsCtrl.debttoolsModel.DebtElimination.PayoffTimeViaPlan}}</span> yrs by using this Debt Elimination Program.
+                                                </h5>
+                                                <hr />
+                                                <ul class="depttools-commands text-left">
+                                                    <li><a ui-sref="app.personal.eliminationProgram({currentStep: 3})"><i class="glyphicon glyphicon-circle-arrow-right" style="padding: 3px"></i>Show Detailed Summary</a></li>
+                                                    <li><a ui-sref="app.personal.eliminationProgram({currentStep: 2})"><i class="glyphicon glyphicon-circle-arrow-right" style="padding: 3px"></i>Edit Monthly Budget</a></li>
+                                                    <li><a ui-sref="app.personal.eliminationProgram({currentStep: 2})"><i class="glyphicon glyphicon-circle-arrow-right" style="padding: 3px"></i>Change Program Type</a></li>
+                                                    <li><a ng-click="debttoolsCtrl.addAccounts()"><i class="glyphicon glyphicon-circle-arrow-right" style="padding: 3px"></i>Add a New Debt</a></li>
+                                                    <li><a ui-sref="app.personal.eliminationProgram({currentStep: 3})"><i class="glyphicon glyphicon-circle-arrow-right" style="padding: 3px"></i>Check Payment calendar</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4>Eliminate Debt in 3 Easy Steps</h4>
+                                            <div>
+                                                <p><b>STEP 1 -</b>Complete your debt information</p> 
+                                                <p><b>STEP 2 -</b>Pick a payoff plan & available cash flow</p>
+                                                <p><b>STEP 3 -</b>Follow your payoff plan</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button class="btn btn-success" ui-sref="app.personal.eliminationProgram">Proceed to Step 1</button>
+                                        </div>
+                                    </div>
+                                </div>
+                              
                             </div>
                         </div>
                     </div>

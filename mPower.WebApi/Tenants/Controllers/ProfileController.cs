@@ -185,7 +185,8 @@ namespace mPower.WebApi.Tenants.Controllers
             {
                 UserId = GetUserId(),
                 EnableAdminAccess = model.EnableAdminAccess,
-                EnableAggregationLogging = model.EnableAggregationLogging
+                EnableAggregationLogging = model.EnableAggregationLogging,
+                EnableAgentAccess=model.EnableAgentAccess
             };
             Send(command);
 
@@ -352,7 +353,8 @@ namespace mPower.WebApi.Tenants.Controllers
                 SecuritySettings = new SecuritySettingsModel
                 {
                     EnableAdminAccess = user.Settings.EnableAdminAccess,
-                    EnableAggregationLogging = user.Settings.EnableIntuitLogging
+                    EnableAggregationLogging = user.Settings.EnableIntuitLogging,
+                    EnableAgentAccess=user.Settings.EnableAgentAccess
                 },
             };
 

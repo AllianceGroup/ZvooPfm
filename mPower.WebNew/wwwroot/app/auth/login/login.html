@@ -1,22 +1,37 @@
 <div>
     <div id="extr-page">
-        <header id="header" class="animated fadeInDown">
+        <header id="header" class="animated fadeInDown" style="display:none">
 
             <div id="logo-group">
                 <span id="logo"> <img src="styles/img/Alliance-pfm.png"> </span>
             </div>
 
-            <span id="extr-page-header-space">
+            <!--<span id="extr-page-header-space">
                 <span class="hidden-mobile hiddex-xs">Need an account?</span> <a ui-sref="signup" class="btn btn-danger">Create account</a>
-            </span>
+            </span>-->
 
         </header>
         <div id="main" role="main">
 
+           
+            <div class="et_pb_row et_pb_row_0">
+
+                <div class="et_pb_column et_pb_column_4_4  et_pb_column_0">
+
+                    <div style="margin-bottom:0">
+                        <img src="styles/img/AFW_Logo_300.png" alt="">
+
+                    </div>
+                </div> <!-- .et_pb_column -->
+
+            </div>
+
+           
             <div id="content" class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
-                        <h1 class="txt-color-red login-header-big">Alliance PFM</h1>
+
+                <div class="row" style="background-image:url('styles/img/family-generations-70.jpg')">
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8" style="display:none">
+                        <h2><strong>Take Control of Your Financial Future</strong></h2>
 
                         <div class="hero">
                             <div class="pull-left login-desc-box-l">
@@ -31,8 +46,29 @@
                                     <li><i class="fa fa-check text-success"></i>Bank level security <label class="txt-color-red">128 bit SSL encryption</label></li>
                                 </ul>
                             </div>
-                            <img src="styles/img/demo/iphoneview.png" class="pull-right display-image" alt style="width:210px">
+                            <!--<img src="styles/img/demo/iphoneview.png" class="pull-right display-image" alt style="width:210px">-->
                         </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 ">
+
+                        <div class="et_pb_text et_pb_module et_pb_bg_layout_dark et_pb_text_align_left  et_pb_text_0">
+
+                            <h2 style="font-size:26px"><strong>Take Control of Your Financial Future</strong></h2>
+                            <ul style="padding: 0 0 23px 16px;line-height: 26px;list-style-type: disc;">
+                                <li><strong>Aggregate&nbsp;all of your accounts in one financial dashboard</strong></li>
+                                <li><strong>Create spending plans and budgets</strong></li>
+                                <li><strong>Set, track, and achieve financial goals</strong></li>
+                                <li><strong>Get out of debt quickly</strong></li>
+                                <li><strong>Accelerate your mortgage</strong></li>
+                                <li><strong>Categorize expenses</strong></li>
+                                <li><strong>Create financial alerts and updates</strong></li>
+                                <li><strong>Get financial education</strong></li>
+                                <li><strong>Secure access from PC, tablet or smart device</strong></li>
+                                <li><strong>You are secure with&nbsp;AES256bit encryption</strong></li>
+                            </ul>
+
+                        </div> <!-- .et_pb_text -->
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
                         <p class="alert alert-success" ng-if="loginCtrl.message">{{loginCtrl.message}}</p>
@@ -56,7 +92,7 @@
                                                    ng-model="loginCtrl.model.Email">
                                             <b class="tooltip tooltip-top-right">
                                                 <i class="fa fa-user txt-color-teal"></i>
-                                                Please enter email address/username
+                                                Please enter email address
                                             </b>
                                         </label>
                                     </section>
@@ -99,12 +135,14 @@
                                 </fieldset>
                                 <footer>
                                     <button type="button" class="btn btn-primary" ng-click="loginCtrl.login()">
-                                        Sign in
+                                        SIGN IN
                                     </button>
                                 </footer>
                             </form>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

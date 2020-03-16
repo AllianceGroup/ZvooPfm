@@ -146,6 +146,8 @@
     <Compile Include="Areas\Finance\DebtToIncomeRatioController\DebtToIncomeRatioModel.cs" />
     <Compile Include="Areas\Finance\DebtToIncomeRatioController\UpdateDebtIncomeModel.cs" />
     <Compile Include="Areas\Finance\DebtToolsController\ChartViewModel.cs" />
+    <Compile Include="Areas\Finance\DebtToolsController\DebtEliminationSavingsSummaryModel.cs" />
+    <Compile Include="Areas\Finance\DebtToolsController\DebtEliminationComparisionModel.cs" />
     <Compile Include="Areas\Finance\DebtToolsController\DebtEliminationShortModel.cs" />
     <Compile Include="Areas\Finance\DebtToolsController\DebtToolsModel.cs" />
     <Compile Include="Areas\Finance\GoalsController\GoalDetailedModel.cs" />
@@ -185,6 +187,7 @@
     <Compile Include="RealestateController\PropertyModel.cs" />
     <Compile Include="RealestateController\RealestatesListModel.cs" />
     <Compile Include="RealestateController\SearchResultsModel.cs" />
+    <Compile Include="TransactionsController\ImportTransactionViewModel.cs" />
     <Compile Include="TransactionsController\AddStandardTransactionViewModel.cs" />
     <Compile Include="TransactionsController\AddTransactionPostEntry.cs" />
     <Compile Include="TransactionsController\AddTransactionPostModel.cs" />

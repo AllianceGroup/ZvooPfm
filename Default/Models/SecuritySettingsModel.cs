@@ -5,5 +5,6 @@ namespace Default.Models
         public bool EnableAdminAccess { get; set; }
 
         public bool EnableAggregationLogging { get; set; }
+        public bool EnableAgentAccess { get; set; }
     }
 }

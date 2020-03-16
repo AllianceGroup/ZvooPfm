@@ -294,7 +294,7 @@ namespace mPower.WebApi.Tenants.Controllers
         [HttpPost("estimatebypayment")]
         public IActionResult EstimateByPayment([FromBody]GoalViewModel model)
         {
-            if (ModelState.IsValid && (model.PeriodInMonths > 0 && !string.IsNullOrEmpty(model.Summary)))
+            if (ModelState.IsValid && (model.PeriodInMonths > 0 && !string.IsNullOrEmpty(model.Summary) && model.MonthlyContribution > 0))
             {
                 return new OkObjectResult(new {model.Summary});
             }
@@ -323,6 +323,10 @@ namespace mPower.WebApi.Tenants.Controllers
 
         protected decimal BuildEstimate(IEstimateModel model)
         {
+            if(model == null)
+            {
+                return 0;
+            }
             var readyForValidation = !IsModelContainsDefaultValues(model);
             if (readyForValidation) return model.EstimatedValue;
 

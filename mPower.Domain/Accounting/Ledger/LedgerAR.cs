@@ -291,5 +291,15 @@ namespace mPower.Domain.Accounting.Ledger
                           InterestRatePerc = interestRate
                       });
         }
+
+        public void ChangeAccountAggregationDate(string accountId, DateTime date)
+        {
+            Apply(new Ledger_Account_DateLastAggregated_ChangedEvent
+            {
+                LedgerId = _id,
+                AccountId = accountId,
+                DateLastAggregated = date
+            });
+        }
     }
 }

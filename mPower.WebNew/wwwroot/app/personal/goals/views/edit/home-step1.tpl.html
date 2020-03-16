@@ -10,30 +10,30 @@
                 <div class="form-group">
                     <label>Annual Income</label>
                     <input type="text" ng-currency
-                           class="form-control" ng-model="homeStep1Ctrl.model.AnnualIncome" required
+                           class="form-control" ng-model="homeStep1Ctrl.model.AnnualIncome" required max="100000000" oninput="validity.valid||(value='0');"
                            ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
                 </div>
                 <div class="form-group">
                     <label>Mortgage Rate</label>
-                    <input type="number" class="form-control" ng-model="homeStep1Ctrl.model.MortgageRate" required
+                    <input type="number" class="form-control" ng-model="homeStep1Ctrl.model.MortgageRate" required ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  step="0.01"
                            ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
                     <div class="note">average 30-year fixed rate is 3.98%</div>
                 </div>
                 <div class="form-group">
                     <label>Percent Down Payment</label>
-                    <input type="number" class="form-control" ng-model="homeStep1Ctrl.model.PercentDownPayment" required
+                    <input type="number" class="form-control" ng-model="homeStep1Ctrl.model.PercentDownPayment" required ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  step="0.01"
                            ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
                 </div>
                 <div class="form-group">
                     <label>Annual Insurance</label>
                     <input type="text" ng-currency
-                           class="form-control" ng-model="homeStep1Ctrl.model.AnnualInsurance" required
+                           class="form-control" ng-model="homeStep1Ctrl.model.AnnualInsurance" required max="100000000" oninput="validity.valid||(value='0');"
                            ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
                     <div class="note">national average is $485</div>
                 </div>
                 <div class="form-group">
                     <label>Annual Property Tax</label>
-                    <input type="number" class="form-control" ng-model="homeStep1Ctrl.model.AnnualPropertyTax" required
+                    <input type="number" class="form-control" ng-model="homeStep1Ctrl.model.AnnualPropertyTax" required ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  step="0.01"
                            ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"/>
                     <div class="note">national average is 1.00%</div>
                 </div>
@@ -43,29 +43,47 @@
                 <div class="form-group">
                     <div class="radio">
                         <label>
-                            <input type="radio" class="radiobox" ng-model="homeStep1Ctrl.model.IsAgressive" ng-value="true"
+                            <input type="radio" class="radiobox" ng-model="homeStep1Ctrl.model.IsAgressive" ng-value="1"
                                    ng-change="homeStep1Ctrl.estimate()"/>
                             <span>Agressive</span>
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" class="radiobox" ng-model="homeStep1Ctrl.model.IsAgressive" ng-value="false"
+                            <input type="radio" class="radiobox" ng-model="homeStep1Ctrl.model.IsAgressive" ng-value="2"
                                    ng-change="homeStep1Ctrl.estimate()"/>
                             <span>Conservative</span>
                         </label>
                     </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" class="radiobox" ng-model="homeStep1Ctrl.model.IsAgressive" ng-value="3"
+                                   ng-change="homeStep1Ctrl.estimate()" />
+                            <span>Custom</span>
+                        </label>
+                    </div>
                 </div>
-                <div class="well">
+                <div class="well" id="divNormalHomeCost" >
                     <p>You can afford a <strong>home that costs</strong> {{homeStep1Ctrl.model.HomeCost | currency}}</p>
+                    <p>for a <strong>total monthly payment of</strong> {{homeStep1Ctrl.model.MonthlyPayment | currency}}</p>
+                    <p>You will need a <strong>down payment of</strong> {{homeStep1Ctrl.model.EstimatedValue | currency}}</p>
+                </div>
+                <div class="well" id="divCustomHomeCost" style="display:none">
+                    <p>
+                        Enter home cost <input type="text" ng-currency class="form-control" ng-model="homeStep1Ctrl.model.CustomHomeCost" max="100000000" oninput="validity.valid||(value='0');"
+                          required  ng-change="homeStep1Ctrl.estimate()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }" />
+
+                        
+                    </p>
+
                     <p>for a <strong>total monthly payment of</strong> {{homeStep1Ctrl.model.MonthlyPayment | currency}}</p>
                     <p>You will need a <strong>down payment of</strong> {{homeStep1Ctrl.model.EstimatedValue | currency}}</p>
                 </div>
             </div>
         </div>
         <p class="row">
-            <div class="col-md-6 text-left"><button class="btn btn-danger" ui-sref="app.personal.goals.items" ui-sref-opts="{reload: 'app.personal.goals.items'}">Cancel</button></div>
-            <div class="col-md-6 text-right"><button class="btn btn-success" ng-click="homeStep1Ctrl.step2()">Next</button></div>
+            <div class="col-md-6 text-left"><button class="btn btn-danger" ui-sref="app.personal.goals.items" ui-sref-opts="{reload: 'app.personal.goals.items'}">CANCEL</button></div>
+            <div class="col-md-6 text-right"><button class="btn btn-success" ng-click="homeStep1Ctrl.step2()">NEXT</button></div>
         </p>
     </div>
 </div>

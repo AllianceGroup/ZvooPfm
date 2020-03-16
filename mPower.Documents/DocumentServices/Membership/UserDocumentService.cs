@@ -7,6 +7,7 @@ using mPower.Documents.Enums;
 using mPower.Domain.Membership.Enums;
 using mPower.Domain.Membership.User.Events;
 using mPower.Framework;
+using mPower.Framework.Mongo;
 using mPower.Framework.Services;
 using System;
 using System.Collections.Generic;
@@ -82,8 +83,16 @@ namespace mPower.Documents.DocumentServices.Membership
             {
                 yield return Query.EQ("ApplicationId", filter.AffiliateId);
             }
+            if (filter.IsCreatedByAgent)
+            {
+                yield return Query.EQ("IsCreatedByAgent", filter.IsCreatedByAgent);
+            }
+            if (!string.IsNullOrEmpty(filter.CreatedBy))
+            {
+                yield return Query.EQ("CreatedBy", filter.CreatedBy);
+            }
 
-            if(filter.SubscriptionId != null)
+            if (filter.SubscriptionId != null)
             {
                 yield return Query.EQ("Subscriptions.ChargifySubscriptionId", filter.SubscriptionId.Value);
             }
@@ -206,7 +215,8 @@ namespace mPower.Documents.DocumentServices.Membership
                 .Set(x => x.LastName, message.LastName)
                 .Set(x => x.ZipCode, message.ZipCode)
                 .Set(x => x.BirthDate, message.BirthDate.HasValue ? message.BirthDate.Value.Date : (DateTime?)null)
-                .Set(x => x.Gender, message.Gender);
+                .Set(x => x.Gender, message.Gender)
+                .Set(x => x.IsAgent, message.IsAgent);
 
             Update(query, update);
         }
@@ -320,11 +330,12 @@ namespace mPower.Documents.DocumentServices.Membership
             Update(query, update);
         }
 
-        public void SetSecuritySettings(string userId, bool enableAdminAccess, bool enableAggregationLogging)
+        public void SetSecuritySettings(string userId, bool enableAdminAccess, bool enableAggregationLogging, bool enableAgentAccess)
         {
             var query = Query.EQ("_id", userId);
             var update = Update<UserDocument>
                 .Set(x => x.Settings.EnableAdminAccess, enableAdminAccess)
+                .Set(x => x.Settings.EnableAgentAccess, enableAgentAccess)
                 .Set(x => x.Settings.EnableIntuitLogging, enableAggregationLogging);
             Update(query, update);
         }

@@ -1,0 +1,288 @@
+﻿<style type="text/css">
+    .visual-form-builder li div label, .visual-form-builder li span label {
+    position: absolute;
+    bottom: -12px;
+    left: 9px;
+}
+ul.vfb-section li.vfb-item select {
+    padding: 8px 9px; height:37px; margin-bottom:4px;
+}
+.visual-form-builder li{position:relative;}
+</style>
+<div id="content" class="savingPage">
+
+    <article id="post-459" class="post-459 page type-page status-publish hentry">
+        <div class="entry-content" ng-if="savingsCtrl.DebtShow">
+            <div class="et_pb_section  et_pb_section_0 et_section_regular">
+                <div class="et_pb_row et_pb_row_0">
+
+                    <div class="et_pb_column et_pb_column_4_4  et_pb_column_0">
+
+                        <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_0">
+
+                            <p>Use this form to quickly create a savings scenario based on paying off existing debts including your mortgage, credit cards, car loans, student loans etc.&nbsp; If you do not have a mortgage just leave the field blank. Please use the scheduled monthly payment not what you pay if add any additional amount.</p>
+                            <p>Note:&nbsp; Data will not be saved after you run the analysis.</p>
+                            <p>&nbsp;</p>
+                            <div id="vfb-form-6" class="visual-form-builder-container">
+                                <form id="quick-savings-analysis-6" class="visual-form-builder vfb-form-6  " method="post" enctype="multipart/form-data" action="" name="frm">
+                                    <fieldset class="vfb-fieldset vfb-fieldset-1 quick-savings-analysis">
+                                        <div class="vfb-legend">
+                                            <h3>Quick Savings Analysis</h3>
+                                        </div>
+                                        <ul class="vfb-section vfb-section-1">
+                                            <li class="vfb-item vfb-item-instructions">
+                                                <label class="vfb-desc">Instructions </label>Use this form to quickly create a savings scenario based on paying off existing debts including your mortgage, credit cards, car loans, student loans etc.
+                                                if you do not have a mortgage then leave the mortgage field blank.
+                                            </li>
+                                            <li class="vfb-item vfb-item-instructions">
+                                                <label class="vfb-desc">Mortgage Instructions </label>Do not include your taxes and insurance in the monthly payment add it to your Total Monthly Expenses below.
+                                            </li>
+                                        </ul>
+                                        <ul class="vfb-section vfb-section-1">
+                                            <li class="vfb-item vfb-item-text vfb-left-third">
+                                                <label class="vfb-desc">Mortgage 1</label>
+                                                <input type="number" placeholder="Enter Current Mortgage Balance" ng-model="savingsCtrl.model.Debts[0].BalanceInCents" class="vfb-text vfb-medium">
+                                            </li>
+                                            <li class="vfb-item vfb-item-text vfb-middle-third">
+                                                <label class="vfb-desc">Interest Rate</label>
+                                                <input type="number" placeholder="Enter Interest Rate" ng-model="savingsCtrl.model.Debts[0].InterestRatePerc" class="vfb-text  vfb-medium">
+                                            </li>
+                                            <li class="vfb-item vfb-item-text vfb-right-third">
+                                                <label class="vfb-desc">Monthly Payment </label>
+                                                <input type="number" placeholder="Enter Monthly P&amp;I Payment" ng-model="savingsCtrl.model.Debts[0].MinMonthPaymentInCents" class="vfb-text  vfb-medium">
+                                            </li>
+                                        </ul>
+                                        <ul class="vfb-section vfb-section-1">
+                                            <li class="vfb-item vfb-item-instructions">
+                                                <label class="vfb-desc">Consumer Debt Instructions </label>
+                                                Please add one consumer debt per row such as car payments, school loans, boat loans and credit cards.  Please use the scheduled payment for each loan not what you normally pay if you pay more.
+                                            </li>
+                                        </ul>
+                                         <ul class="vfb-section vfb-section-1" id="mainUl" >
+                                                <li class="vfb-item vfb-item-instructions">
+                                                    <label class="vfb-desc">Consumer Debt 1 </label>
+                                                </li>
+                                                <li class="vfb-item vfb-item-text vfb-left-third">
+                                                    <label class="vfb-desc">Balance </label>
+                                                    <input type="number" placeholder="Enter Current Balance" ng-model="savingsCtrl.model.Debts[1].BalanceInCents" class="vfb-text vfb-medium">
+                                                </li>
+                                                <li class="vfb-item vfb-item-text vfb-middle-third">
+                                                    <label class="vfb-desc">Interest Rate </label>
+                                                    <input type="number" placeholder="Enter Interest Rate" ng-model="savingsCtrl.model.Debts[1].InterestRatePerc" class="vfb-text vfb-medium">
+                                                </li>
+                                                <li class="vfb-item vfb-item-text vfb-right-third">
+                                                    <label class="vfb-desc">Payment </label>
+                                                    <input type="number" placeholder="Enter Payment" class="vfb-text vfb-medium" ng-model="savingsCtrl.model.Debts[1].MinMonthPaymentInCents">
+                                                </li>
+                                            </ul>
+
+                                        <ul class="vfb-section vfb-section-1">
+                                            <li id="AddDebtRow" class="vfb-item vfb-item-instructions vfb-left-third">
+                                                <label class="vfb-desc"><button type="button" ng-click="savingsCtrl.addHtml()"> + ADD ADDITIONAL CONSUMER DEBTS </button></label>
+                                            </li>
+                                        </ul>
+                                        <ul class="vfb-section vfb-section-1">
+                                            <li class="vfb-item vfb-item-instructions">
+                                                <label class="vfb-desc">Income and Other Expenses </label>
+                                                Enter your net monthly income what you bring home after taxes.  Enter your other monthly expenses such as Food, Clothing, Utilities, Entertainment, Contributions etc.
+                                            </li>
+                                            <li class="vfb-item vfb-item-text vfb-left-half">
+                                                <label class="vfb-desc">Monthly Income  <span class="vfb-required-asterisk">*</span></label>
+                                                <input type="number" placeholder="Monthly Income" class="vfb-text  vfb-medium " required="required">
+                                            </li>
+                                            <li class="vfb-item vfb-item-text vfb-right-half">
+                                                <label for="vfb-125" class="vfb-desc">Total Other Monthly Expenses  <span class="vfb-required-asterisk">*</span></label>
+                                                <input type="number" placeholder="Total Other Monthly Expenses" class="vfb-text  vfb-medium " required="required">
+                                            </li>
+                                            <li class="vfb-item vfb-item-text vfb-left-half">
+
+                                                <label for="vfb-127" class="vfb-desc">
+                                                    Select your plan <span>(Choose the style of program you want to use)</span>
+                                                </label>
+
+
+                                                <select class="form-control input-md" ng-model="savingsCtrl.model.PlanId" ng-required="true" name="plan">
+                                                    <option style="display:none" value="" class="ng-binding ng-scope">Please Choose...</option>
+                                                    <option class="ng-binding ng-scope">Please Choose...</option>
+                                                    <option value="1" class="ng-binding ng-scope">Quick Wins: Pay off smallest debts first</option>
+                                                    <option value="2" class="ng-binding ng-scope">Highest Interest: Pay off loans with highest rates first</option>
+                                                    <option value="3" class="ng-binding ng-scope">Balanced: Pay off everything a little at a time</option>
+                                                    <option value="4" class="ng-binding ng-scope">Highest payment, smallest debt first</option>
+                                                </select> 
+                                                <span style="color:red;" ng-if="savingsCtrl.model.PlanId === 'Please Choose...'">Please choose any option</span> 
+                                            </li>
+                                            <li class="vfb-item vfb-item-text vfb-right-half">
+                                                <label class="vfb-desc">
+                                                    Discretionary Income
+                                                    <span class="vfb-required-asterisk">*</span>
+                                                </label><span class="vfb-span">
+                                                    <input type="number" name="DiscretionaryIncome" ng-model="savingsCtrl.model.MonthlyBudgetInCents" class="vfb-text  vfb-medium " ng-required="true">
+                                                            <span style="color:red" ng-show="frm.DiscretionaryIncome.$dirty && frm.DiscretionaryIncome.$invalid">
+                                                                <span ng-show="frm.DiscretionaryIncome.$error.required">Please enter the amount of discretionary income you want to apply to paying off your debts.</span>
+                                                            </span>
+
+                                                    <!--<label>Please enter the amount of discretionary income you want to apply to paying off your debts.</label>-->
+                                                </span>
+                                            </li>
+                                            <li class="vfb-item vfb-item-text vfb-left-half">
+                                                <label for="vfb-127" class="vfb-desc">Years Until Retirement</label>
+                                                <span class="vfb-span">
+                                                    <input type="number" name="retirementYear" placeholder="Years Until Retirement" ng-model="savingsCtrl.model.YearsUntilRetirement" class="vfb-text vfb-medium" ng-required="true">
+                                                    <!--<label>Please enter the number of years until you expect to retire.</label>-->
+                                                    <span style="color:red" ng-show="frm.retirementYear.$dirty && frm.retirementYear.$invalid">
+                                                        <span ng-show="frm.retirementYear.$error.required">Please enter the number of years until you expect to retire.</span>
+                                                    </span>
+                                                </span>
+                                            </li>
+                                            <li class="vfb-item vfb-item-text vfb-right-half">
+                                                <label class="vfb-desc">Estimated Investment Earnings Rate </label>
+                                                <span class="vfb-span">
+                                                    <input type="number" name="InvestmentEarningRate" placeholder="5%" ng-model="savingsCtrl.model.EstimatedInvestmentEarningsRate" ng-init="savingsCtrl.model.EstimatedInvestmentEarningsRate = 5" class="vfb-text vfb-medium" ng-required="true">
+                                                    <span></span>
+                                                    <label><!--Please enter the rate that you think your investments will return.--></label>
+                                                    <span style="color:red" ng-show="frm.InvestmentEarningRate.$dirty && frm.InvestmentEarningRate.$invalid">
+                                                        <span ng-show="frm.InvestmentEarningRate.$error.required">Please enter the number of years until you expect to retire.</span>
+                                                    </span>
+                                                </span>
+                                            </li>
+                                            <li class="vfb-item vfb-item-submit">
+                                                <button type="button" class="vfb-submit" ng-disabled="savingsCtrl.model.PlanId === 'Please Choose...' || frm.DiscretionaryIncome.$dirty && frm.DiscretionaryIncome.$invalid
+                                                        || frm.retirementYear.$dirty && frm.retirementYear.$invalid  || frm.InvestmentEarningRate.$dirty && frm.InvestmentEarningRate.$invalid || frm.$invalid "
+                                                         ng-click="savingsCtrl.callpostapi()">CALCULATE SAVINGS</button>
+                                            </li>
+                                        </ul>&nbsp;
+                                    </fieldset>
+                                    <input type="hidden" name="_wp_http_referer" value="/quick-savings-analysis/">
+                                </form>
+                            </div> <!-- .visual-form-builder-container -->
+
+                        </div> <!-- .et_pb_text -->
+                    </div> <!-- .et_pb_column -->
+
+                </div>
+
+            </div> <!-- .et_pb_section -->
+        </div>
+    </article>
+
+    <section ng-if="savingsCtrl.DebtHide">
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header></header>
+                    
+                    <div>
+                        <div class="container-fluid" id="form-container">
+                            <h1>Quick Savings Analysis                             
+                                    <a class="btn btn-primary" style="float:right" data-ui-sref="app.personal.quicksavings" ui-sref-opts="{reload: 'app.personal.quicksavings'}">
+                                        Back
+                                    </a>
+                            </h1>
+                            <p class="alert alert-info">
+                                Our powerful debt elimination system will generate a custom payment plan based on your unique, financial situation.
+                            </p>
+
+                            <div class="step-content container-fluid" style="margin-top: 10px;">
+                                <div class="step-pane" data-step="3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="well well-margin">
+                                                    <div class="et_pb_column et_pb_column_4_4  et_pb_column_0" style="width:100%;">
+
+                                                        <div class="text-center">
+                                                            <p class="text-center">With our software platform you can expect to pay off your home and all consumer debt in <b>{{(savingsCtrl.stepModel.PayoffTimeViaPlan).toFixed(1)}}</b>&nbsp;years and save a total of <b>{{savingsCtrl.stepModel.MoneySaved | currency}}</b>&nbsp;in interest.</p>
+                                                            <p style="text-align: center;">The projected value of a future savings/investment account earning &nbsp;<strong>{{savingsCtrl.stepModel.EstimatedInvestmentEarningsRate}}%</strong> annual growth would be <strong>{{savingsCtrl.stepModel.TotalEstimatedInvestment | currency}}</strong> when you plan to retire in&nbsp;<strong>{{savingsCtrl.stepModel.YearsUntilRetirement}}</strong>&nbsp;years.</p>
+                                                            <p style="text-align: center;">This is based on your funding the savings/investment account with your current discretionary income and the amount that had been allocated for your mortgage and customer debts which are now paid off.</p>
+                                                            
+
+                                                        </div>
+                                                    </div>
+                                                    <div style="clear:both;"></div>
+                                                    <h1>Summary of Your Debts and Your Savings Using this Program</h1>
+                                                    <div class="row text-center">
+                                                        <div class="col-md-4">
+                                                            <div class="well well-margin">
+                                                                <h1 class="txt-color-green">Using</h1>
+                                                                <h1 class="txt-color-green">Debt Elimination Program</h1>
+                                                                <h6>TOTAL DEBT: <span class="txt-color-green">{{savingsCtrl.stepModel.TotalPayedViaPlan | currency}}</span></h6>
+                                                                <h6>PAYOFF TIME: <span class="txt-color-green">{{savingsCtrl.stepModel.PayoffTimeViaPlan}} yrs</span></h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="well well-margin">
+                                                                <h1 class="txt-color-green">Without</h1>
+                                                                <h1 class="txt-color-green">Debt Elimination Program</h1>
+                                                                <h6>TOTAL DEBT: <span class="txt-color-green">{{savingsCtrl.stepModel.TotalPayed | currency}}</span></h6>
+                                                                <h6>PAYOFF TIME: <span class="txt-color-green">{{savingsCtrl.stepModel.PayoffTime}} yrs</span></h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="well well-margin">
+                                                                <h1 class="txt-color-green">Saved</h1>
+                                                                <h1 class="txt-color-green">Debt Elimination Program</h1>
+                                                                <h6>TOTAL INTEREST SAVED: <span class="txt-color-green">{{savingsCtrl.stepModel.MoneySaved | currency}}</span></h6>
+                                                                <h6>YEARS SAVED: <span class="txt-color-green">{{(savingsCtrl.stepModel.YearsSaved).toFixed(1)}} yrs</span></h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="well well-margin">
+                                                    <h1>Credit Card and Loan Balances Over Time Chart</h1>
+                                                    <!--<div class="row">
+                                                        <div class="form-group col-md-2 col-md-offset-5">
+                                                            <label>Chart</label>
+                                                            <select class="form-control"
+                                                                    ng-init="savingsCtrl.stepModel.DisplayMode = savingsCtrl.stepModel.DisplayMode.toString()"
+                                                                    ng-model="savingsCtrl.stepModel.DisplayMode"
+                                                                    ng-options="displayMode.Value as displayMode.Text for displayMode in savingsCtrl.stepModel.DisplayModes"
+                                                                    ng-change="savingsCtrl.changeDisplayMode()"></select>
+                                                        </div>
+                                                    </div>-->
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div>
+                                                                <div line-chart
+                                                                     line-data='savingsCtrl.stepModel.Chart.Data'
+                                                                     line-xkey='y'
+                                                                     line-ykeys='savingsCtrl.stepModel.Chart.YKeys'
+                                                                     line-labels='savingsCtrl.stepModel.Chart.Labels'>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+        </div>
+    </section>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#PlansDropdown').change(function () {
+            if ($(this).find('option:selected').val() == 0) {
+                console.log("disabled");
+                //$('#newAccessPoint').prop('disabled', true);
+            } else {
+                console.log("enabled");
+            }
+        });
+    });
+</script>

@@ -29,6 +29,12 @@ using Paralect.Domain;
 using mPower.WebApi.Authorization;
 using mPower.WebApi.Tenants.ViewModels;
 using Microsoft.IdentityModel.Tokens;
+using mPower.TempDocuments.Server.Notifications;
+using System.Net.Mail;
+using mPower.WebApi.Tenants.ViewModels.AffiliateAdmin;
+using mPower.TempDocuments.Server.Notifications.Messages;
+using System.Web.Configuration;
+
 
 namespace mPower.WebApi.Tenants.Controllers
 {
@@ -46,6 +52,7 @@ namespace mPower.WebApi.Tenants.Controllers
 
         public ICommandService CommandService { get; set; }
         public IApplicationTenant Tenant { get; set; }
+        private readonly DashboardAlertBuilder _dashboardAlertBuilder;
 
         public AuthenticationController(TokenAuthOptions tokenOptions, UserDocumentService userService,
             LedgerDocumentService ledgerService, MembershipService membershipService,
@@ -146,6 +153,21 @@ namespace mPower.WebApi.Tenants.Controllers
             return dbHandle;
         }
 
+        [HttpGet("GetApiTesting")]
+        public string GetApiTesting()
+        {
+            var dbHandle = "Successfully Called";
+            try
+            {
+                
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            return dbHandle;
+        }
+
         [HttpPost("register")]
         public IActionResult Register([FromBody]RegisterViewModel model)
         {
@@ -196,24 +218,29 @@ namespace mPower.WebApi.Tenants.Controllers
         [HttpPost("forgotPassword")]
         public IActionResult ForgotPassword(string email)
         {
+            string UserToken = "";
             if (string.IsNullOrEmpty(email))
             {
                 ModelState.AddModelError("Error", "An email address is required to retrieve a password");
                 return new BadRequestObjectResult(ModelState);
             }
-            var user = _userService.GetByFilter(new UserFilter { Email = email, AffiliateId = Tenant.ApplicationId }).SingleOrDefault();
+            //var user = _userService.GetByFilter(new UserFilter { Email = email, AffiliateId = Tenant.ApplicationId }).SingleOrDefault();
+            // While adding users, there is no mandatory field to select Accelerated Family Wealth. So if dropdown is not select the user will not abale to change his password.
+
+            var user = _userService.GetByFilter(new UserFilter { Email = email}).SingleOrDefault();
             if (user == null)
             {
                 ModelState.AddModelError("Error", "There are no users with such email!");
                 return new BadRequestObjectResult(ModelState);
             }
-
+     
             Send(user.Id, new User_UpdateResetPasswordTokenCommand
             {
                 UserId = user.Id,
-                Token = SecurityUtil.GetUniqueToken()
+                Token = UserToken= SecurityUtil.GetUniqueToken()
             });
 
+            sendMail(email, UserToken);
             return new OkResult();
         }
 
@@ -312,7 +339,9 @@ namespace mPower.WebApi.Tenants.Controllers
             var token = GetToken(identity, expires);
             return
                 new OkObjectResult(
-                    new { token, tokenExpires = expires, authenticated = true, ledgerId, hasAccounts });
+                    new { token, tokenExpires = expires, authenticated = true, ledgerId, hasAccounts, IsUserCreatedByAgent= user.IsCreatedByAgent,
+                        FullName = user.FullName
+                    });
         }
 
         private string GetToken(ClaimsIdentity identity, DateTime? expires)
@@ -338,6 +367,42 @@ namespace mPower.WebApi.Tenants.Controllers
                 command.Metadata.UserId = userId;
             }
             CommandService.Send(commands);
+        }
+
+        private void sendMail(string Email, string Token)
+        {
+            SendMailViewModel model = new SendMailViewModel();
+            string refURL= "";
+            var affiliate = _affiliateDocumentService.GetById(Tenant.ApplicationId);
+            var subj = affiliate.EmailContents.Where(x => x.IsDefaultForEmailType == Domain.Application.Enums.EmailTypeEnum.ForgotPassword).FirstOrDefault();
+            var smtp = affiliate.CreateSmptClient();
+            SendMailMessage message = new SendMailMessage();
+            message.IsBodyHtml = true;
+            
+            message.Subject = subj.Name;
+
+            string url = HttpContext.Request.Host.Host;
+
+            if(url.Contains("localhost"))
+            {
+                refURL = System.Configuration.ConfigurationManager.AppSettings["APIURLLocal"] + "resetPassword?token="+Token+"";
+            }
+            else if(url.Contains("staging"))
+            {
+                refURL = System.Configuration.ConfigurationManager.AppSettings["APIURLStaging"] + "resetPassword?token=" + Token + "";
+            }
+            else if(url.Contains("acceleratedfamilywealth"))
+            {
+                refURL = System.Configuration.ConfigurationManager.AppSettings["APIURLProduction"] + "resetPassword?token=" + Token + "";
+            }
+            message.Body = subj.Html.Replace("{{reset_password_link}}", "<a href='"+ refURL + "'>Reset Password</a>");
+            using (var mailMessage = new MailMessage { Subject = message.Subject, Body = message.Body, IsBodyHtml = message.IsBodyHtml })
+            {
+                mailMessage.From = new MailAddress(affiliate.Smtp.CredentialsEmail, affiliate.DisplayName);
+
+                    mailMessage.To.Add(Email);
+                    smtp.Send(mailMessage);
+            }
         }
         #endregion
     }

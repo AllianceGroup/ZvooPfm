@@ -1,0 +1,106 @@
+﻿<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header></header>
+                    <div>
+                        <div class="container-fluid" id="form-container">
+                            <h1>Quick Savings Analysis</h1>
+                            <p class="alert alert-info">
+                                Our powerful debt elimination system will generate a custom payment plan based on your unique, financial situation in three simple steps.
+                            </p>
+
+                            <div class="step-content container-fluid" style="margin-top: 10px;">
+                                <div class="step-pane" data-step="3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="well well-margin">
+                                                    <div class="et_pb_column et_pb_column_4_4  et_pb_column_0">
+
+                                                        <div class="text-center">
+                                                            <p class="text-center">With our software platform you can expect to pay off your home and all consumer debt in <b><i>{{(quickSavingsResultCtrl.stepModel.YearsSaved).toFixed(1)}}</i></b>&nbsp;years and save a total of <strong><em>{{quickSavingsResultCtrl.stepModel.MoneySaved | currency}}</em></strong>&nbsp;in interest.</p>
+                                                            <p style="text-align: center;">The projected value&nbsp;of a future investment account</p>
+                                                            <p style="text-align: center;">Years To Retirement&nbsp;<strong>25</strong>&nbsp;years</p>
+                                                            <p style="text-align: center;"><strong>$1,300,000</strong> .</p>
+                                                            <p>This is based on your funding the investment account with you discretionary income that is available once the mortgage and your consumer debts are paid off at an actual annual growth rate of&nbsp;5%.</p>
+
+                                                        </div>
+                                                    </div>
+                                                    <div style="clear:both;"></div>
+                                                    <h1>Summary of Your Debts and Your Savings Using this Program</h1>
+                                                    <div class="row text-center">
+                                                        <div class="col-md-4">
+                                                            <div class="well well-margin">
+                                                                <h1 class="txt-color-green">Using</h1>
+                                                                <div class="note">Debt Elimination Program</div>
+                                                                <h6>TOTAL DEBT: <span class="txt-color-green">{{quickSavingsResultCtrl.stepModel.TotalPayedViaPlan | currency}}</span></h6>
+                                                                <h6>PAYOFF TIME: <span class="txt-color-green">{{quickSavingsResultCtrl.stepModel.PayoffTimeViaPlan}} yrs</span></h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="well well-margin">
+                                                                <h1 class="txt-color-green">Without</h1>
+                                                                <div class="note">Debt Elimination Program</div>
+                                                                <h6>TOTAL DEBT: <span class="txt-color-green">{{quickSavingsResultCtrl.stepModel.TotalPayed | currency}}</span></h6>
+                                                                <h6>PAYOFF TIME: <span class="txt-color-green">{{quickSavingsResultCtrl.stepModel.PayoffTime}} yrs</span></h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="well well-margin">
+                                                                <h1 class="txt-color-green">Saved</h1>
+                                                                <div class="note">Money and Years</div>
+                                                                <h6>TOTAL DEBT: <span class="txt-color-green">{{quickSavingsResultCtrl.stepModel.MoneySaved | currency}}</span></h6>
+                                                                <h6>PAYOFF TIME: <span class="txt-color-green">{{(quickSavingsResultCtrl.stepModel.YearsSaved).toFixed(1)}} yrs</span></h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="alert alert-info" style="margin-top: 10px">The above figures show the time and money you could save by putting the amount you specified in Step 2 towards paying off your debt each month.</p>
+                                                </div>
+                                                <div class="well well-margin">
+                                                    <h1>Credit Card and Loan Balances Over Time Chart</h1>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-2 col-md-offset-5">
+                                                            <label>Chart</label>
+                                                            <select class="form-control"
+                                                                    ng-init="quickSavingsResultCtrl.stepModel.DisplayMode = quickSavingsResultCtrl.stepModel.DisplayMode.toString()"
+                                                                    ng-model="quickSavingsResultCtrl.stepModel.DisplayMode"
+                                                                    ng-options="displayMode.Value as displayMode.Text for displayMode in quickSavingsResultCtrl.stepModel.DisplayModes"
+                                                                    ng-change="quickSavingsResultCtrl.changeDisplayMode()"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div>
+                                                                <div line-chart
+                                                                     line-data='quickSavingsResultCtrl.stepModel.Chart.Data'
+                                                                     line-xkey='y'
+                                                                     line-ykeys='quickSavingsResultCtrl.stepModel.Chart.YKeys'
+                                                                     line-labels='quickSavingsResultCtrl.stepModel.Chart.Labels'>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+        </div>
+    </section>
+</div>

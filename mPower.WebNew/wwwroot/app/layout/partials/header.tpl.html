@@ -1,7 +1,7 @@
 <header id="header">
     <div id="logo-group">
     <!-- PLACE YOUR LOGO HERE -->
-        <span id="logo"> <img src="styles/img/Alliance-pfm.png" alt="SmartAdmin"> </span>
+        <span id="logo"> <img src="styles/img/AFW_Logo_300.png" alt="SmartAdmin"> </span>
     <!-- END LOGO PLACEHOLDER -->
     </div>
 
@@ -32,8 +32,8 @@
                 <li>
                     <a ng-click="authCtrl.getProfile()"><i class="fa fa-gear fa-lg"></i> My profile</a>
                 </li>
-                <li class="divider"></li>
-                <li>
+                <!--<li class="divider"></li>-->
+                <li style="display:none!important;">
                     <a ng-click="authCtrl.getMembership()"><i class="fa fa-lg fa-users"></i> My membership</a>
                 </li>
                 <li class="divider"></li>
@@ -63,6 +63,9 @@
                 <li>
                     <a ng-click="" data-ui-sref="business">Business Finances</a>
                 </li>
+                <li ng-if="authCtrl.isRoleAvailable(authCtrl.availableRoles.agent)">
+                    <a data-ui-sref="app.agentUser.users">Agent</a>
+                </li>
                 <li ng-if ="authCtrl.isRoleAvailable(authCtrl.availableRoles.affiliate)">
                     <a data-ui-sref="app.affiliateAdmin.users">Affiliate Admin</a>
                 </li>
@@ -70,6 +73,15 @@
                     <a data-ui-sref="app.globalAdmin.users">Global Admin</a>
                 </li>
             </ul>
+        </div>
+    </ul>
+
+
+    <ul class="header-dropdown-list padding-7" style="margin:4px,0px !important">
+        <div class="">
+            <span class="UserName">
+                Hello {{authCtrl.FullName}}
+            </span>
         </div>
     </ul>
  </div>

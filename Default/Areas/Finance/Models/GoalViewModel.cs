@@ -39,7 +39,7 @@ namespace Default.Areas.Finance.Models
             }
         }
 
-        [Range(1, (double)decimal.MaxValue)]
+        [Range(1, (double)decimal.MaxValue, ErrorMessage = "Monthly Contribution should be greater than 0")]
         [PropertyBinder(typeof(MoneyBinder))]
         public decimal MonthlyContribution { get; set; }
 

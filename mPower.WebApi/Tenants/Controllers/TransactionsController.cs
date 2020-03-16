@@ -18,6 +18,9 @@ using mPower.Framework.Services;
 using mPower.WebApi.Tenants.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using mPower.Aggregation.Contract.Domain.Enums;
+using mPower.Aggregation.Contract.Documents;
+using mPower.Documents.Documents.Accounting.Ledger;
 
 namespace mPower.WebApi.Tenants.Controllers
 {
@@ -27,12 +30,14 @@ namespace mPower.WebApi.Tenants.Controllers
     {
         private readonly IObjectRepository _objectRepository;
         private readonly TransactionDocumentService _transactionDocumentService;
+        private readonly LedgerDocumentService _ledgerService;
 
-        public TransactionsController(IObjectRepository objectRepository, TransactionDocumentService transactionDocumentService,
+        public TransactionsController(IObjectRepository objectRepository, TransactionDocumentService transactionDocumentService, LedgerDocumentService ledgerService,
             ICommandService command, IApplicationTenant tenant) :base(command, tenant)
         {
             _objectRepository = objectRepository;
             _transactionDocumentService = transactionDocumentService;
+            _ledgerService = ledgerService;
         }
 
         [HttpGet("filter")]
@@ -116,10 +121,23 @@ namespace mPower.WebApi.Tenants.Controllers
         [HttpPost("add")]
         public IActionResult Add([FromBody]AddStandardTransactionViewModel model)
         {
+            if (string.IsNullOrEmpty(model.AccountId))
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            if (string.IsNullOrEmpty(model.OffSetAccountId))
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
             //need to use NotEqualToProperty attribute 
             if (model.AccountId.Equals(model.OffSetAccountId))
             {
-                ModelState.AddModelError("AccountId", "Transaction category cannot be the same as the selected account");
+                return new BadRequestObjectResult(ModelState);
+            }
+            if (Math.Abs(model.AmountInDollars.ToDouble()) < double.Epsilon)
+            {
+                ModelState.AddModelError(string.Empty, "Cannot create a transaction with an amount of 0.00.");
+                return new BadRequestObjectResult(ModelState);
             }
             model.LedgerId = GetLedgerId();
 
@@ -233,6 +251,133 @@ namespace mPower.WebApi.Tenants.Controllers
                 CategorySelectList = groupedSelectListItems,
                 Paging = paging
             };
+        }
+
+
+        [HttpGet("importtransactions")]
+        public ImportTransactionViewModel ImportTransactions(string accountId = null)
+        {
+           
+            return _objectRepository.Load<ImportTransactionViewModel, ImportTransactionViewModel>(
+               new ImportTransactionViewModel
+               {
+                   AccountId = accountId,
+                   LedgerId = GetLedgerId()
+               });
+        }
+
+        [HttpPost("importtransactions")]
+        public IActionResult ImportTransactions([FromBody]ImportTransactionViewModel model)
+        {
+            if(model == null)
+            {
+                ModelState.AddModelError("Transactions", "Please, specify proper transaction data.");
+                return new BadRequestObjectResult(ModelState);
+            }
+            if (string.IsNullOrEmpty(model.AccountId))
+            {
+                ModelState.AddModelError("AccountId", "Please select account");
+                return new BadRequestObjectResult(ModelState);
+            }
+            model.LedgerId = GetLedgerId();
+            var ledger = _ledgerService.GetById(model.LedgerId);
+            var accounts = ledger.Accounts;
+            var account = ledger.Accounts.FirstOrDefault(x => x.Id== model.AccountId);
+
+            foreach (var item in model.Transactions)
+            {
+                AddStandardTransactionViewModel addModel = new AddStandardTransactionViewModel();
+                addModel.LedgerId = model.LedgerId;
+                addModel.AccountId = model.AccountId;
+                addModel.AmountInDollars = item.AmountInDollars.ToString();
+                addModel.BookedDate = item.BookedDate;
+                addModel.Memo = item.Memo;
+                addModel.OffSetAccountId = item.OffSetAccountId;
+                addModel.Payee = item.Payee;
+                addModel.ReferenceNumber = item.ReferenceNumber;
+                addModel.OffSetAccountId = GetOffestAccount(item.Category, ledger, Convert.ToInt64(item.AmountInDollars), account.LabelEnum);
+                addModel.TransactionType = GetTransactionType(account.LabelEnum, Convert.ToInt64(item.AmountInDollars));
+                addModel.ReferenceNumber = item.ReferenceNumber;
+
+                var cmd = _objectRepository.Load<AddStandardTransactionViewModel, Transaction_CreateCommand>(addModel);
+                Send(cmd);
+            }
+
+            var command = new Ledger_Account_AggregatedDateUpdateCommand
+            {
+                AccountId = model.AccountId,
+                LedgerId = model.LedgerId,
+                Date = DateTime.Now
+            };
+
+            Send(command);
+
+            return new OkResult();
+        }
+
+        private static string GetOffestAccount(string Categories, LedgerDocument ledger, long Amount, AccountLabelEnum transactiontype)
+        {
+            try
+            {
+                return ledger.Accounts.First(x =>
+                    Categories.Contains(x.Name) ||
+                    x.IntuitCategoriesNames.Any(y => Categories.Contains(y))).Id;
+            }
+            catch
+            {
+                string offsetAccountId;
+                switch (transactiontype)
+                {
+                    case AccountLabelEnum.Bank:
+                    case AccountLabelEnum.Investment:
+                        offsetAccountId = Amount > 0
+                                              ? BaseAccounts.UnCategorizedIncome
+                                              : BaseAccounts.UnCategorizedExpense;
+                        break;
+                    case AccountLabelEnum.CreditCard:
+                    case AccountLabelEnum.Loan:
+                        offsetAccountId = Amount < 0
+                                              ? BaseAccounts.Payments
+                                              : BaseAccounts.UnCategorizedExpense;
+                        break;
+                    default:
+                        throw new Exception("Provided transaction type does not supported by system :" +
+                                            transactiontype);
+                }
+                var account = ledger.Accounts.FirstOrDefault(x => x.Id == offsetAccountId);
+                if (account == null)
+                {
+                    throw new Exception(
+                        string.Format(
+                            "Can't find default offset account with ID: {0} for imported transaction with ID: {1}",
+                            offsetAccountId));
+                }
+                return offsetAccountId;
+            }
+        }
+
+
+        private static TransactionType GetTransactionType(AccountLabelEnum intuitType, long amountInCents)
+        {
+            TransactionType type;
+            switch (intuitType)
+            {
+                case AccountLabelEnum.Bank:
+                case AccountLabelEnum.Investment:
+                    type = amountInCents > 0 ? TransactionType.Deposit : TransactionType.Check;
+                    break;
+                case AccountLabelEnum.CreditCard:
+                    type = amountInCents > 0 ? TransactionType.CreditCard : TransactionType.Check;
+                    break;
+                case AccountLabelEnum.Loan:
+                    type = TransactionType.Check;
+                    break;
+
+                default:
+                    throw new Exception("Provided intuit transaction type does not supported by system :" + intuitType);
+            }
+
+            return type;
         }
     }
 }

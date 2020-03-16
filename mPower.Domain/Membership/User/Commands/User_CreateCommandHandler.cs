@@ -34,6 +34,9 @@ namespace mPower.Domain.Membership.User.Commands
                 BirthDate = message.BirthDate,                                
                 Gender = message.Gender,                                
                 ReferralCode = message.ReferralCode,
+                IsAgent= message.IsAgent,
+                CreatedBy=message.CreatedBy,
+                IsCreatedByAgent=message.IsCreatedByAgent
             };
 
             var user = new UserAR(data);

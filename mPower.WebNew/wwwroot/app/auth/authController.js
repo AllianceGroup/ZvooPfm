@@ -17,7 +17,10 @@ angular.module('app.auth').controller('AuthController', ['authService', '$locati
                 level = ctrl.availableRoles.affiliate;
             } else if (path.indexOf("/GlobalAdmin") === 0) {
                 level = ctrl.availableRoles.global;
-            } else
+            } else if (path.indexOf("/agent") === 0) {
+                level = ctrl.availableRoles.agent;
+            }
+            else
                 level = ctrl.availableRoles.pfm;
 
             return level;

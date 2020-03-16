@@ -76,7 +76,7 @@
   "resolutions": {
     "jquery": ">=2.2.4",
     "angular": "1.5.7",
-    "lodash": "~4.17.0",
-    "jquery-validation": ">=1.16"
+    "jquery-validation": ">=1.16",
+    "lodash": ">=3.8.0"
   }
 }

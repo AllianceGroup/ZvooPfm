@@ -31,6 +31,9 @@ namespace mPower.Domain.Membership.User
                 BirthDate = data.BirthDate,
                 Gender = data.Gender,
                 ReferralCode = data.ReferralCode,
+                IsAgent = data.IsAgent,
+                CreatedBy = data.CreatedBy,
+                IsCreatedByAgent=data.IsCreatedByAgent
             });
         }
 
@@ -71,7 +74,7 @@ namespace mPower.Domain.Membership.User
             });
         }
 
-        public void Update(string firstName, string lastName, string email, string zipCode, DateTime? birthDate, GenderEnum? gender)
+        public void Update(string firstName, string lastName, string email, string zipCode, DateTime? birthDate, GenderEnum? gender, bool IsAgent)
         {
             Apply(new User_UpdatedEvent
             {
@@ -82,6 +85,7 @@ namespace mPower.Domain.Membership.User
                 ZipCode = zipCode,
                 BirthDate = birthDate,
                 Gender = gender,
+                IsAgent= IsAgent
             });
         }
 
@@ -527,13 +531,14 @@ namespace mPower.Domain.Membership.User
             });
         }
 
-        public void UpdateSecuritySettings(bool enableAdminAccess, bool intuitLoggingEnabled)
+        public void UpdateSecuritySettings(bool enableAdminAccess, bool intuitLoggingEnabled, bool enableAgentAccess)
         {
             Apply(new User_SecuritySettingsUpdatedEvent
                       {
                           UserId = _id,
                           EnableAdminAccess = enableAdminAccess,
-                          EnableIntuitLogging = intuitLoggingEnabled
+                          EnableIntuitLogging = intuitLoggingEnabled,
+                          EnableAgentAccess=enableAgentAccess
                       });
         }
 

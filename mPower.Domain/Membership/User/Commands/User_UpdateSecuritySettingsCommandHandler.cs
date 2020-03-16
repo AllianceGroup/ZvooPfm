@@ -20,7 +20,7 @@ namespace mPower.Domain.Membership.User.Commands
         {
             var ar = _repository.GetById<UserAR>(message.UserId);
             ar.SetCommandMetadata(message.Metadata);
-            ar.UpdateSecuritySettings(message.EnableAdminAccess, message.EnableAggregationLogging);
+            ar.UpdateSecuritySettings(message.EnableAdminAccess, message.EnableAggregationLogging, message.EnableAgentAccess);
             _repository.Save(ar);
             if (!message.EnableAggregationLogging)
             {

@@ -29,5 +29,8 @@ namespace mPower.Documents.DocumentServices.Membership.Filters
         public string AffiliateAdminSearchKey { get; set; }
 
         public int? SubscriptionId { get; set; }
+        public bool IsAgent { get; set; }
+        public bool IsCreatedByAgent { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

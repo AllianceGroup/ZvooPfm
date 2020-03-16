@@ -1,0 +1,106 @@
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header><h2>Manage users</h2></header>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <p ng-repeat="error in usersAgentCtrl.errors" class="alert alert-danger">{{error}}</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" ng-model="usersAgentCtrl.SearchKey">
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" ng-click="usersAgentCtrl.refreshUsers()" class="btn btn-info"><i class="fa fa-search"></i> Search</button>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="text-right">
+                                        <button class="btn btn-info" ng-click="usersAgentCtrl.addUser()"><i class="fa fa-user-plus"></i> ADD USER</button>
+                                        <!--<button class="btn btn-success" ng-click="usersAgentCtrl.exportUsers()"><i class="fa fa-file"></i> Export to CSV</button>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-hover" style="margin-top: 20px">
+                                        <thead>
+                                        <tr>
+                                            <th>Created on</th>
+                                            <th>Name</th>
+                                            <th>User name</th>
+                                            <th>Email</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="user in usersAgentCtrl.usersList.Users">
+                                            <td>{{user.CreateDate | date: 'MM/dd/yyyy'}}</td>
+                                            <td>{{user.FullName}}</td>
+                                            <td>{{user.UserName}}</td>
+                                            <td>{{user.Email}}</td>
+                                            <!--<td>
+                                                <button ng-class="usersAgentCtrl.roles.AgentEdit ? '' : 'disabled'"
+                                                        title="active/de-activate user" class='btn btn-xs btn-default' ng-click="usersAgentCtrl.toggleUserIsActive(user.Id)">
+                                                    <i ng-if="user.IsActive" class='fa fa-circle txt-color-green'></i>
+                                                    <i ng-if="!user.IsActive" class='fa fa-circle txt-color-red'></i>
+                                                </button>
+                                                </td>-->
+                                            <td>
+                                                <button class='btn btn-xs btn-default' title="edit user" ng-click="usersAgentCtrl.editUser(user.Id)"><i class='fa fa-pencil'></i></button>
+                                                <button class='btn btn-xs btn-default' title='log in as user' ng-click="usersAgentCtrl.loginAsUser(user.Id)"><i class='fa fa-laptop'></i></button>
+                                                <!--<button class='btn btn-xs btn-default' title='view user activity logs' ng-click="usersAgentCtrl.activity(user.Id, 1)"><i class='fa fa-file-text-o'></i></button>
+                                                <button class='btn btn-xs btn-default' title='extended user details' ng-click="usersAgentCtrl.userInfo(user.Id)"><i class='fa fa-user'></i></button>
+                                                <button  class='btn btn-xs btn-danger' title='delete user' ng-click="usersAgentCtrl.confirmDelete(user.Id)"><i class='fa fa-times'></i></button>-->
+                                            </td>
+                                        </tr> 
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h3>Showing {{usersAgentCtrl.usersList.Paging.IndexOfFirstItem}} - {{usersAgentCtrl.usersList.Paging.IndexOfLastItem}} of {{usersAgentCtrl.usersList.Paging.TotalCount}}</h3>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <uib-pagination
+                                                    total-items="usersAgentCtrl.usersList.Paging.TotalCount"
+                                                    ng-model="usersAgentCtrl.usersList.Paging.CurrentPage"
+                                                    ng-change="usersCtrl.refreshUsers()"
+                                                    items-per-page="usersAgentCtrl.usersList.Paging.ItemsPerPage"
+                                                    rotate="false"
+                                                    boundary-link-numbers="true"
+                                                    max-size="7">
+                                            </uib-pagination>
+                                        </div>
+                                    </div>
+                                    <div ng-if="usersAgentCtrl.roles.Agent" class="row" style="margin-bottom: 20px;">
+                                        <div class="select col-md-2">
+                                            <select class="form-control" ng-model="usersAgentCtrl.bulkOption">
+                                                <option value="">--Bulk Options--</option>
+                                                <!--<option ng-if="usersAgentCtrl.roles.AgentDelete" value="Delete">Delete Selected</option>-->
+                                                <option value="Deactivate">Deactivate Selected</option>
+                                                <option value="Activate">Activate Selected</option>
+                                            </select><i></i>
+                                        </div>
+                                        <div>
+                                            <button class='btn btn-default' ng-click="usersAgentCtrl.bulk()">Go <i class='fa fa-lg fa-angle-double-right'></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

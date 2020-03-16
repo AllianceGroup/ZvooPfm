@@ -126,6 +126,8 @@ namespace mPower.Framework
 
         public MongoCollection Advisers => Database.GetCollection("advisers");
 
+        public MongoCollection MarketHistoryData => Database.GetCollection("MarketHistoryData");
+
         public MongoCollection GetCollection(string name)
         {
             return Database.GetCollection(name);

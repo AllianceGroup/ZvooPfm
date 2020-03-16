@@ -11,7 +11,7 @@
                            ng-model="step2Ctrl.model.Title"/>
                 </div>
                 <div class="form-group">
-                    <label>I already have</label>
+                    <label>Amount already saved, must be greater than 0</label>
                     <input type="text" class="form-control"
                            ng-currency
                            ng-model="step2Ctrl.model.StartingBalance"
@@ -71,10 +71,10 @@
             </div>
         </div>
         <p class="row">
-            <div class="col-md-6 text-left"><button class="btn btn-danger" ui-sref="app.personal.goals.items">Cancel</button></div>
+            <div class="col-md-6 text-left"><button class="btn btn-danger" ui-sref="app.personal.goals.items">CANCEL</button></div>
             <div class="col-md-6 text-right">
-                <button class="btn btn-info" ng-if="step2Ctrl.hasPrevStepModel" ng-click="step2Ctrl.back()">Back</button>
-                <button class="btn btn-success" ng-click="step2Ctrl.createGoal()">Save goal</button>
+                <button class="btn btn-info" ng-if="step2Ctrl.hasPrevStepModel" ng-click="step2Ctrl.back()">BACK</button>
+                <button class="btn btn-success" ng-click="step2Ctrl.createGoal()">SAVE GOAL</button>
             </div>
         </p>
     </div>

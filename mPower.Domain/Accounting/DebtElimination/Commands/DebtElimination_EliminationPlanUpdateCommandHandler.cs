@@ -17,9 +17,13 @@ namespace mPower.Domain.Accounting.DebtElimination.Commands
             var debtEliminationAr = _repository.GetById<DebtEliminationAR>(message.Id);
 
             debtEliminationAr.SetCommandMetadata(message.Metadata);
-            debtEliminationAr.UpdateEliminationPlan(message.PlanId, message.MonthlyBudgetInCents);
+            debtEliminationAr.UpdateEliminationPlan(message.PlanId, message.MonthlyBudgetInCents, message.EstimatedInvestmentEarningsRate, message.YearsUntilRetirement,
+                message.AmountToSavings, message.LumpSumAmount, message.NewLoanAmount, message.CurrentDebtMonth, message.LoanInterestRate, message.MaxLoans,
+                message.CurrentSavingsTotal, message.CurrentDeathBenefit, message.DeathBenefitTerminatesAge, message.MonthlySavingsContribution,
+                message.Term1, message.Term2, message.Term1Amount, message.Term2Amount
+                , message.MonthlyContributionFBS, message.BudgetForFBS);
 
-            _repository.Save(debtEliminationAr);
+            _repository.Save(debtEliminationAr); 
         }
     }
 }

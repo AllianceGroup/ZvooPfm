@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="addUserAgentCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Add New User
+    </h4>
+</div>
+<div class="modal-body row">
+    <form id="smart-form-register" class="smart-form" data-smart-registration-form>
+        <fieldset>
+            <section>
+                <div class="row">
+                    <p ng-repeat="error in addUserAgentCtrl.errors" class="alert alert-danger">{{error}}</p>
+                </div>
+            </section>
+            <section>
+                <label>Email</label>
+                <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                    <input type="email" name="email" ng-model="addUserAgentCtrl.user.Email">
+                </label>
+            </section>
+
+            <section>
+                <label>User name</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input type="text" name="username" ng-model="addUserAgentCtrl.user.UserName">
+                </label>
+            </section>
+
+            <section>
+                <label>First name</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input type="text" name="username" ng-model="addUserAgentCtrl.user.FirstName">
+                </label>
+            </section>
+
+            <section>
+                <label>Last name</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                    <input type="text" name="username" ng-model="addUserAgentCtrl.user.LastName">
+                </label>
+            </section>
+
+            <section>
+                <label>Password</label>
+                <label class="input"> <i class="icon-append fa fa-lock"></i>
+                    <input type="password" name="password" ng-model="addUserAgentCtrl.user.NewPassword" id="password">
+                </label>
+            </section>
+
+            <section>
+                <label>Affiliate</label>
+                <select class="form-control" ng-model="addUserAgentCtrl.user.AffiliateId">
+                    <option ng-repeat="(key, name) in addUserAgentCtrl.user.Affiliates"
+                            value="{{key}}">{{name}}</option>
+                </select>
+            </section>
+
+            <!--<section>
+                <label>Permissions: </label>
+                <label>
+                    <input ng-change="addUserAgentCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="addUserAgentCtrl.user.Agent">
+                    <span>Agent</span>
+                </label>
+                <label>
+                    <input ng-change="addUserAgentCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="addUserAgentCtrl.user.AgentEdit">
+                    <span>Edit Agent</span>
+                </label>
+                <label>
+                    <input ng-change="addUserAgentCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="addUserAgentCtrl.user.AgentDelete">
+                    <span>Delete Agent</span>
+                </label>
+            </section>-->
+        </fieldset>
+        <footer>
+            <button type="submit" class="btn btn-primary" ng-click="addUserAgentCtrl.addUser()">
+                ADD USER
+            </button>
+        </footer>
+    </form>
+</div>

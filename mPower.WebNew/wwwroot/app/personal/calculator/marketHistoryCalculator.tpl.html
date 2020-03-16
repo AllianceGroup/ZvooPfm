@@ -1,0 +1,193 @@
+﻿
+<script>
+ 
+
+    function negativeValueRenderer(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.NumericRenderer.apply(this, arguments);
+     
+        if (col === 0) {
+            td.className = 'blueBackground';
+
+        }
+        else {
+            // if row contains negative number
+            if (parseFloat(value) < 0) {
+                // add class "negative"
+                td.className = 'make-me-red';
+            }
+            else {
+                td.className = 'center';
+            }
+        }
+
+    }
+
+    function createRows()
+    {
+
+        var count = (new Date().getFullYear()) - $('#txtFY').val();
+        var year = parseInt($('#txtFY').val());
+        
+        for(var i=1;i<=count+1;i++)
+        {
+
+            dataArray.push({
+                Year: year,
+                DJI: '',
+                SPWithoutDividends: '',
+                SPWithDividends: '',
+            });
+            year += 1;
+         }
+
+        summaryDataArray.push({
+            Year: 'Average ROR',
+            DJI: '',
+            SPWithoutDividends: '',
+            SPWithDividends: '',
+        });
+        summaryDataArray.push({
+            Year: 'Actual ROR',
+            DJI: '',
+            SPWithoutDividends: '',
+            SPWithDividends: '',
+        });
+
+    }
+
+   
+
+    
+
+    $(document).ready(function () {
+        
+        $('#hot-display-license-info').remove();
+        $('#hot-display-license-info').empty();
+
+        //$('#txtLY').val(new Date().getFullYear() - 1);
+        //$('#txtFY').prop("max", new Date().getFullYear() - 1);
+        //$('#txtLY').prop("max", new Date().getFullYear() - 1);
+        
+    })
+
+</script>
+
+<style type="text/css">
+    .handsontable table thead th {
+  white-space: pre-line;
+  max-width: 100px;
+  height:46px;
+}
+    .make-me-red {
+        color: #f00;
+        text-align: center !important;
+        /*font-size: large !important;*/
+        font-weight: bold !important;
+    }
+
+    .blueBackground {
+        background-color: #9999FF !important;
+        color: black;
+        text-align: center !important;
+        /*font-size: large !important;*/
+        font-weight: bold !important;
+    }
+
+    .center {
+        text-align: center;
+        /*font-size: large;*/
+        font-weight: bold;
+    }
+   .ht_clone_top th{
+        vertical-align: bottom !important;
+    }
+
+   .headerSection-col{
+      float: left;
+    width: 50%;
+   }
+   .headerSection-row
+   {
+        display: table;
+        width: 100%;
+        color: #646466;
+        font-size: 12px;
+        margin: 0 0 4px 0;
+   }
+   .headerSection-col-1{
+            display: table-cell;
+    width: 150px;
+    font-weight: bolder;
+    text-align: right;
+    padding:0 6px 2px 0px;
+    /*font-size: larger;*/
+    vertical-align: middle;
+   }
+   .headerSection-col-2{
+        display: table-cell;
+        text-align: left;
+   }
+   input{
+       line-height: 21px;
+       border: 1px solid #ccc;
+       width:150px;
+   }
+   
+</style>
+<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header>
+                        <h2 class="ng-binding">Market History Calculator</h2>
+                    </header>
+                    <div>
+                         
+                        <div class="container-fluid" id="form-container">
+                           <div class="row">
+                               <div class="headerSection-col">
+                                   <div class="headerSection-row">
+                                       <div class="headerSection-col-1"> First Year: </div>
+                                       <div class="headerSection-col-2"><input type="number" id="txtFY"  min="0" value="1930"/></div>
+                                   </div>
+                                   <div class="headerSection-row">
+                                       <div class="headerSection-col-1">Last Year: </div>
+                                       <div class="headerSection-col-2"><input type="number" id="txtLY" min="0"  /></div>
+                                   </div>
+                               </div>
+                               <div class="headerSection-col">
+                                   <div class="headerSection-row">
+                                       <div class="headerSection-col-1">Present Value: </div>
+                                       <div class="headerSection-col-2"><input type="number" id="txtPV" min="0" oninput="validity.valid||(value='');" /></div>
+                                   </div>
+                                   <div class="headerSection-row">
+                                       <div class="headerSection-col-1">Annual Payment: </div>
+                                       <div class="headerSection-col-2"><input type="number" id="txtAP" min="0" oninput="validity.valid||(value='');" /></div>
+                                   </div>
+
+                               </div>
+                           </div>
+                      
+
+                            <div class="" style="margin-top: 10px;padding:20px">
+                                <div style="margin:auto">
+                                    <div id="summary" class="hot handsontable htColumnHeaders"></div>
+                                    <div id="marketHistory" class="hot handsontable htColumnHeaders"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

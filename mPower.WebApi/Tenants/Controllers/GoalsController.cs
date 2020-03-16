@@ -369,7 +369,7 @@ namespace mPower.WebApi.Tenants.Controllers
             var currentMonthAmountPlanned = (long)Math.Round(doc.MonthlyPlanAmountInCents * currentMonthPart, 0);
             actualAmount -= Math.Min(currentMonthAmountActual, currentMonthAmountPlanned);
 
-            doc.MonthsAheadNumber = (int)((actualAmount - plannedAmount) / doc.MonthlyPlanAmountInCents);
+            doc.MonthsAheadNumber = doc.MonthlyPlanAmountInCents == 0 ? 0 :(int)((actualAmount - plannedAmount) / doc.MonthlyPlanAmountInCents);
             doc.CalcDate = now;
 
             _goalService.UpdateCalculatedData(doc.UserId, doc.GoalId, doc.MonthsAheadNumber, doc.CalcDate.Value);

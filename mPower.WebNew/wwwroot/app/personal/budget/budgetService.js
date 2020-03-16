@@ -19,6 +19,7 @@ angular.module('app.personal').service('budgetService', ['http', function(http) 
     this.Create = function(model){
         var url = "/budget/CreateBudget";
         return http.post(url, model);
+        console.log(model);
     };
 
     this.Add = function(model){

@@ -7,6 +7,7 @@ namespace mPower.Domain.Membership.User.Commands
         public string UserId { get; set; }
 
         public bool EnableAdminAccess { get; set; }
+        public bool EnableAgentAccess { get; set; }
 
         public bool EnableAggregationLogging { get; set; }
     }

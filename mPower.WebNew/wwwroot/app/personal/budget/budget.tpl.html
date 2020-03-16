@@ -118,7 +118,7 @@
                                                     <li class="list-group-item sub-budget-item" ng-repeat="sub in item.SubBudgets">
                                                         <div class="row">
                                                             <h4 class="col-md-5 text-left">{{sub.AccountName}}</h4>
-                                                            <button class="btn btn-info col-md-2 text-center" ng-click="BudgetCtrl.ViewTransactions(sub.Id, sub.AccountName)">View transactions</button>
+                                                            <button class="btn btn-info col-md-2 text-center" ng-click="BudgetCtrl.ViewTransactions(sub.Id, sub.AccountName)">VIEW TRANSACTIONS</button>
                                                             <h5 class="col-md-5 text-right">{{sub.AmountSpent | centsCurrency}}</h5>
                                                         </div>
                                                     </li>
@@ -149,7 +149,7 @@
                                         </span>
                                 </div>
                                 <div style="margin-top: 20px;">
-                                    <button ng-click="BudgetCtrl.EditCategories()" class="btn btn-success">set up my budget!</button>
+                                    <button ng-click="BudgetCtrl.EditCategories()" class="btn btn-success">SET UP MY BUDGET!</button>
                                 </div>
                             </form>
                         </div>

@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace mPower.WebApi.Tenants.Controllers
 {
-    [Authorize("Pfm")]
+    //[Authorize("Pfm")]
     [Route("api/[controller]")]
     public class DashboardController : BaseController
     {

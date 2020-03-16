@@ -83,11 +83,23 @@
                     <input ng-change="addUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="addUserGlobalCtrl.user.GlobalAdminDelete">
                     <span>Delete global admin</span>
                 </label>
+                <label>
+                    <input ng-change="addUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="addUserGlobalCtrl.user.Agent">
+                    <span>Agent</span>
+                </label>
+                <!--<label>
+                    <input ng-change="addUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="addUserGlobalCtrl.user.AgentEdit">
+                    <span>Edit Agent</span>
+                </label>
+                <label>
+                    <input ng-change="addUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="addUserGlobalCtrl.user.AgentDelete">
+                    <span>Delete Agent</span>
+                </label>-->
             </section>
         </fieldset>
         <footer>
             <button type="submit" class="btn btn-primary" ng-click="addUserGlobalCtrl.addUser()">
-                Add User
+                ADD USER
             </button>
         </footer>
     </form>

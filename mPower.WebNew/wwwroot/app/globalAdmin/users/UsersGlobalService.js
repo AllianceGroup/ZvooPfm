@@ -3,7 +3,7 @@
 angular.module('app.globalAdmin').service('usersGlobalService', ['http', 'localStorageService', 'authService', function(http, localStorageService, authService){
 
     this.getUsers = function(){
-        var url = '/Global';
+        var url = '/Global/GetUsers';
         return http.get(url);
     };
 

@@ -41,12 +41,11 @@ namespace mPower.Documents.Documents.Affiliate
         {
             get { return MatchedUsers.Count; }
         }
+        public double Past30DaysGrowthInPct { get; set; }
 
-        public float Past30DaysGrowthInPct { get; set; }
+        public double Past60DaysGrowthInPct { get; set; }
 
-        public float Past60DaysGrowthInPct { get; set; }
-
-        public float Past90DaysGrowthInPct { get; set; }
+        public double Past90DaysGrowthInPct { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
 

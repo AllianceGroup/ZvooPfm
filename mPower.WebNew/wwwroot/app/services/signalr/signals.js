@@ -22,7 +22,7 @@ angular.module("app.infrastructure")
         var initialize = function () {
             $.connection.hub.url = webapiUrl + 'signalr/hubs';
             $.connection.logging = true;
-
+           
             hubs.ledgerHub = $.connection.ledgerHub;
 
             hubs.ledgerHub.client.accountUpdated = function (obj) {

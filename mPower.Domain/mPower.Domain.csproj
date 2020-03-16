@@ -271,6 +271,7 @@
       <DependentUpon>DebtElimination_MortgageProgram_UpdateCommand.cs</DependentUpon>
     </Compile>
     <Compile Include="Accounting\DebtElimination\Data\DebtItemData.cs" />
+    <Compile Include="Accounting\DebtElimination\Data\EstimatedInvestment.cs" />
     <Compile Include="Accounting\DebtElimination\Data\MortgageProgramData.cs" />
     <Compile Include="Accounting\DebtElimination\DebtEliminationAR.cs" />
     <Compile Include="Accounting\DebtElimination\Events\DebtElimination_AddedToCalendarEvent.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Accounting\Enums\BaseAccountsEnum.cs" />
     <Compile Include="Accounting\Enums\CalendarEventFrequencyEnum.cs" />
     <Compile Include="Accounting\Enums\CalendarTypeEnum.cs" />
+    <Compile Include="Accounting\Enums\QuickSavingCompoundEnum.cs" />
     <Compile Include="Accounting\Enums\TimeSpanFilterEnum.cs" />
     <Compile Include="Accounting\Enums\ContentServiceTypesEnum.cs" />
     <Compile Include="Accounting\Enums\DayAsPartOfEnum.cs" />
@@ -340,6 +342,7 @@
     <Compile Include="Accounting\Ledger\Account.cs" />
     <Compile Include="Accounting\Ledger\AccountBalanceDelta.cs" />
     <Compile Include="Accounting\Ledger\AccountCollection.cs" />
+    <Compile Include="Accounting\Ledger\Commands\Ledger_Account_AggregatedDateUpdateCommand.cs" />
     <Compile Include="Accounting\Ledger\Commands\Ledger_Account_AggregationStatus_UpdateCommand.cs" />
     <Compile Include="Accounting\Ledger\Commands\Ledger_Account_AggregationStatus_UpdateCommandHandler.cs">
       <DependentUpon>Ledger_Account_AggregationStatus_UpdateCommand.cs</DependentUpon>
@@ -416,6 +419,7 @@
     <Compile Include="Accounting\Ledger\Events\Ledger_Account_AggregatedBalanceUpdatedEvent.cs" />
     <Compile Include="Accounting\Ledger\Events\Ledger_Account_ArchivedEvent.cs" />
     <Compile Include="Accounting\Ledger\Events\Ledger_Account_BalanceChangedEvent.cs" />
+    <Compile Include="Accounting\Ledger\Events\Ledger_Account_DateLastAggregated_ChangedEvent.cs" />
     <Compile Include="Accounting\Ledger\Events\Ledger_Account_InterestRate_ChangedEvent.cs" />
     <Compile Include="Accounting\Ledger\Events\Ledger_Account_IsUpdating_ChangedEvent.cs" />
     <Compile Include="Accounting\Ledger\Events\Ledger_Account_RemovedEvent.cs" />

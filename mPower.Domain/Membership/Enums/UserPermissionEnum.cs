@@ -11,7 +11,10 @@ namespace mPower.Domain.Membership.Enums
         AffiliateAdminDelete = 12,
         GlobalAdminView = 13,
         GlobalAdminEdit = 14,
-        GlobalAdminDelete = 15
+        GlobalAdminDelete = 15,
+        Agent = 16,
+        //AgentEdit = 17,
+        //AgentDelete = 18,
     }
 
     public enum ApplicationsEnum

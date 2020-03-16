@@ -86,10 +86,10 @@ angular.module('app.personal').controller('EliminationProgramController',
                 })
             };
 
-            ctrl.proceedToStep2 = function (isCheck){
+            ctrl.proceedToStep2 = function (isCheck){debugger
                 ctrl.errors = [];
                 if(ctrl.hasDebtElimination !== null && !isCheck){
-                    debttoolsService.getStep2Model().then(function(stepModel){
+                    debttoolsService.getStep2Model().then(function(stepModel){debugger
                         $('#Wizard').wizard('selectedItem', {
                             step: 2
                         });
@@ -97,8 +97,8 @@ angular.module('app.personal').controller('EliminationProgramController',
                     });
                 }
                 else{
-                    debttoolsService.proceedToStep2({ DebtIds: ctrl.selectedDebts }).then(function() {
-                        debttoolsService.getStep2Model().then(function(stepModel){
+                    debttoolsService.proceedToStep2({ DebtIds: ctrl.selectedDebts }).then(function() {debugger
+                        debttoolsService.getStep2Model().then(function(stepModel){debugger
                             ctrl.stepModel = stepModel;
                             $('#Wizard').wizard('selectedItem', {
                                 step: 2
@@ -131,8 +131,8 @@ angular.module('app.personal').controller('EliminationProgramController',
                         ctrl.stepModel.DisplayMode = ctrl.stepModel.DisplayMode.toString();
                     });
                 }
-                else{
-                    debttoolsService.proceedToStep3({ Plan: ctrl.stepModel.Plan, MonthlyBudget: ctrl.stepModel.MonthlyBudget }).then(function() {
+                else {
+                    debttoolsService.proceedToStep3({ Plan: ctrl.stepModel.Plan, MonthlyBudget: ctrl.stepModel.MonthlyBudget, YearsUntilRetirement: ctrl.stepModel.YearsUntilRetirement, EstimatedInvestmentEarningsRate: ctrl.stepModel.EstimatedInvestmentEarningsRate }).then(function () {                        
                         debttoolsService.getStep3Model().then(function(stepModel){
                             ctrl.stepModel = stepModel;
                             ctrl.stepModel.DisplayMode = ctrl.stepModel.DisplayMode.toString();

@@ -105,11 +105,23 @@
                     <input ng-change="editUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.GlobalAdminDelete">
                     <span>Delete global admin</span>
                 </label>
+                <label>
+                    <input ng-change="editUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.Agent">
+                    <span>Agent</span>
+                </label>
+                <!--<label>
+                    <input ng-change="editUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.AgentEdit">
+                    <span>Edit Agent</span>
+                </label>
+                <label>
+                    <input ng-change="editUserGlobalCtrl.checkPermissions()" type="checkbox" class="checkbox style-0" ng-model="editUserGlobalCtrl.user.AgentDelete">
+                    <span>Delete Agent</span>
+                </label>-->
             </section>
         </fieldset>
         <footer>
             <button type="submit" class="btn btn-primary" ng-click="editUserGlobalCtrl.updateProfile()">
-                Update
+                UPDATE
             </button>
         </footer>
     </form>

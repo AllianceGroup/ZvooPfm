@@ -1,5 +1,4 @@
 <aside id="left-panel">
-
     <nav>
         <ul>
             <li data-ui-sref-active="active">
@@ -38,13 +37,60 @@
                     <span class="menu-item-parent">Trends</span>
                 </a>
             </li>
+            <li data-ui-sref-active="active">
+                <a href="#" title="Quick Savings Analysis" data-ui-sref="app.personal.quicksavings" ui-sref-opts="{reload: 'app.personal.quicksavings'}">
+                    <i class="glyphicon glyphicons-piggy-bank"></i>
+                    <span class="menu-item-parent">Quick Savings Analysis</span>
+                </a>
+            </li>
+            <li data-ui-sref-active="active">
+                <a href="#" title="Calculators" data-ui-sref="app.personal.calculator" ui-sref-opts="{reload: 'app.personal.calculator'}">
+                    <i class="glyphicon glyphicon-equalizer"></i>
+                    <span class="menu-item-parent">Calculators</span>
+                </a>
+            </li>
+            <li data-ui-sref-active="active" ng-if="!authCtrl.IsUserCreatedByAgent">
+
+                    <ul class="dropdown-menu pull-right user-dropdown__menu" style="width:220px!important">
+                        <!--<li>
+                            <a title="Family Bank Plan Calculator" target="_self" download="FBP_Calculator_-_AFW080117-1" href="../../../../lib/excels/FBP_Calculator_-_AFW080117-1.xlsx">
+                                <i class="fa fa-lg fa-fw fa-wrench"></i>
+                                <span class="menu-item-parent">Family Bank Plan Calculator</span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>-->
+                        <li>
+                            <a href="#" title="Market History Calculator" data-ui-sref="app.personal.marketHistoryCalculator" ui-sref-opts="{reload: 'app.personal.marketHistoryCalculator'}">
+                                <i class="glyphicon glyphicon-equalizer"></i>
+                                <span class="menu-item-parent">Market History Calculator</span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#" title="Family Banking Calculator" data-ui-sref="app.personal.cashFlowCalculator" ui-sref-opts="{reload: 'app.personal.cashFlowCalculator'}">
+                                <i class="glyphicon glyphicon-equalizer"></i>
+                                <span class="menu-item-parent">Family Banking Calculator</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                    <a title="Financial Tools" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-lg fa-fw fa-wrench"></i>
+                        <span class="menu-item-parent">Financial Tools</span>
+                    </a>
+
+            </li>
+         
             <li data-ui-sref-active="active" class="nav navbar-nav navbar-right" style="border-left: #222222; margin-right: 0px">
-                <a href="#" title="Help" data-ui-sref="app.personal.dashboard.helpFaq" ui-sref-opts="{reload: 'app.personal.dashboard.helpFaq'}">
+                <!--<a href="" title="Help" data-ui-sref="app.personal.dashboard.helpFaq" ui-sref-opts="{reload: 'app.personal.dashboard.helpFaq'}">
+                    <i class="glyphicon glyphicon-question-sign"></i>
+                    <span class="menu-item-parent">Help</span>
+                </a>-->
+                <a href="http://help.acceleratedfamilywealth.com/" title="Help" target="_blank">
                     <i class="glyphicon glyphicon-question-sign"></i>
                     <span class="menu-item-parent">Help</span>
                 </a>
             </li>
         </ul>
     </nav>
-
 </aside>

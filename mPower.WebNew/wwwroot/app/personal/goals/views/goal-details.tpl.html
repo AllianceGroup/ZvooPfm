@@ -22,15 +22,15 @@
 </div>
 <div class="row text-center" style="margin-bottom: 10px">
     <div class="col-md-4">
-        <button class="btn btn-danger" ng-click="goalDetailsCtrl.delete()">Delete this goal</button>
+        <button class="btn btn-danger" ng-click="goalDetailsCtrl.delete()">DELETE THIS GOAL</button>
     </div>
     <div class="col-md-4" ng-if="goalDetailsCtrl.model.Status === 2">
-        <button class="btn btn-info" ng-click="goalDetailsCtrl.edit()">Edit this goal</button>
+        <button class="btn btn-info" ng-click="goalDetailsCtrl.edit()">EDIT THIS GOAL</button>
     </div>
     <div class="col-md-4" ng-if="goalDetailsCtrl.model.Status === 2">
-        <button class="btn btn-success" ng-click="goalDetailsCtrl.markAsComplete()">Mark as complete</button>
+        <button class="btn btn-success" ng-click="goalDetailsCtrl.markAsComplete()">MARK AS COMPLETE</button>
     </div>
     <div class="col-md-4" ng-if="goalDetailsCtrl.model.Status !== 2">
-        <button class="btn btn-info" ng-click="goalDetailsCtrl.archive()">Arhive</button>
+        <button class="btn btn-info" ng-click="goalDetailsCtrl.archive()">ARCHIVE</button>
     </div>
 </div>

@@ -87,5 +87,6 @@ namespace Default.Factories.ViewModels
 
             return model;
         }
+
     }
 }

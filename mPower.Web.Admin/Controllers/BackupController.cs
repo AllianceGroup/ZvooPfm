@@ -35,8 +35,16 @@ namespace mPower.Web.Admin.Controllers
             model.WriteHost = readUrl.Server.ToString();
             model.WriteFolder = _settings.WriteBackupFolder;
 
+            if(!Directory.Exists(_settings.ReadBackupFolder))
+            {
+                Directory.CreateDirectory(_settings.ReadBackupFolder);
+            }
             var readBackUps = Directory.GetDirectories(_settings.ReadBackupFolder);
 
+            if (!Directory.Exists(_settings.WriteBackupFolder))
+            {
+                Directory.CreateDirectory(_settings.WriteBackupFolder);
+            }
             var writeBackUps = Directory.GetDirectories(_settings.WriteBackupFolder);
 
             model.WriteBackups = writeBackUps.ToList();

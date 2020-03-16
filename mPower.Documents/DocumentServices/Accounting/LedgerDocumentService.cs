@@ -206,5 +206,12 @@ namespace mPower.Documents.DocumentServices.Accounting
             var update = MongoUpdate.Set("Accounts.$.InterestRatePerc", interestRate);
             Update(query, update);
         }
+
+        public void SetAggregatedDate(string ledgerId, string ledgerAccountId, System.DateTime date)
+        {
+            var query = Query.And(Query.EQ("_id", ledgerId), Query.EQ("Accounts._id", ledgerAccountId));
+            var update = MongoUpdate.Set("Accounts.$.DateLastAggregated", date);
+            Update(query, update);
+        }
     }
 }

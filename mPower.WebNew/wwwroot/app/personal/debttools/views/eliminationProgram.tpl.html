@@ -14,11 +14,12 @@
                     <header></header>
                     <div>
                         <div class="container-fluid" id="form-container">
-                            <h1>Debt elimination program</h1>
-                            <p class="alert alert-info">
+                            <h1 class="alert" id="eliminationHeading"></h1>
+                            <!--<h1>Debt elimination program</h1>-->
+                            <!--<p class="alert alert-info">
                                 Our powerful debt elimination system will generate a custom payment plan based on your unique, financial situation in three simple steps.
                             </p>
-                            <h1 class="txt-color-green">Eliminate your debt in 3 easy steps</h1>
+                            <h1 class="txt-color-Charcoal">Eliminate your debt in 3 easy steps</h1>-->
                             <div class="widget-body fuelux">
                                 <div class="wizard" data-initialize="wizard" id="Wizard">
                                     <div class="steps-container">
@@ -37,17 +38,17 @@
                                     <div class="step-content container-fluid" style="margin-top: 10px;">
                                         <div class="step-pane active" data-step="1">
                                             <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div>
-                                                            <p ng-repeat="error in eliminationProgramCtrl.errors" class="alert alert-danger">{{error}}</p>
-                                                        </div>
-                                                        <p class="text-right">
-                                                            <button class="btn btn-success btn-labeled" ng-click="eliminationProgramCtrl.addAccounts()">
-                                                                <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add new debt
-                                                            </button>
-                                                        </p>
-                                                        <table class="table table-hover">
-                                                            <thead>
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        <p ng-repeat="error in eliminationProgramCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                                    </div>
+                                                    <p class="text-right">
+                                                        <button class="btn btn-success btn-labeled debtStartButtons" ng-click="eliminationProgramCtrl.addAccounts()">
+                                                            <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>ADD NEW DEBT
+                                                        </button>
+                                                    </p>
+                                                    <table class="table table-hover">
+                                                        <thead>
                                                             <tr>
                                                                 <th class="smart-form">
                                                                     <label class="checkbox">
@@ -64,8 +65,8 @@
                                                                 <th>Minimum Monthly Payment</th>
                                                                 <th></th>
                                                             </tr>
-                                                            </thead>
-                                                            <tbody>
+                                                        </thead>
+                                                        <tbody>
                                                             <tr ng-repeat="debt in eliminationProgramCtrl.stepModel.Debts">
                                                                 <td class="smart-form">
                                                                     <label class="checkbox">
@@ -81,164 +82,739 @@
                                                                 <td>{{debt.InterestRatePerc}}%</td>
                                                                 <td class="txt-color-orange">{{debt.MinMonthPaymentInCents | centsCurrency}}</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-info" ng-click="eliminationProgramCtrl.edit(debt.Id)">Edit</button>
+                                                                    <button class="btn btn-sm btn-info" ng-click="eliminationProgramCtrl.edit(debt.Id)">EDIT</button>
                                                                 </td>
                                                             </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <p class="text-center">
-                                                            <button class="btn btn-success" ng-disabled="eliminationProgramCtrl.selectedDebts.length === 0"
-                                                                    ng-click="eliminationProgramCtrl.proceedToStep2(true)">
-                                                                <i class="fa fa-arrow-right"></i>Proceed to step 2
-                                                            </button>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                        </div>
-
-                                        <div class="step-pane sample-pan" data-step="2">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div>
-                                                        <p ng-repeat="error in eliminationProgramCtrl.errors" class="alert alert-danger">{{error}}</p>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6 text-center">
-                                                            <h1 class="txt-color-green">Select your plan</h1>
-                                                            <div class="form-group col-md-6 col-md-offset-3">
-                                                                <label>Choose the style of program you want to use</label>
-                                                                <select class="form-control input-lg"  ng-model="eliminationProgramCtrl.stepModel.Plan">
-                                                                    <option ng-repeat="plan in eliminationProgramCtrl.stepModel.Plans" value="{{plan.Value}}">{{plan.Text}}</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 text-center">
-                                                            <h1 class="txt-color-green">Monthly budget</h1>
-                                                            <div class="form-group col-md-6 col-md-offset-3">
-                                                                <label>Enter how much extra cash you want to commit to help pay off debt.</label>
-                                                                <input format="currency" amount="eliminationProgramCtrl.stepModel.MonthlyBudget" type="text" class="form-control" ng-model="eliminationProgramCtrl.stepModel.MonthlyBudget"/>
-                                                                <div class="note">
-                                                                    Or
-                                                                    <button popover-placement="bottom" uib-popover-template="eliminationProgramCtrl.popoverTemplate" class="btn-link" ng-click="eliminationProgramCtrl.recommend()">Recommend Me A Budget</button>
-                                                                </div>
-                                                                <script type="text/ng-template" id="myPopoverTemplate.html">
-                                                                    <div>
-                                                                        <p>We recommend you commit to a regular monthly budget of  {{eliminationProgramCtrl.stepModel.RecommendedBudgetInCents | centsCurrency}} to eliminate your credit card debt.</p>
-                                                                        <p>Of course, you should also stop using these credit cards - or you will have to re-calculate your program occassionally.</p>
-                                                                    </div>
-                                                                </script>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <p class="text-center" style="padding-top: 110px;">
-                                                        <button class="btn btn-sm btn-success"
-                                                                ng-click="eliminationProgramCtrl.proceedToStep3(true)">
-                                                            <i class="fa fa-arrow-right"></i>Proceed to step 3
+                                                        </tbody>
+                                                    </table>
+                                                    <p class="text-center">
+                                                        <button class="btn btn-success debtStartButtons" ng-disabled="eliminationProgramCtrl.selectedDebts.length === 0"
+                                                                ng-click="eliminationProgramCtrl.proceedToStep2(true)">
+                                                            <i class="fa fa-arrow-right"></i>PROCEED TO STEP 2
                                                         </button>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="step-pane sample-pan" data-step="2">
+                                            <div class="row">
 
+                                                <div class="col-md-12" style="padding-top:30px">
+                                                    <div>
+                                                        <p ng-repeat="error in eliminationProgramCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                                    </div>
+                                                    <div class="row">
+
+                                                        <!--<div class="col-md-4 text-center">
+                                                            <div>
+                                                                <h1 class="txt-color-Charcoal">Debt Elimination Plan</h1>
+                                                                <div style="height:170px">
+                                                                    <label>Choose the style of program you want to use</label>
+                                                                    <select class="form-control col-md-offset-2" style="font-size:17px;width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.Plan">
+                                                                        <option ng-repeat="plan in eliminationProgramCtrl.stepModel.Plans" value="{{plan.Value}}">{{plan.Text}}</option>
+                                                                    </select>
+                                                                    <div class="note">
+                                                                        &nbsp;
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <div class="form-group">
+                                                                    <h1 class="txt-color-Charcoal">Investment Earnings Rate</h1>
+                                                                    <input placeholder="Please enter the rate that you think your investments will return." type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.EstimatedInvestmentEarningsRate" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 text-center">
+                                                            <div style="height:170px">
+                                                                <div class="form-group ">
+                                                                    <h1 class="txt-color-Charcoal">Years Until Retirement</h1>
+                                                                    <input placeholder="Please enter the number of years until you expect to retire." type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.YearsUntilRetirement" />
+                                                                </div>
+                                                                <div class="note">
+                                                                    &nbsp;
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <div class="form-group">
+                                                                    <h1 class="txt-color-Charcoal">Amount To Savings</h1>
+                                                                    <div class="form-group">
+                                                                        <label style="width:70%">Amount of your previous payments <strong>{{eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments | currency}}</strong> and debt elimination budget <strong><span ng-bind="eliminationProgramCtrl.stepModel.MonthlyBudget | currency"></span></strong>
+                                                                        = <strong><span ng-bind="(eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments + eliminationProgramCtrl.stepModel.MonthlyBudget).toFixed(2) | currency"></span></strong>
+                                                                            What amount of this do you want to continue contributing to your savings and retirement account after all debt is paid off.</label>
+                                                                        <input format="currency" amount="eliminationProgramCtrl.stepModel.AmountToSavings" type="text" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.AmountToSavings" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 text-center">
+                                                            <div style="height:170px">
+                                                                <h1 class="txt-color-Charcoal">Monthly Debt Elimination Budget</h1>
+                                                                <div class="form-group">
+                                                                    <label style="width:70%">Enter how much extra cash you want to commit to paying off your debt each month. Enter 0 if using Family Banking System.</label>
+                                                                    <input name="MonthlyBudget" format="currency" amount="eliminationProgramCtrl.stepModel.MonthlyBudget" style="width:70%;margin-left:16%!important" type="number" class="form-control col-md-offset-2" ng-model="eliminationProgramCtrl.stepModel.MonthlyBudget" />
+                                                                    <div class="note col-md-offset-2">
+                                                                        Or
+                                                                        <button popover-placement="bottom" uib-popover-template="eliminationProgramCtrl.popoverTemplate" class="btn-link" ng-click="eliminationProgramCtrl.recommend()">Recommend Me A Budget</button>
+                                                                    </div>
+                                                                    <script type="text/ng-template" id="myPopoverTemplate.html">
+                                                                        <div>
+                                                                            <p>We recommend you commit to a regular monthly budget of  {{eliminationProgramCtrl.stepModel.RecommendedBudgetInCents | centsCurrency}} to eliminate your credit card debt.</p>
+                                                                            <p>Of course, you should also stop using these credit cards - or you will have to re-calculate your program occassionally.</p>
+                                                                        </div>
+                                                                    </script>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <div class="form-group3">
+                                                                    <h1 class="txt-color-Charcoal">What IF</h1>
+                                                                    <div class="form-group">
+                                                                        <label style="width:70%">Enter a lump sum amount of cash to see how it would accelerate your debt pay off.</label>
+                                                                        <input format="currency" amount="eliminationProgramCtrl.stepModel.LumpSumAmount" style="width:70%;margin-left:16%!important" type="text" class="form-control col-md-offset-2" ng-model="eliminationProgramCtrl.stepModel.LumpSumAmount" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>-->
+
+
+                                                        <div class="col-md-6" style="padding-left:9%">
+                                                            <div>
+                                                                <h1 class="txt-color-Charcoal">Debt Elimination Plan</h1>
+                                                                <div>
+                                                                    <label>Choose the style of program you want to use</label>
+                                                                    <select class="form-control col-md-offset-2" style="font-size:17px;width:70%;margin-left:0%!important" ng-model="eliminationProgramCtrl.stepModel.Plan">
+                                                                        <option ng-repeat="plan in eliminationProgramCtrl.stepModel.Plans" value="{{plan.Value}}">{{plan.Text}}</option>
+                                                                    </select>
+                                                                    <div class="note">
+                                                                        &nbsp;
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group ">
+                                                                    <div class="col-md-7">
+                                                                        <h1 class="txt-color-Charcoal">Years Until Retirement</h1>
+                                                                    </div>
+                                                                    <div class="col-md-5">
+                                                                        <input placeholder="Please enter the number of years until you expect to retire." type="number" class="form-control col-md-offset-2" 
+                                                                               style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.YearsUntilRetirement" min="0" oninput="validity.valid||(value='');" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="note">
+                                                                    &nbsp;
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-7">
+                                                                        <h1 class="txt-color-Charcoal">Annual Earnings Rate</h1>
+                                                                    </div>
+                                                                    <div class="col-md-5">
+                                                                        <input placeholder="Please enter the rate that you think your investments will return." type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.EstimatedInvestmentEarningsRate" min="0" oninput="validity.valid||(value='');" />
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-7">
+                                                                        <h1 class="txt-color-Charcoal">Current Savings Total</h1>
+                                                                    </div>
+                                                                    <div class="col-md-5">
+                                                                        <input placeholder="Please enter current savings total." type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.CurrentSavingsTotal" min="0" oninput="validity.valid||(value='');" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-7">
+                                                                        <h1 class="txt-color-Charcoal">Monthly Savings/Retirement Contribution</h1>
+                                                                    </div>
+                                                                    <div class="col-md-5">
+                                                                        <input placeholder="Please enter monthly savings/retirement contribution." type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.MonthlySavingsContribution" min="0" oninput="validity.valid||(value='');" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="checkbox-inline">
+                                                                    <input type="checkbox" class="checkbox" ng-model="eliminationProgramCtrl.stepModel.MonthlyContributionFBS" />
+                                                                    <span>Check to use contribution for FBS</span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group" style="padding: 0 60px 0 0;">
+                                                                    <div class="col-md-3" style="width:30% !important">
+                                                                        <h1 class="txt-color-Charcoal">Term Insurance 1</h1>
+                                                                    </div>
+                                                                    <div class="col-md-3" >
+                                                                        <input type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.Term1Amount" min="0" oninput="validity.valid||(value='');" />
+                                                                    </div>
+                                                                    <div class="col-md-1">
+                                                                        <h1 class="txt-color-Charcoal">For</h1>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <input type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.Term1" min="0" oninput="validity.valid||(value='');" />
+                                                                    </div>
+                                                                    <div class="col-md-1">
+                                                                        <h1 class="txt-color-Charcoal">Months</h1>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-7">
+                                                                        <label>Term 2 begins when Term 1 ends</label>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group" style="padding: 0 60px 0 0">
+                                                                    <div class="col-md-3" style="width:30% !important">
+                                                                        <h1 class="txt-color-Charcoal">Term Insurance 2</h1>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <input type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.Term2Amount" min="0" oninput="validity.valid||(value='');" />
+                                                                    </div>
+                                                                    <div class="col-md-1">
+                                                                        <h1 class="txt-color-Charcoal">For</h1>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <input type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.Term2"  min="0" oninput="validity.valid||(value='');"/>
+                                                                    </div>
+                                                                    <div class="col-md-1">
+                                                                        <h1 class="txt-color-Charcoal">Months</h1>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-7">
+                                                                        <h1 class="txt-color-Charcoal">Current Death Benefit</h1>
+                                                                    </div>
+                                                                    <div class="col-md-5">
+                                                                        <input placeholder="Please enter current death benefit." type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.CurrentDeathBenefit" min="0" oninput="validity.valid||(value='');"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-7">
+                                                                        <h1 class="txt-color-Charcoal">Death Benefit Terminates at Age</h1>
+                                                                    </div>
+                                                                    <div class="col-md-5">
+                                                                        <input placeholder="Please enter death benefit terminates at age." type="number" class="form-control col-md-offset-2" style="width:70%;margin-left:16%!important" ng-model="eliminationProgramCtrl.stepModel.DeathBenefitTerminatesAge" min="0" oninput="validity.valid||(value='');" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6" style="padding-left:9%">
+                                                            <div>
+                                                                <h1 class="txt-color-Charcoal">Monthly Debt Elimination Budget</h1>
+                                                                <div class="form-group">
+                                                                    <label style="width:66%">Enter how much extra cash you want to commit to paying off your debt each month.</label>
+                                                                    <input name="MonthlyBudget" format="currency" amount="eliminationProgramCtrl.stepModel.MonthlyBudget" style="width:70%;margin-left:0%!important" type="number" class="form-control col-md-offset-2" ng-model="eliminationProgramCtrl.stepModel.MonthlyBudget" min="0" oninput="validity.valid||(value='');" />
+                                                                    <div class="note col-md-offset-2">
+                                                                        Or
+                                                                        <button popover-placement="bottom" uib-popover-template="eliminationProgramCtrl.popoverTemplate" class="btn-link" ng-click="eliminationProgramCtrl.recommend()">Recommend Me A Budget</button>
+                                                                    </div>
+                                                                    <script type="text/ng-template" id="myPopoverTemplate.html">
+                                                                        <div>
+                                                                            <p>We recommend you commit to a regular monthly budget of  {{eliminationProgramCtrl.stepModel.RecommendedBudgetInCents | centsCurrency}} to eliminate your credit card debt.</p>
+                                                                            <p>Of course, you should also stop using these credit cards - or you will have to re-calculate your program occassionally.</p>
+                                                                        </div>
+                                                                    </script>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="checkbox-inline">
+                                                                    <input type="checkbox" class="checkbox" ng-model="eliminationProgramCtrl.stepModel.BudgetForFBS" />
+                                                                    <span>Check to use Budget for FBS</span>
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <div class="form-group">
+                                                                    <h1 class="txt-color-Charcoal">Amount To Savings</h1>
+                                                                    <!--<div class="form-group">
+                                                                        <label style="width:70%" class="text-center">
+                                                                            The amount of your previous payments <strong>{{eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments | currency}}</strong> and debt elimination budget <strong><span ng-bind="eliminationProgramCtrl.stepModel.MonthlyBudget | currency"></span></strong>
+                                                                            = <strong><span ng-model="eliminationProgramCtrl.stepModel.AmountToSavings" ng-bind="(eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments + eliminationProgramCtrl.stepModel.MonthlyBudget).toFixed(2) | currency"></span></strong>
+                                                                            <strong><span ng-bind="(eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments + eliminationProgramCtrl.stepModel.MonthlyBudget).toFixed(2) | currency"></span></strong> will be contributed to your Savings Account after all debts have been paid off until you retire in
+                                                                            <strong><span ng-bind="(eliminationProgramCtrl.stepModel.YearsUntilRetirement)"></span> </strong> years.
+                                                                        </label>
+                                                                        <input value="{{(eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments + eliminationProgramCtrl.stepModel.MonthlyBudget).toFixed(2)}}" format="currency" amount="eliminationProgramCtrl.stepModel.AmountToSavings" type="text"
+                                                                               class="form-control col-md-offset-2" style="width:70%;margin-left:0%!important; visibility:hidden" ng-model="eliminationProgramCtrl.stepModel.AmountToSavings =(eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments + eliminationProgramCtrl.stepModel.MonthlyBudget).toFixed(2)" />
+                                                                    </div>-->
+                                                                    <div class="form-group">
+                                                                        <label style="width:70%">
+                                                                            The amount of your previous payments = <strong>{{eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments | currency}}</strong> <br/>
+                                                                            Your debt elimination budget = <strong><span ng-bind="eliminationProgramCtrl.stepModel.MonthlyBudget | currency"></span></strong><br/><br/>
+                                                                            
+                                                                            Under the Current Plan it is assumed that you will continue to stay in debt and not save beyond what is accounted for in the Monthly Savings/Retirement Contribution.  This is unfortunately how most people save and manage their finances.
+                                                                            <br /><br />
+                                                                            Using the Accelerated Family Wealth plan we assume that some good habits have been formed and that you will save 50% of the previous payments and debt elimination budget once your debts are paid off. 
+                                                                            Therefore <strong><span ng-model="eliminationProgramCtrl.stepModel.AmountToSavings" ng-bind="((eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments + eliminationProgramCtrl.stepModel.MonthlyBudget)/2) | currency "></span></strong>                                                                           
+                                                                            minus the cost of insurance if any will be contributed to the Savings Account after all debts have been paid off until you retire in <strong><span ng-bind="(eliminationProgramCtrl.stepModel.YearsUntilRetirement)"></span> </strong> years.
+                                                                            <br /><br />
+                                                                            Using the Family Banking System plan you will have developed good saving and spending habits and have a pool of capital to finance your future purchases from. 
+                                                                            Therefore <strong>{{eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments | currency}}</strong> will be contributed to your Savings Account after all debts have been paid off until you retire in <strong><span ng-bind="(eliminationProgramCtrl.stepModel.YearsUntilRetirement)"></span> </strong> years.
+                                                                           
+                                                                        </label>
+                                                                        <input value="{{(eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments + eliminationProgramCtrl.stepModel.MonthlyBudget).toFixed(2)}}" format="currency" amount="eliminationProgramCtrl.stepModel.AmountToSavings" type="text"
+                                                                               class="form-control col-md-offset-2" style="width:70%;margin-left:0%!important; visibility:hidden" ng-model="eliminationProgramCtrl.stepModel.AmountToSavings =(eliminationProgramCtrl.stepModel.CurrentTotalMonthlyPayments + eliminationProgramCtrl.stepModel.MonthlyBudget).toFixed(2)" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <div class="form-group3">
+                                                                    <h1 class="txt-color-Charcoal">What If</h1>
+                                                                    <div class="form-group">
+                                                                        <label style="width:70%">Enter a lump sum amount of cash to see how it would accelerate your debt pay off.</label>
+                                                                        <input format="currency" amount="eliminationProgramCtrl.stepModel.LumpSumAmount" style="width:70%;margin-left:0%!important" type="number" class="form-control col-md-offset-2" ng-model="eliminationProgramCtrl.stepModel.LumpSumAmount" min="0" oninput="validity.valid||(value='');" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!--<div ng-if="eliminationProgramCtrl.stepModel.IsAgent">-->
+                                                    <div>
+                                                        <div class="well well-margin" style="margin: 2% 5% 0% 5%;">
+                                                            <h1>Illustration Values</h1>
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    <h3>Copy and Paste Illustration Values Through Retirement Age Below to Calculate Maximum Loans. Example: If 35 Years Until Retirement Paste 35 Years of Values.</h3>
+                                                                </div>
+
+                                                                <div class="col-md-2">
+                                                                    <h1 class="txt-color-Charcoal text-right">Loan Interest Rate</h1>
+
+                                                                </div>
+                                                                <div class="col-md-2"><input type="number" class="form-control" ng-change="eliminationProgramCtrl.ReloadGrid()" ng-model="eliminationProgramCtrl.stepModel.LoanInterestRate" id="txtLoanInterestRate" /></div>
+                                                                <div class="col-md-12" style="padding:18px" >
+                                                                    <button style="height:30px;" class="btn-success"
+                                                                            title="Click to Clear Illustration Values" ng-click="eliminationProgramCtrl.RefreshGrid()">
+                                                                        CLICK TO CLEAR ILLUSTRATION VALUES
+                                                                    </button>
+                                                                    <h1 style="display:inline; padding:15px">Use Ctrl V on PC and Cmd V on Mac to paste Illustration Values</h1>
+                                                                </div>
+                                                                 
+                                                                    <div class="col-md-12">
+                                                                        <div id="debtCalculator" class="hot handsontable htColumnHeaders" ng-model="eliminationProgramCtrl.stepModel.MaxLoans"
+                                                                             style="max-height:550px !important"></div>
+                                                                    </div>
+                                                                </div>
+                                                            <div class="row">
+                                                                <!--<div class="form-group col-md-4 col-md-offset-3">
+                                                                    <h1 class="txt-color-Charcoal">Max Loan Value</h1>
+                                                                    <input type="number" class="form-control" ng-model="eliminationProgramCtrl.stepModel.NewLoanAmount" />
+                                                                </div>-->
+                                                                <div class="form-group col-md-8">
+                                                                    <div>
+                                                                        <h3>Apply max new loan to current debt being retired every:</h3>
+                                                                    </div>
+                                                                    <div style="margin-left:2%">
+                                                                        <label class="radio">
+                                                                            <input type="radio" value="3" ng-model="eliminationProgramCtrl.stepModel.CurrentDebtMonth">
+                                                                            <i></i>3 Months
+                                                                        </label>
+                                                                        <label class="radio">
+                                                                            <input type="radio" value="4" ng-model="eliminationProgramCtrl.stepModel.CurrentDebtMonth">
+                                                                            <i></i>4 Months
+                                                                        </label>
+                                                                        <label class="radio">
+                                                                            <input type="radio" value="6" ng-model="eliminationProgramCtrl.stepModel.CurrentDebtMonth">
+                                                                            <i></i>6 Months
+                                                                        </label>
+                                                                        <label class="radio">
+                                                                            <input type="radio" value="12" ng-model="eliminationProgramCtrl.stepModel.CurrentDebtMonth">
+                                                                            <i></i>12 Months
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <p class="text-center" style="padding-top: 110px;">
+                                                        <button class="btn btn-sm btn-success debtStartButtons"
+                                                                ng-click="eliminationProgramCtrl.proceedToStep3(true)">
+                                                            <i class="fa fa-arrow-right"></i>PROCEED TO STEP 3
+                                                        </button>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="step-pane" data-step="3">
                                             <div class="row">
+                                                <p class="text-center" style="padding-right:15px;float:right">
+                                                    <button class="btn btn-sm btn-success debtStartButtons"
+                                                            ng-click="eliminationProgramCtrl.ExportToPDF()">
+                                                        <i class="fa fa-arrow-right"></i>EXPORT TO PDF
+                                                    </button>
+                                                </p>
                                                 <div class="col-md-12">
                                                     <div class="row">
                                                         <div class="well well-margin">
-                                                            <h1>Summary of Your Debts and Your Savings Using this Program</h1>
-                                                            <div class="row text-center">
-                                                                <div class="col-md-4">
-                                                                    <div class="well well-margin">
-                                                                        <h1 class="txt-color-green">Using</h1>
-                                                                        <div class="note">Debt Elimination Program</div>
-                                                                        <h6>TOTAL DEBT: <span class="txt-color-green">{{eliminationProgramCtrl.stepModel.TotalPayedViaPlan | currency}}</span></h6>
-                                                                        <h6>PAYOFF TIME: <span class="txt-color-green">{{eliminationProgramCtrl.stepModel.PayoffTimeViaPlan}} yrs</span></h6>
+                                                            <div class="et_pb_column et_pb_column_4_4  et_pb_column_0" style="width:100%;">
+                                                                <div class="col-md-2"></div>
+                                                                <div class="col-md-8">
+                                                                    <p style="margin:0 !important">You have selected to pay off your debt using the <b>{{eliminationProgramCtrl.stepModel.PlanName}}</b> method.</p>
+                                                                    <p style="margin:0 !important">
+                                                                        Using the Accelerated Family Wealth plan you can expect the following results:
+                                                                    </p>
+                                                                        <div class="DEPHeader">
+                                                                            <ul class="DEPtext">
+                                                                                <li>Pay off all of the debts you selected in Step 1 in <strong> {{eliminationProgramCtrl.stepModel.AFWPlanData.PayOffTime}}</strong> years.</li>
+                                                                                <li>Save a total of <strong> {{eliminationProgramCtrl.stepModel.AFWPlanData.InterestSaved | currency }}</strong> in interest.</li>
+                                                                                <li>
+                                                                                <p>
+                                                                                    Have a savings account with approximately <strong>{{eliminationProgramCtrl.stepModel.AFWPlanData.TotalAmountToSavings | currency }}</strong> in it when you retire in <strong> {{eliminationProgramCtrl.stepModel.YearsUntilRetirement}}</strong> years.
+                                                                                    This is based on you saving 50% of the previous payments and debt elimination budget once your debts are paid off.
+                                                                                    If you saved 100% of the previous payments and debt elimination budget you would have approximately <strong> {{eliminationProgramCtrl.stepModel.AFWPlanData.MaxAmountToSavings | currency }}</strong> when you retire in <strong> {{eliminationProgramCtrl.stepModel.YearsUntilRetirement}} </strong> years.
+                                                                                </p>
+                                                                                </li>
+                                                                                </ul>
+                                                                </div>
+                                                                    
+                                                                    <p style="margin:0 !important">
+                                                                        Using the Family Banking System plan you can expect the following results:
+                                                                    </p>
+                                                                        <div class="DEPHeader">
+                                                                            <ul class="DEPtext">
+                                                                                <li>Pay off all of the debts you selected in Step 1 in <strong>{{eliminationProgramCtrl.stepModel.FBSPlanData.PayOffTime}}</strong> years.</li>
+                                                                                <li>Save a total of <strong>{{eliminationProgramCtrl.stepModel.FBSPlanData.InterestSaved | currency }}</strong> in interest.</li>
+                                                                                <li>
+                                                                                    <p>Have a savings account with approximately <strong> {{eliminationProgramCtrl.stepModel.FBSPlanData.TotalAmountToSavings | currency }}</strong> in it when you retire in <strong> {{eliminationProgramCtrl.stepModel.YearsUntilRetirement}}</strong> years.
+                                                                                        This is based on you saving 100% of the previous payments to build up your Family Banking System for future loans and retirement.</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                            
+                                                                        </div>
+                                                                   
+                                                                    <p style="margin:0 0 18px 0 !important">
+                                                                        The savings account value is estimated based on Current Savings Total, Monthly Savings/Retirement Contributions, Debt Elimination Budget, Amount to Savings after all of your debts are paid off and any Cash Values of Life Insurance.
+                                                                    </p>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <!--Debt Information-->
+                                                            <div id="Step3Form">
+                                                                <div style="clear:both;"></div>
+                                                                <div class="row">
+                                                                    <div class="col-md-2"></div>
+                                                                    <div class="col-md-8">
+                                                                        <table class="table table-hover text-center tableBorder">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="text-center debtTableRed" colspan="5">Debt Information</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>Creditor</td>
+                                                                                    <td>Balance</td>
+                                                                                    <td>Interest</td>
+                                                                                    <td>Payment</td>
+                                                                                    <td>Minimum Payment</td>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat="debt in eliminationProgramCtrl.stepModel.Debts ">
+                                                                                    <td style="font-weight: bold;">{{debt.Name}}</td>
+                                                                                    <td class="debtTableRed">{{debt.BalanceInCents | centsCurrency}}</td>
+                                                                                    <td>{{debt.InterestRatePerc}} %</td>
+                                                                                    <td class="debtTableGreen">{{debt.ActualPayment | centsCurrency}}</td>
+                                                                                    <td class="debtTableGreen">{{debt.MinMonthPaymentInCents | centsCurrency}}</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="well well-margin">
-                                                                        <h1 class="txt-color-green">Without</h1>
-                                                                        <div class="note">Debt Elimination Program</div>
-                                                                        <h6>TOTAL DEBT: <span class="txt-color-green">{{eliminationProgramCtrl.stepModel.TotalPayed | currency}}</span></h6>
-                                                                        <h6>PAYOFF TIME: <span class="txt-color-green">{{eliminationProgramCtrl.stepModel.PayoffTime}} yrs</span></h6>
+
+                                                                <!--Comparison of Payoff by Debt-->
+                                                                <div style="clear:both;"></div>
+                                                                <div class="row">
+                                                                    <div class="col-md-2"></div>
+                                                                    <div class="col-md-8">
+                                                                        <table class="table table-hover text-center tableBorder">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="text-center debtTableRed" colspan="5">Comparison of Payoff by Debt</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th></th>
+                                                                                    <th class="text-center" colspan="2">Current Schedule</th>
+                                                                                    <th class="text-center" colspan="2">Accelerated Schedule</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>Creditor</td>
+                                                                                    <td class="debtTableRed">Months to PayOff</td>
+                                                                                    <td class="debtTableRed">Paid Off Date</td>
+                                                                                    <td class="debtTableGreen">Months to PayOff</td>
+                                                                                    <td class="debtTableGreen">Paid Off Date</td>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat="debt in eliminationProgramCtrl.stepModel.ComparisonDebts ">
+                                                                                    <td style="font-weight: bold;">{{debt.Creditor}}</td>
+                                                                                    <td class="debtTableRed">{{debt.PayoffTime}}</td>
+                                                                                    <td class="debtTableRed">{{debt.CurrentPayOffDate}}</td>
+                                                                                    <td class="debtTableGreen">{{debt.PayoffTimeViaPlan}}</td>
+                                                                                    <td class="debtTableGreen">{{debt.AcceleratedPayOffDate}}</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="well well-margin">
-                                                                        <h1 class="txt-color-green">Saved</h1>
-                                                                        <div class="note">Money and Years</div>
-                                                                        <h6>TOTAL DEBT: <span class="txt-color-green">{{eliminationProgramCtrl.stepModel.MoneySaved | currency}}</span></h6>
-                                                                        <h6>PAYOFF TIME: <span class="txt-color-green">{{(eliminationProgramCtrl.stepModel.YearsSaved).toFixed(1)}} yrs</span></h6>
+
+                                                                <!--Interest & Time Saved Per Debt-->
+                                                                <div style="clear:both;"></div>
+                                                                <div class="row">
+                                                                    <div class="col-md-2"></div>
+                                                                    <div class="col-md-8">
+                                                                        <table class="table table-hover text-center tableBorder">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="text-center debtTableGreen" colspan="3">Interest & Time Saved Per Debt</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th class="text-center">Creditor</th>
+                                                                                    <th class="text-center">Interest Saved</th>
+                                                                                    <th class="text-center">Time Saved</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat="debt in eliminationProgramCtrl.stepModel.SavingsDebts ">
+                                                                                    <td style="font-weight: bold;">{{debt.Creditor}}</td>
+                                                                                    <td class="debtTableGreen">{{debt.InterestSaved | currency}}</td>
+                                                                                    <td class="debtTableGreen">{{(debt.TimeSaved)}} months ({{(((debt.TimeSaved).toFixed(2))/12).toFixed(2)}} Years)</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!--Summary of Savings-->
+                                                                <div style="clear:both;"></div>
+                                                                <div class="row">
+                                                                    <div class="col-md-2"></div>
+                                                                    <div class="col-md-8">
+                                                                        <table class="table table-hover text-center tableBorder">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="text-center debtTableGreen" colspan="3">Summary of Savings</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th class="text-center"></th>
+                                                                                    <th class="text-center">Current Schedule</th>
+                                                                                    <th class="text-center">Accelerated Schedule</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td style="font-weight: bold;">Total Monthly Payments</td>
+                                                                                    <td class="debtTableRed">{{eliminationProgramCtrl.stepModel.SavingSummary.CurrentTotalMonthlyPayments | currency}}</td>
+                                                                                    <td class="debtTableGreen">{{eliminationProgramCtrl.stepModel.SavingSummary.AcceleratedTotalMonthlyPayments | currency}}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="font-weight: bold;">Debt Balance</td>
+                                                                                    <td class="debtTableRed">{{eliminationProgramCtrl.stepModel.SavingSummary.CurrentDebtBalance | currency}}</td>
+                                                                                    <td class="debtTableGreen">{{eliminationProgramCtrl.stepModel.SavingSummary.AcceleratedDebtBalance | currency}}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="font-weight: bold;">Interest Paid</td>
+                                                                                    <td class="debtTableRed">{{eliminationProgramCtrl.stepModel.SavingSummary.CurrentInterestPaid | currency}}</td>
+                                                                                    <td class="debtTableGreen">{{eliminationProgramCtrl.stepModel.SavingSummary.AcceleratedInterestPaid | currency}}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="font-weight: bold;">Real Total Debt</td>
+                                                                                    <td class="debtTableRed">{{eliminationProgramCtrl.stepModel.SavingSummary.CurrentTotalAmountPaid | currency}}</td>
+                                                                                    <td class="debtTableGreen">{{eliminationProgramCtrl.stepModel.SavingSummary.AcceleratedTotalAmountPaid | currency}}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="font-weight: bold;">Debt Free</td>
+                                                                                    <td class="debtTableRed">{{eliminationProgramCtrl.stepModel.SavingSummary.CurrentRetireDebt}} months ({{(((eliminationProgramCtrl.stepModel.SavingSummary.CurrentRetireDebt).toFixed(2))/12).toFixed(2)}} Years)</td>
+                                                                                    <td class="debtTableGreen">{{eliminationProgramCtrl.stepModel.SavingSummary.AcceleratedRetireDebt}} months ({{(((eliminationProgramCtrl.stepModel.SavingSummary.AcceleratedRetireDebt).toFixed(2))/12).toFixed(2)}} Years)</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="font-weight: bold;">Total Interest Savings</td>
+                                                                                    <td class="debtTableRed">{{eliminationProgramCtrl.stepModel.SavingSummary.CurrentTotalInterestSavings | currency}}</td>
+                                                                                    <td class="debtTableGreen">{{eliminationProgramCtrl.stepModel.SavingSummary.AcceleratedTotalInterestSavings | currency}}</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <p class="alert alert-info" style="margin-top: 10px">The above figures show the time and money you could save by putting the amount you specified in Step 2 towards paying off your debt each month.</p>
+
 
                                                         </div>
+                                                        <div style="clear:both;"></div>
                                                         <div class="well well-margin">
-                                                            <h1>Credit Card and Loan Balances Over Time Chart</h1>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-2 col-md-offset-5">
-                                                                    <label>Chart</label>
-                                                                    <select class="form-control"
-                                                                            ng-init="eliminationProgramCtrl.stepModel.DisplayMode = eliminationProgramCtrl.stepModel.DisplayMode.toString()"
-                                                                            ng-model="eliminationProgramCtrl.stepModel.DisplayMode"
-                                                                            ng-options="displayMode.Value as displayMode.Text for displayMode in eliminationProgramCtrl.stepModel.DisplayModes"
-                                                                            ng-change="eliminationProgramCtrl.changeDisplayMode()">
-                                                                    </select>
+                                                            <h1 class="text-center"><b>CURRENT DEBT SUMMARY</b></h1>
+
+                                                            <div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3"></div>
+                                                                    <div class="col-md-9">
+                                                                        <div class="col-md-10" id="divChartCurrentDebtSummaryImg" style="height:410px;">
+                                                                            <div>
+
+                                                                                <div class="col-md-4">
+                                                                                    <h3 class="text-center"><b>Total Debt v/s Real Total Debt</b></h3>
+                                                                                    <div id="CurrentDebtSummaryChart"> </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div style="padding:18% 23% 0 0">
+                                                                                        <table class="table debtSummaryTable">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td style="text-align:right">Years Before You Are Debt Free</td>
+                                                                                                    <td style="color:#FF0000">{{eliminationProgramCtrl.stepModel.PayoffTime.toFixed(2)}}</td>
+
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td style="text-align:right">Debt Balance</td>
+                                                                                                    <td style="color:#FF0000">{{eliminationProgramCtrl.stepModel.SavingSummary.CurrentDebtBalance | currency}}</td>
+
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td style="text-align:right">Interest Paid</td>
+                                                                                                    <td style="color:#FF0000">{{eliminationProgramCtrl.stepModel.SavingSummary.CurrentInterestPaid | currency}}</td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td style="text-align:right">Real Total Debt</td>
+                                                                                                    <td style="color:#FF0000">{{eliminationProgramCtrl.stepModel.SavingSummary.CurrentTotalAmountPaid | currency}}</td>
+                                                                                                </tr>
+
+                                                                                            </tbody>
+                                                                                        </table>
+
+
+
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <canvas id="DebtSummarychartImage" style="display:none"></canvas>
+                                                            <input type="hidden" id="hdnDebtSummaryImageData" />
+
+                                                        </div>
+                                                        <div style="clear:both;"></div>
+
+                                                        <div class="well well-margin">
+                                                            <h1 class="text-center"><b>PLAN COMPARISONS</b></h1>
+
+                                                            <div class="row text-center" style="display:none">
+                                                                <p>
+                                                                    <!--By following our plan you will have all your debts paid off in <strong> {{eliminationProgramCtrl.stepModel.PayoffTimeViaPlan}} Years </strong>.
+                                                                    By investing <strong>{{eliminationProgramCtrl.stepModel.AmountToSavings | currency}} </strong>  on a monthly basis at a rate of
+                                                                    <strong>{{eliminationProgramCtrl.stepModel.EstimatedInvestmentEarningsRate}} % </strong> for <strong>{{(eliminationProgramCtrl.stepModel.YearsUntilRetirement - eliminationProgramCtrl.stepModel.PayoffTimeViaPlan).toFixed(2)}} years. </strong>
+                                                                    You will have <strong>{{eliminationProgramCtrl.stepModel.TotalEstimatedInvestment | currency}}</strong>  available when you retire in <strong>{{eliminationProgramCtrl.stepModel.YearsUntilRetirement}} years </strong> .-->
+                                                                    By following our plan you will have all your debts paid off in <strong> {{eliminationProgramCtrl.stepModel.PayoffTimeViaPlan}} Years </strong>
+
+                                                                    and have saved approximately <strong>{{eliminationProgramCtrl.stepModel.TotalEstimatedInvestment | currency}}</strong>  dollars when you retire in <strong>{{eliminationProgramCtrl.stepModel.YearsUntilRetirement}} years </strong> .
+
+                                                                </p>
+                                                            </div>
+                                                            <div id="divChartImage" class="col-md-8" style="padding:20px; display:none; height:400px">
+                                                                <div class="col-md-3">
+                                                                    <div id="DebtFreeChartImg"> </div>
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                    <div id="InterestPaidChartImg"> </div>
+                                                                </div>
+
+                                                                <div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="mbox" style="background-color:#FF0000;"></div>
+                                                                        <label style="margin-top: 11px;position: absolute;font-weight:bolder!important"><b>Current Plan</b> Death Benefit Terminates at Age {{eliminationProgramCtrl.stepModel.DeathBenefitTerminatesAge}}</label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="mbox" style="background-color:#6D9EEB"></div>
+                                                                        <label style="margin-top: 11px;position: absolute;font-weight:bolder!important"><b>AFW Plan</b> Death Benefit Terminates at Age {{eliminationProgramCtrl.stepModel.DeathBenefitTerminatesAge}}</label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="mbox" style="background-color:#6AA84F"></div>
+                                                                        <label style="margin-top: 11px;position: absolute;font-weight:bolder!important"><b>FBS Plan Permanent Death Benefit</b></label>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div>
-                                                                        <div line-chart
-                                                                             line-data='eliminationProgramCtrl.stepModel.Chart.Data'
-                                                                             line-xkey='y'
-                                                                             line-ykeys='eliminationProgramCtrl.stepModel.Chart.YKeys'
-                                                                             line-labels='eliminationProgramCtrl.stepModel.Chart.Labels'>
+                                                            <div>
+                                                                <div class="row">
+                                                                    <div class="col-md-1"></div>
+                                                                    <div id="divChart" class="col-md-10">
+                                                                        <div class="col-md-12" style="padding-top:2%">
+                                                                            <div>
+                                                                                <div class="col-md-3">
+                                                                                    <div id="DebtFreeChart"> </div>
+                                                                                </div>
+                                                                                <div class="col-md-9">
+                                                                                    <div id="InterestPaidChart"> </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <div class="mbox" style="background-color:#FF0000;"></div>
+                                                                                <label style="margin-top: 11px;position: absolute;font-weight:bolder!important"><b>Current Plan</b> Death Benefit Terminates at Age {{eliminationProgramCtrl.stepModel.DeathBenefitTerminatesAge}}</label>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="mbox" style="background-color:#6D9EEB"></div>
+                                                                                <label style="margin-top: 11px;position: absolute;font-weight:bolder!important"><b>AFW Plan</b> Death Benefit Terminates at Age {{eliminationProgramCtrl.stepModel.DeathBenefitTerminatesAge}}</label>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="mbox" style="background-color:#6AA84F"></div>
+                                                                                <label style="margin-top: 11px;position: absolute;font-weight:bolder!important"><b>FBS Plan Permanent Death Benefit</b></label>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div ng-if="!eliminationProgramCtrl.stepModel.AddedToCalendar">
-                                                                <p class="alert alert-info" style="margin-top: 10px">This Debt Elimination Program is not yet added to your Calendar.</p>
-                                                                <div class="text-center">
-                                                                    <button class="btn btn-success" ng-click="eliminationProgramCtrl.addToCalendar()">Add to calendar</button>
-                                                                </div>
-                                                            </div>
-                                                            <div ng-if="eliminationProgramCtrl.stepModel.AddedToCalendar">
-                                                                <div class="text-center">
-                                                                    <button class="btn btn-success" ng-click="eliminationProgramCtrl.addToCalendar()">Update in calendar</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
 
+                                                            </div>
+
+                                                            <canvas id="chartImage" style="display:none"></canvas>
+                                                            <input type="hidden" id="hdnImageData" />
+
+                                                        </div>
+                                                        <div style="clear:both;"></div>
                                                         <div class="well well-margin">
                                                             <h1>Payment Schedule</h1>
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <table class="table table-hover">
                                                                         <thead>
-                                                                        <tr>
-                                                                            <th>Debt</th>
-                                                                            <th>Date</th>
-                                                                            <th>Balance</th>
-                                                                            <th>Minimum</th>
-                                                                            <th>Payment</th>
-                                                                            <th>Principal</th>
-                                                                            <th>Interest</th>
-                                                                        </tr>
+                                                                            <tr>
+                                                                                <th>Debt</th>
+                                                                                <th>Date</th>
+                                                                                <th>Opening Balance</th>
+                                                                                <th>Minimum</th>
+                                                                                <th>Payment</th>
+                                                                                <th>Principal</th>
+                                                                                <th>Interest</th>
+                                                                                <th>Closing Balance</th>
+                                                                            </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                        <tr ng-repeat="debt in eliminationProgramCtrl.stepModel.Details ">
-                                                                            <td class="txt-color-orange">{{debt.Debt}}</td>
-                                                                            <td>{{debt.Date | date: 'shortDate'}}</td>
-                                                                            <td>{{debt.BalanceInCents | centsCurrency}}</td>
-                                                                            <td>{{debt.MinPaymentInCents | centsCurrency}}</td>
-                                                                            <td>{{debt.ActualPaymentInCents | centsCurrency}}</td>
-                                                                            <td>{{debt.PrincipalPaymentInCents | centsCurrency}}</td>
-                                                                            <td>{{debt.InterestPaymentInCents | centsCurrency}}</td>
-                                                                        </tr>
+                                                                            <tr ng-repeat="debt in eliminationProgramCtrl.stepModel.Details ">
+                                                                                <td class="txt-color-orange">{{debt.Debt}}</td>
+                                                                                <td>{{debt.Date | date: 'shortDate'}}</td>
+                                                                                <td>{{debt.BalanceInCents | centsCurrency}}</td>
+                                                                                <td>{{debt.MinPaymentInCents | centsCurrency}}</td>
+                                                                                <td>{{debt.ActualPaymentInCents | centsCurrency}}</td>
+                                                                                <td>{{debt.PrincipalPaymentInCents | centsCurrency}}</td>
+                                                                                <td>{{debt.InterestPaymentInCents | centsCurrency}}</td>
+                                                                                <td>{{debt.ClosingBalanceInCents | centsCurrency}}</td>
+                                                                            </tr>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -258,3 +834,18 @@
         </div>
     </section>
 </div>
+<style>
+    .ht_master.handsontable .wtHider {
+        min-height: 100px !important;
+    }
+
+    .ht_master.handsontable .wtHolder {
+        min-height: 100px !important;
+        max-height: 500px !important;
+        min-height: 100px !important;
+    }
+    .ht_clone_top{
+        overflow-x: hidden !important;
+    overflow-y: -webkit-paged-y !important;
+    }
+</style>

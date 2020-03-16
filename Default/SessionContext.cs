@@ -18,6 +18,7 @@ namespace Default
         string ReferralCode { get; set; }
         bool AggregationLoggingEnabled { get; set; }
 
+
         void Create(UserDocument user);
         void Logout();
 
@@ -107,6 +108,7 @@ namespace Default
             get { return GetBoolSessionValue(AggregationLoggingEnabledKey); }
             set { SetBoolSessionValue(AggregationLoggingEnabledKey, value); }
         }
+
 
         public void Create(UserDocument user)
         {

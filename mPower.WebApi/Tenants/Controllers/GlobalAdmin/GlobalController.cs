@@ -43,6 +43,7 @@ namespace mPower.WebApi.Tenants.Controllers.GlobalAdmin
         private readonly CreditIdentityDocumentService _creditIdentityService;
         private readonly AccountsService _accountsService;
         private readonly IObjectRepository _objectRepository;
+        private readonly EventLogDocumentService _eventLogervice;
 
         public GlobalController(UserDocumentService userService, AffiliateDocumentService affiliateService, 
             IIdGenerator idGenerator, ChargifyService chargifyService, CreditIdentityDocumentService creditIdentityService, 
@@ -57,6 +58,7 @@ namespace mPower.WebApi.Tenants.Controllers.GlobalAdmin
             _objectRepository = objectRepository;
             _encrypter = encrypter;
             _accountsService = accountsService;
+
         }
 
         #region private
@@ -111,7 +113,7 @@ namespace mPower.WebApi.Tenants.Controllers.GlobalAdmin
         }
         #endregion
 
-        [HttpGet]
+        [HttpGet("GetUsers")]
         public UsersListModel GetUsers()
         {
             return GetUsersModel(1);
@@ -150,7 +152,8 @@ namespace mPower.WebApi.Tenants.Controllers.GlobalAdmin
                 CreateDate = DateTime.Now,
                 Email = model.Email,
                 UserId = _idGenerator.Generate(),
-                PasswordHash = SecurityUtil.GetMD5Hash(model.NewPassword)
+                PasswordHash = SecurityUtil.GetMD5Hash(model.NewPassword),
+                IsAgent= model.Agent
             };
             Send(command);
 
@@ -161,6 +164,7 @@ namespace mPower.WebApi.Tenants.Controllers.GlobalAdmin
             AddRemovePermission(UserPermissionEnum.GlobalAdminDelete, userCreated, model.GlobalAdminDelete);
             AddRemovePermission(UserPermissionEnum.GlobalAdminEdit, userCreated, model.GlobalAdminEdit);
             AddRemovePermission(UserPermissionEnum.GlobalAdminView, userCreated, model.GlobalAdminView);
+            AddRemovePermission(UserPermissionEnum.Agent, userCreated, model.Agent);
 
             var ledgerId = _idGenerator.Generate();
             var setupPersonalLedgerCommands = _accountsService.SetupPersonalLedger(command.UserId, ledgerId).ToList();
@@ -178,6 +182,8 @@ namespace mPower.WebApi.Tenants.Controllers.GlobalAdmin
         public UserModel GetProfile(string id)
         {
             var user = _userService.GetById(id);
+          
+
             var creditIdentities = _creditIdentityService.GetCreditIdentitiesByUserId(id);
             var creditIdentitiesModel = new List<CreditIndentityModel>();
 
@@ -205,6 +211,7 @@ namespace mPower.WebApi.Tenants.Controllers.GlobalAdmin
                 GlobalAdminEdit = user.HasPermissions(UserPermissionEnum.GlobalAdminEdit),
                 GlobalAdminView = user.HasPermissions(UserPermissionEnum.GlobalAdminView),
                 GlobalAdminDelete = user.HasPermissions(UserPermissionEnum.GlobalAdminDelete),
+                Agent = user.HasPermissions(UserPermissionEnum.Agent),
                 CreditIdentityDocuments = creditIdentitiesModel
             };
 
@@ -243,7 +250,8 @@ namespace mPower.WebApi.Tenants.Controllers.GlobalAdmin
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                UserId = user.Id
+                UserId = user.Id,
+                IsAgent= model.Agent
             };
 
             Send(command);
@@ -254,8 +262,9 @@ namespace mPower.WebApi.Tenants.Controllers.GlobalAdmin
             AddRemovePermission(UserPermissionEnum.GlobalAdminDelete, user, model.GlobalAdminDelete);
             AddRemovePermission(UserPermissionEnum.GlobalAdminEdit, user, model.GlobalAdminEdit);
             AddRemovePermission(UserPermissionEnum.GlobalAdminView, user, model.GlobalAdminView);
+            AddRemovePermission(UserPermissionEnum.Agent, user, model.Agent);
 
-            if(!string.IsNullOrEmpty(model.NewPassword) && !string.IsNullOrEmpty(model.ConfirmNewPassword))
+            if (!string.IsNullOrEmpty(model.NewPassword) && !string.IsNullOrEmpty(model.ConfirmNewPassword))
             {
                 var changePasswordCommand = new User_ChangePasswordCommand
                 {
@@ -274,7 +283,7 @@ namespace mPower.WebApi.Tenants.Controllers.GlobalAdmin
             AddRemovePermission(UserPermissionEnum.GlobalAdminDelete, userUpdated, model.GlobalAdminDelete);
             AddRemovePermission(UserPermissionEnum.GlobalAdminEdit, userUpdated, model.GlobalAdminEdit);
             AddRemovePermission(UserPermissionEnum.GlobalAdminView, userUpdated, model.GlobalAdminView);
-
+            AddRemovePermission(UserPermissionEnum.Agent, user, model.Agent);
             return new OkObjectResult(userUpdated);
         }
 

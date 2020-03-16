@@ -28,10 +28,10 @@
                 </div>
             </div>
             <div class="text-right hidden-xs">
-                <button class="btn btn-success" ui-sref="app.personal.goals.items.add.choose">Add a goal</button>
+                <button class="btn btn-success" ui-sref="app.personal.goals.items.add.choose">ADD A GOAL</button>
             </div>
             <div class="visible-xs mt10">
-                <button class="btn btn-success" ui-sref="app.personal.goals.items.add.choose">Add a goal</button>
+                <button class="btn btn-success" ui-sref="app.personal.goals.items.add.choose">ADD A GOAL</button>
             </div>
             <div class="container-fluid" ng-if="goalsCtrl.activeGoalsExist">
                 <h1>Active Goals</h1>
@@ -146,8 +146,8 @@
                 </div>
             </div>
             <p class="text-center">
-                <button ng-if="goalsCtrl.model.ArchivedItems" class="btn btn-info" ui-sref="app.personal.goals.items({type: 'Projected'})">View goals</button>
-                <button ng-if="!goalsCtrl.model.ArchivedItems" class="btn btn-info" ui-sref="app.personal.goals.items({type: 'Archived'})">View goals archive</button>
+                <button ng-if="goalsCtrl.model.ArchivedItems" class="btn btn-info" ui-sref="app.personal.goals.items({type: 'Projected'})">VIEW GOALS</button>
+                <button ng-if="!goalsCtrl.model.ArchivedItems" class="btn btn-info" ui-sref="app.personal.goals.items({type: 'Archived'})">VIEW GOALS ARCHIVE</button>
             </p>
         </div>
     </div>
@@ -167,13 +167,13 @@
                                 </span>
                             </div>
                             <div style="margin-top: 20px;">
-                                <button ui-sref="app.personal.goals.items.add.choose" ng-click="goalsCtrl.switchWizard()" class="btn btn-success">add your first goal</button>
+                                <button ui-sref="app.personal.goals.items.add.choose" ng-click="goalsCtrl.switchWizard()" class="btn btn-success">ADD YOUR FIRST GOAL</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-info pull-right" ui-sref="app.personal.goals.items({type: 'Archived'})">View goals archive</button>
+            <button class="btn btn-info pull-right" ui-sref="app.personal.goals.items({type: 'Archived'})">VIEW GOALS ARCHIVE</button>
         </article>
     </div>
 </div>
@@ -191,7 +191,7 @@
                             </span>
                         </div>
                         <div style="margin-top: 20px;">
-                            <button ui-sref="app.personal.goals.items({type: 'Projected'})" class="btn btn-success">Back to goals</button>
+                            <button ui-sref="app.personal.goals.items({type: 'Projected'})" class="btn btn-success">BACK TO GOALS</button>
                         </div>
                     </form>
                 </div>

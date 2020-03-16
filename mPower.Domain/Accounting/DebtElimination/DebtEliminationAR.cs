@@ -35,13 +35,34 @@ namespace mPower.Domain.Accounting.DebtElimination
             });
         }
 
-        public void UpdateEliminationPlan(DebtEliminationPlanEnum planId, long budget)
+        public void UpdateEliminationPlan(DebtEliminationPlanEnum planId, long budget, float estimatedInvestmentEarningsRate,int yearsUntilRetirement, long AmountToSavings,
+            long LumpSumAmount, double NewLoanAmount, int CurrentDebtMonth, decimal LoanInterestRate, List<MaxLoan> MaxLoans, long CurrentSavingsTotal, long CurrentDeathBenefit,
+            int DeathBenefitTerminatesAge ,long MonthlySavingsContribution, int Term1, int Term2, long Term1Amount, long Term2Amount
+            , bool MonthlyContibutionFBS, bool BudgetFBS)
         {
             Apply(new DebtElimination_EliminationPlanUpdatedEvent
             {
                 Id = _id,
                 MonthlyBudgetInCents = budget,
-                PlanId = planId
+                PlanId = planId,
+                EstimatedInvestmentEarningsRate= estimatedInvestmentEarningsRate,
+                YearsUntilRetirement= yearsUntilRetirement,
+                AmountToSavings=AmountToSavings,// Debt Elimination Changes
+                LumpSumAmount = LumpSumAmount,// Debt Elimination Changes
+                NewLoanAmount=NewLoanAmount,// Debt Elimination Changes
+                CurrentDebtMonth = CurrentDebtMonth,// Debt Elimination Changes
+                LoanInterestRate= LoanInterestRate,// Debt Elimination Changes
+                MaxLoans= MaxLoans,// Debt Elimination Changes
+               CurrentSavingsTotal=CurrentSavingsTotal,
+               CurrentDeathBenefit=CurrentDeathBenefit,
+               DeathBenefitTerminatesAge=DeathBenefitTerminatesAge,
+               MonthlySavingsContribution=MonthlySavingsContribution,
+               Term1=Term1,
+               Term2=Term2,
+               Term1Amount=Term1Amount,
+               Term2Amount=Term2Amount,
+               MonthlyContributionFBS=MonthlyContibutionFBS,
+               BudgetForFBS=BudgetFBS
             });
         }
 

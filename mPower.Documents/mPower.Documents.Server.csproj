@@ -119,6 +119,7 @@
     <Compile Include="DocumentServices\Accounting\TransactionDocumentService.cs" />
     <Compile Include="DocumentServices\Accounting\TransactionsStatisticDocumentService.cs" />
     <Compile Include="DocumentServices\AffiliateAnalyticsDocumentService.cs" />
+    <Compile Include="DocumentServices\CalculatorFilters.cs" />
     <Compile Include="DocumentServices\Calendar\CalendarDocumentService.cs" />
     <Compile Include="DocumentServices\Credit\CreditIdentityDocumentService.cs" />
     <Compile Include="DocumentServices\Credit\Filter\CreditIdentityFilter.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Documents\Credit\CreditIdentity\VerificationQuestionDocument.cs" />
     <Compile Include="Documents\EventLogDocument.cs" />
     <Compile Include="Documents\Goal\GoalDocument.cs" />
+    <Compile Include="Documents\MarketHistoryDocument.cs" />
     <Compile Include="Documents\Membership\BillingDocument.cs" />
     <Compile Include="Documents\Membership\GoalsLinkedAccountDocument.cs" />
     <Compile Include="Documents\Membership\IdentityDocument.cs" />
@@ -231,6 +233,7 @@
     <Compile Include="IifHelpers\IifFormatter.cs" />
     <Compile Include="IifHelpers\IifParser.cs" />
     <Compile Include="IifHelpers\IifParsingResult.cs" />
+    <Compile Include="FinancialBankingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Segments\MerchantGroup.cs" />
     <Compile Include="Segments\MortgageData.cs" />

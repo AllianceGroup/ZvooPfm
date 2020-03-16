@@ -1,4 +1,6 @@
-﻿namespace mPower.Framework.Services
+﻿using mPower.Framework.Mongo;
+
+namespace mPower.Framework.Services
 {
     public abstract class BaseDocumentService<T, TFilter> : BaseMongoService<T, TFilter> 
         where T : class

@@ -1,3 +1,3 @@
 ﻿{
-  "server.urls": "http://23.253.149.40:3297;http://0.0.0.0:3297"
+  "server.urls": "http://23.253.149.40:3297;http://localhost:3297"
 }

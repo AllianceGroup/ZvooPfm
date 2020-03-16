@@ -27,6 +27,8 @@ namespace mPower.Tests.UnitTests.Domain.Membership.User
         protected DateTime _currentDate;
         protected const string LedgerId = "test-ledger-id";
         protected const string AccountId = "test-account-id";
+        protected bool _isAgent;
+        protected string _createdBy;
 
         public IEvent User_Created()
         {
@@ -62,6 +64,8 @@ namespace mPower.Tests.UnitTests.Domain.Membership.User
                 ZipCode = _zipCode,
                 BirthDate = _birthDate,
                 Gender = _gender,
+                IsAgent=_isAgent,
+                CreatedBy=_createdBy
             };
         }
 

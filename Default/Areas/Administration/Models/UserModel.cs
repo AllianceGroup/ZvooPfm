@@ -40,6 +40,8 @@ namespace Default.Areas.Administration.Models
 
         public bool GlobalAdminDelete { get; set; }
 
+        public bool Agent { get; set; }
+
         public Dictionary<string, string> Affiliates { get; set; }
 
         public List<CreditIndentityModel> CreditIdentityDocuments { get; set; }

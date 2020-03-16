@@ -2,7 +2,8 @@
     <header class="account-box__header">
         <h3 class="text-center account-box__header-title">Accounts</h3>
         <div class="account-box__actions" role="group" aria-label="...">
-            <i class="fa account-box__actions-btn" title="Update" ng-class="{'fa-refresh fa-spin': accountsCtrl.accIsUpdating, 'fa-refresh': !accountsCtrl.accIsUpdating}" ng-click="accountsCtrl.updateAccounts()"></i>
+            <!--<i class="fa account-box__actions-btn" title="Update" ng-class="{'fa-refresh fa-spin': accountsCtrl.accIsUpdating, 'fa-refresh': !accountsCtrl.accIsUpdating}" ng-click="accountsCtrl.updateAccounts()"></i>-->
+            <!--<i class="fa fa-plus account-box__actions-btn" title="Add account" ng-click="accountsCtrl.addAccounts()"></i>-->
             <i class="fa fa-plus account-box__actions-btn" title="Add account" ng-click="accountsCtrl.addAccounts()"></i>
         </div>
     </header>
@@ -13,7 +14,7 @@
             </button><br/>
         <label>{{error.ErrorMessage}}</label></p>
         <button class="btn btn-default btn-sm btn-link" data-ng-click="accountsCtrl.expandAll()" data-ng-class="{'hidden': accountsCtrl.expandAllShow, 'visible': !accountsCtrl.expandAllShow}"><i class="fa fa-eye text-muted"></i> <span class="text-muted">Expand all</span></button>
-        <button class="btn btn-info btn-sm btn-link" data-ng-click="accountsCtrl.hideAll()" data-ng-class="{'hidden': !accountsCtrl.expandAllShow, 'visible': accountsCtrl.expandAllShow}"><i class="fa fa-eye-slash text-muted"></i> <span class="text-muted">Hide all</span></button>
+        <button class="btn btn-default btn-sm btn-link" data-ng-click="accountsCtrl.hideAll()" data-ng-class="{'hidden': !accountsCtrl.expandAllShow, 'visible': accountsCtrl.expandAllShow}"><i class="fa fa-eye-slash text-muted"></i> <span class="text-muted">Hide all</span></button>
         <!--TODO change elements id-->
         <div class="panel-group smart-accordion-default" id="accordion">
             <div class="panel panel-default">
@@ -178,6 +179,6 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-success btn-block mt10 mb10" ng-click="accountsCtrl.showAllAccounts()">See all accounts</button>
+        <button class="btn btn-success btn-block mt10 mb10" ng-click="accountsCtrl.showAllAccounts()">SEE ALL ACCOUNTS</button>
     </div>
 </div>

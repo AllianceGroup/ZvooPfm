@@ -119,7 +119,7 @@ namespace mPower.Domain.Accounting
      
         public static double HowMuchHousePaymentICanAfford(double annualIncome, bool aggresive = true, bool round = true)
         {
-            var dti = aggresive ? .31 : .28;
+            var dti = aggresive == true ? .31 : .28;
 
             var exactAmount = (annualIncome / 12) * dti;
 

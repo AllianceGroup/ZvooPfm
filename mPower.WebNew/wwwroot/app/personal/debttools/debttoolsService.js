@@ -54,6 +54,7 @@ angular.module('app.personal').service('debttoolsService', ['http', function (ht
 
     this.proceedToStep2 = function (model) {
         var url = '/debtelimination/proceedstep2';
+        console.log(model);
         return http.post(url, model);
     }
 

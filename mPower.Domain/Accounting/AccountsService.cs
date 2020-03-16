@@ -19,11 +19,11 @@ namespace mPower.Domain.Accounting
         {
             get
             {
-                //yield return AccountLabelEnum.Bank;
+                yield return AccountLabelEnum.Bank;
                 yield return AccountLabelEnum.CreditCard;
                 //yield return AccountLabelEnum.LongTermLiability;
                 yield return AccountLabelEnum.Loan;
-                //yield return AccountLabelEnum.Investment;
+                yield return AccountLabelEnum.Investment;
             }
         }
 

@@ -15,5 +15,10 @@ namespace mPower.Domain.Membership.Enums
             return permission.In(UserPermissionEnum.GlobalAdminView, UserPermissionEnum.GlobalAdminEdit,
                 UserPermissionEnum.GlobalAdminDelete);
         }
+
+        public static bool IsAgentPermission(this UserPermissionEnum permission)
+        {
+            return permission.In(UserPermissionEnum.Agent);
+        }
     }
 }

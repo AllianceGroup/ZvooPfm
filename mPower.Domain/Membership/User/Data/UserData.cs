@@ -21,5 +21,8 @@ namespace mPower.Domain.Membership.User.Data
         public string ReferralCode { get; set; }
 
         public ICommandMetadata Metadata { get; set; }
+        public bool IsAgent { get; set; }
+        public bool IsCreatedByAgent { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

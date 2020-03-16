@@ -89,6 +89,9 @@ namespace mPower.EventHandlers.Immediate.User
                                BirthDate = message.BirthDate,
                                Gender = message.Gender,
                                ReferralCode = message.ReferralCode,
+                               IsAgent = message.IsAgent,
+                               CreatedBy = message.CreatedBy,
+                               IsCreatedByAgent=message.IsCreatedByAgent
                            };
 
             _userService.Insert(user);
@@ -157,6 +160,7 @@ namespace mPower.EventHandlers.Immediate.User
                     ZipCode = user.ZipCode,
                     BirthDate = user.BirthDate,
                     Gender = user.Gender,
+                    IsAgent=user.IsAgent
                 });
             }
         }
@@ -408,7 +412,7 @@ namespace mPower.EventHandlers.Immediate.User
 
         public void Handle(User_SecuritySettingsUpdatedEvent message)
         {
-            _userService.SetSecuritySettings(message.UserId, message.EnableAdminAccess, message.EnableIntuitLogging);
+            _userService.SetSecuritySettings(message.UserId, message.EnableAdminAccess, message.EnableIntuitLogging, message.EnableAgentAccess);
         }
 
         public void Handle(User_AutoUpdateDateSetEvent message)

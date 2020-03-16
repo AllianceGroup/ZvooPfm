@@ -295,6 +295,7 @@
     </Compile>
     <Compile Include="Factories\ViewModels\OfferViewModelFactory.cs" />
     <Compile Include="Factories\ViewModels\SegmentViewModelFactory.cs" />
+    <Compile Include="Factories\ViewModels\Transactions\ImportTransactionViewModelFactory.cs" />
     <Compile Include="Factories\ViewModels\Transactions\AddStandardTransactionViewModelFactory.cs" />
     <Compile Include="Factories\ViewModels\BudgetViewModelFactory.cs" />
     <Compile Include="Factories\ViewModels\ChartViewModelFactory.cs" />
@@ -374,7 +375,9 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="packages.config" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Credit\Controllers\" />

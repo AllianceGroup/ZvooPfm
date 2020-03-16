@@ -10,7 +10,6 @@ namespace Default.Helpers
     {
         public static string CreateUsersCsv(IEnumerable<UserDocument> users)
         {
-
             var sb = new StringBuilder();
             sb.AppendFormat("Report Created On: {0} \n", DateTime.Now.ToShortDateString());
             sb.AppendLine("Created On, First Name, Last Name, UserName, Email, Phone, Is Active, Zip Code, Date of Birth, Gender, Last Login, Credit Identities, Aggregated Accounts, Referral Code\n");

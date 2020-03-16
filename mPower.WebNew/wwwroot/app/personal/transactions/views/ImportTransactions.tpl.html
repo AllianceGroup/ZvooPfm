@@ -1,0 +1,480 @@
+﻿
+<script>
+
+    var setPaymentArray = [];
+    var dataArray = [];
+
+    var rowCounts = 20;
+   createRows();
+
+    var tableColumns = [
+          //{
+          //    data: 'TransactionType',
+          //    type: 'text',
+          //    allowEmpty: false
+          //},
+          {
+              data: 'PostingDate',
+              type: 'date',
+              dateFormat: 'MM/DD/YYYY',
+              correctFormat: true,
+              allowEmpty: false,
+              datePickerConfig: {
+                  // First day of the week (0: Sunday, 1: Monday, etc)
+                  firstDay: 0,
+                  maxDate: new Date(),
+                  disableDayFn: function (date) {
+                      // Disable Sunday and Saturday
+                     // return date.getDay() === 0 || date.getDay() === 6;
+                  }
+              }
+          },
+
+          {
+              data: 'Amount',
+              type: 'numeric',
+              numericFormat: {
+                  pattern: '0.00'
+              },
+              allowEmpty: false
+          },
+          //{
+          //    data: 'ReferenceNumber',
+          //    type: 'text'
+          //},
+          {
+              data: 'Description',
+              type: 'text'
+          },
+          
+          //{
+          //    data: 'Category',
+          //    type: 'text'
+          //}
+          
+    ]
+
+    var data = container1 = document.getElementById('importTransactions'),
+      hot1;
+    var yearIndex = 0;
+    var rCount = 0;
+
+    //hot1 = new Handsontable(container1, {
+    //    data: dataArray,
+    //    height:550,
+    //    colWidths: 130,
+    //    manualColumnMove: true,
+    //    manualRowMove: true,
+    //    stretchH: 'all',
+    //  //  minRows:1,
+    //  //  fixedRowsBottom:1,
+    //   //
+    //    colHeaders: ['Transaction Type', 'Amount', 'Check Number', 'Reference Number', 'Description', 'Type', 'Balance', 'Posting Date'],
+    //    afterScrollVertically: function()
+    //    {
+    //        $('.wtHolder').css("overflow-x", "hidden");
+    //    }
+    //});
+
+    //hot1.addHook('beforeValidate', function (value, row, prop, source) {
+    //    var ifRequired = this.getCellMeta(row, prop).required;
+    //    console.log(ifRequired);
+    //    if (ifRequired && value === '') {
+    //        return false
+    //    } else {
+    //        return 0
+    //    }
+    //});
+
+    //requiredNumericValidator = function (value, callback) {
+    //    debugger;
+    //    console.log(this.required);
+    //    if (!(value + "").length > 0) {
+    //        callback(false);
+    //    } else {
+    //        Handsontable.NumericValidator.call(this, value, callback);
+    //    }
+    //};
+
+    var hotElement = container1;
+
+    var hotSettings = {
+        data: dataArray,
+        columns:tableColumns,
+        height: 550,
+        colWidths: 130,
+        rowHeaders: true,
+        stretchH: 'all',
+        minSpareRows: 1,
+      //  colHeaders: ['Posting Date', 'Amount', 'Cheque/Reference Number', 'Description', 'Category'],
+        colHeaders: ['Posting Date', 'Amount', 'Description'],
+        manualRowMove: true,
+        manualColumnMove: true,
+        contextMenu: ['remove_row'],
+       
+        fillHandle: {
+            direction: 'vertical',
+            autoInsertRow: false,
+        },
+      
+        afterColumnMove : function (columns, target) {
+            //get internal positioning
+            var positions = this.getPlugin('manualColumnMove').columnsMapper.__arrayMap;
+
+            //sort by positions the headers
+            var newHeaders = [];
+            positions.forEach(function (val, index) {
+                newHeaders[index] = tableColumns[val];
+            })
+
+            this.updateSettings({
+                nestedHeaders: [newHeaders]
+            });
+            //save the position for next init
+            previousPosition = positions;
+
+            tableColumns = newHeaders;
+        },
+        afterChange: function (changes, source) {
+ 
+            if ($('.ht_master.handsontable .wtHolder').height() >= 550 || $('#importTransactions').height() == 550) {
+                $('.ht_master.handsontable .wtHolder').css('height', "550px");
+            }
+            if (source == "loadData") {
+                $('.ht_master.handsontable .wtHolder').css('height',
+                                     $('.ht_master.handsontable .wtHider').css('height')).height("+=10");
+                $('#importTransactions').css('height',
+                                     $('.ht_master.handsontable .wtHolder').css('height'));
+            }
+            if (source != 'edit' && source != 'paste'  && source != "CopyPaste.paste") {
+                return;
+            }
+           
+            var setPaymentArray = [];
+            var isNumeric = /^[-+]?(\d+|\d+\.\d*|\d*\.\d+)$/;
+            var formats = [moment.ISO_8601, "M/D/YYYY"];
+            var formatsSec = [moment.ISO_8601, "M-D-YYYY"];
+
+            var formats1 = [moment.ISO_8601, "M/D/YY"];
+            var formatsSec1 = [moment.ISO_8601, "M-D-YY"];
+
+            var Amount = '', PostingDate = '', ReferenceNumber = '', Description = '', Category = '';
+            var AmountPos = '', PostingDatePos = '', ReferenceNumberPos = '', DescriptionPos = '', CategoryPos = '';
+            if (changes != null) {
+                var ht = this.getInstance();
+                var rCount = (ht.countRows() - 1);
+                var iterator = 1;
+                var chkExistingValue = changes[changes.length - 1];
+                var chkExistingLine = chkExistingValue[0] +1;
+                if ((rCount) == chkExistingLine && source != 'edit') {
+                    for (var i = 0; i < changes.length; i = i + iterator) {
+                        var change = changes[i];
+                        var line = change[0];
+                        var changeColumn = change[1];
+                        var PrevValue = change[2];
+                        var changeValue = change[3];
+
+                        for (var k = 0; k < hot1.getColHeader().length; k++) {
+                            if (hot1.getColHeader()[k] == "Posting Date") {
+                                PostingDate = '';
+                                PostingDatePos = k;
+                                if (moment(this.getDataAtCell(line, k), formats, true).isValid()) {
+                                    PostingDate = new Date(this.getDataAtCell(line, k)) == "Invalid Date" ? '' : (Date.parse(this.getDataAtCell(line, k)) > Date.parse("01/01/1900") && new Date(this.getDataAtCell(line, k)) <= new Date()) ? this.getDataAtCell(line, k) : '';
+                                    if(PostingDate != "")
+                                    {
+                                        var str = PostingDate.split('/');
+                                        if(parseInt(str[2]) <= 99)
+                                        {
+                                            PostingDate = '';
+                                        }
+                                    }
+                                }
+                                else if (moment(this.getDataAtCell(line, k), formatsSec, true).isValid()) {
+                                    PostingDate = new Date(this.getDataAtCell(line, k)) == "Invalid Date" ? '' : (Date.parse(this.getDataAtCell(line, k)) > Date.parse("01-01-1900") && new Date(this.getDataAtCell(line, k)) <= new Date()) ? this.getDataAtCell(line, k) : '';
+                                    if (PostingDate != "") {
+                                        var str = PostingDate.split('-');
+                                        if (parseInt(str[2]) <= 99) {
+                                            PostingDate = '';
+                                        }
+                                    }
+                                }
+
+                                else if (moment(this.getDataAtCell(line, k), formats1, true).isValid()) {
+                                    PostingDate = new Date(this.getDataAtCell(line, k)) == "Invalid Date" ? '' : (Date.parse(this.getDataAtCell(line, k)) > Date.parse("01/01/1900") && new Date(this.getDataAtCell(line, k)) <= new Date()) ? this.getDataAtCell(line, k) : '';
+                                     
+                                }
+                                else if (moment(this.getDataAtCell(line, k), formatsSec1, true).isValid()) {
+                                    PostingDate = new Date(this.getDataAtCell(line, k)) == "Invalid Date" ? '' : (Date.parse(this.getDataAtCell(line, k)) > Date.parse("01-01-1900") && new Date(this.getDataAtCell(line, k)) <= new Date()) ? this.getDataAtCell(line, k) : '';
+                                     
+                                }
+                            }
+                            if (hot1.getColHeader()[k] == "Amount") {
+                                Amount = isNumeric.test(this.getDataAtCell(line, k)) ? isNaN(parseFloat(this.getDataAtCell(line, k))) ? '' : parseFloat(this.getDataAtCell(line, k)) : '';
+                                AmountPos = k;
+                            }
+                            if (hot1.getColHeader()[k] == "Description") {
+                                Description = this.getDataAtCell(line, k);
+                                DescriptionPos = k;
+                            }
+                            //if (hot1.getColHeader()[k] == "Cheque/Reference Number") {
+                            //    ReferenceNumber = this.getDataAtCell(line, k);
+                            //    ReferenceNumberPos = k;
+                            //}
+                            //if (hot1.getColHeader()[k] == "Category") {
+                            //    Category = this.getDataAtCell(line, k);
+                            //    CategoryPos = k;
+                            //}
+                        }
+
+                        var obj = {
+                            line: line, PostingDate: PostingDate, Amount: Amount, ReferenceNumber: ReferenceNumber,
+                            Description: Description, Category: Category, PostingDatePos: PostingDatePos, AmountPos: AmountPos,
+                            DescriptionPos: DescriptionPos, ReferenceNumberPos: ReferenceNumberPos, CategoryPos: CategoryPos
+                        };
+                        //setPaymentArray.push(obj);
+
+                       // var obj = setPaymentArray[i];
+                        var srNo = obj.line;
+                        this.setDataAtCell(obj.line, PostingDatePos, obj.PostingDate, 'PostingDate');
+                        this.setDataAtCell(obj.line, AmountPos, obj.Amount, 'Amount');
+                       // this.setDataAtCell(obj.line, ReferenceNumberPos, obj.ReferenceNumber, 'ReferenceNumber');
+                        this.setDataAtCell(obj.line, DescriptionPos, obj.Description, 'Description');
+                       // this.setDataAtCell(obj.line, CategoryPos, obj.Category, 'Category');
+                        if ($('.ht_master.handsontable .wtHolder').height() >= 550) {
+                            $('.ht_master.handsontable .wtHolder').css('height', "550px");
+                        }
+
+                    }
+                }
+                else {
+                  
+                    var predictedSource = '';
+                 
+                    var change = changes[0];
+                    var line = change[0];
+                    var changeColumn = change[1];
+                    var PrevValue = change[2];
+                    var changeValue = change[3];
+                    if (predictedSource != 'delete') {
+                       
+                            //line = 1;
+                            var preLine = (i - 1);
+                            var change = changes[0];
+                            var line = change[0];
+                            var changeColumn = change[1];
+                            var PrevValue = change[2];
+                            var changeValue = change[3];
+                          
+                            for (var k = 0; k < hot1.getColHeader().length; k++) {
+                                if (hot1.getColHeader()[k] == "Posting Date") {
+                                    PostingDate = '';
+                                    PostingDatePos = k;
+                                    if (moment(this.getDataAtCell(line, k), formats, true).isValid()) {
+                                        PostingDate = new Date(this.getDataAtCell(line, k)) == "Invalid Date" ? '' : (Date.parse(this.getDataAtCell(line, k)) > Date.parse("01/01/1900") && new Date(this.getDataAtCell(line, k)) <= new Date()) ? this.getDataAtCell(line, k) : '';
+                                        if (PostingDate != "") {
+                                            var str = PostingDate.split('/');
+                                            if (parseInt(str[2]) <= 99) {
+                                                PostingDate = '';
+                                            }
+                                        }
+                                    }
+                                    else if (moment(this.getDataAtCell(line, k), formatsSec, true).isValid()) {
+                                        PostingDate = new Date(this.getDataAtCell(line, k)) == "Invalid Date" ? '' : (Date.parse(this.getDataAtCell(line, k)) > Date.parse("01-01-1900") && new Date(this.getDataAtCell(line, k)) <= new Date()) ? this.getDataAtCell(line, k) : '';
+                                        if (PostingDate != "") {
+                                            var str = PostingDate.split('-');
+                                            if (parseInt(str[2]) <= 99) {
+                                                PostingDate = '';
+                                            }
+                                        }
+                                    }
+
+                                    else if (moment(this.getDataAtCell(line, k), formats1, true).isValid()) {
+                                        PostingDate = new Date(this.getDataAtCell(line, k)) == "Invalid Date" ? '' : (Date.parse(this.getDataAtCell(line, k)) > Date.parse("01/01/1900") && new Date(this.getDataAtCell(line, k)) <= new Date()) ? this.getDataAtCell(line, k) : '';
+
+                                    }
+                                    else if (moment(this.getDataAtCell(line, k), formatsSec1, true).isValid()) {
+                                        PostingDate = new Date(this.getDataAtCell(line, k)) == "Invalid Date" ? '' : (Date.parse(this.getDataAtCell(line, k)) > Date.parse("01-01-1900") && new Date(this.getDataAtCell(line, k)) <= new Date()) ? this.getDataAtCell(line, k) : '';
+
+                                    }
+                                }
+                                if (hot1.getColHeader()[k] == "Amount") {
+                                    if (changeColumn == "Amount") {
+                                        Amount = isNumeric.test(this.getDataAtCell(line, k)) ? isNaN(parseFloat(this.getDataAtCell(line, k))) ? '' : parseFloat(this.getDataAtCell(line, k)) : '';
+                                        AmountPos = k;
+                                    }
+                                }
+                                if (hot1.getColHeader()[k] == "Description") {
+                                    Description = this.getDataAtCell(line, k);
+                                    DescriptionPos = k;
+                                }
+                                //if (hot1.getColHeader()[k] == "Cheque/Reference Number") {
+                                //    ReferenceNumber = this.getDataAtCell(line, k);
+                                //    ReferenceNumberPos = k;
+                                //}
+                                //if (hot1.getColHeader()[k] == "Category") {
+                                //    Category = this.getDataAtCell(line, k);
+                                //    CategoryPos = k;
+                                //}
+                            }
+
+                            var obj = {
+                                line: line, PostingDate: PostingDate, Amount: Amount, ReferenceNumber: ReferenceNumber,
+                                Description: Description, Category: Category, PostingDatePos: PostingDatePos, AmountPos: AmountPos,
+                                DescriptionPos: DescriptionPos, ReferenceNumberPos: ReferenceNumberPos, CategoryPos: CategoryPos
+                            };
+                            setPaymentArray.push(obj);
+
+                            dataArray = setPaymentArray;
+                            for (var i = 0; i < setPaymentArray.length; i++) {
+                                var obj = setPaymentArray[i];
+                                var srNo = obj.line;
+                                if (changeColumn == "PostingDate") {
+                                    this.setDataAtCell(obj.line, PostingDatePos, obj.PostingDate, 'PostingDate');
+                                }
+                                if (changeColumn == "Amount") {
+                                    this.setDataAtCell(obj.line, AmountPos, obj.Amount, 'Amount');
+                                }
+                               // this.setDataAtCell(obj.line, ReferenceNumberPos, obj.ReferenceNumber, 'ReferenceNumber');
+                                this.setDataAtCell(obj.line, DescriptionPos, obj.Description, 'Description');
+                               // this.setDataAtCell(obj.line, CategoryPos, obj.Category, 'Category');
+                            }
+                    }
+
+                }
+                //if(source != 'edit')
+                //{
+                //    dataArray = setPaymentArray;
+                //    for (var i = 0; i < setPaymentArray.length; i++) {
+                //        var obj = setPaymentArray[i];
+                //        var srNo = obj.line;
+                //        this.setDataAtCell(obj.line, PostingDatePos, obj.PostingDate, 'PostingDate');
+                //        this.setDataAtCell(obj.line, AmountPos, obj.Amount, 'Amount');
+                //        this.setDataAtCell(obj.line, ReferenceNumberPos, obj.ReferenceNumber, 'ReferenceNumber');
+                //        this.setDataAtCell(obj.line, DescriptionPos, obj.Description, 'Description');
+                //        this.setDataAtCell(obj.line, CategoryPos, obj.Category, 'Category');
+                //    }
+                //}
+                
+            }
+           
+            if ($('.ht_master.handsontable .wtHolder').height() < 550) {
+                $('.ht_master.handsontable .wtHolder').css('height',
+                                     $('.ht_master.handsontable .wtHider').css('height'));
+                $('#importTransactions').css('height',
+                                     $('.ht_master.handsontable .wtHolder').css('height')).height("+=10");
+
+                $('#importTransactions').css('max-height', "550px");
+
+                $('.ht_master.handsontable .wtHolder').css('height',
+                                     $('#importTransactions').css('height'));
+
+                if ($('.ht_master.handsontable .wtHolder').height() >= 550 || $('#importTransactions').height() == 550) {
+                    $('.ht_master.handsontable .wtHolder').css('height', "550px");
+                }
+            }
+        },
+
+        afterRender: function (isForced)
+        {
+            if ($('.ht_master.handsontable .wtHolder').height() >= 550 || $('#importTransactions').height() == 550) {
+                $('.ht_master.handsontable .wtHolder').css('height', "550px");
+            }
+        }
+    };
+
+    var hot1;
+      
+    function createRows() {
+
+            dataArray.push({
+                PostingDate: '',
+                Amount: '',
+               // ReferenceNumber: '',
+                Description: '',
+               // Category: '',
+               
+            });
+    }
+
+$(document).ready(function () {
+
+
+    setTimeout(function () {
+        $('#hot-display-license-info').remove();
+        $('#hot-display-license-info').empty();
+       // $('#importTransactions').width($('.wtHider').width());
+       // $('#importTransactions .ht_master .wtHolder').css('height', 'auto !important');
+        $('.ht_master.handsontable .wtHolder').css('height',
+        $('.ht_master.handsontable .wtHider').css('height')).height("+=10");
+        $('.wtHolder').css("overflow-x", "hidden");
+            hot1 = new Handsontable(hotElement, hotSettings);
+
+
+        }, 500);
+    });
+
+
+</script>
+
+<style type="text/css">
+        .handsontable table thead th {
+            white-space: pre-line;
+            max-width: 100px;
+            height: 46px;
+        }
+
+        .ht_clone_top th {
+            vertical-align: bottom !important;
+        }
+
+        .modal-dialog {
+            width: 875px !important;
+        }
+
+</style>
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="editCtrl.dismiss()">
+        &times;
+    </button>
+    <h4 class="modal-title">
+        Import Transactions
+    </h4>
+</div>
+<div class="modal-body row">
+    <input type="hidden" id="hdnImport" value="1" />
+    <div>
+        <p ng-repeat="error in editCtrl.errors" class="alert alert-danger">{{error}}</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Account</label>
+            <ol class="nya-bs-select form-control" ng-model="editCtrl.model.AccountId">
+                <li nya-bs-option="category in editCtrl.model.FilteredAccounts" data-value="category.Value">
+                    <a>
+                        <span>{{ category.Text }}</span>
+                        <em class="small text-right">{{ category.Group }}</em>
+                        <span class="glyphicon glyphicon-ok check-mark"></span>
+                    </a>
+                </li>
+            </ol>
+        </div>
+
+        <div class="form-group">
+ 
+                <div id="importTransactions" class="hot handsontable htColumnHeaders"  style="max-height:550px !important"></div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="editCtrl.dismiss()">
+        CLOSE
+    </button>
+    <button type="button" class="btn btn-primary" ng-click="editCtrl.edit()">
+        IMPORT
+    </button>
+</div>

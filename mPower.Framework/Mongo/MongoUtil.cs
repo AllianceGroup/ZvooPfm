@@ -30,7 +30,7 @@ namespace mPower.Framework.Mongo
             var startIfo =
                 new ProcessStartInfo(_pathToBackuper);
             startIfo.Arguments = String.Format(" --host {0} --db {1} --out {2} -u {3} -p {4} ", host, dbName, backUpFolder, userName, password);
-            startIfo.UseShellExecute = true;
+            startIfo.UseShellExecute = false;
 
 
             var process = Process.Start(startIfo);

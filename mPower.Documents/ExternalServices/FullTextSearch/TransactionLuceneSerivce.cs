@@ -7,6 +7,7 @@ using mPower.Documents.Documents.Accounting.Ledger;
 using mPower.Domain.Accounting.Enums;
 using mPower.Framework;
 using mPower.Framework.Services;
+using mPower.Domain.Accounting;
 
 namespace mPower.Documents.ExternalServices.FullTextSearch
 {
@@ -85,7 +86,6 @@ namespace mPower.Documents.ExternalServices.FullTextSearch
 
             if (!String.IsNullOrEmpty(filter.SearchText))
             {
-                filter.SearchText = filter.SearchText;
                 var words = filter.SearchText.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
                 queries.Add(JoinQueriesOr(
@@ -94,7 +94,8 @@ namespace mPower.Documents.ExternalServices.FullTextSearch
                     BuildPrefixQueryAnd("AccountName", words),
                     BuildPrefixQueryAnd("OffsetAccountName", words),
                     BuildPrefixQuery("AccountLabel", filter.SearchText),
-                    BuildPrefixQuery("AccountType", filter.SearchText)));
+                    BuildPrefixQuery("AccountType", filter.SearchText),
+                    BuildPrefixQuery("ReferenceNumber", filter.SearchText)));
             }
 
             if (!String.IsNullOrEmpty(filter.LedgerId))
@@ -196,8 +197,12 @@ namespace mPower.Documents.ExternalServices.FullTextSearch
             doc.Add(new Field("BookedDate", LuceneDateFormatter.ConvertToLucene(entry.BookedDate).ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new NumericField("BookedDateFilter", Field.Store.NO, true).SetLongValue(LuceneDateFormatter.ConvertToLucene(entry.BookedDate)));
             doc.Add(new Field("TransactionId", entry.TransactionId, Field.Store.YES, Field.Index.ANALYZED));
+            //if (entry.FormattedAmountInDollars != null)
+            //    doc.Add(new Field("FormattedAmountInDollars", entry.FormattedAmountInDollars, Field.Store.YES, Field.Index.NOT_ANALYZED));
+
+            //Save calculated value in document, so the actual value will save
             if (entry.FormattedAmountInDollars != null)
-                doc.Add(new Field("FormattedAmountInDollars", entry.FormattedAmountInDollars, Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("FormattedAmountInDollars", AccountingFormatter.ConvertToDollarsThenFormat((entry.DebitAmountInCents - entry.CreditAmountInCents), true), Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("LedgerId", entry.LedgerId, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("AccountLabel", entry.AccountLabel.ToString(), Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("AccountId", entry.AccountId, Field.Store.YES, Field.Index.ANALYZED));
@@ -222,7 +227,10 @@ namespace mPower.Documents.ExternalServices.FullTextSearch
             entryDocument.DebitAmountInCents = long.Parse(doc.Get("DebitAmountInCents"));
             entryDocument.BookedDate = LuceneDateFormatter.ConvertFromLucene(doc.Get("BookedDate"));
             entryDocument.TransactionId = doc.Get("TransactionId");
-            entryDocument.FormattedAmountInDollars = doc.Get("FormattedAmountInDollars");
+            //entryDocument.FormattedAmountInDollars = doc.Get("FormattedAmountInDollars");
+
+            //Getting calculated value from document, so the actual value will display
+            entryDocument.FormattedAmountInDollars = AccountingFormatter.ConvertToDollarsThenFormat(long.Parse(doc.Get("DebitAmountInCents")) - long.Parse(doc.Get("CreditAmountInCents")), true);
             entryDocument.LedgerId = doc.Get("LedgerId");
             entryDocument.AccountId = doc.Get("AccountId");
             entryDocument.OffsetAccountId = doc.Get("OffsetAccountId");

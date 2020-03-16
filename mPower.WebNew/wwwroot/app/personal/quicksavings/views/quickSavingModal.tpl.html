@@ -1,0 +1,87 @@
+﻿<div id="content">
+    <section>
+        <div class="row">
+            <article class="col-md-12">
+                <div jarvis-widget
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-sortable="true"
+                     data-widget-color="blue">
+                    <header></header>
+                    <div>
+                        <div class="container-fluid" id="form-container">
+                            <h1 id="eliminationHeading"></h1>
+
+                            <div class="step-content container-fluid" style="margin-top: 10px;">
+                                <div class="step-pane active" data-step="1">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <p ng-repeat="error in eliminationProgramCtrl.errors" class="alert alert-danger">{{error}}</p>
+                                            </div>
+                                            <p class="text-right">
+                                                <button class="btn btn-success btn-labeled" ng-click="eliminationProgramCtrl.addAccounts()">
+                                                    <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add new debt
+                                                </button>
+                                            </p>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="smart-form">
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" name="checkbox-inline"
+                                                                       ng-click="eliminationProgramCtrl.toggleAllIds()"
+                                                                       ng-checked="eliminationProgramCtrl.selectedDebts.length === eliminationProgramCtrl.stepModel.Debts.length">
+                                                                <i style="margin-top: -19px !important;"></i>
+                                                            </label>
+                                                        </th>
+                                                        <th></th>
+                                                        <th>Credit Card or Other Debt</th>
+                                                        <th>Principal(Account Balance)</th>
+                                                        <th>InterestRate (%)</th>
+                                                        <th>Minimum Monthly Payment</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="debt in eliminationProgramCtrl.stepModel.Debts">
+                                                        <td class="smart-form">
+                                                            <label class="checkbox">
+                                                                <input type="checkbox"
+                                                                       ng-checked="eliminationProgramCtrl.selectedDebts.indexOf(debt.Id) > -1"
+                                                                       ng-click="eliminationProgramCtrl.toggleId(debt.Id)">
+                                                                <i></i>
+                                                            </label>
+                                                        </td>
+                                                        <td><img src="/styles/img/app/accounts-icon2.png" /></td>
+                                                        <td class="txt-color-orange">{{debt.Name}}</td>
+                                                        <td>{{debt.Balance | centsCurrency}}</td>
+                                                        <td>{{debt.InterestRatePerc}}%</td>
+                                                        <td class="txt-color-orange">{{debt.MinMonthPaymentInCents | centsCurrency}}</td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-info" ng-click="eliminationProgramCtrl.edit(debt.Id)">Edit</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <p class="text-center">
+                                                <button class="btn btn-success" ng-disabled="eliminationProgramCtrl.selectedDebts.length === 0"
+                                                        ng-click="eliminationProgramCtrl.proceedToStep2(true)">
+                                                    <i class="fa fa-arrow-right"></i>Proceed to step 2
+                                                </button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

@@ -12,7 +12,7 @@ namespace mPower.WebNew
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:3297/")
+                //.UseUrls("http://localhost:3297/")
                 .Build();
 
             host.Run();

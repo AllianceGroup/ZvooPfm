@@ -49,7 +49,7 @@
                         <p class="text-center">
                             <button class="btn-success btn" ng-click="profileCtrl.saveUserDetails()" ng-disabled="profileCtrl.model.UserDetails.disabled">
                                 <i class="fa fa-spinner fa-spin" ng-if="profileCtrl.model.UserDetails.disabled"></i>
-                                Save changes
+                                SAVE CHANGES
                             </button>
                         </p>
                     </div>
@@ -79,7 +79,7 @@
                     <p class="text-center">
                         <button class="btn-success btn" ng-click="profileCtrl.changePassword()" ng-disabled="profileCtrl.model.ChangePasswordModel.disabled">
                             <i class="fa fa-spinner fa-spin" ng-if="profileCtrl.model.ChangePasswordModel.disabled"></i>
-                            Save changes
+                            SAVE CHANGES
                         </button>
                     </p>
                 </div>
@@ -99,7 +99,7 @@
                     <p class="text-center">
                         <button class="btn-success btn" ng-click="profileCtrl.saveSecurity()" ng-disabled="profileCtrl.model.SecurityLevel.disabled">
                             <i class="fa fa-spinner fa-spin" ng-if="profileCtrl.model.SecurityLevel.disabled"></i>
-                            Save changes
+                            SAVE CHANGES
                         </button>
                     </p>
                 </div>
@@ -124,7 +124,7 @@
                     <p class="text-center">
                         <button class="btn-success btn" ng-click="profileCtrl.saveSequrityQuestion()" ng-disabled="profileCtrl.model.SecurityQuestion.disabled">
                             <i class="fa fa-spinner fa-spin" ng-if="profileCtrl.model.SecurityQuestion.disabled"></i>
-                            Save changes
+                            SAVE CHANGES
                         </button>
                     </p>
                 </div>
@@ -135,7 +135,12 @@
                     <div>
                         <p class="alert alert-danger" ng-repeat="error in profileCtrl.model.SecuritySettings.errors">{{error}}</p>
                     </div>
-
+                    <div class="checkbox">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="checkbox" ng-model="profileCtrl.model.SecuritySettings.EnableAgentAccess" />
+                            <span>Enable Agent Access</span>
+                        </label>
+                    </div>
                     <div class="checkbox">
                         <label class="checkbox-inline">
                             <input type="checkbox" class="checkbox" ng-model="profileCtrl.model.SecuritySettings.EnableAdminAccess" />
@@ -151,7 +156,7 @@
                     <p class="text-center">
                         <button class="btn-success btn" ng-click="profileCtrl.saveSequritySettings()" ng-disabled="profileCtrl.model.SecuritySettings.disabled">
                             <i class="fa fa-spinner fa-spin" ng-if="profileCtrl.model.SecuritySettings.disabled"></i>
-                            Save changes
+                            SAVE CHANGES
                         </button>
                     </p>
                 </div>

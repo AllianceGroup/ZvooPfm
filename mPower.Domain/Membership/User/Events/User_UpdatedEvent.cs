@@ -21,5 +21,7 @@ namespace mPower.Domain.Membership.User.Events
         public DateTime? BirthDate { get; set; }
 
         public GenderEnum? Gender { get; set; }
+        public bool IsAgent { get; set; }
+        public bool IsCreatedByAgent { get; set; }
     }
 }

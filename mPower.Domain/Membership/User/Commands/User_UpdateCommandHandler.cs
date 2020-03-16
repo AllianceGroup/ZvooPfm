@@ -22,7 +22,8 @@ namespace mPower.Domain.Membership.User.Commands
                 message.Email,
                 message.ZipCode,
                 message.BirthDate,
-                message.Gender);
+                message.Gender,
+                message.IsAgent);
 
             _repository.Save(user);
         }

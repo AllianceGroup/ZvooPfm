@@ -31,5 +31,9 @@ namespace mPower.Domain.Membership.User.Events
         public GenderEnum? Gender { get; set; }
 
         public string ReferralCode { get; set; }
+        public bool IsAgent { get; set; }
+        public bool IsCreatedByAgent { get; set; }
+        public string CreatedBy { get; set;}
+
     }
 }

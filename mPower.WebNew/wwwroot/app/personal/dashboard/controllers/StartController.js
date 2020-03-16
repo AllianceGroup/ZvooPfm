@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app.personal').controller('StartController', ['intuitService', '_', '$uibModal', '$uibModalInstance', '$state', '$rootScope', 'localStorageService',
-    function(intuitService, _, $uibModal, $uibModalInstance, $state, $rootScope, localStorageService){
+    function (intuitService, _, $uibModal, $uibModalInstance, $state, $rootScope, localStorageService) {
         var ctrl = this;
 
         var personalLedgerId = localStorageService.get('settings').personalLedgerId;
@@ -25,28 +25,28 @@ angular.module('app.personal').controller('StartController', ['intuitService', '
         ctrl.model = null;
         ctrl.isAdding = false;
 
-        ctrl.dismiss = function(state) {
-            if(state)
+        ctrl.dismiss = function (state) {
+            if (state)
                 $state.go(state);
-            localStorageService.set('settings', {hasAccounts: true, personalLedgerId: personalLedgerId});
+            localStorageService.set('settings', { hasAccounts: true, personalLedgerId: personalLedgerId });
             $uibModalInstance.dismiss();
         };
 
-        ctrl.back = function(){
-            if(ctrl.isAuthenticated){
+        ctrl.back = function () {
+            if (ctrl.isAuthenticated) {
                 ctrl.isAuthenticated = false;
                 ctrl.model = null;
             }
-            if(ctrl.isSelected){
+            if (ctrl.isSelected) {
                 ctrl.isSelected = false;
                 ctrl.model = null;
             }
             ctrl.isFound = true;
         };
 
-        ctrl.showDashboard = function(){
+        ctrl.showDashboard = function () {
             $uibModalInstance.dismiss();
-            localStorageService.set('settings', {hasAccounts: true, personalLedgerId: personalLedgerId});
+            localStorageService.set('settings', { hasAccounts: true, personalLedgerId: personalLedgerId });
             $state.go('app.personal.dashboard', '', { reload: true });
         };
 
@@ -60,7 +60,7 @@ angular.module('app.personal').controller('StartController', ['intuitService', '
             });
         };
 
-        ctrl.updatePaging = function() {
+        ctrl.updatePaging = function () {
             var firstIndex = (ctrl.currentPage - 1) * ctrl.intemsPerPage;
             ctrl.institutions = ctrl.institutionsFull.slice(firstIndex, firstIndex + ctrl.intemsPerPage);
         };
@@ -71,7 +71,7 @@ angular.module('app.personal').controller('StartController', ['intuitService', '
                 ctrl.model = model;
                 ctrl.isFound = false;
                 ctrl.isAuthenticated = true;
-            },function(errors) {
+            }, function (errors) {
                 for (var key in errors) {
                     if (errors.hasOwnProperty(key)) {
                         for (var i = 0; i < errors[key].length; i++) {
@@ -123,10 +123,10 @@ angular.module('app.personal').controller('StartController', ['intuitService', '
         ctrl.aligntoledger = function () {
             ctrl.errors = [];
             ctrl.isAdding = true;
-            intuitService.aligntoledger(ctrl.model).then(function() {
+            intuitService.aligntoledger(ctrl.model).then(function () {
                 ctrl.isAdding = false;
 
-                localStorageService.set('settings', {hasAccounts: true, personalLedgerId: personalLedgerId});
+                localStorageService.set('settings', { hasAccounts: true, personalLedgerId: personalLedgerId });
                 $rootScope.hasDashboardHints = true;
                 $rootScope.hasTransactionsHints = true;
 
@@ -139,7 +139,7 @@ angular.module('app.personal').controller('StartController', ['intuitService', '
                     color: "#739e73",
                     timeout: 4000
                 });
-            }, function(errors) {
+            }, function (errors) {
                 ctrl.isAdding = false;
                 for (var key in errors) {
                     if (errors.hasOwnProperty(key)) {
