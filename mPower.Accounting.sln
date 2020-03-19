@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Default.ViewModel", "Defaul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mPower.TempDocuments.Server", "mPower.TempDocuments.Server\mPower.TempDocuments.Server.csproj", "{CEAF8300-81FB-4CE2-98C7-4377C72C8A7B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{49D549A4-1E41-418F-9794-20AE1E5B1DFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
